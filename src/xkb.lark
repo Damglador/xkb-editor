@@ -1,0 +1,94 @@
+start: variant*
+
+// From https://xkbcommon.org/doc/current/keymap-text-format-v1-v2.html#section-flag-partial
+GENERIC_FLAG: "partial"
+            | "default"
+            | "hidden"
+SYMBOLS_FLAG: "alphanumeric_keys"
+            | "modifier_keys"
+            | "keypad_keys"
+            | "function_keys"
+            | "alternate_group"
+flag: SYMBOLS_FLAG | GENERIC_FLAG
+
+variant: [flag*] "xkb_symbols" id "{" statement* "}" [";"]
+
+?statement: name
+          | include
+          | key
+          | key_type_default
+          | modifier_map
+          | virtual_modifiers
+
+// https://xkbcommon.org/doc/current/keymap-text-format-v1-v2.html#set-real-mod-map
+modifier_map: "modifier_map" MODIFIER "{" (KEYCODE | KEYSYM) [("," (KEYCODE | KEYSYM))*] "}" [";"]
+
+// TODO: I do not care to actually do anything with this one, so it's a stub
+virtual_modifiers: "virtual_modifiers" "=" CNAME [";"]
+
+id: STRING
+
+name: "name" "[" GROUP "]"      "=" STRING [";"]
+    | "groupName" "[" DIGIT "]" "=" STRING [";"]
+
+include: "include" STRING [";"]
+
+// https://xkbcommon.org/doc/current/keymap-text-format-v1-v2.html#key-statement
+// List parsing yanked from https://lark-parser.readthedocs.io/en/latest/examples/json_parser.html#sphx-glr-examples-json-parser-py
+key: "key" KEYCODE "{" [key_prop ("," key_prop)*] "}" [";"] ["\n"]
+?key_prop: key_syms
+         | key_type
+         | key_acts
+         | repeat
+         | key_virtmod
+key_syms: "[" [KEYSYM ("," KEYSYM)*] "]"
+        | "symbols" "[" GROUP "]" "=" "[" KEYSYM "]"
+key_type: "type" "[" GROUP "]" "=" STRING
+key_acts: "actions" "[" GROUP "]" "=" "[" ACTION "(" /..*/ ")" "]" // TODO: Idk do something with this
+repeat: "repeat" "=" BOOL
+key_virtmod: "virtualModifiers" "=" CNAME
+// https://xkbcommon.org/doc/current/keymap-text-format-v1-v2.html#the-xkb_symbols-section under Type section
+key_type_default: "key."key_type [";"]
+
+BOOL: "True" | "False"
+MODIFIER: "Control"
+        | "Mod1"
+// https://xkbcommon.org/doc/current/keymap-text-format-v1-v2.html#key-actions
+ACTION: "NoAction"
+      | "VoidAction"
+      | "SetMods"
+      | "LatchMods"
+      | "LockMods"
+      | "SetGroup"
+      | "LatchGroup"
+      | "LockGroup"
+      | "MovePointer"
+      | "PointerButton"
+      | "LockPointerButton"
+      | "SetPointerDefault"
+      | "SetControls"
+      | "TerminateServer"
+      | "SwitchScreen"
+      | "Private"
+      | "RedirectKey"
+      | "ISOLock"
+      | "DeviceButton"
+      | "LockDeviceButton"
+      | "DeviceValuator"
+      | "MessageAction"
+HEX: "0x" (LETTER|DIGIT)*
+KEYCODE: "<" CNAME ">"
+KEYSYM: CNAME | STRING | DIGIT | HEX | "NoSymbol"
+GROUP: /[Gg]roup/ DIGIT
+
+// From https://github.com/lark-parser/lark/blob/240d4bcd3e207c7ed1cebd9908be41150c3ea1ab/lark/grammars/lark.lark#L59
+COMMENT: /\s*/ "//" /[^\n]/* | /\s*/ "#" /[^\n]/*
+
+%import common.DIGIT
+%import common.CNAME
+%import common.LETTER
+%import common.ESCAPED_STRING -> STRING
+
+%import common.WS
+%ignore WS
+%ignore COMMENT

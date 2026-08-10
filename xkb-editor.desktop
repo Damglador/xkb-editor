@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=xkb-editor
+Exec=xkb-editor
+Icon=keyboard
+Type=Application
+Terminal=false
+Categories=Utility
