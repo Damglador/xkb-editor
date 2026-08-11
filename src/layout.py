@@ -1,6 +1,8 @@
 from enum import StrEnum
 
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
+
+from collections import UserList
 
 # https://www.charvolant.org/doug/xkb/html/node5.html
 class Flags(StrEnum):
@@ -20,10 +22,13 @@ Action = str
 
 # Max of 4 elements
 Symbols = list[str]
+
 Actions = dict[Action, ActionParam]
 
-class Key(BaseModel):
-    symbols: list[str] | None = None
+class KeyProps(BaseModel):
+    model_config = ConfigDict(arbitrary_types_allowed=True)
+
+    symbols: Symbols | None = None
     actions: Actions | None = None
     virtmod: str | None = None
     repeat: bool | None = None
@@ -35,7 +40,7 @@ class Variant(BaseModel):
     # Defined as `name[Group1]="English (US, symbolic)";`
     name: str | None = None # name[Group1] = "<name>"
     flags: list[Flags] | None = None
-    keymap: dict[str, Key]
+    keymap: dict[str, KeyProps]
     includes: list[str] | None = None
     key_type: str | None = None
 
@@ -68,6 +73,8 @@ class Variant(BaseModel):
                 props.append(symbolsStr)
             if keyprops.actions is not None:
                 print("You didn't implement actions, bozo")
+            if keyprops.type is not None:
+                props.append(f"type[Group1] = \"{keyprops.type}\"")
 
             propsStr = ", ".join(props)
             lines.append(indent + f"key <{keycode}> {{ {propsStr} }}")
@@ -81,8 +88,8 @@ if __name__ == "__main__":
             name="Test Layout",
             flags=[Flags.DEFAULT, Flags.ALPHANUMERIC_KEYS],
             keymap={
-                "AE29": Key(symbols=["a", "A", "b", "B"])
-                }
+                "AE29": KeyProps(symbols=["a", "A", "b", "B"], type="TWO_LAYER")
+                },
             )
     print(variant.toXkb())
-    print(Flags.ALPHANUMERIC_KEYS)
+    # print(Flags.ALPHANUMERIC_KEYS)
