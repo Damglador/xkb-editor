@@ -35,12 +35,12 @@ class KeyProps(BaseModel):
     type: str | None = None
 
 class Variant(BaseModel):
-    id: str # xkb_symbols "<id>"
+    id: str | None = None # xkb_symbols "<id>"
     # Human-readable name of the `variant`.
     # Defined as `name[Group1]="English (US, symbolic)";`
     name: str | None = None # name[Group1] = "<name>"
     flags: list[Flags] | None = None
-    keymap: dict[str, KeyProps]
+    keymap: dict[str, KeyProps] | None = None
     includes: list[str] | None = None
     key_type: str | None = None
 
@@ -53,31 +53,31 @@ class Variant(BaseModel):
 
         lines.append(indent + f"name[Group1] = \"{self.name}\"")
         lines.append("\n")
-
-        lines.append(indent + f"key.type[Group1] = {self.key_type};")
+        if self.key_type is not None:
+            lines.append(indent + f"key.type[Group1] = {self.key_type};")
         if self.includes is not None:
             for include in self.includes:
                 lines.append(indent + f"include {include};")
         lines.append("\n")
+        if self.keymap is not None:
+            for keycode, keyprops in self.keymap.items():
+                props: list[str] = []
+                if keyprops.symbols is not None:
+                    symbols: list[str] = []
+                    for symbol in keyprops.symbols:
+                        if len(symbol) == 1:
+                            symbols.append(f"\"{symbol}\"")
+                        else:
+                            symbols.append(symbol)
+                    symbolsStr = f"[ {",    ".join(symbols)} ]"
+                    props.append(symbolsStr)
+                if keyprops.actions is not None:
+                    print("You didn't implement actions, bozo")
+                if keyprops.type is not None:
+                    props.append(f"type[Group1] = \"{keyprops.type}\"")
 
-        for keycode, keyprops in self.keymap.items():
-            props: list[str] = []
-            if keyprops.symbols is not None:
-                symbols: list[str] = []
-                for symbol in keyprops.symbols:
-                    if len(symbol) == 1:
-                        symbols.append(f"\"{symbol}\"")
-                    else:
-                        symbols.append(symbol)
-                symbolsStr = f"[ {",    ".join(symbols)} ]"
-                props.append(symbolsStr)
-            if keyprops.actions is not None:
-                print("You didn't implement actions, bozo")
-            if keyprops.type is not None:
-                props.append(f"type[Group1] = \"{keyprops.type}\"")
-
-            propsStr = ", ".join(props)
-            lines.append(indent + f"key <{keycode}> {{ {propsStr} }}")
+                propsStr = ", ".join(props)
+                lines.append(indent + f"key <{keycode}> {{ {propsStr} }}")
 
         lines.append("};")
         return "\n".join(lines) + "\n"

@@ -9,9 +9,9 @@ SYMBOLS_FLAG: "alphanumeric_keys"
             | "keypad_keys"
             | "function_keys"
             | "alternate_group"
-flag: SYMBOLS_FLAG | GENERIC_FLAG
+FLAG: SYMBOLS_FLAG | GENERIC_FLAG
 
-variant: [flag*] "xkb_symbols" id "{" statement* "}" [";"]
+variant: [FLAG*] "xkb_symbols" id "{" statement* "}" [";"]
 
 ?statement: name
           | include
@@ -46,8 +46,9 @@ key_props: "{" [key_prop ("," key_prop)*] "}"
          | key_virtmod
 key_syms: "[" [KEYSYM ("," KEYSYM)*] "]"
         | "symbols" "[" GROUP "]" "=" "[" KEYSYM "]"
-key_type: "type" "[" GROUP "]" "=" STRING
-key_acts: "actions" "[" GROUP "]" "=" "[" ACTION "(" /..*/ ")" "]" // TODO: Idk do something with this
+key_type: "type" "[" GROUP "]" "=" KEY_TYPE
+key_acts: "actions" "[" GROUP "]" "=" "[" action ["," (action)*] "]" // TODO: Idk do something with this
+action: ACTION "(" CNAME "=" CNAME ")"
 repeat: "repeat" "=" BOOL
 key_virtmod: "virtualModifiers" "=" CNAME
 // https://xkbcommon.org/doc/current/keymap-text-format-v1-v2.html#the-xkb_symbols-section under Type section
@@ -80,6 +81,7 @@ ACTION: "NoAction"
       | "DeviceValuator"
       | "MessageAction"
 HEX: "0x" (LETTER|DIGIT)*
+KEY_TYPE: STRING
 KEYCODE: "<" CNAME ">"
 KEYSYM: CNAME | STRING | DIGIT | HEX | "NoSymbol"
 GROUP: /[Gg]roup/ DIGIT
