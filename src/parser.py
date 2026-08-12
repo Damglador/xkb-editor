@@ -20,19 +20,6 @@ def getVariant(layoutName: str, variant: str):
 def getVariantFromFile(filePath: Path, variant: str):
     return None
 
-@dataclass()
-class Symbols:
-    value: list[str]
-@dataclass()
-class Actions:
-    value: list[str]
-@dataclass()
-class Repeat:
-    value: bool
-
-@dataclass()
-class Key:
-    value: dict[str, KeyProps]
 
 class XkbTransformer(Transformer[Token, list[Variant]]):
     def start(self, items) -> list[Variant]:
@@ -60,18 +47,18 @@ class VariantTransformer(Transformer[Token, Variant]):
                         variant.includes.append(item)
 
                     # TODO: Test those two
-                    case "modifier_map":
+                    case "MODMAP":
                         pass
-                    case "virtual_modifiers":
+                    case "VIRTMODS":
                         pass
+                    case "KEY":
+                        if variant.keymap is None:
+                            variant.keymap = {}
+                        variant.keymap.update(dict(item.value))
                     case _:
                         pass
-
-            if type(item) is Key:
-                if variant.keymap is None:
-                    variant.keymap = {}
-                variant.keymap.update(dict(item.value))
         return variant
+
     def name(self, items):
         for item in items:
             match item.type:
@@ -84,12 +71,12 @@ class VariantTransformer(Transformer[Token, Variant]):
         keycode = ""
         keyprops = KeyProps()
         for item in items:
-            if type(item) is Token:
-                if item.type == "KEYCODE":
-                    keycode = str(item.value).strip('<>')
-            if type(item) is KeyProps:
-                keyprops = item
-        return Key({keycode: keyprops})
+            match item.type:
+                case "KEYCODE":
+                    keycode = str(item.value).strip("<>")
+                case "KEYPROPS":
+                    keyprops = item.value
+        return Token("KEY", dict({keycode: keyprops}))
 
     def key_props(self, items):
         keyprops = KeyProps()
@@ -106,10 +93,8 @@ class VariantTransformer(Transformer[Token, Variant]):
                     keyprops.type = item.value
                 case _:
                     pass
+        return Token("KEYPROPS", keyprops)
 
-            if type(item) is Tree:
-                pass
-        return keyprops
     def key_syms(self, items):
         syms = []
         for item in items:
@@ -117,7 +102,7 @@ class VariantTransformer(Transformer[Token, Variant]):
             syms.append(item.value)
         return Token("SYMBOLS", syms)
     def key_acts(self, items):
-        return Token("WIP", "Bogus data")
+        return Token("ACTIONS", "Bogus data")
     #     acts = []
     #     for item in items:
     #         acts.append(item.value)
