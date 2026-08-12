@@ -6,18 +6,29 @@
 # pyright: reportUnusedParameter=false
 
 from pathlib import Path
-from lark import Lark, Token, Transformer, v_args, Tree
+from lark import Lark, Token, Transformer, Tree
 from layout import Variant, KeyProps, Flags
 import layout
 
-from dataclasses import dataclass
+lark: Lark = Lark.open("xkb.lark", rel_to=__file__, parser="lalr")
 
+def getVariantsFromFile(filePath: Path | str) -> list[Variant]:
+    variants: list[Variant] = []
+    with open(filePath, "r") as file:
+        variants = fromString(file.read())
+    return variants
 
-def getVariant(layoutName: str, variant: str):
+def getVariant(language: str, variantId: str):
     return None
 
+def fromString(string: str) -> list[Variant]:
+    return XkbTransformer().transform(lark.parse(string))
 
-def getVariantFromFile(filePath: Path, variant: str):
+def getVariantFromFile(filePath: Path | str, variantId: str) -> Variant | None:
+    variants = getVariantsFromFile(filePath)
+    for variant in variants:
+        if variant.id == variantId:
+            return variant
     return None
 
 
@@ -38,13 +49,15 @@ class VariantTransformer(Transformer[Token, Variant]):
                     case "FLAG":
                         if variant.flags is None:
                             variant.flags = []
-                        variant.flags.append(Flags(item))
+                        variant.flags.append(Flags(item.value))
+                    case "ID":
+                        variant.id = str(item.value).strip('"')
                     case "NAME":
-                        variant.name = item
-                    case "include":
+                        variant.name = str(item.value).strip('"')
+                    case "INCLUDE":
                         if variant.includes is None:
                             variant.includes = []
-                        variant.includes.append(item)
+                        variant.includes.append(str(item.value).strip('"'))
 
                     # TODO: Test those two
                     case "MODMAP":
@@ -59,13 +72,21 @@ class VariantTransformer(Transformer[Token, Variant]):
                         pass
         return variant
 
+    def id(self, items):
+        return Token("ID", str(items[0]))
+
     def name(self, items):
         for item in items:
             match item.type:
                 case "GROUP":
                     pass
                 case "STRING":
-                    return Token("NAME", item)
+                    return Token("NAME", str(item.value))
+                case _:
+                    pass
+
+    def include(self, items):
+        return Token("INCLUDE", str(items[0].value))
 
     def key(self, items):
         keycode = ""
@@ -76,12 +97,13 @@ class VariantTransformer(Transformer[Token, Variant]):
                     keycode = str(item.value).strip("<>")
                 case "KEYPROPS":
                     keyprops = item.value
-        return Token("KEY", dict({keycode: keyprops}))
+                case _:
+                    pass
+        return Token("KEY", {keycode: keyprops})
 
     def key_props(self, items):
         keyprops = KeyProps()
         for item in items:
-            print(item)
             match item.type:
                 case "SYMBOLS":
                     keyprops.symbols = list(item.value)
@@ -90,7 +112,9 @@ class VariantTransformer(Transformer[Token, Variant]):
                 case "REPEAT":
                     keyprops.repeat = item.value
                 case "TYPE":
-                    keyprops.type = item.value
+                    keyprops.type = str(item.value).strip('"')
+                case "VIRTMOD":
+                    keyprops.virtmod = item.value
                 case _:
                     pass
         return Token("KEYPROPS", keyprops)
@@ -99,7 +123,8 @@ class VariantTransformer(Transformer[Token, Variant]):
         syms = []
         for item in items:
             # Keep .value, it'll write tokens otherwise
-            syms.append(item.value)
+            # DON'T strip('"'), because then it doesn't strip "\"" properly
+            syms.append(str(item.value))
         return Token("SYMBOLS", syms)
     def key_acts(self, items):
         return Token("ACTIONS", "Bogus data")
@@ -114,15 +139,5 @@ class VariantTransformer(Transformer[Token, Variant]):
         return Token("REPEAT", bool(items[0]))
     def key_type(self, items):
         return Token("TYPE", str(items[1]))
-
-def test():
-    parser: Lark = Lark.open("xkb.lark", rel_to=__file__, parser="lalr")
-    with open("test-sample", "r") as file:
-        tree = parser.parse(file.read())
-        print(tree.pretty())
-        trans = XkbTransformer().transform(tree)
-        for tran in trans:
-            print(tran.toXkb())
-
-
-test()
+    def key_virtmod(self, items):
+        return Token("VIRTMOD", str(items[0]))

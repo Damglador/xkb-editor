@@ -45,27 +45,30 @@ class Variant(BaseModel):
     key_type: str | None = None
 
     def toXkb(self) -> str:
-        indent: str = "   "
+        indent: str = "    "
         lines: list[str] = []
         if self.flags is not None:
             lines.append(" ".join(self.flags))
         lines.append(f"xkb_symbols \"{self.id}\" {{")
 
-        lines.append(indent + f"name[Group1] = \"{self.name}\"")
-        lines.append("\n")
+        if self.name is not None:
+            lines.append(indent + f"name[Group1] = \"{self.name}\"")
+            lines.append("")
         if self.key_type is not None:
             lines.append(indent + f"key.type[Group1] = {self.key_type};")
         if self.includes is not None:
             for include in self.includes:
-                lines.append(indent + f"include {include};")
-        lines.append("\n")
+                lines.append(indent + f"include \"{include}\"")
+            lines.append("")
         if self.keymap is not None:
             for keycode, keyprops in self.keymap.items():
                 props: list[str] = []
                 if keyprops.symbols is not None:
                     symbols: list[str] = []
                     for symbol in keyprops.symbols:
-                        if len(symbol) == 1:
+                        if symbol == '"':
+                            symbols.append(f"\"\\{symbol}\"")
+                        elif len(symbol) == 1:
                             symbols.append(f"\"{symbol}\"")
                         else:
                             symbols.append(symbol)
@@ -75,9 +78,13 @@ class Variant(BaseModel):
                     print("You didn't implement actions, bozo")
                 if keyprops.type is not None:
                     props.append(f"type[Group1] = \"{keyprops.type}\"")
+                if keyprops.repeat is not None:
+                    props.append(f"repeat = {keyprops.repeat}")
+                if keyprops.virtmod is not None:
+                    props.append(f"virtualModifiers = {keyprops.virtmod}")
 
                 propsStr = ", ".join(props)
-                lines.append(indent + f"key <{keycode}> {{ {propsStr} }}")
+                lines.append(indent + f"key <{keycode}> {{ {propsStr} }};")
 
         lines.append("};")
         return "\n".join(lines) + "\n"
@@ -91,5 +98,3 @@ if __name__ == "__main__":
                 "AE29": KeyProps(symbols=["a", "A", "b", "B"], type="TWO_LAYER")
                 },
             )
-    print(variant.toXkb())
-    # print(Flags.ALPHANUMERIC_KEYS)
