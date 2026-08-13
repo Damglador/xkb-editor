@@ -16,9 +16,7 @@ def testVariantFromFile():
 def testVariants():
     variant1 = parser.getVariantFromFile(SAMPLES_DIR / "my-layout", "custom")
     variant2 = parser.fromString(variant1.toXkb())[0]
-    assert variant1 == variant2, (
-        f"Variants don't match!\nVariant1:\n{variant1}\nVariant2:\n{variant2}"
-    )
+    assert variant1 == variant2, f"Variants don't match!\nVariant1:\n{variant1}\nVariant2:\n{variant2}"
 
 def testXkb():
     variant1 = parser.getVariantFromFile(SAMPLES_DIR / "my-layout", "custom")
@@ -38,8 +36,8 @@ def testQuoteSymbols():
         }
     )
     xkb = variant.toXkb()
-    assert sourceXkb == xkb, dedent(f"""Generated XKB doesn't match with the test sample!
+    assert sourceXkb == xkb, f"""Generated XKB doesn't match with the test sample!
 sample:
 {sourceXkb}
 generated:
-{xkb}""")
+{xkb}"""

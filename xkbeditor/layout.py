@@ -1,6 +1,7 @@
-from enum import StrEnum
+from enum import Enum, StrEnum, auto
+from typing import Any
 
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, SerializationInfo
 
 from collections import UserList
 
@@ -15,6 +16,13 @@ class Flags(StrEnum):
     FUNCTION_KEYS = "function_keys"
     ALTERNATE_GROUP = "alternate_group"
 
+# https://xkbcommon.org/doc/current/keymap-text-format-v1-v2.html#merge-mode-def
+class MergeMode(StrEnum):
+    AUGMENT = "augment"
+    OVERRIDE = "override"
+    REPLACE = "replace"
+    ALTERNATE = "alternate"
+
 
 # https://xkbcommon.org/doc/current/keymap-text-format-v1-v2.html#key-actions
 ActionParam = str
@@ -25,6 +33,17 @@ Symbols = list[str]
 
 Actions = dict[Action, ActionParam]
 
+def isImplicit(symbol: Any | None) -> bool:
+    match symbol:
+        case "NoSymbol":
+            return True
+        case "":
+            return True
+        case None:
+            return True
+        case _:
+            return False
+
 class KeyProps(BaseModel):
     model_config = ConfigDict(arbitrary_types_allowed=True)
 
@@ -33,6 +52,40 @@ class KeyProps(BaseModel):
     virtmod: str | None = None
     repeat: bool | None = None
     type: str | None = None
+
+    # https://xkbcommon.org/doc/current/keymap-text-format-v1-v2.html#merge-mode-def
+    def merge(self, new: KeyProps, mode: MergeMode = MergeMode.OVERRIDE):
+        match mode:
+            # Override shall be first because it's the default
+            # Alternate is ignored per the docs, so use the default, which is override
+            case MergeMode.OVERRIDE | MergeMode.ALTERNATE: # Write explicitly defined in NEW
+                if new.symbols is not None and self.symbols is not None:
+                    for i in range(0, len(new.symbols)):
+                        if not isImplicit(new.symbols[i]):
+                            self.symbols[i] = new.symbols[i]
+                if not isImplicit(new.virtmod):
+                    self.virtmod = new.virtmod
+                if not isImplicit(new.repeat):
+                    self.repeat = new.repeat
+                if not isImplicit(new.type):
+                    self.type = new.type
+                pass
+            case MergeMode.AUGMENT: # Write explicitly defined in NEW for implicitly defined in OLD
+                if new.symbols is not None and self.symbols is not None:
+                    for i in range(0, len(new.symbols)):
+                        if isImplicit(self.symbols[i]):
+                            self.symbols[i] = new.symbols[i]
+                if isImplicit(self.virtmod):
+                    self.virtmod = new.virtmod
+                if isImplicit(self.repeat):
+                    self.repeat = new.repeat
+                if isImplicit(self.type):
+                    self.type = new.type
+                pass
+            case MergeMode.REPLACE: # Overwrite all with NEW
+                self = new
+                pass
+
 
 class Variant(BaseModel):
     id: str | None = None # xkb_symbols "<id>"
