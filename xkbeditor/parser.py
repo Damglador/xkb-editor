@@ -7,8 +7,7 @@
 
 from pathlib import Path
 from lark import Lark, Token, Transformer, Tree
-from layout import Variant, KeyProps, Flags
-import layout
+from .layout import Variant, KeyProps, Flags
 
 lark: Lark = Lark.open("xkb.lark", rel_to=__file__, parser="lalr")
 

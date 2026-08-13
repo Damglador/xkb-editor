@@ -2,21 +2,26 @@ partial alphanumeric_keys
 xkb_symbols "custom" {
     include "us(basic)"
     name[Group1]= "English (Custom)";
-    key <AE01>  {[  1,              exclam,      "¹"        ]};
-    key <AE02>  {[  2,              "@",         "²",  "’"  ]};
-    key <AE07>  {[  7,              question                ]};
-    key <AD03>  {[  e,              E,           "ä",  "Ä"  ]};
-    key <AD04>  {[  r,              R,           "®"        ]};
-    key <AD05>  {[  t,              T,           "™"        ]};
-    key <AD06>  {[  y,              Y                       ]};
-    key <AD09>  {[  o,              O,           "ö",  "Ö"  ]};
-    key <AC01>  {[  a,              A,           "å",  "Å"  ]};
+    key <AE01>  {[  "1",            exclam,      "¹"        ]};
+    key <AE02>  {[  "2",            "@",         "²",  "’"  ]};
+    key <AE07>  {[  "7",            question                ]};
+    key <AD03>  {[  "e",            "E",         "ä",  "Ä"  ]};
+    key <AD04>  {[  "r",            "R",         "®"        ]};
+    key <AD05>  {[  "t",            "T",         "™"        ]};
+    key <AD06>  {[  "y",            "Y"                     ]};
+    key <AD09>  {[  "o",            "O",         "ö",  "Ö"  ]};
+    key <AC01>  {[  "a",            "A",         "å",  "Å"  ]};
     key <AB08>  {[  comma,          less,        "«",  "„"  ]};
     key <AB09>  {[  period,         greater,     "»",  "“"  ]};
     key <AB10>  {[  slash,          ampersand               ]};
     key <AE11>	{[  minus,          underscore,  "—",  "–"  ],
-                    type[Group1] = "FOUR_LEVEL_SEMIALPHABETIC", repeat = False,
-                    actions[Group1] = [ SetMods(modifiers=Control), LockMods(modifiers=Lock) ]};
+                    type[Group1] = "FOUR_LEVEL_SEMIALPHABETIC",
+                    repeat = True,
+                    actions[Group1] = [ SetMods(modifiers=Control), LockMods(modifiers=Lock) ],
+                    virtualModifiers = Alt
+                    };
+    key <AE12> {[ "\"", NoSymbol ]}; // Quotes in strings
+    key <AE13> {[ "#", NoSymbol ]}; // Comment test
 
 
     include "level3(ralt_switch)"

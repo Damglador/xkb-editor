@@ -1,14 +1,18 @@
 [project]
-name = "xkb-editor"
+name = "xkbeditor"
 version = "0.1.0"
 description = "A GUI editor for Linux keyboard layouts"
 readme = "README.md"
 authors = [
-    { name = "Damglador", email = "vse.stopchanskyi@gmail.com" }
+  { name = "Damglador", email = "vse.stopchanskyi@gmail.com" }
 ]
 requires-python = ">=3.14"
 dependencies = [
-  # "pyside6",
   "pydantic",
   "lark",
+  "pytest>=9.1.1",
+  "pyside6>=6.11.1",
 ]
+
+[project.gui-scripts]
+xkbeditor = "xkbeditor.__main__:main"
