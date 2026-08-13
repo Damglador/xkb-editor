@@ -1,8 +1,8 @@
 partial default hidden alphanumeric_keys modifier_keys keypad_keys function_keys alternate_group
-xkb_symbols "custom" {
+xkb_symbols "test" {
     name[Group1] = "English (Custom)";
 
-    include "bogus"
+    include "ua"
     include "us(basic)"
     include "level3(ralt_switch)"
 

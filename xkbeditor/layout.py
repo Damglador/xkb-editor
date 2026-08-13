@@ -69,7 +69,7 @@ class KeyProps(BaseModel):
             # Alternate is ignored per the docs, so use the default, which is override
             case MergeMode.OVERRIDE | MergeMode.ALTERNATE: # Write explicitly defined in NEW
                 if new.symbols is not None and self.symbols is not None:
-                    for i in range(0, len(new.symbols)):
+                    for i in range(len(new.symbols)):
                         if not isImplicit(new.symbols[i]):
                             self.symbols[i] = new.symbols[i]
                 if not isImplicit(new.virtmod):
@@ -80,7 +80,7 @@ class KeyProps(BaseModel):
                     self.type = new.type
             case MergeMode.AUGMENT: # Write explicitly defined in NEW for implicitly defined in OLD
                 if new.symbols is not None and self.symbols is not None:
-                    for i in range(0, len(new.symbols)):
+                    for i in range(len(new.symbols)):
                         if isImplicit(self.symbols[i]):
                             self.symbols[i] = new.symbols[i]
                 if isImplicit(self.virtmod):

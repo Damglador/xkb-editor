@@ -5,9 +5,8 @@ import pytest
 
 from xkbeditor import parser
 from xkbeditor import layout
-from textwrap import dedent
 
-SAMPLES_DIR = Path(__file__).parent / "test-samples"
+SAMPLES_DIR = Path(__file__).parent / "symbols"
 
 def testVariantFromFile():
     variant1 = parser.getVariantFromFile(SAMPLES_DIR / "my-layout", "custom")
