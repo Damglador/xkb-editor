@@ -1,9 +1,8 @@
-from enum import Enum, StrEnum, auto
+from enum import StrEnum
 from typing import Any
 
 from pydantic import BaseModel, ConfigDict, SerializationInfo
 
-from collections import UserList
 
 # https://www.charvolant.org/doug/xkb/html/node5.html
 class Flags(StrEnum):
@@ -44,6 +43,16 @@ def isImplicit(symbol: Any | None) -> bool:
         case _:
             return False
 
+class Include(BaseModel):
+    path: str
+    variant: str | None
+
+    def __str__(self):
+        if self.variant is None:
+            return f"{self.path}"
+        else:
+            return f"{self.path}({self.variant})"
+
 class KeyProps(BaseModel):
     model_config = ConfigDict(arbitrary_types_allowed=True)
 
@@ -69,7 +78,6 @@ class KeyProps(BaseModel):
                     self.repeat = new.repeat
                 if not isImplicit(new.type):
                     self.type = new.type
-                pass
             case MergeMode.AUGMENT: # Write explicitly defined in NEW for implicitly defined in OLD
                 if new.symbols is not None and self.symbols is not None:
                     for i in range(0, len(new.symbols)):
@@ -81,10 +89,8 @@ class KeyProps(BaseModel):
                     self.repeat = new.repeat
                 if isImplicit(self.type):
                     self.type = new.type
-                pass
             case MergeMode.REPLACE: # Overwrite all with NEW
-                self = new
-                pass
+                self.self = new
 
 
 class Variant(BaseModel):
@@ -94,7 +100,7 @@ class Variant(BaseModel):
     name: str | None = None # name[Group1] = "<name>"
     flags: list[Flags] | None = None
     keymap: dict[str, KeyProps] | None = None
-    includes: list[str] | None = None
+    includes: list[Include] | None = None
     key_type: str | None = None
 
     def toXkb(self) -> str:
@@ -105,7 +111,7 @@ class Variant(BaseModel):
         lines.append(f"xkb_symbols \"{self.id}\" {{")
 
         if self.name is not None:
-            lines.append(indent + f"name[Group1] = \"{self.name}\"")
+            lines.append(indent + f"name[Group1] = \"{self.name}\";")
             lines.append("")
         if self.key_type is not None:
             lines.append(indent + f"key.type[Group1] = {self.key_type};")
@@ -136,18 +142,8 @@ class Variant(BaseModel):
                 if keyprops.virtmod is not None:
                     props.append(f"virtualModifiers = {keyprops.virtmod}")
 
-                propsStr = ", ".join(props)
+                propsStr = ",\n                   ".join(props)
                 lines.append(indent + f"key <{keycode}> {{ {propsStr} }};")
 
         lines.append("};")
         return "\n".join(lines) + "\n"
-
-if __name__ == "__main__":
-
-    variant = Variant(id="custom",
-            name="Test Layout",
-            flags=[Flags.DEFAULT, Flags.ALPHANUMERIC_KEYS],
-            keymap={
-                "AE29": KeyProps(symbols=["a", "A", "b", "B"], type="TWO_LAYER")
-                },
-            )

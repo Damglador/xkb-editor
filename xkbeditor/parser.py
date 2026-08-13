@@ -7,7 +7,7 @@
 
 from pathlib import Path
 from lark import Lark, Token, Transformer, Tree
-from .layout import Variant, KeyProps, Flags
+from .layout import Variant, KeyProps, Flags, Include
 
 lark: Lark = Lark.open("xkb.lark", rel_to=__file__, parser="lalr")
 
@@ -56,7 +56,7 @@ class VariantTransformer(Transformer[Token, Variant]):
                     case "INCLUDE":
                         if variant.includes is None:
                             variant.includes = []
-                        variant.includes.append(str(item.value).strip('"'))
+                        variant.includes.append(item.value)
 
                     # TODO: Test those two
                     case "MODMAP":
@@ -85,7 +85,7 @@ class VariantTransformer(Transformer[Token, Variant]):
                     pass
 
     def include(self, items):
-        return Token("INCLUDE", str(items[0].value))
+        return Token("INCLUDE", Include(path=items[0], variant=items[1]))
 
     def key(self, items):
         keycode = ""

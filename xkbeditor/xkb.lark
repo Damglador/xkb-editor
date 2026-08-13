@@ -31,7 +31,12 @@ id: STRING
 name: "name" "[" GROUP "]"      "=" STRING [";"]
     | "groupName" "[" DIGIT "]" "=" STRING [";"]
 
-include: "include" STRING
+
+PATH: CNAME
+SECTION_NAME: CNAME
+
+// https://xkbcommon.org/doc/current/keymap-text-format-v1-v2.html#xkb-include
+include: "include" "\"" PATH [ "(" SECTION_NAME ")" ] "\""
 
 // https://xkbcommon.org/doc/current/keymap-text-format-v1-v2.html#key-statement
 // List parsing yanked from https://lark-parser.readthedocs.io/en/latest/examples/json_parser.html#sphx-glr-examples-json-parser-py
@@ -84,7 +89,7 @@ HEX: "0x" (LETTER|DIGIT)*
 KEY_TYPE: STRING
 KEYCODE: "<" CNAME ">"
 KEYSYM: CNAME | STRING | DIGIT | HEX | "NoSymbol"
-GROUP: /[Gg]roup/ DIGIT
+GROUP: /[Gg]roup/ "1"
 
 // From https://github.com/lark-parser/lark/blob/240d4bcd3e207c7ed1cebd9908be41150c3ea1ab/lark/grammars/lark.lark#L59
 COMMENT: /\s*/ "//" /[^\n]/* | /\s*/ "#" /[^\n]/*

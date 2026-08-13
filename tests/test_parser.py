@@ -18,7 +18,7 @@ def testVariants():
     variant2 = parser.fromString(variant1.toXkb())[0]
     assert variant1 == variant2, f"Variants don't match!\nVariant1:\n{variant1}\nVariant2:\n{variant2}"
 
-def testXkb():
+def test_parse_generated_xkb():
     variant1 = parser.getVariantFromFile(SAMPLES_DIR / "my-layout", "custom")
     xkb1 = variant1.toXkb()
 
@@ -41,3 +41,11 @@ sample:
 {sourceXkb}
 generated:
 {xkb}"""
+
+def test_toxkb():
+    variant = parser.getVariantFromFile(SAMPLES_DIR / "toxkb-reference", "custom")
+    xkb = variant.toXkb()
+
+    with open(SAMPLES_DIR / "toxkb-reference", "r") as file:
+        sourceXkb = file.read()
+    assert xkb == sourceXkb

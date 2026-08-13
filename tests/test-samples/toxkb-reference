@@ -1,0 +1,15 @@
+partial default hidden alphanumeric_keys modifier_keys keypad_keys function_keys alternate_group
+xkb_symbols "custom" {
+    name[Group1] = "English (Custom)";
+
+    include "bogus"
+    include "us(basic)"
+    include "level3(ralt_switch)"
+
+    key <AE11> { [ minus,    underscore,    "—",    "–" ],
+                   type[Group1] = "FOUR_LEVEL_SEMIALPHABETIC",
+                   repeat = True,
+                   virtualModifiers = Alt };
+    key <AE12> { [ "\"",    NoSymbol ] };
+    key <AE13> { [ "#",    NoSymbol ] };
+};
