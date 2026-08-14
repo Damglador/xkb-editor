@@ -21,9 +21,7 @@ class Bridge(QObject):
     def getKey(self, keycode, layer, oldLabel):
         if keycode:
             if variant is not None:
-                key = variant.keymap.get(keycode)
-                if key is not None:
-                    return key.symbols[layer - 1]
+                return variant.getSymbol(keycode, layer)
             return keycode
         return oldLabel
 

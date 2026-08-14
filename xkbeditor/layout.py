@@ -56,11 +56,23 @@ class Include(BaseModel):
 class KeyProps(BaseModel):
     model_config = ConfigDict(arbitrary_types_allowed=True)
 
-    symbols: Symbols | None = None
+    _symbols: Symbols = [ "NoSymbol", "NoSymbol", "NoSymbol", "NoSymbol" ]
     actions: Actions | None = None
     virtmod: str | None = None
     repeat: bool | None = None
     type: str | None = None
+
+    @property
+    def symbols(self):
+        return self._symbols
+
+    @symbols.setter
+    def symbols(self, syms: list[str] | None):
+        if syms is None:
+            return
+        for i in range(min(len(syms), len(self._symbols))):
+            if not isImplicit(syms[i]):
+                self._symbols[i] = syms[i]
 
     # https://xkbcommon.org/doc/current/keymap-text-format-v1-v2.html#merge-mode-def
     def merge(self, new: KeyProps, mode: MergeMode = MergeMode.OVERRIDE):
@@ -102,6 +114,15 @@ class Variant(BaseModel):
     keymap: dict[str, KeyProps] = {}
     includes: list[Include] | None = None
     key_type: str | None = None
+
+    def getSymbol(self, keycode, layer):
+        sym = ""
+        key = self.keymap.get(keycode)
+        if key is not None:
+            sym = key.symbols[layer - 1]
+        if isImplicit(sym):
+            sym = "None"
+        return sym
 
     def toXkb(self) -> str:
         indent: str = "    "
