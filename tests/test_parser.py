@@ -8,11 +8,11 @@ from xkbeditor import layout
 
 SAMPLES_DIR = Path(__file__).parent / "symbols"
 
-def testVariantFromFile():
+def test_getVariantFromFile():
     variant1 = parser.getVariantFromFile(SAMPLES_DIR / "my-layout", "test")
     assert variant1 == parser.getVariantsFromFile(SAMPLES_DIR / "my-layout")[0]
 
-def testVariants():
+def test_variant_from_generated_xkb():
     variant1 = parser.getVariantFromFile(SAMPLES_DIR / "my-layout", "test")
     variant2 = parser.fromString(variant1.toXkb())[0]
     assert variant1 == variant2, f"Variants don't match!\nVariant1:\n{variant1}\nVariant2:\n{variant2}"
@@ -48,3 +48,7 @@ def test_toxkb():
     with open(SAMPLES_DIR / "toxkb-reference", "r") as file:
         sourceXkb = file.read()
     assert xkb == sourceXkb
+
+def test_upstream_us():
+    variants = parser.getVariantsFromFile("/usr/share/xkeyboard-config-2/symbols/us")
+    assert variants != None
