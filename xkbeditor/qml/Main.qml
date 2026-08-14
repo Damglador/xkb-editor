@@ -5,29 +5,26 @@ import org.kde.kirigami as Kirigami
 import project
 
 Kirigami.ApplicationWindow {
-  id: root
+    id: root
 
-  title: qsTr("Simple Markdown viewer")
+    title: qsTr("Simple Markdown viewer")
 
-  minimumWidth: Kirigami.Units.gridUnit * 60
-  minimumHeight: Kirigami.Units.gridUnit * 20
-  width: minimumWidth
-  height: minimumHeight
+    minimumWidth: Kirigami.Units.gridUnit * 60
+    minimumHeight: Kirigami.Units.gridUnit * 20
+    width: minimumWidth
+    height: minimumHeight
 
-  pageStack.initialPage: initPage
+    pageStack.initialPage: initPage
 
-  Component {
-    id: initPage
+    Component {
+        id: initPage
 
-    Kirigami.Page {
-      Keyboard_US {
+        Kirigami.Page {
+            Keyboard_US {}
 
-      }
-
-
-      Bridge {
-         id: bridge
-      }
+            Bridge {
+                id: bridge
+            }
+        }
     }
-  }
 }
