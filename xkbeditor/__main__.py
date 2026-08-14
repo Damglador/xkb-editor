@@ -1,4 +1,4 @@
-from . import main
+from . import application
 
 if __name__ == "__main__":
-    main.main()
+    application.main()
