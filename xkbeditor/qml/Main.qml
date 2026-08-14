@@ -21,6 +21,7 @@ Kirigami.ApplicationWindow {
 
         Kirigami.Page {
             ColumnLayout {
+                anchors.centerIn: parent
                 Keyboard_US {
                     id: layout
                 }

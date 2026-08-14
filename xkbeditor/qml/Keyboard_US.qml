@@ -8,16 +8,83 @@ ColumnLayout {
     property int symbolsLayer: 1
     property var keys: []
 
+    DelegateModel {
+        id: keyDelegate
+
+        delegate: Key {
+            required property var modelData
+            keycode: modelData.keycode; legend: modelData.legend
+            symbolsLayer: root.symbolsLayer
+        }
+    }
+
+    ListModel {
+        id: rowE
+        ListElement { keycode: "TLDE"; legend: "`" }
+        ListElement { keycode: "AE01"; legend: "1" }
+        ListElement { keycode: "AE02"; legend: "2" }
+        ListElement { keycode: "AE03"; legend: "3" }
+        ListElement { keycode: "AE04"; legend: "4" }
+        ListElement { keycode: "AE05"; legend: "5" }
+        ListElement { keycode: "AE06"; legend: "6" }
+        ListElement { keycode: "AE07"; legend: "7" }
+        ListElement { keycode: "AE08"; legend: "8" }
+        ListElement { keycode: "AE09"; legend: "9" }
+        ListElement { keycode: "AE10"; legend: "0" }
+        ListElement { keycode: "AE11"; legend: "-" }
+        ListElement { keycode: "AE12"; legend: "=" }
+    }
+
+    ListModel {
+        id: rowD
+        ListElement { keycode: "AD01"; legend: "Q" }
+        ListElement { keycode: "AD02"; legend: "W" }
+        ListElement { keycode: "AD03"; legend: "E" }
+        ListElement { keycode: "AD04"; legend: "R" }
+        ListElement { keycode: "AD05"; legend: "T" }
+        ListElement { keycode: "AD06"; legend: "Y" }
+        ListElement { keycode: "AD07"; legend: "U" }
+        ListElement { keycode: "AD08"; legend: "I" }
+        ListElement { keycode: "AD09"; legend: "O" }
+        ListElement { keycode: "AD10"; legend: "P" }
+        ListElement { keycode: "AD11"; legend: "[" }
+        ListElement { keycode: "AD12"; legend: "]" }
+    }
+
+    ListModel {
+        id: rowC
+        ListElement { keycode: "AC01"; legend: "A" }
+        ListElement { keycode: "AC02"; legend: "S" }
+        ListElement { keycode: "AC03"; legend: "D" }
+        ListElement { keycode: "AC04"; legend: "F" }
+        ListElement { keycode: "AC05"; legend: "G" }
+        ListElement { keycode: "AC06"; legend: "H" }
+        ListElement { keycode: "AC07"; legend: "J" }
+        ListElement { keycode: "AC08"; legend: "K" }
+        ListElement { keycode: "AC09"; legend: "L" }
+        ListElement { keycode: "AC10"; legend: ";" }
+        ListElement { keycode: "AC11"; legend: "'" }
+    }
+
+    ListModel {
+        id: rowB
+        ListElement { keycode: "AB01"; legend: "Z" }
+        ListElement { keycode: "AB02"; legend: "X" }
+        ListElement { keycode: "AB03"; legend: "C" }
+        ListElement { keycode: "AB04"; legend: "V" }
+        ListElement { keycode: "AB05"; legend: "B" }
+        ListElement { keycode: "AB06"; legend: "N" }
+        ListElement { keycode: "AB07"; legend: "M" }
+        ListElement { keycode: "AB08"; legend: "," }
+        ListElement { keycode: "AB09"; legend: "." }
+        ListElement { keycode: "AB10"; legend: "/" }
+    }
+
     RowLayout {
         spacing: 0
-        property var keycodes: ["TLDE", "AE01", "AE02", "AE03", "AE04", "AE05", "AE06", "AE07", "AE08", "AE09", "AE10", "AE11", "AE12"]
         Repeater {
-            model: parent.keycodes
-            delegate: Key {
-                required property var modelData
-                keycode: modelData
-                symbolsLayer: root.symbolsLayer
-            }
+            model: rowE
+            delegate: keyDelegate.delegate
         }
         Key {
             label: "Backspace"
@@ -30,18 +97,12 @@ ColumnLayout {
             label: "Tab"
             unitWidth: unitSize * 1.5
         }
-        property var keycodes: ["AD01", "AD02", "AD03", "AD04", "AD05", "AD06", "AD07", "AD08", "AD09", "AD10", "AD11", "AD12"]
         Repeater {
-            model: parent.keycodes
-            delegate: Key {
-                required property var modelData
-                keycode: modelData
-                symbolsLayer: root.symbolsLayer
-            }
+            model: rowD
+            delegate: keyDelegate.delegate
         }
-
         Key {
-            keycode: "BKSL"
+            keycode: "BKSL"; legend: "\\"
             unitWidth: unitSize * 1.5
         }
     }
@@ -51,14 +112,9 @@ ColumnLayout {
             label: "CapsLock"
             unitWidth: unitSize * 1.75
         }
-        property var keycodes: ["AC01", "AC02", "AC03", "AC04", "AC05", "AC06", "AC07", "AC08", "AC09", "AC10", "AC11"]
         Repeater {
-            model: parent.keycodes
-            delegate: Key {
-                required property var modelData
-                keycode: modelData
-                symbolsLayer: root.symbolsLayer
-            }
+            model: rowC
+            delegate: keyDelegate.delegate
         }
         Key {
             label: "Enter"
@@ -71,14 +127,9 @@ ColumnLayout {
             label: "Left Shift"
             unitWidth: unitSize * 2.25
         }
-        property var keycodes: ["AB01", "AB02", "AB03", "AB04", "AB05", "AB06", "AB07", "AB08", "AB09", "AB10"]
         Repeater {
-            model: parent.keycodes
-            delegate: Key {
-                required property var modelData
-                keycode: modelData
-                symbolsLayer: root.symbolsLayer
-            }
+            model: rowB
+            delegate: keyDelegate.delegate
         }
         Key {
             label: "Right Shift"

@@ -12,11 +12,23 @@ Controls.Button {
     Layout.columnSpan: unitWidth / unitSize
     Layout.rowSpan: unitHeight / unitSize
 
-    property string keycode
     property int symbolsLayer
+
+    property string keycode
+    property string legend
     property var label
 
     text: label
+
+    Controls.Label {
+        leftPadding: 5
+        anchors.left: parent.left
+        anchors.top: parent.top
+
+        text: parent.legend
+
+        opacity: 0.5
+    }
 
     onSymbolsLayerChanged: {
         text = bridge.getKey(keycode, symbolsLayer, label);
