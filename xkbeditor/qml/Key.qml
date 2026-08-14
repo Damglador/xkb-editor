@@ -13,12 +13,17 @@ Controls.Button {
     Layout.rowSpan: unitHeight / unitSize
 
     property string keycode
+    property int symbolsLayer
     property var label
 
     text: label
 
+    onSymbolsLayerChanged: {
+        text = bridge.getKey(keycode, symbolsLayer, label);
+    }
+
     Component.onCompleted: {
-        text = bridge.getKey(keycode, label);
+        text = bridge.getKey(keycode, symbolsLayer, label);
     }
 
     onClicked: {

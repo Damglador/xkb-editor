@@ -64,8 +64,6 @@ class VariantTransformer(Transformer[Token, Variant]):
                     case "VIRTMODS":
                         pass
                     case "KEY":
-                        if variant.keymap is None:
-                            variant.keymap = {}
                         variant.keymap.update(dict(item.value))
                     case _:
                         pass

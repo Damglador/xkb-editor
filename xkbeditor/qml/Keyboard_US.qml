@@ -1,8 +1,12 @@
+pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Layouts
 
 ColumnLayout {
+    id: root
     spacing: 0
+    property int symbolsLayer: 1
+    property var keys: []
 
     RowLayout {
         spacing: 0
@@ -10,7 +14,9 @@ ColumnLayout {
         Repeater {
             model: parent.keycodes
             delegate: Key {
+                required property var modelData
                 keycode: modelData
+                symbolsLayer: root.symbolsLayer
             }
         }
         Key {
@@ -28,7 +34,9 @@ ColumnLayout {
         Repeater {
             model: parent.keycodes
             delegate: Key {
+                required property var modelData
                 keycode: modelData
+                symbolsLayer: root.symbolsLayer
             }
         }
 
@@ -47,7 +55,9 @@ ColumnLayout {
         Repeater {
             model: parent.keycodes
             delegate: Key {
+                required property var modelData
                 keycode: modelData
+                symbolsLayer: root.symbolsLayer
             }
         }
         Key {
@@ -65,7 +75,9 @@ ColumnLayout {
         Repeater {
             model: parent.keycodes
             delegate: Key {
+                required property var modelData
                 keycode: modelData
+                symbolsLayer: root.symbolsLayer
             }
         }
         Key {

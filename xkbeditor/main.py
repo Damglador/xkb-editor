@@ -8,16 +8,24 @@ from PySide6.QtCore import QObject, QUrl, Slot
 from PySide6.QtGui import QGuiApplication
 from PySide6.QtQml import QmlElement, QQmlApplicationEngine
 
+from . import parser
+
 QML_IMPORT_NAME = "project"
 QML_IMPORT_MAJOR_VERSION = 2
 
+variant = parser.getVariantFromFile("/usr/share/xkeyboard-config-2/symbols/us", "basic")
+
 @QmlElement
 class Bridge(QObject):
-  @Slot(str, str, result=str)
-  def getKey(self, keycode, oldLabel):
-    if keycode:
-      return keycode
-    return oldLabel
+    @Slot(str, int, str, result=str)
+    def getKey(self, keycode, layer, oldLabel):
+        if keycode:
+            if variant is not None:
+                key = variant.keymap.get(keycode)
+                if key is not None:
+                    return key.symbols[layer - 1]
+            return keycode
+        return oldLabel
 
 
 def main():

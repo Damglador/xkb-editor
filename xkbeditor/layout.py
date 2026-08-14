@@ -1,7 +1,7 @@
 from enum import StrEnum
 from typing import Any
 
-from pydantic import BaseModel, ConfigDict, SerializationInfo
+from pydantic import BaseModel, ConfigDict
 
 
 # https://www.charvolant.org/doug/xkb/html/node5.html
