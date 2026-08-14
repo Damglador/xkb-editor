@@ -9,6 +9,8 @@ from pathlib import Path
 from lark import Lark, Token, Transformer, Tree
 from .layout import Variant, KeyProps, Flags, Include
 
+import re
+
 lark: Lark = Lark.open("xkb.lark", rel_to=__file__, parser="lalr")
 
 def getVariantsFromFile(filePath: Path | str) -> list[Variant]:
@@ -82,8 +84,17 @@ class VariantTransformer(Transformer[Token, Variant]):
                 case _:
                     pass
 
+# https://xkbcommon.org/doc/current/keymap-text-format-v1-v2.html#xkb-include
     def include(self, items):
-        return Token("INCLUDE", Include(path=items[0], variant=items[1]))
+        path, variant = [ "", None ]
+        incl = str(items[0]).strip('"')
+        match = re.match(r'(.*)\((.*)\)$', incl) # pyright: ignore[reportInvalidStringEscapeSequence]
+        if match:
+            path = match.group(1)
+            variant = match.group(2)
+        else:
+            path = incl
+        return Token("INCLUDE", Include(path=path, variant=variant))
 
     def key(self, items):
         keycode = ""

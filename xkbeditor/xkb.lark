@@ -31,12 +31,8 @@ id: STRING
 name: "name" "[" GROUP "]"      "=" STRING [";"]
     | "groupName" "[" DIGIT "]" "=" STRING [";"]
 
-
-PATH: CNAME
-SECTION_NAME: CNAME
-
 // https://xkbcommon.org/doc/current/keymap-text-format-v1-v2.html#xkb-include
-include: "include" "\"" PATH [ "(" SECTION_NAME ")" ] "\""
+include: "include" STRING
 
 // https://xkbcommon.org/doc/current/keymap-text-format-v1-v2.html#key-statement
 // List parsing yanked from https://lark-parser.readthedocs.io/en/latest/examples/json_parser.html#sphx-glr-examples-json-parser-py

@@ -99,7 +99,7 @@ class Variant(BaseModel):
     # Defined as `name[Group1]="English (US, symbolic)";`
     name: str | None = None # name[Group1] = "<name>"
     flags: list[Flags] | None = None
-    keymap: dict[str, KeyProps] | None = None
+    keymap: dict[str, KeyProps] = {}
     includes: list[Include] | None = None
     key_type: str | None = None
 
