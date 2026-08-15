@@ -54,6 +54,11 @@ class Include(BaseModel):
             return f"{self.path}({self.variant})"
 
 class KeyProps(BaseModel):
+    def __init__(self, symbols: list[str] | None = None, **data):
+        super().__init__(**data)
+        if symbols is not None:
+            self.symbols = symbols
+
     model_config = ConfigDict(arbitrary_types_allowed=True)
 
     _symbols: Symbols = [ "NoSymbol", "NoSymbol", "NoSymbol", "NoSymbol" ]
