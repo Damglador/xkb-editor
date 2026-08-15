@@ -126,7 +126,7 @@ class Variant(BaseModel):
         if key is not None:
             sym = key.symbols[layer - 1]
         if isImplicit(sym):
-            sym = "None"
+            sym = ""
         return sym
 
     def toXkb(self) -> str:
@@ -150,6 +150,7 @@ class Variant(BaseModel):
                 props: list[str] = []
                 if keyprops.symbols is not None:
                     symbols: list[str] = []
+                    # Count the last explicit symbol in the list to avoid adding trailing NoSymbol to keysyms list
                     explicitSymbols: int = 0
                     for i in range(len(keyprops.symbols)):
                         if not isImplicit(keyprops.symbols[i]):

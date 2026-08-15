@@ -31,11 +31,11 @@ Controls.Button {
     }
 
     onSymbolsLayerChanged: {
-        text = bridge.getKey(keycode, symbolsLayer, label);
+        text = bridge.getKeyChar(keycode, symbolsLayer, label);
     }
 
     Component.onCompleted: {
-        text = bridge.getKey(keycode, symbolsLayer, label);
+        text = bridge.getKeyChar(keycode, symbolsLayer, label);
     }
 
     onClicked: {
