@@ -10,6 +10,6 @@ xkb_symbols "test" {
                    type[Group1] = "FOUR_LEVEL_SEMIALPHABETIC",
                    repeat = True,
                    virtualModifiers = Alt };
-    key <AE12> { [ "\"",    NoSymbol ] };
-    key <AE13> { [ "#",    NoSymbol ] };
+    key <AE12> { [ "\"" ] };
+    key <AE13> { [ "#" ] };
 };
