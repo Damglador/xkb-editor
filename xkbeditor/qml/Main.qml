@@ -22,8 +22,16 @@ Kirigami.ApplicationWindow {
         Kirigami.Page {
             ColumnLayout {
                 anchors.centerIn: parent
+
+                RowLayout {
+                    Controls.Switch {
+                        id: legendToggle
+                        text: "Show legends"
+                        checked: true
+                    }
+                }
                 Keyboard_US {
-                    id: layout
+                    id: keyboard
                 }
                 RowLayout {
                     Layout.alignment: Qt.AlignHCenter
@@ -33,25 +41,25 @@ Kirigami.ApplicationWindow {
                     Controls.Button {
                         text: "1"
                         onClicked: {
-                            layout.symbolsLayer = 1;
+                            keyboard.symbolsLayer = 1;
                         }
                     }
                     Controls.Button {
                         text: "2"
                         onClicked: {
-                            layout.symbolsLayer = 2;
+                            keyboard.symbolsLayer = 2;
                         }
                     }
                     Controls.Button {
                         text: "3"
                         onClicked: {
-                            layout.symbolsLayer = 3;
+                            keyboard.symbolsLayer = 3;
                         }
                     }
                     Controls.Button {
                         text: "4"
                         onClicked: {
-                            layout.symbolsLayer = 4;
+                            keyboard.symbolsLayer = 4;
                         }
                     }
                 }

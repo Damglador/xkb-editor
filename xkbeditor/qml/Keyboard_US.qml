@@ -3,10 +3,9 @@ import QtQuick
 import QtQuick.Layouts
 
 ColumnLayout {
-    id: root
     spacing: 0
+
     property int symbolsLayer: 1
-    property var keys: []
 
     DelegateModel {
         id: keyDelegate
@@ -14,7 +13,6 @@ ColumnLayout {
         delegate: Key {
             required property var modelData
             keycode: modelData.keycode; legend: modelData.legend
-            symbolsLayer: root.symbolsLayer
         }
     }
 
