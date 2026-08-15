@@ -1,21 +1,19 @@
 # pyright: reportOptionalMemberAccess=false
 
 from pathlib import Path
-import pytest
 
-from xkbeditor import parser
-from xkbeditor import layout
+from xkbeditor import layout, parser
 
 SAMPLES_DIR = Path(__file__).parent / "symbols"
 
 def test_getVariantFromFile():
     variant1 = parser.getVariantFromFile(SAMPLES_DIR / "my-layout", "test")
-    assert variant1 == parser.getVariantsFromFile(SAMPLES_DIR / "my-layout")[0]
+    assert parser.getVariantsFromFile(SAMPLES_DIR / "my-layout")[0] == variant1
 
 def test_variant_from_generated_xkb():
     variant1 = parser.getVariantFromFile(SAMPLES_DIR / "my-layout", "test")
     variant2 = parser.fromString(variant1.toXkb())[0]
-    assert variant1 == variant2, f"Variants don't match!\nVariant1:\n{variant1}\nVariant2:\n{variant2}"
+    assert variant2 == variant1, f"Variants don't match!\nVariant1:\n{variant1}\nVariant2:\n{variant2}"
 
 def test_parse_generated_xkb():
     variant1 = parser.getVariantFromFile(SAMPLES_DIR / "my-layout", "test")
@@ -23,9 +21,9 @@ def test_parse_generated_xkb():
 
     variant2 = parser.fromString(xkb1)[0]
     xkb2 = variant2.toXkb()
-    assert xkb1 == xkb2
+    assert xkb2 == xkb1
 
-def testQuoteSymbols():
+def test_quote_symbols():
     with open(SAMPLES_DIR / "quotes", "r") as file:
         sourceXkb = file.read()
     variant = layout.Variant(
