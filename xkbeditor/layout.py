@@ -145,7 +145,12 @@ class Variant(BaseModel):
                 props: list[str] = []
                 if keyprops.symbols is not None:
                     symbols: list[str] = []
-                    for symbol in keyprops.symbols:
+                    explicitSymbols: int = 0
+                    for i in range(len(keyprops.symbols)):
+                        if not isImplicit(keyprops.symbols[i]):
+                            explicitSymbols = i + 1
+                    for i in range(explicitSymbols):
+                        symbol = keyprops.symbols[i]
                         if symbol == '"':
                             symbols.append(f"\"\\{symbol}\"")
                         elif len(symbol) == 1:
