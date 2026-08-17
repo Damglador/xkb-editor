@@ -117,7 +117,7 @@ class Variant(BaseModel):
     name: str | None = None # name[Group1] = "<name>"
     flags: list[Flags] | None = None
     keymap: dict[str, KeyProps] = {}
-    includes: list[Include] | None = None
+    includes: list[Include] = []
     key_type: str | None = None
 
     def getSymbol(self, keycode, layer):

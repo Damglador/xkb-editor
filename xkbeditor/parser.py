@@ -5,11 +5,12 @@
 # pyright: reportMissingParameterType=false
 # pyright: reportUnusedParameter=false
 
-from pathlib import Path
-from lark import Lark, Token, Transformer, Tree
-from .layout import Variant, KeyProps, Flags, Include
-
 import re
+from pathlib import Path
+
+from lark import Lark, Token, Transformer, Tree
+
+from .layout import Flags, Include, KeyProps, Variant
 
 lark: Lark = Lark.open("xkb.lark", rel_to=__file__, parser="lalr")
 
@@ -56,8 +57,6 @@ class VariantTransformer(Transformer[Token, Variant]):
                     case "NAME":
                         variant.name = str(item.value).strip('"')
                     case "INCLUDE":
-                        if variant.includes is None:
-                            variant.includes = []
                         variant.includes.append(item.value)
 
                     # TODO: Test those two
