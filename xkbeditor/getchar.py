@@ -11,7 +11,7 @@ def getchar(input: str) -> str:
         try:
             return getCharFromUnicode(input)
         except ValueError:
-            print("Not a unicode codepoint")
+            print("Not a unicode codepoint: " + input)
 
     return keysym_to_string(keysym_from_name(input)) or ""
 
