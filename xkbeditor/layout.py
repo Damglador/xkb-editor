@@ -141,14 +141,14 @@ class Variant(BaseModel):
             lines.append("")
         if self.key_type is not None:
             lines.append(indent + f"key.type[Group1] = {self.key_type};")
-        if self.includes is not None:
+        if self.includes != []:
             for include in self.includes:
                 lines.append(indent + f"include \"{include}\"")
             lines.append("")
-        if self.keymap is not None:
+        if self.keymap != {}:
             for keycode, keyprops in self.keymap.items():
                 props: list[str] = []
-                if keyprops.symbols is not None:
+                if keyprops.symbols != []:
                     symbols: list[str] = []
                     # Count the last explicit symbol in the list to avoid adding trailing NoSymbol to keysyms list
                     explicitSymbols: int = 0
