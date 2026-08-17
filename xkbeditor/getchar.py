@@ -1,30 +1,19 @@
-import csv
+from xkbcommon.xkb import keysym_from_name, keysym_to_string
 
-with open("./xkbeditor/keysyms.csv", 'r') as file:
-    # keysymTable = csv.DictReader(file, delimiter="	")
-    table = csv.reader(file, delimiter="\t")
-    next(table) # Skip header
-    keysymTable: dict[str, str] = {}
-    hexTable: dict[str, str] = {}
-    for row in table:
-        # codename, unicode, hex, comment = row
-        keysymTable.update({row[0]: row[1]})
-        hexTable.update({row[2]: row[1]})
 
 def getchar(input: str) -> str:
     # Assume it's already a character
     if len(input) == 1:
         return input
-    if input in keysymTable:
-        return getCharFromUnicode(keysymTable[input])
+    if input.startswith("0x"):
+        return keysym_to_string(int(input, 16)) or ""
     if len(input) == 5 and input.startswith("U"):
-        return getCharFromUnicode(input)
-    if input in hexTable:
-        return getCharFromUnicode(hexTable[input])
-    # if len(input) == 6 and input.startswith("0x"):
-    #     return getCharFromHex(input)
+        try:
+            return getCharFromUnicode(input)
+        except ValueError:
+            print("Not a unicode codepoint")
 
-    return ""
+    return keysym_to_string(keysym_from_name(input)) or ""
 
 def getCharFromUnicode(unicode: str):
     char = chr(int(unicode[1:5], base=16))
