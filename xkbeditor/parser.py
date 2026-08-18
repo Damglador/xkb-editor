@@ -5,11 +5,13 @@
 # pyright: reportMissingParameterType=false
 # pyright: reportUnusedParameter=false
 
+import os
 import re
 from pathlib import Path
 
 from lark import Lark, Token, Transformer, Tree
 
+from .globals import XKB_INCLUDE_PATHS
 from .layout import Flags, Include, KeyProps, Variant
 
 lark: Lark = Lark.open("xkb.lark", rel_to=__file__, parser="lalr")
@@ -20,8 +22,30 @@ def getVariantsFromFile(filePath: Path | str) -> list[Variant]:
         variants = fromString(file.read())
     return variants
 
-def getVariant(language: str, variantId: str):
-    return None
+def getVariant(includePath: str, variantId: str | None = None) -> Variant | None:
+    files: list[str] = []
+    for includeDir in XKB_INCLUDE_PATHS:
+        candidate = os.path.join(includeDir, "symbols", includePath)
+        if os.path.isfile(candidate):
+            files.append(candidate)
+    result: Variant | None = None
+    if variantId is not None:
+        for file in files:
+            variant = getVariantFromFile(file, variantId)
+            if variant is not None:
+                result = variant
+    else:
+        firstMatch: Variant | None = None
+        for file in files:
+            variants: list[Variant] = getVariantsFromFile(file)
+            for variant in variants:
+                if firstMatch is None:
+                    firstMatch = variant
+                if Flags.DEFAULT in variant.flags:
+                    result = variant
+        if result is None:
+            result = firstMatch
+    return result
 
 def fromString(string: str) -> list[Variant]:
     return XkbTransformer().transform(lark.parse(string))

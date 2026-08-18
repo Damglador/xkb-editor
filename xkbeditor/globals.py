@@ -16,6 +16,7 @@ XDG_CONFIG_HOME = environ.get("XDG_CONFIG_HOME") or path.join(HOME, ".config")
 
 XKB_INCLUDE_PATHS: list[str] = []
 
+# TODO: Figure out proper include priority
 for xkbpath in [
     XKB_CONFIG_ROOT,
     XKB_CONFIG_LEGACY_ROOT,

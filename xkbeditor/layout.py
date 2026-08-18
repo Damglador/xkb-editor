@@ -132,7 +132,7 @@ class Variant(BaseModel):
     def toXkb(self) -> str:
         indent: str = "    "
         lines: list[str] = []
-        if self.flags is not None:
+        if self.flags != []:
             lines.append(" ".join(self.flags))
         lines.append(f"xkb_symbols \"{self.id}\" {{")
 
