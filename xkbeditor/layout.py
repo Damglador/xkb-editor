@@ -159,7 +159,7 @@ class Variant(BaseModel):
                         symbol = keyprops.symbols[i]
                         if symbol == '"':
                             symbols.append(f"\"\\{symbol}\"")
-                        elif len(symbol) == 1:
+                        elif len(symbol) == 1 or symbol == r'\"':
                             symbols.append(f"\"{symbol}\"")
                         else:
                             symbols.append(symbol)

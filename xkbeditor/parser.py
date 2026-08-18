@@ -155,7 +155,9 @@ class VariantTransformer(Transformer[Token, Variant]):
         for item in items:
             # Keep .value, it'll write tokens otherwise
             # DON'T strip('"'), because then it doesn't strip "\"" properly
-            syms.append(str(item.value))
+            if str(item.value).startswith('"') and str(item.value).endswith('"'):
+                item.value = item.value[1:-1]
+            syms.append(str(item.value).replace(r'\"', '"'))
         return Token("SYMBOLS", syms)
     def key_acts(self, items):
         return Token("ACTIONS", "Bogus data")
