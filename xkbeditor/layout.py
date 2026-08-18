@@ -115,7 +115,7 @@ class Variant(BaseModel):
     # Human-readable name of the `variant`.
     # Defined as `name[Group1]="English (US, symbolic)";`
     name: str | None = None # name[Group1] = "<name>"
-    flags: list[Flags] | None = None
+    flags: list[Flags] = []
     keymap: dict[str, KeyProps] = {}
     includes: list[Include] = []
     key_type: str | None = None
