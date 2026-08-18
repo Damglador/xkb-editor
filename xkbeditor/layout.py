@@ -120,7 +120,7 @@ class Variant(BaseModel):
     includes: list[Include] = []
     key_type: str | None = None
 
-    def getSymbol(self, keycode, layer):
+    def getSymbol(self, keycode: str, layer: int):
         sym = ""
         key = self.keymap.get(keycode)
         if key is not None:
