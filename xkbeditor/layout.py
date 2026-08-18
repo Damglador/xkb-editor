@@ -120,6 +120,8 @@ class Variant(BaseModel):
     includes: list[Include] = []
     key_type: str | None = None
 
+    deps: list[Variant] = []
+
     def getSymbol(self, keycode: str, layer: int):
         sym = ""
         key = self.keymap.get(keycode)
@@ -128,6 +130,18 @@ class Variant(BaseModel):
         if isImplicit(sym):
             sym = ""
         return sym
+
+    def getSymbolOrFallback(self, keycode: str, layer: int, searchSelf: bool) -> str:
+        keysym: str = ""
+        if searchSelf:
+            keysym = self.getSymbol(keycode, layer)
+            if not isImplicit(keysym):
+                return keysym
+        for dep in self.deps:
+            result = dep.getSymbolOrFallback(keycode, layer, searchSelf=True)
+            if not isImplicit(result):
+                keysym = result
+        return keysym
 
     def toXkb(self) -> str:
         indent: str = "    "
