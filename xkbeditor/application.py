@@ -8,13 +8,13 @@ from PySide6.QtCore import QObject, QUrl, Slot
 from PySide6.QtGui import QGuiApplication
 from PySide6.QtQml import QmlElement, QQmlApplicationEngine
 
-from . import parser
+from . import xkb
 from .getchar import getchar
 
 QML_IMPORT_NAME = "project"
 QML_IMPORT_MAJOR_VERSION = 2
 
-variant = parser.getVariantFromFile("/usr/share/xkeyboard-config-2/symbols/us", "basic")
+variant = xkb.getVariant("ua", "unicode")
 
 @QmlElement
 class Bridge(QObject):
