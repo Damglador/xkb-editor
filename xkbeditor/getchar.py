@@ -1,3 +1,8 @@
+# xkbcommon doesn't type function
+# pyright: reportUnknownVariableType=false
+# pyright: reportUnknownArgumentType=false
+# pyright: reportMissingTypeStubs=false
+
 from xkbcommon.xkb import keysym_from_name, keysym_to_string
 
 
@@ -14,6 +19,7 @@ def getchar(input: str) -> str:
             print("Not a unicode codepoint: " + input)
 
     return keysym_to_string(keysym_from_name(input)) or ""
+
 
 def getCharFromUnicode(unicode: str):
     char = chr(int(unicode[1:5], base=16))

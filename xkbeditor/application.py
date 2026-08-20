@@ -19,7 +19,7 @@ variant = xkb.getVariant("ua", "unicode")
 @QmlElement
 class Bridge(QObject):
     @Slot(str, int, result=str)
-    def getKeyChar(self, keycode, layer):
+    def getKeyChar(self, keycode: str, layer: int):
         return getchar(variant.getSymbol(keycode, layer))
 
     @Slot(str, int, result=str)
@@ -33,7 +33,7 @@ def main():
   engine = QQmlApplicationEngine()
 
   """Needed to close the app with Ctrl+C"""
-  signal.signal(signal.SIGINT, signal.SIG_DFL)
+  _ = signal.signal(signal.SIGINT, signal.SIG_DFL)
 
   """Needed to get proper KDE style outside of Plasma"""
   if not os.environ.get("QT_QUICK_CONTROLS_STYLE"):
@@ -46,7 +46,7 @@ def main():
   if len(engine.rootObjects()) == 0:
     sys.exit()
 
-  app.exec()
+  _ = app.exec()
 
 
 if __name__ == "__main__":

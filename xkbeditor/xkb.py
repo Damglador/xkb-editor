@@ -1,8 +1,10 @@
+# pyright: reportIgnoreCommentWithoutRule=false
+
 import os
 import re
 from enum import StrEnum
 from pathlib import Path
-from typing import Any
+from typing import Any, override
 
 from lark import Lark, Token, Transformer, Tree
 from pydantic import BaseModel, ConfigDict
@@ -56,6 +58,7 @@ class Include(BaseModel):
     path: str
     variant: str | None
 
+    @override
     def __str__(self):
         if self.variant is None:
             return f"{self.path}"
@@ -97,10 +100,9 @@ class KeyProps(BaseModel):
             case (
                 MergeMode.OVERRIDE | MergeMode.ALTERNATE
             ):  # Write explicitly defined in NEW
-                if new.symbols is not None and self.symbols is not None:
-                    for i in range(len(new.symbols)):
-                        if not isImplicit(new.symbols[i]):
-                            self.symbols[i] = new.symbols[i]
+                for i in range(len(new.symbols)):
+                    if not isImplicit(new.symbols[i]):
+                        self.symbols[i] = new.symbols[i]
                 if not isImplicit(new.virtmod):
                     self.virtmod = new.virtmod
                 if not isImplicit(new.repeat):
@@ -110,10 +112,9 @@ class KeyProps(BaseModel):
             case (
                 MergeMode.AUGMENT
             ):  # Write explicitly defined in NEW for implicitly defined in OLD
-                if new.symbols is not None and self.symbols is not None:
-                    for i in range(len(new.symbols)):
-                        if isImplicit(self.symbols[i]):
-                            self.symbols[i] = new.symbols[i]
+                for i in range(len(new.symbols)):
+                    if isImplicit(self.symbols[i]):
+                        self.symbols[i] = new.symbols[i]
                 if isImplicit(self.virtmod):
                     self.virtmod = new.virtmod
                 if isImplicit(self.repeat):
@@ -262,7 +263,9 @@ def getVariantFromFile(filePath: Path | str, variantId: str) -> Variant | None:
             return variant
     return None
 
-
+# pyright: reportMissingParameterType=false, reportUnknownParameterType=false
+# pyright: reportUnknownArgumentType=false,  reportUnknownMemberType=false
+# pyright: reportUnknownVariableType=false,  reportAny=false
 class XkbTransformer(Transformer[Token, list[Variant]]):
     def start(self, items) -> list[Variant]:
         variants = []
@@ -278,8 +281,6 @@ class VariantTransformer(Transformer[Token, Variant]):
             if type(item) is Token:
                 match item.type:
                     case "FLAG":
-                        if variant.flags is None:
-                            variant.flags = []
                         variant.flags.append(Flags(item.value))
                     case "ID":
                         variant.id = str(item.value).strip('"')
@@ -316,7 +317,7 @@ class VariantTransformer(Transformer[Token, Variant]):
     def include(self, items):
         path, variant = [ "", None ]
         incl = str(items[0]).strip('"')
-        match = re.match(r'(.*)\((.*)\)$', incl) # pyright: ignore[reportInvalidStringEscapeSequence]
+        match = re.match(r'(.*)\((.*)\)$', incl)
         if match:
             path = match.group(1)
             variant = match.group(2)
