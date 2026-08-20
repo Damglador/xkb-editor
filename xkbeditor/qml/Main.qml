@@ -49,24 +49,28 @@ Kirigami.ApplicationWindow {
                     }
                     Controls.Button {
                         text: "1"
+                        checked: keyboard.symbolsLayer == 1
                         onClicked: {
                             keyboard.symbolsLayer = 1;
                         }
                     }
                     Controls.Button {
                         text: "2"
+                        checked: keyboard.symbolsLayer == 2
                         onClicked: {
                             keyboard.symbolsLayer = 2;
                         }
                     }
                     Controls.Button {
                         text: "3"
+                        checked: keyboard.symbolsLayer == 3
                         onClicked: {
                             keyboard.symbolsLayer = 3;
                         }
                     }
                     Controls.Button {
                         text: "4"
+                        checked: keyboard.symbolsLayer == 4
                         onClicked: {
                             keyboard.symbolsLayer = 4;
                         }
