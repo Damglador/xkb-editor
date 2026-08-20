@@ -26,8 +26,17 @@ Kirigami.ApplicationWindow {
                 RowLayout {
                     Controls.Switch {
                         id: legendToggle
-                        text: "Show legends"
+                        text: qsTr("Show legends")
                         checked: true
+                        Controls.ToolTip.text: qsTr("Show characters from a physical QWERTY keyboard")
+                        Controls.ToolTip.visible: hovered
+                    }
+                    Controls.Switch {
+                        id: fallbacksToggle
+                        text: qsTr("Show fallbacks")
+                        checked: true
+                        Controls.ToolTip.text: qsTr("Show characters from included layouts")
+                        Controls.ToolTip.visible: hovered
                     }
                 }
                 Keyboard_US {

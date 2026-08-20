@@ -18,13 +18,13 @@ variant = xkb.getVariant("ua", "unicode")
 
 @QmlElement
 class Bridge(QObject):
-    @Slot(str, int, str, result=str)
-    def getKeyChar(self, keycode, layer, oldLabel):
-        if keycode:
-            if variant is not None:
-                return getchar(variant.getSymbol(keycode, layer))
-            return keycode
-        return oldLabel
+    @Slot(str, int, result=str)
+    def getKeyChar(self, keycode, layer):
+        return getchar(variant.getSymbol(keycode, layer))
+
+    @Slot(str, int, result=str)
+    def getKeyCharFallback(self, keycode: str, layer: int):
+        return getchar(variant.getSymbolOrFallback(keycode, layer, False))
 
 
 def main():

@@ -16,10 +16,12 @@ Controls.Button {
     property int symbolsLayer: keyboard.symbolsLayer
 
     property string keycode
+    property string char
+    property string charFallback
     property string legend
     property var label
 
-    text: label
+    text: label ?? char
 
     Controls.Label {
         id: legend
@@ -32,11 +34,24 @@ Controls.Button {
 
         text: parent.legend
 
-        opacity: 0.5
+        opacity: 0.2
+    }
+
+    Controls.Label {
+        id: fallback
+
+        visible: fallbacksToggle.checked && !parent.char
+
+        anchors.centerIn: parent
+
+        text: parent.charFallback
+
+        opacity: 0.4
     }
 
     onSymbolsLayerChanged: {
-        text = bridge.getKeyChar(keycode, symbolsLayer, label);
+        char = bridge.getKeyChar(keycode, symbolsLayer);
+        charFallback = bridge.getKeyCharFallback(keycode, symbolsLayer);
     }
 
     onClicked: {
