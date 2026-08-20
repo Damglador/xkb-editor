@@ -5,7 +5,7 @@ import org.kde.kirigami as Kirigami
 import project
 
 Kirigami.ApplicationWindow {
-    id: root
+    id: window
 
     title: qsTr("XkbEditor")
 
@@ -15,6 +15,10 @@ Kirigami.ApplicationWindow {
     height: minimumHeight
 
     pageStack.initialPage: initPage
+
+    Bridge {
+        id: bridge
+    }
 
     Component {
         id: initPage
@@ -45,41 +49,21 @@ Kirigami.ApplicationWindow {
                 RowLayout {
                     Layout.alignment: Qt.AlignHCenter
                     Controls.Label {
-                        text: "Layer:"
+                        text: qsTr("Layer:")
                     }
-                    Controls.Button {
-                        text: "1"
-                        checked: keyboard.symbolsLayer == 1
-                        onClicked: {
-                            keyboard.symbolsLayer = 1;
-                        }
-                    }
-                    Controls.Button {
-                        text: "2"
-                        checked: keyboard.symbolsLayer == 2
-                        onClicked: {
-                            keyboard.symbolsLayer = 2;
-                        }
-                    }
-                    Controls.Button {
-                        text: "3"
-                        checked: keyboard.symbolsLayer == 3
-                        onClicked: {
-                            keyboard.symbolsLayer = 3;
-                        }
-                    }
-                    Controls.Button {
-                        text: "4"
-                        checked: keyboard.symbolsLayer == 4
-                        onClicked: {
-                            keyboard.symbolsLayer = 4;
+                    Repeater {
+                        model: [1, 2, 3, 4]
+                        delegate: Controls.Button {
+                            required property int modelData
+
+                            text: modelData.toString()
+                            checked: keyboard.symbolsLayer == modelData
+                            onClicked: {
+                                keyboard.symbolsLayer = modelData;
+                            }
                         }
                     }
                 }
-            }
-
-            Bridge {
-                id: bridge
             }
         }
     }
