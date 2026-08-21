@@ -2,7 +2,7 @@
 
 from pathlib import Path
 
-from xkbeditor import layout, xkb
+from xkbeditor import xkb
 
 SAMPLES_DIR = Path(__file__).parent / "symbols"
 
@@ -26,14 +26,14 @@ def test_parse_generated_xkb():
 def test_quote_symbols():
     with open(SAMPLES_DIR / "quotes", "r") as file:
         sourceXkb = file.read()
-    variant = layout.Variant(
+    variant = xkb.Variant(
         id="test",
         keymap={
-            "AB08": layout.KeyProps(symbols=["\"", "'", "“", "NoSymbol"])
+            "AB08": xkb.KeyProps(symbols=["\"", "'", "“", "NoSymbol"])
         }
     )
-    xkb = variant.toXkb()
-    assert xkb == sourceXkb, f"""Generated XKB doesn't match with the test sample!
+    xkbStr = variant.toXkb()
+    assert xkbStr == sourceXkb, f"""Generated XKB doesn't match with the test sample!
 sample:
 {sourceXkb}
 generated:
@@ -41,11 +41,11 @@ generated:
 
 def test_toxkb():
     variant = xkb.getVariantFromFile(SAMPLES_DIR / "toxkb-reference", "test")
-    xkb = variant.toXkb()
+    xkbStr = variant.toXkb()
 
     with open(SAMPLES_DIR / "toxkb-reference", "r") as file:
         sourceXkb = file.read()
-    assert xkb == sourceXkb
+    assert xkbStr == sourceXkb
 
 def test_upstream_us():
     variants = xkb.getVariantsFromFile("/usr/share/xkeyboard-config-2/symbols/us")
