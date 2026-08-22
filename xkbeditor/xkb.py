@@ -40,6 +40,7 @@ class Variant(BaseModel):
             keysym = self.getSymbol(keycode, layer)
             if not isImplicit(keysym):
                 return keysym
+        # TODO: search in reverse order instead of applying the last match?
         for dep in self.deps: # pyright: ignore self.deps shouldn't be None at this point
             result = dep.getSymbolOrFallback(keycode, layer, searchSelf=True)
             if not isImplicit(result):

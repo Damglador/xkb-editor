@@ -1,5 +1,6 @@
 import QtQuick
 import QtQuick.Layouts
+import QtQuick.Dialogs
 import QtQuick.Controls as Controls
 import org.kde.kirigami as Kirigami
 import project
@@ -26,6 +27,7 @@ Kirigami.ApplicationWindow {
             Kirigami.Action {
                 text: "Open"
                 icon.name: "document-open"
+                onTriggered: openDialog.open()
             }
             Kirigami.Action {
                 text: "Save"
@@ -34,6 +36,7 @@ Kirigami.ApplicationWindow {
             Kirigami.Action {
                 text: "Save As"
                 icon.name: "document-save-as"
+                onTriggered: saveDialog.open()
             }
         }
         Controls.Menu {
@@ -60,5 +63,17 @@ Kirigami.ApplicationWindow {
             Editor {}
             Component.onCompleted: bridge.loadTestVariant()
         }
+    }
+
+    FileDialog {
+        id: openDialog
+        title: "Open xkb layout"
+        fileMode: FileDialog.OpenFile
+    }
+    FileDialog {
+        id: saveDialog
+        title: "Save xkb layout"
+        fileMode: FileDialog.SaveFile
+
     }
 }

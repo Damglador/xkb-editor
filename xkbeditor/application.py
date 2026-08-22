@@ -7,6 +7,7 @@ import sys
 from PySide6.QtCore import QObject, QUrl, Signal, Slot
 from PySide6.QtGui import QGuiApplication
 from PySide6.QtQml import QmlElement, QQmlApplicationEngine
+from PySide6.QtWidgets import QApplication
 
 from . import xkb
 from .getchar import getchar
@@ -37,7 +38,7 @@ class Bridge(QObject):
 
 def main():
     """Initializes and manages the application execution"""
-    app = QGuiApplication(sys.argv)
+    app = QApplication(sys.argv)
     engine = QQmlApplicationEngine()
 
     """Needed to close the app with Ctrl+C"""

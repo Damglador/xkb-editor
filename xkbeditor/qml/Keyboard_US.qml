@@ -5,7 +5,7 @@ import QtQuick.Layouts
 ColumnLayout {
     spacing: 0
 
-    property int symbolsLayer: 1
+    property int symbolsLayer: layerSelector.currentIndex + 1
 
     DelegateModel {
         id: keyDelegate

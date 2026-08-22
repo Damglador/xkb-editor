@@ -4,26 +4,33 @@ import QtQuick.Controls as Controls
 
 ColumnLayout {
     anchors.centerIn: parent
+    Controls.TabBar {
+        id: layerSelector
+
+        Layout.alignment: Qt.AlignHCenter
+        Controls.TabButton {
+            text: "1"
+            Controls.ToolTip.text: "Default layer"
+            Controls.ToolTip.visible: hovered
+        }
+        Controls.TabButton {
+            text: "2"
+            Controls.ToolTip.text: "Shift layer"
+            Controls.ToolTip.visible: hovered
+        }
+        Controls.TabButton {
+            text: "3"
+            Controls.ToolTip.text: "RAlt layer"
+            Controls.ToolTip.visible: hovered
+        }
+        Controls.TabButton {
+            text: "4"
+            Controls.ToolTip.text: "Shift+RAlt layer"
+            Controls.ToolTip.visible: hovered
+        }
+    }
 
     Keyboard_US {
         id: keyboard
-    }
-    RowLayout {
-        Layout.alignment: Qt.AlignHCenter
-        Controls.Label {
-            text: qsTr("Layer:")
-        }
-        Repeater {
-            model: [1, 2, 3, 4]
-            delegate: Controls.Button {
-                required property int modelData
-
-                text: modelData.toString()
-                checked: keyboard.symbolsLayer == modelData
-                onClicked: {
-                    keyboard.symbolsLayer = modelData;
-                }
-            }
-        }
     }
 }
