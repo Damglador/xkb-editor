@@ -54,7 +54,7 @@ Controls.Button {
     onSymbolsLayerChanged: loadChars()
     Connections {
         target: bridge
-        function onVariantLoaded() {
+        function onVariantChanged() {
             key.loadChars()
         }
     }

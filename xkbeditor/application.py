@@ -5,7 +5,7 @@ import signal
 import sys
 from urllib.parse import urlparse
 
-from PySide6.QtCore import QObject, QUrl, Signal, Slot
+from PySide6.QtCore import Property, QObject, QUrl, Signal, Slot
 from PySide6.QtQml import QmlElement, QQmlApplicationEngine
 from PySide6.QtWidgets import QApplication
 
@@ -16,31 +16,53 @@ QML_IMPORT_NAME = "project"
 QML_IMPORT_MAJOR_VERSION = 2
 
 
+# pyright: reportUnannotatedClassAttribute=false
 @QmlElement
 class Bridge(QObject):
     variants: list[xkb.Variant] = []
-    currentVariant: int = 0
+    _currentVariant: int = 0
 
-    variantLoaded = Signal()
+    variantChanged = Signal()
     failedOpen = Signal()
     failedSave = Signal()
 
+    def __init__(self):
+        super().__init__()
+        _ = self.variantChanged.connect(self.variantsLengthChanged)
+
     @property
     def variant(self):
-        if 0 <= self.currentVariant < len(self.variants):
-            return self.variants[self.currentVariant]
+        if 0 <= self._currentVariant < len(self.variants):
+            return self.variants[self._currentVariant]
         else:
             return xkb.Variant()
 
+    @Property(int, notify=variantChanged)
+    def currentVariant(self) -> int:  # pyright: ignore[reportRedeclaration]
+        return self._currentVariant
+
+    @currentVariant.setter
+    def currentVariant(self, value: int) -> None:
+        self._currentVariant = value
+        self.variantChanged.emit()
+
+    variantsLengthChanged = Signal()
+
+    @Property(int, notify=variantsLengthChanged)
+    def variantsLength(self):
+        return len(self.variants) - 1
+
     @Slot()
     def loadTestVariant(self):
-        self.variants = xkb.getVariantsFromFile(os.path.expanduser("~/.config/xkb/symbols/us"))
-        self.variantLoaded.emit()
+        self.variants = xkb.getVariantsFromFile(
+            os.path.expanduser("~/.config/xkb/symbols/us")
+        )
+        self.variantChanged.emit()
 
     @Slot(str)
     def openFile(self, filePath: str):
         self.variants = xkb.getVariantsFromFile(urlparse(filePath).path)
-        self.variantLoaded.emit()
+        self.variantChanged.emit()
 
     @Slot(str, int, result=str)
     def getKeyChar(self, keycode: str, layer: int):

@@ -4,6 +4,11 @@ import QtQuick.Controls as Controls
 
 ColumnLayout {
     anchors.centerIn: parent
+    Controls.SpinBox {
+        onValueChanged: bridge.currentVariant = value
+        from: 0
+        to: bridge.variantsLength
+    }
     Controls.TabBar {
         id: layerSelector
 
