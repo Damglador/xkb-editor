@@ -3,6 +3,7 @@
 export TESTS_DIR="$(realpath "$(dirname "$0")")"
 
 for layout in "$TESTS_DIR"/symbols/*; do
+    [ -d "$layout" ] && continue
     xkbcli compile-keymap \
         --include "$TESTS_DIR" \
         --include /tmp/xkb \
@@ -10,6 +11,6 @@ for layout in "$TESTS_DIR"/symbols/*; do
         --test \
         --layout "$layout" \
         --variant test &&  \
-        echo "Valid :)" || \
-        echo "Invalid! :("
+        echo "Valid :)      $(basename "$layout")" || \
+        echo "Invalid! :(   $(basename "$layout")"
 done
