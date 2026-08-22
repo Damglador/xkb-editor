@@ -1,3 +1,4 @@
+import QtCore
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Dialogs
@@ -69,11 +70,15 @@ Kirigami.ApplicationWindow {
         id: openDialog
         title: "Open xkb layout"
         fileMode: FileDialog.OpenFile
+
+        onAccepted: bridge.openFile(selectedFile)
+        currentFolder: StandardPaths.standardLocations(StandardPaths.ConfigLocation)[0] + "/xkb/symbols"
     }
     FileDialog {
         id: saveDialog
         title: "Save xkb layout"
         fileMode: FileDialog.SaveFile
 
+        currentFolder: StandardPaths.standardLocations(StandardPaths.ConfigLocation)[0] + "/xkb/symbols"
     }
 }

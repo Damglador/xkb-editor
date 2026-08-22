@@ -3,9 +3,9 @@
 import os
 import signal
 import sys
+from urllib.parse import urlparse
 
 from PySide6.QtCore import QObject, QUrl, Signal, Slot
-from PySide6.QtGui import QGuiApplication
 from PySide6.QtQml import QmlElement, QQmlApplicationEngine
 from PySide6.QtWidgets import QApplication
 
@@ -18,13 +18,28 @@ QML_IMPORT_MAJOR_VERSION = 2
 
 @QmlElement
 class Bridge(QObject):
-    variant: xkb.Variant = xkb.Variant()
+    variants: list[xkb.Variant] = []
+    currentVariant: int = 0
 
-    variantLoaded: Signal = Signal()
+    variantLoaded = Signal()
+    failedOpen = Signal()
+    failedSave = Signal()
+
+    @property
+    def variant(self):
+        if 0 <= self.currentVariant < len(self.variants):
+            return self.variants[self.currentVariant]
+        else:
+            return xkb.Variant()
 
     @Slot()
     def loadTestVariant(self):
-        self.variant = xkb.getVariant("us", "custom") or xkb.Variant()
+        self.variants = xkb.getVariantsFromFile(os.path.expanduser("~/.config/xkb/symbols/us"))
+        self.variantLoaded.emit()
+
+    @Slot(str)
+    def openFile(self, filePath: str):
+        self.variants = xkb.getVariantsFromFile(urlparse(filePath).path)
         self.variantLoaded.emit()
 
     @Slot(str, int, result=str)
@@ -40,6 +55,8 @@ def main():
     """Initializes and manages the application execution"""
     app = QApplication(sys.argv)
     engine = QQmlApplicationEngine()
+
+    app.setDesktopFileName("xkb-editor")
 
     """Needed to close the app with Ctrl+C"""
     _ = signal.signal(signal.SIGINT, signal.SIG_DFL)
