@@ -26,7 +26,7 @@ Controls.Button {
     Controls.Label {
         id: legend
 
-        visible: legendToggle.checked
+        visible: legendsToggle.checked
 
         leftPadding: 5
         anchors.left: parent.left

@@ -20,6 +20,39 @@ Kirigami.ApplicationWindow {
         id: bridge
     }
 
+    Controls.MenuBar {
+        Controls.Menu {
+            title: "File"
+            Kirigami.Action {
+                text: "Open"
+                icon.name: "document-open"
+            }
+            Kirigami.Action {
+                text: "Save"
+                icon.name: "document-save"
+            }
+            Kirigami.Action {
+                text: "Save As"
+                icon.name: "document-save-as"
+            }
+        }
+        Controls.Menu {
+            title: qsTr("View")
+            Kirigami.Action {
+                id: legendsToggle
+                text: qsTr("Show legends")
+                checkable: true
+                checked: true
+            }
+            Kirigami.Action {
+                id: fallbacksToggle
+                text: qsTr("Show fallback characters")
+                checkable: true
+                checked: true
+            }
+        }
+    }
+
     Component {
         id: initPage
 

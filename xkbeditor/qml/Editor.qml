@@ -5,22 +5,6 @@ import QtQuick.Controls as Controls
 ColumnLayout {
     anchors.centerIn: parent
 
-    RowLayout {
-        Controls.Switch {
-            id: legendToggle
-            text: qsTr("Show legends")
-            checked: true
-            Controls.ToolTip.text: qsTr("Show characters from a physical QWERTY keyboard")
-            Controls.ToolTip.visible: hovered
-        }
-        Controls.Switch {
-            id: fallbacksToggle
-            text: qsTr("Show fallbacks")
-            checked: true
-            Controls.ToolTip.text: qsTr("Show characters from included layouts")
-            Controls.ToolTip.visible: hovered
-        }
-    }
     Keyboard_US {
         id: keyboard
     }
