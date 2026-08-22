@@ -3,7 +3,6 @@
 import os
 import re
 from pathlib import Path
-from types import NoneType
 
 from lark import Lark, Token, Transformer, Tree
 from pydantic import BaseModel

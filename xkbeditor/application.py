@@ -28,26 +28,26 @@ class Bridge(QObject):
 
 
 def main():
-  """Initializes and manages the application execution"""
-  app = QGuiApplication(sys.argv)
-  engine = QQmlApplicationEngine()
+    """Initializes and manages the application execution"""
+    app = QGuiApplication(sys.argv)
+    engine = QQmlApplicationEngine()
 
-  """Needed to close the app with Ctrl+C"""
-  _ = signal.signal(signal.SIGINT, signal.SIG_DFL)
+    """Needed to close the app with Ctrl+C"""
+    _ = signal.signal(signal.SIGINT, signal.SIG_DFL)
 
-  """Needed to get proper KDE style outside of Plasma"""
-  if not os.environ.get("QT_QUICK_CONTROLS_STYLE"):
-    os.environ["QT_QUICK_CONTROLS_STYLE"] = "org.kde.desktop"
+    """Needed to get proper KDE style outside of Plasma"""
+    if not os.environ.get("QT_QUICK_CONTROLS_STYLE"):
+        os.environ["QT_QUICK_CONTROLS_STYLE"] = "org.kde.desktop"
 
-  base_path = os.path.abspath(os.path.dirname(__file__))
-  url = QUrl(f"file://{base_path}/qml/Main.qml")
-  engine.load(url)
+    base_path = os.path.abspath(os.path.dirname(__file__))
+    url = QUrl(f"file://{base_path}/qml/Main.qml")
+    engine.load(url)
 
-  if len(engine.rootObjects()) == 0:
-    sys.exit()
+    if len(engine.rootObjects()) == 0:
+        sys.exit()
 
-  _ = app.exec()
+    _ = app.exec()
 
 
 if __name__ == "__main__":
-  main()
+    main()
