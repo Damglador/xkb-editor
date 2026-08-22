@@ -58,6 +58,7 @@ Kirigami.ApplicationWindow {
 
         Kirigami.Page {
             Editor {}
+            Component.onCompleted: bridge.loadTestVariant()
         }
     }
 }

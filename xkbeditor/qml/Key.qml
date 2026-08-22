@@ -4,6 +4,8 @@ import QtQuick.Controls as Controls
 import org.kde.kirigami as Kirigami
 
 Controls.Button {
+    id: key
+
     property var unitSize: Kirigami.Units.gridUnit * 3
     property var unitWidth: unitSize
     property var unitHeight: unitSize
@@ -49,7 +51,15 @@ Controls.Button {
         opacity: 0.4
     }
 
-    onSymbolsLayerChanged: {
+    onSymbolsLayerChanged: loadChars()
+    Connections {
+        target: bridge
+        function onVariantLoaded() {
+            key.loadChars()
+        }
+    }
+
+    function loadChars() {
         char = bridge.getKeyChar(keycode, symbolsLayer);
         charFallback = bridge.getKeyCharFallback(keycode, symbolsLayer);
     }
