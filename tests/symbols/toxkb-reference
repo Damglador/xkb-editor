@@ -7,8 +7,8 @@ xkb_symbols "test" {
     include "level3(ralt_switch)"
 
     key <AE11> { [ minus,    underscore,    "—",    "–" ],
-                   actions[Group1] = [ SetMods(modifiers=Control,clearLocks=true), LockMods(modifiers=Lock) ],
-                   type[Group1] = "FOUR_LEVEL_SEMIALPHABETIC",
+                   actions = [ SetMods(modifiers=Control,clearLocks=true), LockMods(modifiers=Lock) ],
+                   type = "FOUR_LEVEL_SEMIALPHABETIC",
                    repeat = True,
                    virtualModifiers = Alt };
     key <AE12> { [ "\"" ] };

@@ -213,9 +213,9 @@ class Variant(BaseModel):
                         for param, val in action.params.items():
                             params.append(f'{param}={val}')
                         actions.append(f'{action.name}({",".join(params)})')
-                    props.append(f'actions[Group1] = [ {", ".join(actions)} ]')
+                    props.append(f'actions = [ {", ".join(actions)} ]')
                 if keyprops.type is not None:
-                    props.append(f'type[Group1] = "{keyprops.type}"')
+                    props.append(f'type = "{keyprops.type}"')
                 if keyprops.repeat is not None:
                     props.append(f"repeat = {keyprops.repeat}")
                 if keyprops.virtmod is not None:
