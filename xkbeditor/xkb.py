@@ -4,6 +4,7 @@ import os
 import re
 from enum import StrEnum
 from pathlib import Path
+from types import NoneType
 from typing import Any, override
 
 from lark import Lark, Token, Transformer, Tree
@@ -33,13 +34,14 @@ class MergeMode(StrEnum):
 
 
 # https://xkbcommon.org/doc/current/keymap-text-format-v1-v2.html#key-actions
-ActionParam = str
-Action = str
+class Action(BaseModel):
+    name: str
+    params: dict[str, str] = {}
 
 # Max of 4 elements
 Symbols = list[str]
 
-Actions = dict[Action, ActionParam]
+Actions = list[Action]
 
 
 def isImplicit(symbol: Any | None) -> bool:
@@ -205,7 +207,13 @@ class Variant(BaseModel):
                     symbolsStr = f"[ {',    '.join(symbols)} ]"
                     props.append(symbolsStr)
                 if keyprops.actions is not None:
-                    print("You didn't implement actions, bozo")
+                    actions: list[str] = []
+                    for action in keyprops.actions:
+                        params: list[str] = []
+                        for param, val in action.params.items():
+                            params.append(f'{param}={val}')
+                        actions.append(f'{action.name}({",".join(params)})')
+                    props.append(f'actions[Group1] = [ {", ".join(actions)} ]')
                 if keyprops.type is not None:
                     props.append(f'type[Group1] = "{keyprops.type}"')
                 if keyprops.repeat is not None:
@@ -345,7 +353,7 @@ class VariantTransformer(Transformer[Token, Variant]):
                 case "SYMBOLS":
                     keyprops.symbols = list(item.value)
                 case "ACTIONS":
-                    keyprops.actions = None # TODO: Make this one work
+                    keyprops.actions = item.value # TODO: Make this one work
                 case "REPEAT":
                     keyprops.repeat = item.value
                 case "TYPE":
@@ -367,14 +375,34 @@ class VariantTransformer(Transformer[Token, Variant]):
         return Token("SYMBOLS", syms)
 
     def key_acts(self, items):
-        return Token("ACTIONS", "Bogus data")
+        actions = Actions()
+        for item in items:
+            # If list is actions is empty, it is NoneType
+            if type(item) is not NoneType:
+                match item.type:
+                    case "ACTION":
+                        actions.append(item.value)
+                    case _:
+                        pass
+            else:
+                print(f"wtf is this?: {type(item)}")
+        return Token("ACTIONS", actions)
 
-    #     acts = []
-    #     for item in items:
-    #         acts.append(item.value)
-    #     return Token("ACTIONS", acts)
-    # def action(self, items):
-    #     name, param, val = items
+    def action(self, items):
+        name: str = ""
+        params: dict[str, str] = {}
+        for item in items:
+            match item.type:
+                case "ACTION":
+                    name = item.value
+                case "ACTION_PARAM":
+                    params.update(dict(item.value))
+                case _:
+                    pass
+        return Token("ACTION", Action(name=name, params=params))
+
+    def action_param(self, items):
+        return Token("ACTION_PARAM", {items[0].value: items[1].value})
 
     def repeat(self, items):
         return Token("REPEAT", bool(items[0]))
