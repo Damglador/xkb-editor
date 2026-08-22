@@ -1,0 +1,3 @@
+xkb_symbols "importtest" {
+    key <AE01> { "Yay!" };
+};

@@ -1,0 +1,17 @@
+xkb_symbols "test" {
+    name[Group1] = "\"Strange name\"";
+    key <AB08> { [ "\"",    "'",    "“" ] };
+    key <AE11> { symbols=[ minus,    underscore,    "—",    "–" ],
+                 actions = [ SetMods(modifiers=Control,clearLocks=True), LockMods(modifiers=Lock) ],
+                 type = "FOUR_LEVEL_SEMIALPHABETIC",
+                 repeat = True,
+                 virtualModifiers = Alt };
+    key <AE12> { symbols[Group1]=[ minus,    underscore,    "—",    "–" ],
+                 actions[Group1] = [ SetMods(modifiers=Control,clearLocks=True), LockMods(modifiers=Lock) ],
+                 type[Group1] = "FOUR_LEVEL_SEMIALPHABETIC",
+                 repeat[Group1] = True,
+                 virtualModifiers[Group1] = Alt };
+    key.type = "TWO_LAYER";
+    key.type[GrOup1] = "TWO_LAYER";
+    key.type[group20] = "FOUR_LEVEL_SEMIALPHABETIC";
+};

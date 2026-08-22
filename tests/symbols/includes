@@ -1,0 +1,7 @@
+// https://xkbcommon.org/doc/current/keymap-text-format-v1-v2.html#xkb-include
+xkb_symbols "test" {
+    //include "importtest/%%test"         // Literal %%
+    //include "%H/.config/xkb/us"         // Relative to $HOME
+    include "%S/us(basic)"              // System `symbols` directory
+    //include "%E/us(custom)"             // `symbols` in /etc/xkb
+};
