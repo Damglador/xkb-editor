@@ -2,129 +2,14 @@
 
 import os
 import re
-from enum import StrEnum
 from pathlib import Path
 from types import NoneType
-from typing import Any, override
 
 from lark import Lark, Token, Transformer, Tree
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel
 
 from .globals import XKB_INCLUDE_PATHS
-
-
-# https://www.charvolant.org/doug/xkb/html/node5.html
-class Flags(StrEnum):
-    DEFAULT = "default"
-    PARTIAL = "partial"
-    HIDDEN = "hidden"
-    ALPHANUMERIC_KEYS = "alphanumeric_keys"
-    MODIFIER_KEYS = "modifier_keys"
-    KEYPAD_KEYS = "keypad_keys"
-    FUNCTION_KEYS = "function_keys"
-    ALTERNATE_GROUP = "alternate_group"
-
-
-# https://xkbcommon.org/doc/current/keymap-text-format-v1-v2.html#merge-mode-def
-class MergeMode(StrEnum):
-    AUGMENT = "augment"
-    OVERRIDE = "override"
-    REPLACE = "replace"
-    ALTERNATE = "alternate"
-
-
-# https://xkbcommon.org/doc/current/keymap-text-format-v1-v2.html#key-actions
-class Action(BaseModel):
-    name: str
-    params: dict[str, str] = {}
-
-# Max of 4 elements
-Symbols = list[str]
-
-Actions = list[Action]
-
-
-def isImplicit(symbol: Any | None) -> bool:
-    match symbol:
-        case "NoSymbol":
-            return True
-        case "":
-            return True
-        case None:
-            return True
-        case _:
-            return False
-
-
-class Include(BaseModel):
-    path: str
-    variant: str | None
-
-    @override
-    def __str__(self):
-        if self.variant is None:
-            return f"{self.path}"
-        else:
-            return f"{self.path}({self.variant})"
-
-
-class KeyProps(BaseModel):
-    def __init__(self, symbols: list[str] | None = None, **data):
-        super().__init__(**data)
-        if symbols is not None:
-            self.symbols = symbols
-
-    model_config = ConfigDict(arbitrary_types_allowed=True)
-
-    _symbols: Symbols = ["NoSymbol", "NoSymbol", "NoSymbol", "NoSymbol"]
-    actions: Actions | None = None
-    virtmod: str | None = None
-    repeat: bool | None = None
-    type: str | None = None
-
-    @property
-    def symbols(self):
-        return self._symbols
-
-    @symbols.setter
-    def symbols(self, syms: list[str] | None):
-        if syms is None:
-            return
-        for i in range(min(len(syms), len(self._symbols))):
-            if not isImplicit(syms[i]):
-                self._symbols[i] = syms[i]
-
-    # https://xkbcommon.org/doc/current/keymap-text-format-v1-v2.html#merge-mode-def
-    def merge(self, new: KeyProps, mode: MergeMode = MergeMode.OVERRIDE):
-        match mode:
-            # Override shall be first because it's the default
-            # Alternate is ignored per the docs, so use the default, which is override
-            case (
-                MergeMode.OVERRIDE | MergeMode.ALTERNATE
-            ):  # Write explicitly defined in NEW
-                for i in range(len(new.symbols)):
-                    if not isImplicit(new.symbols[i]):
-                        self.symbols[i] = new.symbols[i]
-                if not isImplicit(new.virtmod):
-                    self.virtmod = new.virtmod
-                if not isImplicit(new.repeat):
-                    self.repeat = new.repeat
-                if not isImplicit(new.type):
-                    self.type = new.type
-            case (
-                MergeMode.AUGMENT
-            ):  # Write explicitly defined in NEW for implicitly defined in OLD
-                for i in range(len(new.symbols)):
-                    if isImplicit(self.symbols[i]):
-                        self.symbols[i] = new.symbols[i]
-                if isImplicit(self.virtmod):
-                    self.virtmod = new.virtmod
-                if isImplicit(self.repeat):
-                    self.repeat = new.repeat
-                if isImplicit(self.type):
-                    self.type = new.type
-            case MergeMode.REPLACE:  # Overwrite all with NEW
-                self.self = new
+from .types import *
 
 
 class Variant(BaseModel):
@@ -378,14 +263,12 @@ class VariantTransformer(Transformer[Token, Variant]):
         actions = Actions()
         for item in items:
             # If list is actions is empty, it is NoneType
-            if type(item) is not NoneType:
+            if type(item) is Token:
                 match item.type:
                     case "ACTION":
                         actions.append(item.value)
                     case _:
                         pass
-            else:
-                print(f"wtf is this?: {type(item)}")
         return Token("ACTIONS", actions)
 
     def action(self, items):
