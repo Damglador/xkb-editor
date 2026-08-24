@@ -8,7 +8,7 @@ from lark import Lark, Token, Transformer, Tree
 from pydantic import BaseModel
 
 from .globals import XKB_INCLUDE_PATHS
-from .types import *
+from .xkbtypes import *
 
 
 class Variant(BaseModel):
