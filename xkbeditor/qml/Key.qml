@@ -23,7 +23,6 @@ Controls.Button {
     property string legend
     property var label
 
-    text: label ?? char
 
     Controls.Label {
         id: legend
@@ -34,6 +33,13 @@ Controls.Button {
         leftPadding: 5
         anchors.left: parent.left
         anchors.top: parent.top
+    }
+
+    Controls.Label {
+        text: parent.label ?? parent.char
+
+        leftPadding: 5
+        anchors.centerIn: parent
     }
 
     Controls.Label {
