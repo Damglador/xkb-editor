@@ -27,35 +27,29 @@ Controls.Button {
 
     Controls.Label {
         id: legend
-
+        text: parent.legend
+        opacity: 0.2
         visible: legendsToggle.checked
 
         leftPadding: 5
         anchors.left: parent.left
         anchors.top: parent.top
-
-        text: parent.legend
-
-        opacity: 0.2
     }
 
     Controls.Label {
         id: fallback
-
+        text: parent.charFallback
+        opacity: 0.4
         visible: fallbacksToggle.checked && !parent.char
 
         anchors.centerIn: parent
-
-        text: parent.charFallback
-
-        opacity: 0.4
     }
 
     onSymbolsLayerChanged: loadChars()
     Connections {
         target: bridge
         function onVariantChanged() {
-            key.loadChars()
+            key.loadChars();
         }
     }
 
