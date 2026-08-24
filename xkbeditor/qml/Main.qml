@@ -61,7 +61,9 @@ Kirigami.ApplicationWindow {
         id: initPage
 
         Kirigami.Page {
-            Editor {}
+            Editor {
+                anchors.centerIn: parent
+            }
             Component.onCompleted: bridge.loadTestVariant()
         }
     }
