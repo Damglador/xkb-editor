@@ -45,10 +45,9 @@ key_props: "{" [key_prop ("," key_prop)*] "}"
          | key_acts
          | repeat
          | key_virtmod
-key_syms: [ "symbols" "[" "Group1" "]" "=" ] "[" [KEYSYM ("," KEYSYM)*] "]"
-        | "symbols" "[" GROUP "]" "=" "[" KEYSYM "]"
-key_type: "type" "[" GROUP "]" "=" KEY_TYPE
-key_acts: "actions" "[" GROUP "]" "=" "[" [action ("," action)*] "]" // TODO: Idk do something with this
+key_syms: [ "symbols" ["[" "Group1" "]"] "=" ] "[" [KEYSYM ("," KEYSYM)*] "]"
+key_type: "type" ["[" GROUP "]"] "=" KEY_TYPE
+key_acts: "actions" ["[" GROUP "]"] "=" "[" [action ("," action)*] "]" // TODO: Idk do something with this
 action: ACTION "(" [action_param ("," action_param)*] ")"
 action_param: CNAME "=" CNAME
 repeat: "repeat" "=" BOOL
