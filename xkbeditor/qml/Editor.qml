@@ -2,17 +2,36 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls as Controls
 
-ColumnLayout {
-    anchors.centerIn: parent
-    Controls.SpinBox {
-        onValueChanged: bridge.currentVariant = value
-        from: 0
-        to: bridge.variantsLength
+import org.kde.kirigami as Kirigami
+
+Item {
+    anchors.fill: parent
+
+    RowLayout {
+        anchors.bottom: keyboard.top
+        anchors.left: keyboard.left
+
+        Controls.SpinBox {
+            onValueChanged: bridge.currentVariant = value
+            from: 0
+            to: bridge.variantsLength
+        }
+        Kirigami.SelectableLabel {
+            text: bridge.variantName
+        }
+    }
+    Controls.Label {
+        text: "Layer:"
+        padding: Kirigami.Units.smallSpacing
+        anchors.right: layerSelector.left
+        anchors.verticalCenter: layerSelector.verticalCenter
     }
     Controls.TabBar {
         id: layerSelector
 
-        Layout.alignment: Qt.AlignHCenter
+        anchors.bottom: keyboard.top
+        anchors.horizontalCenter: keyboard.horizontalCenter
+
         Controls.TabButton {
             text: "1"
             Controls.ToolTip.text: "Default layer"
@@ -37,5 +56,6 @@ ColumnLayout {
 
     Keyboard_US {
         id: keyboard
+        anchors.centerIn: parent
     }
 }
