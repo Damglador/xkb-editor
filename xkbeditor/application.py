@@ -23,12 +23,12 @@ class Bridge(QObject):
     _currentVariant: int = 0
 
     variantChanged = Signal()
+    fileChanged = Signal()
     failedOpen = Signal()
     failedSave = Signal()
 
     def __init__(self):
         super().__init__()
-        _ = self.variantChanged.connect(self.variantsLengthChanged)
 
     @property
     def variant(self):
@@ -36,6 +36,14 @@ class Bridge(QObject):
             return self.variants[self._currentVariant]
         else:
             return xkb.Variant()
+
+    @Property(str, notify=variantChanged)
+    def variantName(self) -> str:
+        return self.variant.id
+
+    @Property(list, notify=fileChanged)
+    def variantsNames(self) -> list[str]:
+        return [variant.id for variant in self.variants]
 
     @Property(int, notify=variantChanged)
     def currentVariant(self) -> int:  # pyright: ignore[reportRedeclaration]
@@ -46,23 +54,19 @@ class Bridge(QObject):
         self._currentVariant = value
         self.variantChanged.emit()
 
-    variantsLengthChanged = Signal()
-
-    @Property(int, notify=variantsLengthChanged)
+    @Property(int, notify=fileChanged)
     def variantsLength(self):
         return len(self.variants) - 1
 
     @Slot()
     def loadTestVariant(self):
-        self.variants = xkb.getVariantsFromFile(
-            os.path.expanduser("~/.config/xkb/symbols/us")
-        )
-        self.variantChanged.emit()
+        self.openFile("/usr/share/xkeyboard-config-2/symbols/us")
 
     @Slot(str)
     def openFile(self, filePath: str):
         self.variants = xkb.getVariantsFromFile(urlparse(filePath).path)
         self.variantChanged.emit()
+        self.fileChanged.emit()
 
     @Slot(str, int, result=str)
     def getKeyChar(self, keycode: str, layer: int):
