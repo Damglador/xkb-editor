@@ -23,6 +23,23 @@ Controls.Button {
     property string legend
     property var label
 
+    Controls.ToolTip {
+        id: tooltip
+
+        contentItem: RowLayout {
+            Kirigami.SelectableLabel {
+                text: key.keycode + ":"
+            }
+            Controls.TextField {
+                onVisibleChanged: {
+                    if (visible == true)
+                        text = bridge.getKeySym(key.keycode, key.symbolsLayer)
+                }
+                onAccepted: tooltip.visible = !tooltip.visible
+            }
+        }
+        delay: 50
+    }
 
     Controls.Label {
         id: legend
@@ -65,6 +82,6 @@ Controls.Button {
     }
 
     onClicked: {
-        console.log("keycode: " + keycode);
+        tooltip.visible = !tooltip.visible;
     }
 }

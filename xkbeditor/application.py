@@ -69,6 +69,10 @@ class Bridge(QObject):
         self.fileChanged.emit()
 
     @Slot(str, int, result=str)
+    def getKeySym(self, keycode: str, layer: int):
+        return self.variant.getSymbol(keycode, layer)
+
+    @Slot(str, int, result=str)
     def getKeyChar(self, keycode: str, layer: int):
         return getchar(self.variant.getSymbol(keycode, layer))
 
