@@ -5,52 +5,49 @@ import QtQuick.Controls as Controls
 import org.kde.kirigami as Kirigami
 
 Item {
-    anchors.fill: parent
-
     RowLayout {
         anchors.bottom: keyboard.top
         anchors.left: keyboard.left
+        anchors.margins: Kirigami.Units.smallSpacing
 
-        Controls.SpinBox {
-            onValueChanged: bridge.currentVariant = value
-            from: 0
-            to: bridge.variantsLength
+        Controls.Label {
+            text: "Variant:"
+            padding: Kirigami.Units.smallSpacing
         }
-        Kirigami.SelectableLabel {
-            text: bridge.variantName
+        Controls.ComboBox {
+            model: bridge.variantsNames
+            onActivated: bridge.currentVariant = currentIndex
         }
     }
+
     Controls.Label {
         text: "Layer:"
         padding: Kirigami.Units.smallSpacing
         anchors.right: layerSelector.left
         anchors.verticalCenter: layerSelector.verticalCenter
     }
-    Controls.TabBar {
+    RowLayout {
         id: layerSelector
 
-        anchors.bottom: keyboard.top
-        anchors.horizontalCenter: keyboard.horizontalCenter
+        property var currentIndex: 0
 
-        Controls.TabButton {
-            text: "1"
-            Controls.ToolTip.text: "Default layer"
-            Controls.ToolTip.visible: hovered
-        }
-        Controls.TabButton {
-            text: "2"
-            Controls.ToolTip.text: "Shift layer"
-            Controls.ToolTip.visible: hovered
-        }
-        Controls.TabButton {
-            text: "3"
-            Controls.ToolTip.text: "RAlt layer"
-            Controls.ToolTip.visible: hovered
-        }
-        Controls.TabButton {
-            text: "4"
-            Controls.ToolTip.text: "Shift+RAlt layer"
-            Controls.ToolTip.visible: hovered
+        anchors.top: keyboard.bottom
+        anchors.horizontalCenter: keyboard.horizontalCenter
+        anchors.margins: Kirigami.Units.smallSpacing
+
+        Repeater {
+            model: ["Default layer", "Shift layer", "RAlt layer", "Shift+RAlt layer"]
+            delegate: Controls.RoundButton {
+                required property var modelData
+                required property var index
+                text: index + 1
+                Controls.ToolTip.text: modelData
+                Controls.ToolTip.visible: hovered
+
+                checked: layerSelector.currentIndex == index
+                highlighted: layerSelector.currentIndex == index
+                onClicked: layerSelector.currentIndex = index
+            }
         }
     }
 
