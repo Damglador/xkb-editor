@@ -65,8 +65,8 @@ class Bridge(QObject):
     @Slot(str)
     def openFile(self, filePath: str):
         self.variants = xkb.getVariantsFromFile(urlparse(filePath).path)
-        self.variantChanged.emit()
         self.fileChanged.emit()
+        self.variantChanged.emit()
 
     @Slot(str, int, result=str)
     def getKeySym(self, keycode: str, layer: int):
