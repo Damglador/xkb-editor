@@ -72,6 +72,10 @@ class Bridge(QObject):
     def getKeySym(self, keycode: str, layer: int):
         return self.variant.getSymbol(keycode, layer)
 
+    @Slot(str, int, str)
+    def setKeySym(self, keycode: str, layer: int, keysym: str):
+        self.variant.setSymbol(keycode, layer, keysym)
+
     @Slot(str, int, result=str)
     def getKeyChar(self, keycode: str, layer: int):
         return getchar(self.variant.getSymbol(keycode, layer))

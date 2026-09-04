@@ -34,8 +34,13 @@ Controls.Button {
                 onVisibleChanged: {
                     if (visible == true)
                         text = bridge.getKeySym(key.keycode, key.symbolsLayer)
+                        forceActiveFocus()
                 }
-                onAccepted: tooltip.visible = !tooltip.visible
+                onAccepted: {
+                  bridge.setKeySym(key.keycode, key.symbolsLayer, text)
+                  key.loadChars()
+                  tooltip.visible = !tooltip.visible
+                }
             }
         }
         delay: 50

@@ -23,7 +23,7 @@ class Variant(BaseModel):
 
     deps: list[Variant] | None = None
 
-    def getSymbol(self, keycode: str, layer: int):
+    def getSymbol(self, keycode: str, layer: int) -> str:
         sym = ""
         key = self.keymap.get(keycode)
         if key is not None:
@@ -31,6 +31,13 @@ class Variant(BaseModel):
         if isImplicit(sym):
             sym = ""
         return sym
+
+    def setSymbol(self, keycode: str, layer: int, keysym: str):
+        key = self.keymap.get(keycode)
+        if key is None:
+            key = KeyProps()
+        key.symbols[layer - 1] = keysym
+        self.keymap.update({keycode: key})
 
     def getSymbolOrFallback(self, keycode: str, layer: int, searchSelf: bool) -> str:
         if self.deps is None:
