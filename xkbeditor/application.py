@@ -21,14 +21,16 @@ QML_IMPORT_MAJOR_VERSION = 2
 class Bridge(QObject):
     variants: list[xkb.Variant] = []
     _currentVariant: int = 0
+    _openedFilePath: str = ""
 
     variantChanged = Signal()
     fileChanged = Signal()
-    failedOpen = Signal()
-    failedSave = Signal()
+    failedOpen = Signal(str)
+    failedSave = Signal(str)
 
     def __init__(self):
         super().__init__()
+        _ = self.failedSave.connect(self.saveError)
 
     @property
     def variant(self):
@@ -36,6 +38,10 @@ class Bridge(QObject):
             return self.variants[self._currentVariant]
         else:
             return xkb.Variant()
+
+    @Property(str, notify=fileChanged)
+    def openedFilePath(self) -> str:
+        return self._openedFilePath
 
     @Property(str, notify=variantChanged)
     def variantName(self) -> str:
@@ -65,8 +71,21 @@ class Bridge(QObject):
     @Slot(str)
     def openFile(self, filePath: str):
         self.variants = xkb.getVariantsFromFile(urlparse(filePath).path)
+        self._openedFilePath = urlparse(filePath).path
         self.fileChanged.emit()
         self.variantChanged.emit()
+
+    @Slot(str)
+    def saveFile(self, filePath: str):
+        try:
+            with open(urlparse(filePath).path, 'w') as file:
+                _ = file.write("\n\n".join([variant.toXkb() for variant in self.variants]))
+        except Exception as err:
+            self.failedSave.emit(getattr(err, 'message', str(err)))
+
+    @Slot(str)
+    def saveError(self, message: str):
+        print(message)
 
     @Slot(str, int, result=str)
     def getKeySym(self, keycode: str, layer: int):
