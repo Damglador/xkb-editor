@@ -39,11 +39,11 @@ class Bridge(QObject):
 
     @Property(str, notify=variantChanged)
     def variantName(self) -> str:
-        return self.variant.id
+        return self.variant.id or ""
 
     @Property(list, notify=fileChanged)
     def variantsNames(self) -> list[str]:
-        return [variant.id for variant in self.variants]
+        return [variant.id or "" for variant in self.variants]
 
     @Property(int, notify=variantChanged)
     def currentVariant(self) -> int:  # pyright: ignore[reportRedeclaration]
