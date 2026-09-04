@@ -95,7 +95,7 @@ class Variant(BaseModel):
                         elif len(symbol) == 1 or symbol == r"\"":
                             symbols.append(f'"{symbol}"')
                         else:
-                            symbols.append(symbol)
+                            symbols.append(symbol or "NoSymbol")
                     symbolsStr = f"[ {',    '.join(symbols)} ]"
                     props.append(symbolsStr)
                 if keyprops.actions is not None:
