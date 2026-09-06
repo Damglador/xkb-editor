@@ -114,7 +114,6 @@ class Bridge(QObject):
 
     @Slot(int)
     def removeIncludeAt(self, index: int):
-        print(f"Removing {index}")
         del self.variant.includes[index]
         self.variant.reloadIncludes()
         self.variantChanged.emit()
