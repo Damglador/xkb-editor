@@ -87,6 +87,6 @@ Controls.Button {
     }
 
     onClicked: {
-        tooltip.visible = !tooltip.visible;
+        if (keycode) tooltip.visible = !tooltip.visible;
     }
 }
