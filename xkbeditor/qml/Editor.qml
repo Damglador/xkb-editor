@@ -27,6 +27,14 @@ Item {
                 padding: Kirigami.Units.smallSpacing
                 Layout.fillWidth: true
             }
+            Controls.Button {
+                text: "Reload from file"
+                display: Controls.AbstractButton.IconOnly
+                icon.name: "reload"
+                Controls.ToolTip.text: text
+                Controls.ToolTip.visible: hovered
+                onClicked: bridge.openFile(bridge.openedFilePath)
+            }
         }
 
         Keyboard_US {
