@@ -5,48 +5,60 @@ import QtQuick.Controls as Controls
 import org.kde.kirigami as Kirigami
 
 Item {
-    RowLayout {
-        anchors.bottom: keyboard.top
-        anchors.left: keyboard.left
-        anchors.margins: Kirigami.Units.smallSpacing
+    width: layout.width
+    height: layout.height
+    ColumnLayout {
+        id: layout
 
-        Controls.Label {
-            text: "Variant:"
-            padding: Kirigami.Units.smallSpacing
-        }
-        Controls.ComboBox {
-            model: bridge.variantsNames
-            onActivated: bridge.currentVariant = currentIndex
-        }
-    }
-
-    Controls.Label {
-        text: "Layer:"
-        padding: Kirigami.Units.smallSpacing
-        anchors.right: layerSelector.left
-        anchors.verticalCenter: layerSelector.verticalCenter
-    }
-    Controls.TabBar {
-        id: layerSelector
-
-        position: Controls.TabBar.Footer
-        anchors.top: keyboard.bottom
-        anchors.horizontalCenter: keyboard.horizontalCenter
-
-        Repeater {
-            model: ["Default layer", "Shift layer", "RAlt layer", "Shift+RAlt layer"]
-            delegate: Controls.TabButton {
-                required property var modelData
-                required property var index
-                text: index + 1
-                Controls.ToolTip.text: modelData
-                Controls.ToolTip.visible: hovered
+        RowLayout {
+            Controls.Label {
+                text: "Variant:"
+                padding: Kirigami.Units.smallSpacing
+            }
+            Controls.ComboBox {
+                model: bridge.variantsNames
+                onActivated: bridge.currentVariant = currentIndex
+            }
+            Controls.Label {
+                text: "File:"
+            }
+            Controls.TextField {
+                text: bridge.openedFilePath
+                padding: Kirigami.Units.smallSpacing
+                Layout.fillWidth: true
             }
         }
+
+        Keyboard_US {
+            id: keyboard
+            Layout.alignment: Qt.AlignHCenter
+        }
+
+        Controls.TabBar {
+            id: layerSelector
+
+            Layout.alignment: Qt.AlignHCenter
+            position: Controls.TabBar.Footer
+            Layout.topMargin: -parent.spacing
+
+            Repeater {
+                model: ["Default layer", "Shift layer", "RAlt layer", "Shift+RAlt layer"]
+                delegate: Controls.TabButton {
+                    required property var modelData
+                    required property var index
+                    text: index + 1
+                    Controls.ToolTip.text: modelData
+                    Controls.ToolTip.visible: hovered
+                }
+            }
+        }
+
+        Controls.Label {
+            parent: layerSelector
+            text: "Layer:"
+            padding: Kirigami.Units.smallSpacing
+            anchors.right: parent.left
+        }
     }
 
-    Keyboard_US {
-        id: keyboard
-        anchors.centerIn: parent
-    }
 }
