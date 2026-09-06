@@ -94,7 +94,7 @@ Kirigami.ApplicationWindow {
     Connections {
         target: bridge
         function onError(str) {
-            statusBarLabel.setStatus("Error: " + str);
+            statusBarLabel.setError(str);
         }
     }
 
@@ -125,6 +125,15 @@ Kirigami.ApplicationWindow {
                 function setStatus(str) {
                     text = str
                     statusBar.visible = true
+                    color = Kirigami.Theme.textColor
+                }
+                function setError(str) {
+                    setStatus(qsTr("Error:") + " " + str)
+                    color = Kirigami.Theme.negativeTextColor
+                }
+                function setWarning(str) {
+                    setStatus(qsTr("Warning:") + " " + str)
+                    color = Kirigami.Theme.neutralBackgroundColor
                 }
             }
         }
