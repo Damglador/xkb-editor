@@ -10,7 +10,7 @@ from PySide6.QtCore import Property, QObject, QUrl, Signal, Slot
 from PySide6.QtQml import QmlElement, QQmlApplicationEngine
 from PySide6.QtWidgets import QApplication
 
-from . import xkb
+from . import xkb, xkbtypes
 from .getchar import getchar
 
 QML_IMPORT_NAME = "project"
@@ -46,6 +46,10 @@ class Bridge(QObject):
     @Property(str, notify=variantChanged)
     def variantName(self) -> str:
         return self.variant.id or ""
+
+    @Property(list, notify=variantChanged)
+    def includes(self) -> list[str]:
+        return [str(include) or "" for include in self.variant.includes]
 
     @Property(list, notify=fileChanged)
     def variantsNames(self) -> list[str]:
@@ -108,6 +112,18 @@ class Bridge(QObject):
     def getKeyCharFallback(self, keycode: str, layer: int):
         return getchar(self.variant.getSymbolOrFallback(keycode, layer, False))
 
+    @Slot(int)
+    def removeIncludeAt(self, index: int):
+        print(f"Removing {index}")
+        del self.variant.includes[index]
+        self.variant.reloadIncludes()
+        self.variantChanged.emit()
+
+    @Slot(str)
+    def addInclude(self, include: str):
+        self.variant.includes.append(xkbtypes.Include.fromString(str(include)))
+        self.variant.reloadIncludes()
+        self.variantChanged.emit()
 
 def main():
     """Initializes and manages the application execution"""

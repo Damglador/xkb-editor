@@ -1,3 +1,4 @@
+import re
 from enum import StrEnum
 from typing import Any, override
 
@@ -50,7 +51,7 @@ Actions = list[Action]
 
 class Include(BaseModel):
     path: str
-    variant: str | None
+    variant: str | None = None
 
     @override
     def __str__(self):
@@ -58,6 +59,17 @@ class Include(BaseModel):
             return f"{self.path}"
         else:
             return f"{self.path}({self.variant})"
+
+    @staticmethod
+    def fromString(string: str) -> Include:
+        if string != "":
+            match = re.match(r"(.*)\((.*)\)$", string)
+            if match:
+                return Include(path=match.group(1), variant=match.group(2))
+            else:
+                return Include(path=string)
+        else:
+            return Include(path="")
 
 
 class KeyProps(BaseModel):

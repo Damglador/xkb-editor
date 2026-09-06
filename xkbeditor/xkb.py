@@ -1,7 +1,6 @@
 # pyright: reportIgnoreCommentWithoutRule=false
 
 import os
-import re
 from pathlib import Path
 
 from lark import Lark, Token, Transformer, Tree
@@ -53,6 +52,11 @@ class Variant(BaseModel):
             if not isImplicit(result):
                 keysym = result
         return keysym
+
+
+    def reloadIncludes(self):
+        self.deps = None
+        self.loadIncludes()
 
     def loadIncludes(self):
         if self.deps is None:
@@ -215,15 +219,8 @@ class VariantTransformer(Transformer[Token, Variant]):
 
     # https://xkbcommon.org/doc/current/keymap-text-format-v1-v2.html#xkb-include
     def include(self, items):
-        path, variant = [ "", None ]
         incl = str(items[0]).strip('"')
-        match = re.match(r'(.*)\((.*)\)$', incl)
-        if match:
-            path = match.group(1)
-            variant = match.group(2)
-        else:
-            path = incl
-        return Token("INCLUDE", Include(path=path, variant=variant))
+        return Token("INCLUDE", Include.fromString(incl))
 
     def key(self, items):
         keycode = ""

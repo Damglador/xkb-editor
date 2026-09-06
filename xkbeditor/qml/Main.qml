@@ -65,12 +65,17 @@ Kirigami.ApplicationWindow {
 
     Component {
         id: initPage
-
         Kirigami.Page {
-            Editor {
+            RowLayout {
                 anchors.centerIn: parent
+                IncludesEditor {
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+                }
+                Editor {
+                    Component.onCompleted: bridge.loadTestVariant()
+                }
             }
-            Component.onCompleted: bridge.loadTestVariant()
         }
     }
 
