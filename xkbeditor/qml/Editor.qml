@@ -26,27 +26,21 @@ Item {
         anchors.right: layerSelector.left
         anchors.verticalCenter: layerSelector.verticalCenter
     }
-    RowLayout {
+    Controls.TabBar {
         id: layerSelector
 
-        property var currentIndex: 0
-
+        position: Controls.TabBar.Footer
         anchors.top: keyboard.bottom
         anchors.horizontalCenter: keyboard.horizontalCenter
-        anchors.margins: Kirigami.Units.smallSpacing
 
         Repeater {
             model: ["Default layer", "Shift layer", "RAlt layer", "Shift+RAlt layer"]
-            delegate: Controls.RoundButton {
+            delegate: Controls.TabButton {
                 required property var modelData
                 required property var index
                 text: index + 1
                 Controls.ToolTip.text: modelData
                 Controls.ToolTip.visible: hovered
-
-                checked: layerSelector.currentIndex == index
-                highlighted: layerSelector.currentIndex == index
-                onClicked: layerSelector.currentIndex = index
             }
         }
     }
