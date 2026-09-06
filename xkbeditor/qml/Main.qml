@@ -9,7 +9,7 @@ import project
 Kirigami.ApplicationWindow {
     id: window
 
-    title: qsTr("XkbEditor")
+    title: "XkbEditor"
 
     minimumWidth: Kirigami.Units.gridUnit * 60
     minimumHeight: Kirigami.Units.gridUnit * 20
@@ -36,7 +36,8 @@ Kirigami.ApplicationWindow {
                 onTriggered: {
                     if (bridge.openedFilePath)
                         bridge.saveFile(bridge.openedFilePath);
-                    else saveDialog.open()
+                    else
+                        saveDialog.open();
                 }
             }
             Kirigami.Action {
@@ -88,5 +89,44 @@ Kirigami.ApplicationWindow {
 
         onAccepted: bridge.saveFile(selectedFile)
         currentFolder: StandardPaths.standardLocations(StandardPaths.ConfigLocation)[0] + "/xkb/symbols"
+    }
+
+    Connections {
+        target: bridge
+        function onError(str) {
+            statusBarLabel.setStatus("Error: " + str);
+        }
+    }
+
+    Kirigami.AbstractCard {
+        id: statusBar
+
+        visible: false
+
+        parent: window.overlay
+        anchors.bottom: parent.bottom
+        anchors.left: parent.top
+        padding: Kirigami.Units.smallSpacing
+
+        Timer {
+            id: timeout
+
+            interval: 5000
+            running: true
+            repeat: false
+            onTriggered: statusBar.visible = false
+        }
+        onVisibleChanged: if (visible == true) timeout.start()
+
+        contentItem: RowLayout {
+            Kirigami.SelectableLabel {
+                id: statusBarLabel
+
+                function setStatus(str) {
+                    text = str
+                    statusBar.visible = true
+                }
+            }
+        }
     }
 }

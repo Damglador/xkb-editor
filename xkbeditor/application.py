@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import os
+import re
 import signal
 import sys
 from urllib.parse import urlparse
@@ -25,12 +26,11 @@ class Bridge(QObject):
 
     variantChanged = Signal()
     fileChanged = Signal()
-    failedOpen = Signal(str)
-    failedSave = Signal(str)
+    error = Signal(str)
 
     def __init__(self):
         super().__init__()
-        _ = self.failedSave.connect(self.saveError)
+        _ = self.error.connect(self.print)
 
     @property
     def variant(self):
@@ -70,10 +70,14 @@ class Bridge(QObject):
 
     @Slot(str)
     def openFile(self, filePath: str):
-        self.variants = xkb.getVariantsFromFile(urlparse(filePath).path)
-        self._openedFilePath = urlparse(filePath).path
-        self.fileChanged.emit()
-        self.variantChanged.emit()
+        try:
+            self.variants = xkb.getVariantsFromFile(urlparse(filePath).path)
+            self._openedFilePath = urlparse(filePath).path
+            self.fileChanged.emit()
+            self.variantChanged.emit()
+        except UnicodeDecodeError:
+            self.error.emit("Failed to open file. Not a text file.")
+
 
     @Slot(str)
     def saveFile(self, filePath: str):
@@ -81,10 +85,11 @@ class Bridge(QObject):
             with open(urlparse(filePath).path, 'w') as file:
                 _ = file.write("\n\n".join([variant.toXkb() for variant in self.variants]))
         except Exception as err:
-            self.failedSave.emit(getattr(err, 'message', str(err)))
+            self.error.emit(getattr(err, 'message', re.sub(pattern=r'\[Errno \d+\] ', repl='', string=str(err))))
+
 
     @Slot(str)
-    def saveError(self, message: str):
+    def print(self, message: str):
         print(message)
 
     @Slot(str, int, result=str)
