@@ -66,7 +66,7 @@ Kirigami.ApplicationWindow {
             Kirigami.Action {
                 text: qsTr("About")
                 icon.name: "help-about"
-                onTriggered: about.open()
+                onTriggered: about.show()
             }
         }
     }
@@ -155,5 +155,6 @@ Kirigami.ApplicationWindow {
 
     About {
         id: about
+        visible: false
     }
 }

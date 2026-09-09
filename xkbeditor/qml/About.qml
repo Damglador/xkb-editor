@@ -1,10 +1,12 @@
 import org.kde.kirigami as Kirigami
 
-Kirigami.Dialog {
-    title: qsTr("About")
-    width: window.width / 2
-    contentItem: Kirigami.AboutPage {
+Kirigami.ApplicationWindow {
+    title: aboutPage.title
+    width: Kirigami.Units.gridUnit * 30
+    height: Kirigami.Units.gridUnit * 30
+    pageStack.initialPage: Kirigami.AboutPage {
         id: aboutPage
+        globalToolBarStyle: Kirigami.ApplicationHeaderStyle.None
         getInvolvedUrl: "https://github.com/Damglador/xkb-editor"
         aboutData: {
             "displayName": "Xkb Editor",
