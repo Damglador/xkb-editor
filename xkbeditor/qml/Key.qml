@@ -31,6 +31,7 @@ Controls.Button {
                 text: key.keycode + ":"
             }
             Controls.TextField {
+                implicitWidth: Kirigami.Units.gridUnit * 6
                 onVisibleChanged: {
                     if (visible == true)
                         text = bridge.getKeySym(key.keycode, key.symbolsLayer)
