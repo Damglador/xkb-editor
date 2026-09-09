@@ -22,7 +22,7 @@ Kirigami.ApplicationWindow {
         id: bridge
     }
 
-    Controls.MenuBar {
+    menuBar: Controls.MenuBar {
         Controls.Menu {
             title: "File"
             Kirigami.Action {
@@ -74,6 +74,7 @@ Kirigami.ApplicationWindow {
     Component {
         id: initPage
         Kirigami.Page {
+            globalToolBarStyle: Kirigami.ApplicationHeaderStyle.None
             RowLayout {
                 anchors.centerIn: parent
                 IncludesEditor {
