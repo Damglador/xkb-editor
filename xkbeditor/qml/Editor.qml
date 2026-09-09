@@ -37,7 +37,7 @@ Item {
             }
         }
 
-        Keyboard_US {
+        Keyboard_ANSI {
             id: keyboard
             Layout.alignment: Qt.AlignHCenter
         }
