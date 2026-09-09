@@ -29,6 +29,7 @@ Kirigami.ApplicationWindow {
                 text: "Open"
                 icon.name: "document-open"
                 onTriggered: openDialog.open()
+                shortcut: StandardKey.Open
             }
             Kirigami.Action {
                 text: "Save"
@@ -39,11 +40,13 @@ Kirigami.ApplicationWindow {
                     else
                         saveDialog.open();
                 }
+                shortcut: StandardKey.Save
             }
             Kirigami.Action {
                 text: "Save As"
                 icon.name: "document-save-as"
                 onTriggered: saveDialog.open()
+                shortcut: StandardKey.SaveAs
             }
         }
         Controls.Menu {
