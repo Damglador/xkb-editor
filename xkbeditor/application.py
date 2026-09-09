@@ -30,6 +30,7 @@ class Bridge(QObject):
 
     def __init__(self):
         super().__init__()
+        _ = self.fileChanged.connect(self.variantChanged.emit)
         _ = self.error.connect(self.print)
 
     @property
@@ -85,10 +86,8 @@ class Bridge(QObject):
             self.variants = xkb.getVariantsFromFile(urlparse(filePath).path)
             self._openedFilePath = urlparse(filePath).path
             self.fileChanged.emit()
-            self.variantChanged.emit()
         except UnicodeDecodeError:
             self.error.emit("Failed to open file. Not a text file.")
-
 
     @Slot(str)
     def saveFile(self, filePath: str):

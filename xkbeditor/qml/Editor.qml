@@ -33,6 +33,7 @@ Item {
                 icon.name: "reload"
                 Controls.ToolTip.text: text
                 Controls.ToolTip.visible: hovered
+                enabled: bridge.openedFilePath
                 onClicked: bridge.openFile(bridge.openedFilePath)
             }
         }
