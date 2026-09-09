@@ -124,6 +124,12 @@ class Bridge(QObject):
         self.variant.reloadIncludes()
         self.variantChanged.emit()
 
+    @Property(str)
+    def license(self):
+        with open("LICENSE", 'r') as file:
+            return file.read()
+
+
 def main():
     """Initializes and manages the application execution"""
     app = QApplication(sys.argv)

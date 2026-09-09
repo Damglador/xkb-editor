@@ -61,6 +61,14 @@ Kirigami.ApplicationWindow {
                 checked: true
             }
         }
+        Controls.Menu {
+            title: qsTr("Help")
+            Kirigami.Action {
+                text: qsTr("About")
+                icon.name: "help-about"
+                onTriggered: about.open()
+            }
+        }
     }
 
     Component {
@@ -142,5 +150,9 @@ Kirigami.ApplicationWindow {
                 }
             }
         }
+    }
+
+    About {
+        id: about
     }
 }
