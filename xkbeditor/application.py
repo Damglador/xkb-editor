@@ -72,6 +72,13 @@ class Bridge(QObject):
     def loadTestVariant(self):
         self.openFile("/usr/share/xkeyboard-config-2/symbols/us")
 
+
+    @Slot()
+    def newFile(self):
+        self.variants = []
+        self._openedFilePath = ""
+        self.fileChanged.emit()
+
     @Slot(str)
     def openFile(self, filePath: str):
         try:

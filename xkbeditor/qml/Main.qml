@@ -26,6 +26,11 @@ Kirigami.ApplicationWindow {
         Controls.Menu {
             title: "File"
             Kirigami.Action {
+                text: "New"
+                icon.name: "document-new"
+                onTriggered: bridge.newFile()
+            }
+            Kirigami.Action {
                 text: "Open"
                 icon.name: "document-open"
                 onTriggered: openDialog.open()
