@@ -15,7 +15,7 @@ Controls.Button {
     Layout.rowSpan: unitHeight / unitSize
 
     // Shared properties
-    property int symbolsLayer: keyboard.symbolsLayer
+    property int symbolsLayer: layerSelector.currentIndex + 1
 
     property string keycode
     property string char

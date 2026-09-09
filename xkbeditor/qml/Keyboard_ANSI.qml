@@ -5,8 +5,6 @@ import QtQuick.Layouts
 ColumnLayout {
     spacing: 0
 
-    property int symbolsLayer: layerSelector.currentIndex + 1
-
     RowLayout {
         id: rowE
         spacing: 0

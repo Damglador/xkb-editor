@@ -4,8 +4,6 @@ import QtQuick.Layouts
 ColumnLayout {
     spacing: 0
 
-    property int symbolsLayer: 1
-
     GridLayout {
         columnSpacing: 0
         rowSpacing: 0
