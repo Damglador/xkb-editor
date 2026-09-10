@@ -118,7 +118,8 @@ class Variant(BaseModel):
                     props.append(f"virtualModifiers = {keyprops.virtmod}")
 
                 propsStr = ",\n                   ".join(props)
-                lines.append(indent + f"key <{keycode}> {{ {propsStr} }};")
+                if propsStr != "[  ]":
+                    lines.append(indent + f"key <{keycode}> {{ {propsStr} }};")
 
         lines.append("};")
         return "\n".join(lines) + "\n"
