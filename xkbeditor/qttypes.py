@@ -162,19 +162,25 @@ class SymbolsFile(QObject):
     @path.setter
     def path(self, str):
         self._path = str
+        self.pathChanged.emit()
 
     @Property(str, notify=variantChanged)
     def variantIndex(self):
         return self._variantIndex
 
     @variantIndex.setter
-    def variantIndex(self, int):
-        self._variantIndex = int
+    def variantIndex(self, index: int):
+        self._variantIndex = int(index)
+        self.variantChanged.emit()
+
+    @Property(list, notify=variantChanged)
+    def variants(self):
+        return self._variants
 
     @Property(Variant, notify=variantChanged)
     def variant(self) -> Variant | None:
         if 0 <= self._variantIndex < len(self._variants):
-            return self._variants[0]
+            return self._variants[self._variantIndex]
         return None
 
     @Slot(str)
@@ -185,7 +191,6 @@ class SymbolsFile(QObject):
             self.variantChanged.emit()
             self._path = urlparse(filePath).path
             self.pathChanged.emit()
-            print(f"Path is set to {self._path}")
         except UnicodeDecodeError:
             self.error.emit("Failed to open file. Not a text file.")
 

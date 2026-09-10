@@ -16,7 +16,8 @@ Item {
                 padding: Kirigami.Units.smallSpacing
             }
             Controls.ComboBox {
-                // model: bridge.file.variantsNames
+                model: bridge.file.variants
+                textRole: "id"
                 onActivated: bridge.file.variantIndex = currentIndex
             }
             Controls.Label {
