@@ -101,7 +101,7 @@ Kirigami.ApplicationWindow {
         title: "Open xkb layout"
         fileMode: FileDialog.OpenFile
 
-        onAccepted: bridge.openFile(selectedFile)
+        onAccepted: bridge.file.load(selectedFile)
         currentFolder: StandardPaths.standardLocations(StandardPaths.ConfigLocation)[0] + "/xkb/symbols"
     }
     FileDialog {
