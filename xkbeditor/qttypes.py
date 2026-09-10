@@ -62,17 +62,19 @@ class Include(QObject):
         super().__init__(parent)
         self._include = include
 
-    @Property(str)
-    def Path(self): return self._include.path
+    pathChanged = Signal()
+    @Property(str, notify=pathChanged)
+    def path(self): return self._include.path
 
-    @Path.setter
-    def Path(self, str): self._include.path = str
+    @path.setter
+    def path(self, str): self._include.path = str
 
-    @Property(str)
-    def Variant(self): return self._include.path
+    variantChanged = Signal()
+    @Property(str, notify=variantChanged)
+    def variant(self): return self._include.variant
 
-    @Variant.setter
-    def Variant(self, str): self._include.path = str
+    @variant.setter
+    def variant(self, str): self._include.variant = str
 
 
 # pyright: reportRedeclaration=false
