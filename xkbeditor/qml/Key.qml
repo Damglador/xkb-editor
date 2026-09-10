@@ -36,11 +36,11 @@ Controls.Button {
                 implicitWidth: Kirigami.Units.gridUnit * 6
                 onVisibleChanged: {
                     if (visible == true)
-                        // text = bridge.file.variant.getSymbol(key.keycode, key.symbolsLayer)
+                        text = bridge.file.variant.getSymbol(key.keycode, key.symbolsLayer)
                         forceActiveFocus()
                 }
                 onAccepted: {
-                  // bridge.file.variant.setSymbol(key.keycode, key.symbolsLayer, text)
+                  bridge.file.variant.setSymbol(key.keycode, key.symbolsLayer, text)
                   key.loadChars()
                   tooltip.visible = !tooltip.visible
                 }
@@ -78,15 +78,21 @@ Controls.Button {
 
     onSymbolsLayerChanged: loadChars()
     Connections {
-        target: bridge
+        target: bridge.file
         function onVariantChanged() {
             key.loadChars();
         }
     }
 
     function loadChars() {
-        // char = bridge.file.variant.getSymbol(keycode, symbolsLayer);
-        // charFallback = bridge.file.variant.getKeyCharFallback(keycode, symbolsLayer);
+        if (bridge.file.variant) {
+            char = bridge.file.variant.getKeyChar(keycode, symbolsLayer);
+            charFallback = bridge.file.variant.getKeyCharFallback(keycode, symbolsLayer);
+        }
+        else {
+            char = ""
+            charFallback = ""
+        }
     }
 
     onClicked: {

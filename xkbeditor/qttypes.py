@@ -87,9 +87,7 @@ class Variant(QObject):
     # key_type: str | None = None
 
     # deps: list[Variant] | None = None
-    def __init__(self, variant: xkb.Variant, parent=None):
-        if variant is None:
-            variant = xkb.Variant()
+    def __init__(self, variant: xkb.Variant = xkb.Variant(), parent=None):
         super().__init__(parent)
         self._variant = variant
 
@@ -130,7 +128,7 @@ class Variant(QObject):
         return self._variant.getSymbolOrFallback(keycode, layer)
 
     @Slot(str, int, result=str)
-    def getKeyhar(self, keycode: str, layer: int):
+    def getKeyChar(self, keycode: str, layer: int):
         return getchar(self.getSymbol(keycode, layer))
 
     @Slot(str, int, result=str)
@@ -151,7 +149,7 @@ class SymbolsFile(QObject):
     _variantIndex: int = 0
     _path: str = ""
 
-    _variants: VariantsList = VariantsList([])
+    _variants: list[Variant] = []
 
     variantChanged = Signal()
     error = Signal(str)
@@ -174,13 +172,17 @@ class SymbolsFile(QObject):
         self._variantIndex = int
 
     @Property(Variant, notify=variantChanged)
-    def variant(self):
-        return self._variants.data(self._variantIndex) or Variant(xkb.Variant())
+    def variant(self) -> Variant | None:
+        if 0 <= self._variantIndex < len(self._variants):
+            return self._variants[0]
+        return None
 
     @Slot(str)
     def load(self, filePath: str):
         try:
-            self._variants = VariantsList(xkb.getVariantsFromFile(urlparse(filePath).path))
+            variants = xkb.getVariantsFromFile(urlparse(filePath).path)
+            self._variants = [Variant(variant) for variant in variants]
+            self.variantChanged.emit()
             self._path = urlparse(filePath).path
             self.pathChanged.emit()
             print(f"Path is set to {self._path}")
@@ -194,3 +196,10 @@ class SymbolsFile(QObject):
                 _ = file.write("\n\n".join([variant.toXkb() for variant in self._variants]))
         except Exception as err:
             self.error.emit(getattr(err, 'message', re.sub(pattern=r'\[Errno \d+\] ', repl='', string=str(err))))
+
+    @Slot()
+    def reset(self):
+        self.variantIndex = 0 # pyright: ignore[reportAttributeAccessIssue]
+        self.path = "" # pyright: ignore[reportAttributeAccessIssue]
+        self._variants = []
+        self.variantChanged.emit()
