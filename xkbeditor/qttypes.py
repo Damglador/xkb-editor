@@ -188,6 +188,7 @@ class SymbolsFile(QObject):
         try:
             variants = xkb.getVariantsFromFile(urlparse(filePath).path)
             self._variants = [Variant(variant) for variant in variants]
+            self._variantIndex = 0
             self.variantChanged.emit()
             self._path = urlparse(filePath).path
             self.pathChanged.emit()
