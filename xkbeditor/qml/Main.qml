@@ -41,7 +41,7 @@ Kirigami.ApplicationWindow {
                 icon.name: "document-save"
                 onTriggered: {
                     if (bridge.file.path)
-                        bridge.saveFile(bridge.file.path);
+                        bridge.file.write(bridge.file.path);
                     else
                         saveDialog.open();
                 }
@@ -109,7 +109,7 @@ Kirigami.ApplicationWindow {
         title: "Save xkb layout"
         fileMode: FileDialog.SaveFile
 
-        onAccepted: bridge.saveFile(selectedFile)
+        onAccepted: bridge.file.write(selectedFile)
         currentFolder: StandardPaths.standardLocations(StandardPaths.ConfigLocation)[0] + "/xkb/symbols"
     }
 
