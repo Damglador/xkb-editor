@@ -40,8 +40,8 @@ Kirigami.ApplicationWindow {
                 text: "Save"
                 icon.name: "document-save"
                 onTriggered: {
-                    if (bridge.openedFilePath)
-                        bridge.saveFile(bridge.openedFilePath);
+                    if (bridge.file.path)
+                        bridge.saveFile(bridge.file.path);
                     else
                         saveDialog.open();
                 }

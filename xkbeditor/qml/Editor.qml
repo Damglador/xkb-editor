@@ -16,14 +16,14 @@ Item {
                 padding: Kirigami.Units.smallSpacing
             }
             Controls.ComboBox {
-                model: bridge.variantsNames
-                onActivated: bridge.currentVariant = currentIndex
+                // model: bridge.file.variantsNames
+                onActivated: bridge.file.variantIndex = currentIndex
             }
             Controls.Label {
                 text: "File:"
             }
             Controls.TextField {
-                text: bridge.openedFilePath
+                text: bridge.file.path
                 padding: Kirigami.Units.smallSpacing
                 Layout.fillWidth: true
             }
@@ -33,8 +33,8 @@ Item {
                 icon.name: "reload"
                 Controls.ToolTip.text: text
                 Controls.ToolTip.visible: hovered
-                enabled: bridge.openedFilePath
-                onClicked: bridge.openFile(bridge.openedFilePath)
+                enabled: bridge.file.path
+                onClicked: bridge.file.load(bridge.file.path)
             }
         }
 

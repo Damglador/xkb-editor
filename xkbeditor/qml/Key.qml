@@ -23,6 +23,8 @@ Controls.Button {
     property string legend
     property var label
 
+    // enabled: keyboard.keysEnabled
+
     Controls.ToolTip {
         id: tooltip
 
@@ -34,11 +36,11 @@ Controls.Button {
                 implicitWidth: Kirigami.Units.gridUnit * 6
                 onVisibleChanged: {
                     if (visible == true)
-                        text = bridge.getKeySym(key.keycode, key.symbolsLayer)
+                        // text = bridge.file.variant.getSymbol(key.keycode, key.symbolsLayer)
                         forceActiveFocus()
                 }
                 onAccepted: {
-                  bridge.setKeySym(key.keycode, key.symbolsLayer, text)
+                  // bridge.file.variant.setSymbol(key.keycode, key.symbolsLayer, text)
                   key.loadChars()
                   tooltip.visible = !tooltip.visible
                 }
@@ -83,8 +85,8 @@ Controls.Button {
     }
 
     function loadChars() {
-        char = bridge.getKeyChar(keycode, symbolsLayer);
-        charFallback = bridge.getKeyCharFallback(keycode, symbolsLayer);
+        // char = bridge.file.variant.getSymbol(keycode, symbolsLayer);
+        // charFallback = bridge.file.variant.getKeyCharFallback(keycode, symbolsLayer);
     }
 
     onClicked: {

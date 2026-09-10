@@ -15,7 +15,7 @@ Kirigami.Card {
     }
     contentItem: ListView {
         Layout.fillWidth: true
-        model: bridge.includes
+        // model: bridge.file.variant.includes
         delegate: Controls.ItemDelegate {
             required property int index
             required property string modelData
@@ -23,7 +23,7 @@ Kirigami.Card {
             icon.name: "edit-delete-remove"
             width: ListView.view.width
             text: modelData
-            onClicked: bridge.removeIncludeAt(index)
+            // onClicked: bridge.removeIncludeAt(index)
         }
         clip: true
     }
@@ -39,7 +39,7 @@ Kirigami.Card {
 
             onAccepted: {
                 if (text != "") {
-                    bridge.addInclude(text);
+                    // bridge.addInclude(text);
                     text = "";
                 }
             }
