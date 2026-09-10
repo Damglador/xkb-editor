@@ -2,7 +2,7 @@ import org.kde.kirigami as Kirigami
 
 Kirigami.ApplicationWindow {
     title: aboutPage.title
-    width: Kirigami.Units.gridUnit * 30
+    width: Kirigami.Units.gridUnit * 36
     height: Kirigami.Units.gridUnit * 30
     pageStack.initialPage: Kirigami.AboutPage {
         id: aboutPage
