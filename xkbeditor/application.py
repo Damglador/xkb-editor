@@ -26,6 +26,7 @@ class Bridge(QObject):
         self._file = SymbolsFile(parent=self)
 
         _ = self.fileChanged.connect(self._file.variantChanged.emit)
+        _ = self._file.error.connect(self.error.emit)
         _ = self.error.connect(self.print)
 
     @Property(SymbolsFile, notify=fileChanged)
