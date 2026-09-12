@@ -127,9 +127,12 @@ class Variant(QObject):
     # key_type: str | None = None
 
     # deps: list[Variant] | None = None
-    def __init__(self, variant: xkb.Variant = xkb.Variant(), parent=None):
+    def __init__(self, variant: xkb.Variant | None = None, parent=None):
         super().__init__(parent)
-        self._variant = variant
+        if variant is None:
+            self._variant = xkb.Variant()
+        else:
+            self._variant = variant
 
         self._includes = IncludesList(self._variant.includes, parent=self)
 
