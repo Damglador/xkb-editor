@@ -54,6 +54,12 @@ class List(QAbstractListModel):
         del self._items[row]
         self.endRemoveRows()
 
+    @Slot()
+    def reset(self):
+        self.beginResetModel()
+        self._items = []
+        self.endResetModel()
+
     def __iter__(self):
         return iter(self._items)
 
@@ -89,8 +95,39 @@ class IncludesList(List):
 
 
 class VariantsList(List):
+    IdRole = Qt.ItemDataRole.UserRole + 2
+    NameRole = Qt.ItemDataRole.UserRole + 3
+
     def __init__(self, items: list[xkb.Variant], parent=None):
-        super().__init__(items, parent)
+        super().__init__(parent=parent)
+        self._items = items
+
+    def roleNames(self) -> dict:
+        return {
+            self.ObjectRole: b"variant",
+            self.IdRole: b"id",
+            self.NameRole: b"name",
+        }
+
+    def data(self, index: QModelIndex | QPersistentModelIndex, role: int=Qt.ItemDataRole.DisplayRole):
+        if not index.isValid() or not 0 <= index.row() < self.rowCount():
+            return
+        match(role):
+            case self.ObjectRole:
+                return Variant(self._items[index.row()], parent=self)
+            case self.IdRole:
+                return self._items[index.row()].id
+            case self.NameRole:
+                return self._items[index.row()].name
+
+    def setItems(self, items: list[xkb.Variant]):
+        self.beginResetModel()
+        self._items = items
+        self.endResetModel()
+
+    def getRow(self, row: int):
+        if 0 <= row < len(self._items):
+            return Variant(self._items[row], parent=self)
 
 class Include(QObject):
     def __init__(self, include: xkb.Include, parent=None):
@@ -182,10 +219,12 @@ class Variant(QObject):
         return self._variant.toXkb()
 
 class SymbolsFile(QObject):
-    _variantIndex: int = 0
-    _path: str = ""
+    def __init__(self, parent=None):
+        super().__init__(parent)
 
-    _variants: list[Variant] = []
+        self._variantIndex: int = 0
+        self._path: str = ""
+        self._variants = VariantsList([], parent=self)
 
     variantChanged = Signal()
     error = Signal(str)
@@ -209,21 +248,19 @@ class SymbolsFile(QObject):
         self._variantIndex = int(index)
         self.variantChanged.emit()
 
-    @Property(list, notify=variantChanged)
+    @Property(QObject, notify=variantChanged)
     def variants(self):
         return self._variants
 
     @Property(Variant, notify=variantChanged)
     def variant(self) -> Variant | None:
-        if 0 <= self._variantIndex < len(self._variants):
-            return self._variants[self._variantIndex]
-        return None
+        return self._variants.getRow(self._variantIndex)
 
     @Slot(str)
     def load(self, filePath: str):
         try:
             variants = xkb.getVariantsFromFile(urlparse(filePath).path)
-            self._variants = [Variant(variant) for variant in variants]
+            self._variants.setItems(variants)
             self._variantIndex = 0
             self.variantChanged.emit()
             self._path = urlparse(filePath).path
@@ -245,5 +282,5 @@ class SymbolsFile(QObject):
     def reset(self):
         self.variantIndex = 0 # pyright: ignore[reportAttributeAccessIssue]
         self.path = "" # pyright: ignore[reportAttributeAccessIssue]
-        self._variants = []
+        self._variants.reset()
         self.variantChanged.emit()
