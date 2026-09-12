@@ -19,6 +19,7 @@ Item {
                 model: bridge.file.variants
                 textRole: "id"
                 onActivated: bridge.file.variantIndex = currentIndex
+                enabled: count != 0
             }
             Controls.Label {
                 text: "File:"
