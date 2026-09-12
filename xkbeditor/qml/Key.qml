@@ -3,6 +3,8 @@ import QtQuick.Layouts
 import QtQuick.Controls as Controls
 import org.kde.kirigami as Kirigami
 
+import "./Settings"
+
 Controls.Button {
     id: key
 
@@ -53,7 +55,7 @@ Controls.Button {
         id: legend
         text: parent.legend
         opacity: 0.2
-        visible: legendsToggle.checked
+        visible: ViewSettings.showLegends
 
         leftPadding: 5
         anchors.left: parent.left
@@ -71,7 +73,7 @@ Controls.Button {
         id: fallback
         text: parent.charFallback
         opacity: 0.4
-        visible: fallbacksToggle.checked && !parent.char
+        visible: ViewSettings.showFallbacks && !parent.char
 
         anchors.centerIn: parent
     }

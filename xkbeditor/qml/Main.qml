@@ -9,7 +9,7 @@ import project
 Kirigami.ApplicationWindow {
     id: window
 
-    title: "XkbEditor"
+    title: Qt.application.name
 
     minimumWidth: Kirigami.Units.gridUnit * 60
     minimumHeight: Kirigami.Units.gridUnit * 20
@@ -21,63 +21,9 @@ Kirigami.ApplicationWindow {
     Bridge {
         id: bridge
     }
-
-    menuBar: Controls.MenuBar {
-        Controls.Menu {
-            title: "File"
-            Kirigami.Action {
-                text: "New"
-                icon.name: "document-new"
-                onTriggered: bridge.newFile()
-            }
-            Kirigami.Action {
-                text: "Open"
-                icon.name: "document-open"
-                onTriggered: openDialog.open()
-                shortcut: StandardKey.Open
-            }
-            Kirigami.Action {
-                text: "Save"
-                icon.name: "document-save"
-                onTriggered: {
-                    if (bridge.file.path)
-                        bridge.file.write(bridge.file.path);
-                    else
-                        saveDialog.open();
-                }
-                shortcut: StandardKey.Save
-            }
-            Kirigami.Action {
-                text: "Save As"
-                icon.name: "document-save-as"
-                onTriggered: saveDialog.open()
-                shortcut: StandardKey.SaveAs
-            }
-        }
-        Controls.Menu {
-            title: qsTr("View")
-            Kirigami.Action {
-                id: legendsToggle
-                text: qsTr("Show legends")
-                checkable: true
-                checked: true
-            }
-            Kirigami.Action {
-                id: fallbacksToggle
-                text: qsTr("Show fallback characters")
-                checkable: true
-                checked: true
-            }
-        }
-        Controls.Menu {
-            title: qsTr("Help")
-            Kirigami.Action {
-                text: qsTr("About")
-                icon.name: "help-about"
-                onTriggered: about.show()
-            }
-        }
     }
+
+    menuBar: MenuBar {}
 
     Component {
         id: initPage

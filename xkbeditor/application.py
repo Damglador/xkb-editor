@@ -59,6 +59,8 @@ def main():
     engine = QQmlApplicationEngine()
 
     app.setDesktopFileName("xkb-editor")
+    app.setApplicationName("Xkb Editor")
+    app.setOrganizationName("damglador")
 
     """Needed to close the app with Ctrl+C"""
     _ = signal.signal(signal.SIGINT, signal.SIG_DFL)
