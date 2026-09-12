@@ -18,11 +18,12 @@ Kirigami.Card {
         model: bridge.file.variant.includes
         delegate: Controls.ItemDelegate {
             required property int index
-            required property var modelData
+            required property var path
+            required property var variant
 
             icon.name: "edit-delete-remove"
             width: ListView.view.width
-            text: modelData.path + "(" + modelData.variant + ")"
+            text: path + "(" + variant + ")"
         }
         clip: true
     }

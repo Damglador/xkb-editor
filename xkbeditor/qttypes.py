@@ -53,12 +53,30 @@ class FlagsList(List):
         super().__init__(items, parent=parent)
 
 class IncludesList(List):
+    PathRole = Qt.ItemDataRole.UserRole + 2
+    VariantRole = Qt.ItemDataRole.UserRole + 3
+
     def __init__(self, items: list[xkb.Include], parent=None):
         super().__init__(parent=parent)
         self._items = [Include(item, parent=self) for item in items]
 
     def roleNames(self) -> dict:
-        return {self.ObjectRole: b"include"}
+        return {
+            self.ObjectRole: b"include",
+            self.PathRole: b"path",
+            self.VariantRole: b"variant"
+        }
+
+    def data(self, index: QModelIndex | QPersistentModelIndex, role: int=Qt.ItemDataRole.DisplayRole):
+        if not index.isValid() or not 0 <= index.row() < self.rowCount():
+            return
+        match(role):
+            case self.ObjectRole:
+                return self._items[index.row()]
+            case self.PathRole:
+                return self._items[index.row()].path
+            case self.VariantRole:
+                return self._items[index.row()].variant
 
 
 class VariantsList(List):
