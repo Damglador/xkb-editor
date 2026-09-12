@@ -16,6 +16,7 @@ Kirigami.Card {
         }
     }
     contentItem: ListView {
+        id: listView
         Layout.fillWidth: true
         model: bridge.file.variant.includes
         delegate: Controls.ItemDelegate {
@@ -25,7 +26,7 @@ Kirigami.Card {
             icon.name: "edit-delete-remove"
             width: ListView.view.width
             text: include.path + "(" + include.variant + ")"
-            onClicked: bridge.file.variant.includes.remove(index)
+            onClicked: listView.model.remove(index)
         }
         clip: true
     }
