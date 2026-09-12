@@ -4,6 +4,8 @@ import QtQuick.Controls as Controls
 
 import org.kde.kirigami as Kirigami
 
+import "Keyboard"
+
 Item {
     width: layout.width
     height: layout.height

@@ -71,6 +71,7 @@ def main():
 
     base_path = os.path.abspath(os.path.dirname(__file__))
     url = QUrl(f"file://{base_path}/qml/Main.qml")
+    engine.addImportPath(f"{base_path}/qml/")
     engine.load(url)
 
     if len(engine.rootObjects()) == 0:

@@ -5,7 +5,7 @@ import QtQuick.Dialogs
 import QtQuick.Controls as Controls
 import org.kde.kirigami as Kirigami
 
-import "./Settings"
+import Settings
 
 Controls.MenuBar {
     Controls.Menu {
