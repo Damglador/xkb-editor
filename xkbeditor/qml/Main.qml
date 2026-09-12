@@ -4,6 +4,7 @@ import QtQuick.Layouts
 import QtQuick.Dialogs
 import QtQuick.Controls as Controls
 import org.kde.kirigami as Kirigami
+
 import xkbeditor
 
 Kirigami.ApplicationWindow {
@@ -20,7 +21,6 @@ Kirigami.ApplicationWindow {
 
     Bridge {
         id: bridge
-    }
     }
 
     menuBar: MenuBar {}
