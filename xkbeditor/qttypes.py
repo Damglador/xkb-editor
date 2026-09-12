@@ -128,14 +128,18 @@ class Variant(QObject):
     def id(self): return self._variant.id
 
     @id.setter
-    def id(self, str): self._variant.id = str
+    def id(self, str):
+        self._variant.id = str
+        self.idChanged.emit()
 
     nameChanged = Signal()
     @Property(str, notify=nameChanged)
     def name(self): return self._variant.name
 
     @name.setter
-    def name(self, str): self._variant.name = str
+    def name(self, str):
+        self._variant.name = str
+        self.nameChanged.emit()
 
     flagsChanged = Signal()
     @Property(list, notify=flagsChanged)
