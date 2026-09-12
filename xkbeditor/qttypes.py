@@ -93,9 +93,6 @@ class VariantsList(List):
         super().__init__(items, parent)
 
 class Include(QObject):
-    # path: str
-    # variant: str | None = None
-
     def __init__(self, include: xkb.Include, parent=None):
         super().__init__(parent)
         self._include = include
@@ -117,16 +114,6 @@ class Include(QObject):
 
 # pyright: reportRedeclaration=false
 class Variant(QObject):
-    # id: str | None = None  # xkb_symbols "<id>"
-    # # Human-readable name of the `variant`.
-    # # Defined as `name[Group1]="English (US, symbolic)";`
-    # name: str | None = None  # name[Group1] = "<name>"
-    # flags: list[Flags] = []
-    # keymap: dict[str, KeyProps] = {}
-    # includes: list[Include] = []
-    # key_type: str | None = None
-
-    # deps: list[Variant] | None = None
     def __init__(self, variant: xkb.Variant | None = None, parent=None):
         super().__init__(parent)
         if variant is None:

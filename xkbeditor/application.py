@@ -36,6 +36,7 @@ class Bridge(QObject):
     @Slot()
     def loadTestVariant(self):
         self._file.load("/usr/share/xkeyboard-config-2/symbols/us")
+        self._file.path = "/home/damglador/.config/xkb/symbols/test" # pyright: ignore[reportAttributeAccessIssue]
 
     @Slot()
     def newFile(self):
