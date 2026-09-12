@@ -55,7 +55,7 @@ class Include(BaseModel):
 
     @override
     def __str__(self):
-        if self.variant is None:
+        if not self.variant:
             return f"{self.path}"
         else:
             return f"{self.path}({self.variant})"

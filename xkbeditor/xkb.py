@@ -80,7 +80,8 @@ class Variant(BaseModel):
             lines.append(indent + f"key.type[Group1] = {self.key_type};")
         if self.includes != []:
             for include in self.includes:
-                lines.append(indent + f'include "{include}"')
+                if include.path != "":
+                    lines.append(indent + f'include "{include}"')
             lines.append("")
         if self.keymap != {}:
             for keycode, keyprops in self.keymap.items():
