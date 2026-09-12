@@ -128,7 +128,7 @@ class Variant(QObject):
     def id(self): return self._variant.id
 
     @id.setter
-    def Id(self, str): self._variant.id = str
+    def id(self, str): self._variant.id = str
 
     nameChanged = Signal()
     @Property(str, notify=nameChanged)
