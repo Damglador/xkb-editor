@@ -129,6 +129,13 @@ class VariantsList(List):
         if 0 <= row < len(self._items):
             return Variant(self._items[row], parent=self)
 
+    @Slot()
+    @Slot(str)
+    def new(self, id: str = ""):
+        self.beginInsertRows(QModelIndex(), len(self._items), len(self._items))
+        self._items.append(xkb.Variant(id=id))
+        self.endInsertRows()
+
 class Include(QObject):
     def __init__(self, include: xkb.Include, parent=None):
         super().__init__(parent)

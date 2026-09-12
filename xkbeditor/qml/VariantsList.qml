@@ -100,4 +100,23 @@ Kirigami.ScrollablePage {
         model: bridge.file.variants
         delegate: delegateComponent
     }
+
+    footer: Kirigami.ActionTextField {
+        id: field
+        width: Kirigami.Units.gridUnit* 2
+        placeholderText: qsTr("Add variant")
+        rightActions: Kirigami.Action {
+            icon.name: "document-send"
+            text: field.text
+            tooltip: text
+            onTriggered: field.addVariant()
+        }
+        onAccepted: addVariant()
+        function addVariant() {
+            if (field.text) {
+                bridge.file.variants.new(field.text)
+                field.text = ""
+            }
+        }
+    }
 }
