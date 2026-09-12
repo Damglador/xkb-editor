@@ -226,13 +226,15 @@ class SymbolsFile(QObject):
         except UnicodeDecodeError:
             self.error.emit("Failed to open file. Not a text file.")
 
-    @Slot(str)
-    def write(self, filePath: str):
+    @Slot(str, result=bool)
+    def write(self, filePath: str) -> bool:
         try:
             with open(urlparse(filePath).path, 'w') as file:
                 _ = file.write("\n\n".join([variant.toXkb() for variant in self._variants]))
+            return True
         except Exception as err:
             self.error.emit(getattr(err, 'message', re.sub(pattern=r'\[Errno \d+\] ', repl='', string=str(err))))
+        return False
 
     @Slot()
     def reset(self):

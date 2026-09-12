@@ -109,7 +109,7 @@ Kirigami.ApplicationWindow {
         title: "Save xkb layout"
         fileMode: FileDialog.SaveFile
 
-        onAccepted: bridge.file.write(selectedFile)
+        onAccepted: if (bridge.file.write(selectedFile)) bridge.file.path = selectedFile
         currentFolder: StandardPaths.standardLocations(StandardPaths.ConfigLocation)[0] + "/xkb/symbols"
     }
 
