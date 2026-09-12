@@ -58,7 +58,7 @@ class IncludesList(List):
 
     def __init__(self, items: list[xkb.Include], parent=None):
         super().__init__(parent=parent)
-        self._items = [Include(item, parent=self) for item in items]
+        self._items = items
 
     def roleNames(self) -> dict:
         return {
@@ -72,7 +72,7 @@ class IncludesList(List):
             return
         match(role):
             case self.ObjectRole:
-                return self._items[index.row()]
+                return Include(self._items[index.row()])
             case self.PathRole:
                 return self._items[index.row()].path
             case self.VariantRole:
@@ -122,6 +122,8 @@ class Variant(QObject):
         super().__init__(parent)
         self._variant = variant
 
+        self._includes = IncludesList(self._variant.includes, parent=self)
+
     idChanged = Signal()
     @Property(str, notify=idChanged)
     def id(self): return self._variant.id
@@ -144,7 +146,7 @@ class Variant(QObject):
     includesChanged = Signal()
     @Property(QObject, notify=includesChanged)
     def includes(self):
-        return IncludesList(self._variant.includes, parent=self)
+        return self._includes
 
     @Slot(str, int, result=str)
     def getSymbol(self, keycode: str, layer: int) -> str:
