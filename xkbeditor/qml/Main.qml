@@ -4,7 +4,7 @@ import QtQuick.Layouts
 import QtQuick.Dialogs
 import QtQuick.Controls as Controls
 import org.kde.kirigami as Kirigami
-import project
+import xkbeditor
 
 Kirigami.ApplicationWindow {
     id: window

@@ -10,7 +10,7 @@ from PySide6.QtWidgets import QApplication
 
 from .qttypes import SymbolsFile
 
-QML_IMPORT_NAME = "project"
+QML_IMPORT_NAME = "xkbeditor"
 QML_IMPORT_MAJOR_VERSION = 2
 
 
