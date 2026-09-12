@@ -1,3 +1,5 @@
+pragma ComponentBehavior: Bound
+
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls as Controls
@@ -18,12 +20,12 @@ Kirigami.Card {
         model: bridge.file.variant.includes
         delegate: Controls.ItemDelegate {
             required property int index
-            required property var path
-            required property var variant
+            required property var include
 
             icon.name: "edit-delete-remove"
             width: ListView.view.width
-            text: path + "(" + variant + ")"
+            text: include.path + "(" + include.variant + ")"
+            onClicked: bridge.file.variant.includes.remove(index)
         }
         clip: true
     }

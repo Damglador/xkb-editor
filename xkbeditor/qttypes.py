@@ -45,6 +45,15 @@ class List(QAbstractListModel):
     def roleNames(self) -> dict:
         return {self.ObjectRole: b"modelData"}
 
+    @Slot(int)
+    def remove(self, row: int):
+        if not 0 <= row < self.rowCount():
+            return
+
+        self.beginRemoveRows(QModelIndex(), row, row)
+        del self._items[row]
+        self.endRemoveRows()
+
     def __iter__(self):
         return iter(self._items)
 
