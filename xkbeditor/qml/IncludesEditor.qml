@@ -15,15 +15,14 @@ Kirigami.Card {
     }
     contentItem: ListView {
         Layout.fillWidth: true
-        // model: bridge.file.variant.includes
+        model: bridge.file.variant.includes
         delegate: Controls.ItemDelegate {
             required property int index
-            required property string modelData
+            required property var modelData
 
             icon.name: "edit-delete-remove"
             width: ListView.view.width
-            text: modelData
-            // onClicked: bridge.removeIncludeAt(index)
+            text: modelData.path + "(" + modelData.variant + ")"
         }
         clip: true
     }

@@ -1,5 +1,5 @@
 from enum import Enum, auto
-from PySide6.QtCore import Property, QAbstractListModel, QEnum, QModelIndex, QObject, Qt, Signal, Slot
+from PySide6.QtCore import Property, QAbstractListModel, QEnum, QModelIndex, QObject, Qt, Signal, Slot, QPersistentModelIndex
 from urllib.parse import urlparse
 import re
 
@@ -18,9 +18,11 @@ class XkbFlag(Enum):
     ALTERNATE_GROUP = auto()
 
 class List(QAbstractListModel):
-    def __init__(self, items: list, parent=None):
-        super().__init__(parent)
-        self._items = items
+    ObjectRole = Qt.ItemDataRole.UserRole + 1
+
+    def __init__(self, items: list | None = None, parent=None):
+        super().__init__(parent=parent)
+        self._items = items or []
 
     def initialize(self, items):
         self._items = items
@@ -35,20 +37,29 @@ class List(QAbstractListModel):
             return True
         return False
 
-    def data(self, index, role: int=Qt.ItemDataRole.DisplayRole):
-        if 0 <= index < self.rowCount():
-            return self._items[index]
+    def data(self, index: QModelIndex | QPersistentModelIndex, role: int=Qt.ItemDataRole.DisplayRole):
+        if not index.isValid() or not 0 <= index.row() < self.rowCount():
+            return
+        return self._items[index.row()]
+
+    def roleNames(self) -> dict:
+        return {self.ObjectRole: b"modelData"}
 
     def __iter__(self):
         return iter(self._items)
 
 class FlagsList(List):
     def __init__(self, items: list[xkb.Flags], parent=None):
-        super().__init__(items, parent)
+        super().__init__(items, parent=parent)
 
 class IncludesList(List):
     def __init__(self, items: list[xkb.Include], parent=None):
-        super().__init__(items, parent)
+        super().__init__(parent=parent)
+        self._items = [Include(item, parent=self) for item in items]
+
+    def roleNames(self) -> dict:
+        return {self.ObjectRole: b"include"}
+
 
 class VariantsList(List):
     def __init__(self, items: list[xkb.Variant], parent=None):
@@ -113,9 +124,9 @@ class Variant(QObject):
         return FlagsList(self._variant.flags)
 
     includesChanged = Signal()
-    @Property(list, notify=includesChanged)
+    @Property(QObject, notify=includesChanged)
     def includes(self):
-        return IncludesList(self._variant.includes)
+        return IncludesList(self._variant.includes, parent=self)
 
     @Slot(str, int, result=str)
     def getSymbol(self, keycode: str, layer: int) -> str:
