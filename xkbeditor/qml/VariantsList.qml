@@ -24,6 +24,10 @@ Kirigami.ScrollablePage {
                 id: listItem
                 implicitHeight: Kirigami.Units.gridUnit * 2
                 width: listItemRoot.width
+                onClicked: {
+                    bridge.file.variantIndex = listItemRoot.index;
+                    forceActiveFocus();
+                }
                 contentItem: RowLayout {
                     anchors.verticalCenter: parent.verticalCenter
                     width: listItem.width - Kirigami.Units.iconSizes.small * 2
@@ -56,7 +60,7 @@ Kirigami.ScrollablePage {
                         icon.name: "edit-rename"
                         text: qsTr("Rename")
                         onClicked: {
-                            showPassiveNotification(qsTr("Renaming %1").arg(listItemRoot.title));
+                            // showPassiveNotification(qsTr("Renaming %1").arg(listItemRoot.title));
                             editField.visible = true;
                         }
                         icon.height: Kirigami.Units.iconSizes.small
@@ -67,6 +71,7 @@ Kirigami.ScrollablePage {
                         icon.name: "edit-delete-remove"
                         text: qsTr("Delete")
                         onClicked: {
+                            // TODO: Confirm deletion
                             showPassiveNotification(qsTr("Deleted: %1").arg(listItemRoot.title));
                             mainList.model.remove(listItemRoot.index);
                         }
@@ -85,7 +90,8 @@ Kirigami.ScrollablePage {
                 width: parent.width
                 height: parent.height
                 onAccepted: visible = false
-                onVisibleChanged: forceActiveFocus()
+                onVisibleChanged: if (visible == true) forceActiveFocus()
+                onFocusChanged: if (focus == false) visible = false
             }
         }
     }
