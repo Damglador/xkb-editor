@@ -63,6 +63,16 @@ Controls.MenuBar {
     Controls.Menu {
         title: qsTr("Help")
         Kirigami.Action {
+            text: qsTr("Unicode table")
+            icon.name: "table"
+            onTriggered: Qt.openUrlExternally("https://symbl.cc/en/unicode-table/")
+        }
+        Kirigami.Action {
+            text: qsTr("Xkb documentation")
+            icon.name: "documentation"
+            onTriggered: Qt.openUrlExternally("https://xkbcommon.org/doc/current/keymap-text-format-v1-v2.html#the-xkb_symbols-section")
+        }
+        Kirigami.Action {
             text: qsTr("About")
             icon.name: "help-about"
             onTriggered: about.show()
