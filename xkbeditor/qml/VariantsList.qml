@@ -56,7 +56,9 @@ Kirigami.ScrollablePage {
                     anchors.right: parent.right
                     anchors.verticalCenter: parent.verticalCenter
 
-                    Controls.ToolButton {
+                    z: contentItem.z + 1
+
+                    Controls.Button {
                         icon.name: "edit-rename"
                         text: qsTr("Rename")
                         onClicked: {
@@ -67,7 +69,7 @@ Kirigami.ScrollablePage {
                         visible: listItem.hovered
                         display: Controls.AbstractButton.IconOnly
                     }
-                    Controls.ToolButton {
+                    Controls.Button {
                         icon.name: "edit-delete-remove"
                         text: qsTr("Delete")
                         onClicked: {
@@ -101,6 +103,7 @@ Kirigami.ScrollablePage {
         id: mainList
         model: bridge.file.variants
         delegate: delegateComponent
+        clip: true
     }
 
     footer: Kirigami.ActionTextField {
