@@ -34,10 +34,11 @@ Kirigami.ApplicationWindow {
             globalToolBarStyle: Kirigami.ApplicationHeaderStyle.None
             RowLayout {
                 anchors.centerIn: parent
-                IncludesEditor {
+                Kirigami.AbstractCard {
+                    implicitWidth: Kirigami.Units.gridUnit * 10
                     Layout.fillWidth: true
                     Layout.fillHeight: true
-                    implicitWidth: Kirigami.Units.gridUnit * 8
+                    contentItem: IncludesList { }
                 }
                 Editor {
                     Component.onCompleted: bridge.loadTestVariant()

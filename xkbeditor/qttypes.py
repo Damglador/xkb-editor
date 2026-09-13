@@ -108,6 +108,12 @@ class IncludesList(List):
             case self.VariantRole:
                 return self._items[index.row()].variant
 
+    @Slot(str)
+    def new(self, str: str = ""):
+        self.beginInsertRows(QModelIndex(), len(self._items), len(self._items))
+        self._items.append(xkb.Include(path=str))
+        self.endInsertRows()
+
 
 class VariantsList(List):
     IdRole = Qt.ItemDataRole.UserRole + 2
