@@ -72,6 +72,10 @@ Kirigami.ScrollablePage {
                     Controls.Button {
                         icon.name: "edit-rename"
                         text: qsTr("Rename")
+                        Controls.ToolTip.text: text
+                        Controls.ToolTip.visible: hovered
+                        Controls.ToolTip.delay: Kirigami.Units.toolTipDelay
+
                         onClicked: {
                             // showPassiveNotification(qsTr("Renaming %1").arg(listItemRoot.title));
                             editField.visible = true;
@@ -83,6 +87,10 @@ Kirigami.ScrollablePage {
                     Controls.Button {
                         icon.name: "edit-delete-remove"
                         text: qsTr("Delete")
+                        Controls.ToolTip.text: text
+                        Controls.ToolTip.visible: hovered
+                        Controls.ToolTip.delay: Kirigami.Units.toolTipDelay
+
                         onClicked: {
                             // TODO: Confirm deletion
                             deleteDialog.targetRow = listItemRoot.index
