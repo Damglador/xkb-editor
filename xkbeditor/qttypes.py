@@ -140,6 +140,7 @@ class VariantsList(List):
         self._items = items
         self.endResetModel()
 
+    @Slot(int, result=QObject)
     def getRow(self, row: int):
         if 0 <= row < len(self._items):
             return Variant(self._items[row], parent=self)

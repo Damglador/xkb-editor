@@ -72,8 +72,8 @@ Kirigami.ScrollablePage {
                         text: qsTr("Delete")
                         onClicked: {
                             // TODO: Confirm deletion
-                            showPassiveNotification(qsTr("Deleted: %1").arg(listItemRoot.title));
-                            mainList.model.remove(listItemRoot.index);
+                            deleteDialog.targetRow = listItemRoot.index
+                            deleteDialog.open()
                         }
                         icon.height: Kirigami.Units.iconSizes.small
                         visible: listItem.hovered
@@ -117,6 +117,26 @@ Kirigami.ScrollablePage {
                 bridge.file.variants.new(field.text)
                 field.text = ""
             }
+        }
+    }
+
+    Kirigami.PromptDialog {
+        id: deleteDialog
+        title: qsTr("Delete variant %1?").arg(id)
+
+        property var targetVariant: mainList.model.getRow(targetRow)
+        property int targetRow: -1
+        property string id: if (targetVariant) { targetVariant.id } else ""
+        property string name: if (targetVariant && targetVariant.name) { targetVariant.name } else id
+
+        standardButtons: Kirigami.Dialog.Ok | Kirigami.Dialog.Cancel
+
+        subtitle: qsTr("Confirm deletion of variant %1").arg(name)
+
+        onAccepted: {
+            showPassiveNotification(qsTr("Deleted: %1").arg(id));
+            mainList.model.remove(targetRow);
+            targetRow = -1
         }
     }
 }
