@@ -5,6 +5,7 @@ import signal
 import sys
 
 from PySide6.QtCore import Property, QObject, QUrl, Signal, Slot
+from PySide6.QtGui import QIcon
 from PySide6.QtQml import QmlElement, QQmlApplicationEngine
 from PySide6.QtWidgets import QApplication
 
@@ -61,6 +62,7 @@ def main():
     app.setDesktopFileName("xkb-editor")
     app.setApplicationName("Xkb Editor")
     app.setOrganizationName("damglador")
+    app.setWindowIcon(QIcon.fromTheme("keyboard"))
 
     """Needed to close the app with Ctrl+C"""
     _ = signal.signal(signal.SIGINT, signal.SIG_DFL)
