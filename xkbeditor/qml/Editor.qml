@@ -30,6 +30,7 @@ Item {
                 text: bridge.file.path
                 padding: Kirigami.Units.smallSpacing
                 Layout.fillWidth: true
+                readOnly: true
             }
             Controls.Button {
                 text: "Reload from file"

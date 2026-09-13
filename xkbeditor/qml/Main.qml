@@ -1,3 +1,5 @@
+pragma ComponentBehavior: Bound
+
 import QtCore
 import QtQuick
 import QtQuick.Layouts
@@ -10,7 +12,7 @@ import xkbeditor
 Kirigami.ApplicationWindow {
     id: window
 
-    title: Qt.application.name
+    title: bridge.file.path ? Qt.application.name + " — " + bridge.file.path : Qt.application.name
 
     minimumWidth: Kirigami.Units.gridUnit * 60
     minimumHeight: Kirigami.Units.gridUnit * 20
