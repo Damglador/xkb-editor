@@ -90,8 +90,10 @@ Kirigami.ScrollablePage {
                 width: parent.width
                 height: parent.height
                 onAccepted: visible = false
-                onVisibleChanged: if (visible == true) forceActiveFocus()
-                onFocusChanged: if (focus == false) visible = false
+                onVisibleChanged: if (visible == true)
+                    forceActiveFocus()
+                onFocusChanged: if (focus == false)
+                    visible = false
             }
         }
     }
@@ -103,7 +105,6 @@ Kirigami.ScrollablePage {
 
     footer: Kirigami.ActionTextField {
         id: field
-        width: Kirigami.Units.gridUnit* 2
         placeholderText: qsTr("Add variant")
         rightActions: Kirigami.Action {
             icon.name: "document-send"
@@ -114,8 +115,8 @@ Kirigami.ScrollablePage {
         onAccepted: addVariant()
         function addVariant() {
             if (field.text) {
-                bridge.file.variants.new(field.text)
-                field.text = ""
+                bridge.file.variants.new(field.text);
+                field.text = "";
             }
         }
     }
