@@ -91,9 +91,6 @@ Kirigami.ScrollablePage {
     }
 
     footer: ColumnLayout {
-        Kirigami.Separator {
-            Layout.fillWidth: true
-        }
         Kirigami.ActionTextField {
             id: field
             placeholderText: qsTr("Add include")
