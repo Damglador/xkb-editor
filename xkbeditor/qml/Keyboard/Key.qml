@@ -85,11 +85,18 @@ Controls.Button {
             key.loadChars();
         }
     }
+    Connections {
+        target: ViewSettings
+        function onShowFallbacksChanged() {
+            key.loadChars();
+        }
+    }
 
     function loadChars() {
         if (bridge.file.variant) {
             char = bridge.file.variant.getKeyChar(keycode, symbolsLayer);
-            charFallback = bridge.file.variant.getKeyCharFallback(keycode, symbolsLayer);
+            // Optimization!
+            if (ViewSettings.showFallbacks) charFallback = bridge.file.variant.getKeyCharFallback(keycode, symbolsLayer);
         }
         else {
             char = ""
