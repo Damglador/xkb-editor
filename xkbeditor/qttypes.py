@@ -54,6 +54,21 @@ class List(QAbstractListModel):
         del self._items[row]
         self.endRemoveRows()
 
+    @Slot(int, int)
+    @Slot(int, int, int) # For compatability with ListModel.move()
+    def move(self, oldIndex, newIndex, n = 1):
+        if not (0 <= oldIndex < self.rowCount()) or not (0 <= newIndex < self.rowCount()):
+            return
+
+        if newIndex < oldIndex:
+            dest = newIndex
+        else:
+            dest = newIndex + 1
+
+        self.beginMoveRows(QModelIndex(), oldIndex, oldIndex, QModelIndex(), dest)
+        self._items[newIndex], self._items[oldIndex] = self._items[oldIndex], self._items[newIndex]
+        self.endMoveRows()
+
     @Slot()
     def reset(self):
         self.beginResetModel()
