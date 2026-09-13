@@ -36,10 +36,8 @@ Kirigami.ScrollablePage {
                 id: listItem
                 implicitHeight: Kirigami.Units.gridUnit * 2
                 width: listItemRoot.width
-                onClicked: {
-                    bridge.file.variantIndex = listItemRoot.index;
-                    forceActiveFocus();
-                }
+                onClicked: bridge.file.variantIndex = listItemRoot.index;
+                highlighted: listItemRoot.ListView.isCurrentItem
                 contentItem: RowLayout {
                     anchors.verticalCenter: parent.verticalCenter
                     width: listItem.width - Kirigami.Units.iconSizes.small * 2
@@ -117,6 +115,7 @@ Kirigami.ScrollablePage {
         model: bridge.file.variants
         delegate: delegateComponent
         clip: true
+        currentIndex: bridge.file.variantIndex
     }
 
     footer: ColumnLayout {
