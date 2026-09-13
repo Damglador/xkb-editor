@@ -24,13 +24,13 @@ Item {
                 enabled: count != 0
             }
             Controls.Label {
-                text: "File:"
+                text: "Name:"
             }
             Controls.TextField {
-                text: bridge.file.path
+                text: bridge.file.variant.name
                 padding: Kirigami.Units.smallSpacing
                 Layout.fillWidth: true
-                readOnly: true
+                onTextEdited: bridge.file.variant.name = text
                 onAccepted: focus = false
             }
             Controls.Button {
