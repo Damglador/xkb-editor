@@ -55,6 +55,7 @@ Kirigami.ScrollablePage {
                 RowLayout {
                     anchors.right: parent.right
                     anchors.verticalCenter: parent.verticalCenter
+                    spacing: 0
 
                     z: contentItem.z + 1
 
