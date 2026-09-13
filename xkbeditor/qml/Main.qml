@@ -59,7 +59,8 @@ Kirigami.ApplicationWindow {
         title: "Save xkb layout"
         fileMode: FileDialog.SaveFile
 
-        onAccepted: if (bridge.file.write(selectedFile)) bridge.file.path = selectedFile
+        onAccepted: if (bridge.file.write(selectedFile))
+            bridge.file.path = selectedFile
         currentFolder: StandardPaths.standardLocations(StandardPaths.ConfigLocation)[0] + "/xkb/symbols"
     }
 
@@ -114,24 +115,25 @@ Kirigami.ApplicationWindow {
             repeat: false
             onTriggered: statusBar.visible = false
         }
-        onVisibleChanged: if (visible == true) timeout.start()
+        onVisibleChanged: if (visible == true)
+            timeout.start()
 
         contentItem: RowLayout {
             Kirigami.SelectableLabel {
                 id: statusBarLabel
 
                 function setStatus(str) {
-                    text = str
-                    statusBar.visible = true
-                    color = Kirigami.Theme.textColor
+                    text = str;
+                    statusBar.visible = true;
+                    color = Kirigami.Theme.textColor;
                 }
                 function setError(str) {
-                    setStatus(qsTr("Error:") + " " + str)
-                    color = Kirigami.Theme.negativeTextColor
+                    setStatus(qsTr("Error:") + " " + str);
+                    color = Kirigami.Theme.negativeTextColor;
                 }
                 function setWarning(str) {
-                    setStatus(qsTr("Warning:") + " " + str)
-                    color = Kirigami.Theme.neutralBackgroundColor
+                    setStatus(qsTr("Warning:") + " " + str);
+                    color = Kirigami.Theme.neutralBackgroundColor;
                 }
             }
         }
