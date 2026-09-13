@@ -262,7 +262,7 @@ class SymbolsFile(QObject):
         self._path = urlparse(str).path
         self.pathChanged.emit()
 
-    @Property(str, notify=variantChanged)
+    @Property(int, notify=variantChanged)
     def variantIndex(self):
         return self._variantIndex
 

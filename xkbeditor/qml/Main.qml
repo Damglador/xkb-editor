@@ -8,6 +8,7 @@ import QtQuick.Controls as Controls
 import org.kde.kirigami as Kirigami
 
 import xkbeditor
+import Settings
 
 Kirigami.ApplicationWindow {
     id: window
@@ -36,6 +37,7 @@ Kirigami.ApplicationWindow {
                 IncludesEditor {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
+                    implicitWidth: Kirigami.Units.gridUnit * 8
                 }
                 Editor {
                     Component.onCompleted: bridge.loadTestVariant()
@@ -66,6 +68,32 @@ Kirigami.ApplicationWindow {
         function onError(str) {
             statusBarLabel.setError(str);
         }
+    }
+
+    globalDrawer: Kirigami.GlobalDrawer {
+        id: variantsDrawer
+        modal: false
+        drawerOpen: ViewSettings.variantsSidebar
+        Connections {
+            target: ViewSettings
+            function onVariantsSidebarChanged() {
+                variantsDrawer.drawerOpen = ViewSettings.variantsSidebar
+            }
+        }
+
+        interactiveResizeEnabled: true
+
+        contentItem: Rectangle {
+            color: Kirigami.Theme.alternateBackgroundColor
+            VariantsList {
+                id: content
+                anchors.fill: parent
+                anchors.margins: Kirigami.Units.largeSpacing
+                width: parent.width
+            }
+        }
+
+        preferredSize: Kirigami.Units.gridUnit * 12
     }
 
     Kirigami.AbstractCard {

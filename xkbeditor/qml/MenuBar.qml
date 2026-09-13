@@ -53,6 +53,12 @@ Controls.MenuBar {
             checked: ViewSettings.showFallbacks
             onToggled: ViewSettings.showFallbacks = checked
         }
+        Kirigami.Action {
+            text: qsTr("Variants sidebar")
+            checkable: true
+            checked: ViewSettings.variantsSidebar
+            onToggled: ViewSettings.variantsSidebar = checked
+        }
     }
     Controls.Menu {
         title: qsTr("Help")
