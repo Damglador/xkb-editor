@@ -31,6 +31,7 @@ Item {
                 padding: Kirigami.Units.smallSpacing
                 Layout.fillWidth: true
                 readOnly: true
+                onAccepted: focus = false
             }
             Controls.Button {
                 text: "Reload from file"

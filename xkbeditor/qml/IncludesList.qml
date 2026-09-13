@@ -104,7 +104,10 @@ Kirigami.ScrollablePage {
                 onTriggered: field.addInclude()
             }
             Layout.fillWidth: true
-            onAccepted: addInclude()
+            onAccepted: {
+                addInclude();
+                focus = false;
+            }
             function addInclude() {
                 if (field.text) {
                     bridge.file.variant.includes.new(field.text);

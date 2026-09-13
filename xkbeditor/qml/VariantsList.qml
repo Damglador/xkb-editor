@@ -140,7 +140,10 @@ Kirigami.ScrollablePage {
                 tooltip: text
                 onTriggered: field.addVariant()
             }
-            onAccepted: addVariant()
+            onAccepted: {
+                addVariant();
+                focus = false;
+            }
             function addVariant() {
                 if (field.text) {
                     bridge.file.variants.new(field.text);
