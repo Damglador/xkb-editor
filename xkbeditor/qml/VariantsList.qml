@@ -7,6 +7,18 @@ import QtQuick.Controls as Controls
 import org.kde.kirigami as Kirigami
 
 Kirigami.ScrollablePage {
+    header: ColumnLayout {
+        Kirigami.Heading {
+            text: "Variants"
+        }
+        Kirigami.Separator {
+            Layout.fillWidth: true
+        }
+    }
+
+    background: Rectangle {
+        color: Kirigami.Theme.alternateBackgroundColor
+    }
     Component {
         id: delegateComponent
         Item {
@@ -107,20 +119,26 @@ Kirigami.ScrollablePage {
         clip: true
     }
 
-    footer: Kirigami.ActionTextField {
-        id: field
-        placeholderText: qsTr("Add variant")
-        rightActions: Kirigami.Action {
-            icon.name: "document-send"
-            text: field.text
-            tooltip: text
-            onTriggered: field.addVariant()
+    footer: ColumnLayout {
+        Kirigami.Separator {
+            Layout.fillWidth: true
         }
-        onAccepted: addVariant()
-        function addVariant() {
-            if (field.text) {
-                bridge.file.variants.new(field.text);
-                field.text = "";
+        Kirigami.ActionTextField {
+            id: field
+            placeholderText: qsTr("Add variant")
+            Layout.fillWidth: true
+            rightActions: Kirigami.Action {
+                icon.name: "document-send"
+                text: field.placeholderText
+                tooltip: text
+                onTriggered: field.addVariant()
+            }
+            onAccepted: addVariant()
+            function addVariant() {
+                if (field.text) {
+                    bridge.file.variants.new(field.text);
+                    field.text = "";
+                }
             }
         }
     }
