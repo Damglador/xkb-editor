@@ -15,7 +15,7 @@ class Variant(BaseModel):
     # Human-readable name of the `variant`.
     # Defined as `name[Group1]="English (US, symbolic)";`
     name: str | None = None  # name[Group1] = "<name>"
-    flags: list[Flags] = []
+    flags: Flags = Flags(0)
     keymap: dict[str, KeyProps] = {}
     includes: list[Include] = []
     key_type: str | None = None
@@ -69,8 +69,8 @@ class Variant(BaseModel):
     def toXkb(self) -> str:
         indent: str = "    "
         lines: list[str] = []
-        if self.flags != []:
-            lines.append(" ".join(self.flags))
+        if self.flags != Flags(0):
+            lines.append(" ".join([str(flag.name) for flag in self.flags]))
         lines.append(f'xkb_symbols "{self.id}" {{')
 
         if self.name is not None:
@@ -153,7 +153,7 @@ def getVariant(includePath: str, variantId: str | None = None) -> Variant | None
             for variant in variants:
                 if firstMatch is None:
                     firstMatch = variant
-                if Flags.DEFAULT in variant.flags:
+                if Flags.default in variant.flags:
                     result = variant
         if result is None:
             result = firstMatch
@@ -187,7 +187,7 @@ class VariantTransformer(Transformer[Token, Variant]):
             if type(item) is Token:
                 match item.type:
                     case "FLAG":
-                        variant.flags.append(Flags(item.value))
+                        variant.flags |= Flags[item.value]
                     case "ID":
                         variant.id = str(item.value).strip('"')
                     case "NAME":

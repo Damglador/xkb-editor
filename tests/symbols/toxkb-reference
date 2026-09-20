@@ -1,4 +1,4 @@
-partial default hidden alphanumeric_keys modifier_keys keypad_keys function_keys alternate_group
+default partial hidden alphanumeric_keys modifier_keys keypad_keys function_keys alternate_group
 xkb_symbols "test" {
     name[Group1] = "English (Custom)";
 

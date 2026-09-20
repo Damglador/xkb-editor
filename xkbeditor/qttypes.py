@@ -222,7 +222,7 @@ class Variant(QObject):
     flagsChanged = Signal()
     @Property(list, notify=flagsChanged)
     def flags(self):
-        return FlagsList(self._variant.flags)
+        return [flag.name for flag in self._variant.flags]
 
     includesChanged = Signal()
     @Property(QObject, notify=includesChanged)

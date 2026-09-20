@@ -1,5 +1,5 @@
 import re
-from enum import StrEnum
+from enum import Flag, StrEnum, auto
 from typing import Any, override
 
 from pydantic import BaseModel, ConfigDict
@@ -18,16 +18,15 @@ def isImplicit(symbol: Any | None) -> bool:
 
 
 # https://www.charvolant.org/doug/xkb/html/node5.html
-class Flags(StrEnum):
-    DEFAULT = "default"
-    PARTIAL = "partial"
-    HIDDEN = "hidden"
-    ALPHANUMERIC_KEYS = "alphanumeric_keys"
-    MODIFIER_KEYS = "modifier_keys"
-    KEYPAD_KEYS = "keypad_keys"
-    FUNCTION_KEYS = "function_keys"
-    ALTERNATE_GROUP = "alternate_group"
-
+class Flags(Flag):
+    default = auto()
+    partial = auto()
+    hidden = auto()
+    alphanumeric_keys = auto()
+    modifier_keys = auto()
+    keypad_keys = auto()
+    function_keys = auto()
+    alternate_group = auto()
 
 # https://xkbcommon.org/doc/current/keymap-text-format-v1-v2.html#merge-mode-def
 class MergeMode(StrEnum):
