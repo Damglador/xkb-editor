@@ -90,10 +90,6 @@ class List(QAbstractListModel):
     def __iter__(self):
         return iter(self._items)
 
-class FlagsList(List):
-    def __init__(self, items: list[xkb.Flags], parent=None):
-        super().__init__(items, parent=parent)
-
 class IncludesList(List):
     PathRole = Qt.ItemDataRole.UserRole + 2
     VariantRole = Qt.ItemDataRole.UserRole + 3
@@ -223,6 +219,20 @@ class Variant(QObject):
     @Property(list, notify=flagsChanged)
     def flags(self):
         return [flag.name for flag in self._variant.flags]
+
+    @Slot(str)
+    def removeFlag(self, str):
+        self._variant.flags &= ~xkb.Flags[str]
+        self.flagsChanged.emit()
+
+    @Slot(str)
+    def addFlag(self, str):
+        self._variant.flags |= xkb.Flags[str]
+        self.flagsChanged.emit()
+
+    @Property(list, notify=flagsChanged)
+    def availableFlags(self):
+        return [flag.name for flag in list(xkb.Flags) if flag not in self._variant.flags]
 
     includesChanged = Signal()
     @Property(QObject, notify=includesChanged)

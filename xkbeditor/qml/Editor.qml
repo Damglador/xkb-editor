@@ -7,11 +7,20 @@ import org.kde.kirigami as Kirigami
 import "Keyboard"
 
 Item {
-    width: layout.width
+    width: keyboard.width
     height: layout.height
     ColumnLayout {
         id: layout
 
+        RowLayout {
+            Layout.fillWidth: true
+            Controls.Label {
+                text: "Flags:"
+            }
+            FlagsList {
+                Layout.fillWidth: true
+            }
+        }
         RowLayout {
             Controls.Label {
                 text: "Variant:"
