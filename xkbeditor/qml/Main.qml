@@ -1,6 +1,7 @@
 pragma ComponentBehavior: Bound
 
 import QtCore
+import QtCore as QtCore
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Dialogs
@@ -19,6 +20,13 @@ Kirigami.ApplicationWindow {
     minimumHeight: Kirigami.Units.gridUnit * 20
     width: Kirigami.Units.gridUnit * 60
     height: Kirigami.Units.gridUnit * 22
+
+    QtCore.Settings {
+        category: "Window"
+        location: Settings.Paths.stateFile
+        property alias width: window.width
+        property alias height: window.height
+    }
 
     pageStack.initialPage: initPage
 
