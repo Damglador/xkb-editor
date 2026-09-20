@@ -1,2 +1,2 @@
-singleton GeneralSettings 1.0 General.qml
-singleton ViewSettings 1.0 View.qml
+singleton General 1.0 General.qml
+singleton View 1.0 View.qml

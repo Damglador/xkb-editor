@@ -8,7 +8,7 @@ import QtQuick.Controls as Controls
 import org.kde.kirigami as Kirigami
 
 import xkbeditor
-import Settings
+import Settings as Settings
 
 Kirigami.ApplicationWindow {
     id: window
@@ -75,11 +75,11 @@ Kirigami.ApplicationWindow {
     globalDrawer: Kirigami.GlobalDrawer {
         id: variantsDrawer
         modal: false
-        drawerOpen: ViewSettings.variantsSidebar
+        drawerOpen: Settings.View.variantsSidebar
         Connections {
-            target: ViewSettings
+            target: Settings.View
             function onVariantsSidebarChanged() {
-                variantsDrawer.drawerOpen = ViewSettings.variantsSidebar
+                variantsDrawer.drawerOpen = Settings.View.variantsSidebar
             }
         }
 

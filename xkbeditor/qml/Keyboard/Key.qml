@@ -3,7 +3,7 @@ import QtQuick.Layouts
 import QtQuick.Controls as Controls
 import org.kde.kirigami as Kirigami
 
-import Settings
+import Settings as Settings
 
 Controls.Button {
     id: key
@@ -55,7 +55,7 @@ Controls.Button {
         id: legend
         text: parent.legend
         opacity: 0.2
-        visible: ViewSettings.showLegends
+        visible: Settings.View.showLegends
 
         leftPadding: 5
         anchors.left: parent.left
@@ -73,7 +73,7 @@ Controls.Button {
         id: fallback
         text: parent.charFallback
         opacity: 0.4
-        visible: ViewSettings.showFallbacks && !parent.char
+        visible: Settings.View.showFallbacks && !parent.char
 
         anchors.centerIn: parent
     }
@@ -86,7 +86,7 @@ Controls.Button {
         }
     }
     Connections {
-        target: ViewSettings
+        target: Settings.View
         function onShowFallbacksChanged() {
             key.loadChars();
         }
@@ -96,7 +96,7 @@ Controls.Button {
         if (bridge.file.variant) {
             char = bridge.file.variant.getKeyChar(keycode, symbolsLayer);
             // Optimization!
-            if (ViewSettings.showFallbacks) charFallback = bridge.file.variant.getKeyCharFallback(keycode, symbolsLayer);
+            if (Settings.View.showFallbacks) charFallback = bridge.file.variant.getKeyCharFallback(keycode, symbolsLayer);
         }
         else {
             char = ""
