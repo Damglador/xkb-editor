@@ -15,10 +15,10 @@ Kirigami.ApplicationWindow {
 
     title: bridge.file.path ? Qt.application.name + " — " + bridge.file.path : Qt.application.name
 
-    minimumWidth: Kirigami.Units.gridUnit * 60
+    minimumWidth: Kirigami.Units.gridUnit * 55
     minimumHeight: Kirigami.Units.gridUnit * 20
-    width: minimumWidth
-    height: minimumHeight
+    width: Kirigami.Units.gridUnit * 60
+    height: Kirigami.Units.gridUnit * 22
 
     pageStack.initialPage: initPage
 
