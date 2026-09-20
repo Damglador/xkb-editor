@@ -4,7 +4,7 @@ import QtCore
 
 Settings {
     category: "View"
-    location: StandardPaths.standardLocations(StandardPaths.GenericStateLocation)[0] + "/xkb-editor.conf"
+    location: General.stateFile
     property bool showLegends: true
     property bool showFallbacks: true
     property bool variantsSidebar: true
