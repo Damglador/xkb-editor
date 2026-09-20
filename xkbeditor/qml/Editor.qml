@@ -24,7 +24,6 @@ Item {
         RowLayout {
             Controls.Label {
                 text: "Variant:"
-                padding: Kirigami.Units.smallSpacing
             }
             Controls.ComboBox {
                 model: bridge.file.variants
