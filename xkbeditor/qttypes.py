@@ -1,10 +1,22 @@
-from enum import Enum, auto
-from PySide6.QtCore import Property, QAbstractListModel, QEnum, QModelIndex, QObject, Qt, Signal, Slot, QPersistentModelIndex
-from urllib.parse import urlparse
 import re
+from enum import Enum, auto
+from urllib.parse import urlparse
+
+from PySide6.QtCore import (
+    Property,
+    QAbstractListModel,
+    QEnum,
+    QModelIndex,
+    QObject,
+    QPersistentModelIndex,
+    Qt,
+    Signal,
+    Slot,
+)
 
 from . import xkb
 from .getchar import getchar
+
 
 @QEnum
 class XkbFlag(Enum):
