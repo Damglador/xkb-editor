@@ -4,7 +4,7 @@ import QtCore
 
 Settings {
     category: "View"
-    location: General.stateFile
+    location: Paths.stateFile
     property bool showLegends: true
     property bool showFallbacks: true
     property bool variantsSidebar: true
