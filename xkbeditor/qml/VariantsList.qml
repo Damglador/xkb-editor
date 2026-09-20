@@ -78,7 +78,7 @@ Kirigami.ScrollablePage {
 
                         onClicked: {
                             // showPassiveNotification(qsTr("Renaming %1").arg(listItemRoot.title));
-                            editField.visible = true;
+                            popup.open();
                         }
                         icon.height: Kirigami.Units.iconSizes.small
                         visible: listItem.hovered
@@ -103,18 +103,23 @@ Kirigami.ScrollablePage {
                 }
             }
 
-            Kirigami.ActionTextField {
-                id: editField
-                text: listItemRoot.variant.id
-                onTextEdited: listItemRoot.variant.id = text
-                visible: false
+            Controls.Popup {
+                id: popup
                 width: parent.width
                 height: parent.height
-                onAccepted: visible = false
+
                 onVisibleChanged: if (visible == true)
-                    forceActiveFocus()
-                onFocusChanged: if (focus == false)
-                    visible = false
+                    editField.forceActiveFocus()
+
+                contentItem: Kirigami.ActionTextField {
+                    id: editField
+                    anchors.fill: parent
+                    text: listItemRoot.variant.id
+                    onTextEdited: listItemRoot.variant.id = text
+                    width: parent.width
+                    height: parent.height
+                    onAccepted: popup.close()
+                }
             }
         }
     }
