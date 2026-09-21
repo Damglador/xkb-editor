@@ -17,7 +17,7 @@ Item {
             Controls.Label {
                 text: "Flags:"
             }
-            FlagsList {
+            FlagsChips {
                 Layout.fillWidth: true
             }
         }
