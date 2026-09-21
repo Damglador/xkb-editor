@@ -26,12 +26,14 @@ Flow {
         icon.name: "add"
         display: Controls.AbstractButton.IconOnly
         enabled: list.count != 0
-        onClicked: menu.open()
+
         Controls.ToolTip {
             visible: button.hovered
             text: button.text
             delay: Kirigami.Units.toolTipDelay
         }
+
+        onClicked: menu.open()
         Controls.Menu {
             id: menu
             y: parent.height
