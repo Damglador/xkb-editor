@@ -35,11 +35,17 @@ Item {
                 text: "Variant:"
             }
             Controls.ComboBox {
+                id: variantComboBox
                 model: bridge.file.variants
                 textRole: "id"
                 onActivated: bridge.file.variantIndex = currentIndex
-                onModelChanged: currentIndex = 0
                 enabled: count != 0
+                Connections {
+                    target: bridge.file
+                    function onVariantChanged() {
+                        variantComboBox.currentIndex = bridge.file.variantIndex
+                    }
+                }
             }
             Controls.Label {
                 text: "Name:"
