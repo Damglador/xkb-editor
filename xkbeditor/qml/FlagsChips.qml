@@ -25,6 +25,7 @@ Flow {
         text: "Add flag"
         icon.name: "add"
         display: Controls.AbstractButton.IconOnly
+        implicitHeight: Kirigami.Units.gridUnit * 1.6
         enabled: list.count != 0
 
         Controls.ToolTip {

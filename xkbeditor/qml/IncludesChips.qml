@@ -58,6 +58,7 @@ Flow {
         text: "Add include"
         icon.name: "add"
         display: Controls.AbstractButton.IconOnly
+        implicitHeight: Kirigami.Units.gridUnit * 1.6
 
         Controls.ToolTip {
             visible: button.hovered
