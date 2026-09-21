@@ -155,9 +155,9 @@ class VariantsList(List):
         self.endResetModel()
 
     @Slot(int, result=QObject)
-    def getRow(self, row: int):
-        if 0 <= row < len(self._items):
-            return Variant(self._items[row], parent=self)
+    def get(self, index: int):
+        if 0 <= index < len(self._items):
+            return Variant(self._items[index], parent=self)
 
     @Slot()
     @Slot(str)
@@ -309,7 +309,7 @@ class SymbolsFile(QObject):
 
     @Property(Variant, notify=variantChanged)
     def variant(self) -> Variant | None:
-        return self._variants.getRow(self._variantIndex)
+        return self._variants.get(self._variantIndex)
 
     @Slot(str)
     def load(self, filePath: str):
