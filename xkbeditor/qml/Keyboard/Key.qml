@@ -104,7 +104,10 @@ Controls.Button {
         }
     }
 
+    checkable: true
+    checked: tooltip.visible
     onClicked: {
         if (keycode) tooltip.visible = !tooltip.visible;
+        else checked = false
     }
 }
