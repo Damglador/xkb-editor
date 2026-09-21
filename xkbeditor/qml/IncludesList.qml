@@ -107,7 +107,7 @@ Kirigami.ScrollablePage {
             }
             function addInclude() {
                 if (field.text) {
-                    bridge.file.variant.includes.new(field.text);
+                    bridge.file.variant.includes.append({"path": field.text});
                     field.text = "";
                 }
             }

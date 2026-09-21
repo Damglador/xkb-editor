@@ -22,6 +22,15 @@ Item {
             }
         }
         RowLayout {
+            Layout.fillWidth: true
+            Controls.Label {
+                text: "Includes:"
+            }
+            IncludesChips {
+                Layout.fillWidth: true
+            }
+        }
+        RowLayout {
             Controls.Label {
                 text: "Variant:"
             }
