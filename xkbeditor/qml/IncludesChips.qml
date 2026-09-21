@@ -10,8 +10,7 @@ Flow {
     spacing: Kirigami.Units.smallSpacing
     Repeater {
         id: repeater
-        property var variant: bridge.file.variant
-        model: variant.includes
+        model: bridge.file.variant ? bridge.file.variant.includes : []
         delegate: Kirigami.Chip {
             id: item
             required property int index
@@ -59,6 +58,7 @@ Flow {
         icon.name: "add"
         display: Controls.AbstractButton.IconOnly
         implicitHeight: Kirigami.Units.gridUnit * 1.6
+        enabled: bridge.file.variant
 
         Controls.ToolTip {
             visible: button.hovered

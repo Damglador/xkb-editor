@@ -45,10 +45,11 @@ Item {
                 text: "Name:"
             }
             Controls.TextField {
-                text: bridge.file.variant.name
-                padding: Kirigami.Units.smallSpacing
-                Layout.fillWidth: true
+                enabled: bridge.file.variant
+                text: bridge.file.variant ? bridge.file.variant.name : ""
                 onTextEdited: bridge.file.variant.name = text
+
+                Layout.fillWidth: true
                 onAccepted: focus = false
             }
             Controls.Button {

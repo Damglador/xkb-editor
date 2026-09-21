@@ -25,7 +25,7 @@ Controls.Button {
     property string legend
     property var label
 
-    // enabled: keyboard.keysEnabled
+    enabled: bridge.file.variant
 
     Controls.ToolTip {
         id: tooltip

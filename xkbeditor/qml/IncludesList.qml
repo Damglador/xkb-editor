@@ -85,7 +85,7 @@ Kirigami.ScrollablePage {
     }
     ListView {
         id: mainList
-        model: bridge.file.variant.includes
+        model: bridge.file.variant ? bridge.file.variant.includes : []
         delegate: delegateComponent
         clip: true
     }

@@ -10,7 +10,7 @@ Flow {
     Repeater {
         id: repeater
         property QtObject variant: bridge.file.variant
-        model: variant.flags
+        model: variant ? variant.flags : []
         delegate: Kirigami.Chip {
             required property int index
             required property var modelData
@@ -40,7 +40,7 @@ Flow {
             y: parent.height
             Repeater {
                 id: list
-                model: repeater.variant.availableFlags
+                model: repeater.variant ? repeater.variant.availableFlags : []
                 delegate: Controls.MenuItem {
                     required property var modelData
                     text: modelData
