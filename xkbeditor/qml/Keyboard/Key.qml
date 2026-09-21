@@ -43,9 +43,9 @@ Controls.Button {
                     }
                 }
                 onAccepted: {
-                    bridge.file.variant.setSymbol(key.keycode, key.symbolsLayer, text.replace("U+", "U"))  // strip + for pasting from https://symbl.cc/
-                    key.loadChars()
-                    tooltip.visible = !tooltip.visible
+                    bridge.file.variant.setSymbol(key.keycode, key.symbolsLayer, text.replace("U+", "U"));  // strip + for pasting from https://symbl.cc/
+                    key.loadChars();
+                    tooltip.visible = !tooltip.visible;
                 }
             }
         }
