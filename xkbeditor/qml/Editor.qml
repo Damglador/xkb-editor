@@ -59,7 +59,7 @@ Item {
                 onAccepted: focus = false
             }
             Controls.Button {
-                text: "Reload from file"
+                text: enabled ? "Reload from file" : "No file path to load from"
                 display: Controls.AbstractButton.IconOnly
                 icon.name: "reload"
                 Controls.ToolTip.text: text
