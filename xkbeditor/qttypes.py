@@ -82,7 +82,7 @@ class List(QAbstractListModel):
         self.endMoveRows()
 
     @Slot()
-    def reset(self):
+    def clear(self):
         self.beginResetModel()
         self._items = []
         self.endResetModel()
@@ -330,8 +330,8 @@ class SymbolsFile(QObject):
         return False
 
     @Slot()
-    def reset(self):
+    def clear(self):
         self.variantIndex = 0 # pyright: ignore[reportAttributeAccessIssue]
         self.path = "" # pyright: ignore[reportAttributeAccessIssue]
-        self._variants.reset()
+        self._variants.clear()
         self.variantChanged.emit()

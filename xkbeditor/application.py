@@ -41,7 +41,7 @@ class Bridge(QObject):
 
     @Slot()
     def newFile(self):
-        self._file.reset()
+        self._file.clear()
         self.fileChanged.emit()
 
     @Slot(str)
