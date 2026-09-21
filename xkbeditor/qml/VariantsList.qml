@@ -67,7 +67,7 @@ Kirigami.ScrollablePage {
                     anchors.verticalCenter: parent.verticalCenter
                     spacing: 0
 
-                    z: contentItem.z + 1
+                    z: parent.contentItem.z + 1
 
                     Controls.Button {
                         icon.name: "edit-rename"
