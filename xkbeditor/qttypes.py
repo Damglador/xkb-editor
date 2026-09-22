@@ -270,9 +270,11 @@ class Variant(QObject):
     def getKeyCharFallback(self, keycode: str, layer: int):
         return getchar(self.getSymbolOrFallback(keycode, layer))
 
+    includesReloaded = Signal()
     @Slot()
     def reloadIncludes(self):
         self._variant.reloadIncludes()
+        self.includesReloaded.emit()
 
     def setVariant(self, variant: xkb.Variant):
         self._variant = variant
@@ -287,6 +289,7 @@ class SymbolsFile(QObject):
         self._variantIndex: int = 0
         self._path: str = ""
         self._variants = VariantsList([], parent=self)
+        self._variant: Variant | None = None
 
     variantChanged = Signal()
     error = Signal(str)
@@ -308,6 +311,7 @@ class SymbolsFile(QObject):
     @variantIndex.setter
     def variantIndex(self, index: int):
         self._variantIndex = int(index)
+        self._variant = self._variants.get(self._variantIndex)
         self.variantChanged.emit()
 
     @Property(QObject, notify=variantChanged)
@@ -316,15 +320,14 @@ class SymbolsFile(QObject):
 
     @Property(Variant, notify=variantChanged)
     def variant(self) -> Variant | None:
-        return self._variants.get(self._variantIndex)
+        return self._variant
 
     @Slot(str)
     def load(self, filePath: str):
         try:
             variants = xkb.getVariantsFromFile(urlparse(filePath).path)
             self._variants.setItems(variants)
-            self._variantIndex = 0
-            self.variantChanged.emit()
+            self.variantIndex = 0
             self._path = urlparse(filePath).path
             self.pathChanged.emit()
         except UnicodeDecodeError:

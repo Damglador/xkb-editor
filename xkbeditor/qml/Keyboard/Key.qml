@@ -86,6 +86,12 @@ Controls.Button {
         }
     }
     Connections {
+        target: bridge.file.variant
+        function onIncludesReloaded() {
+            key.loadChars();
+        }
+    }
+    Connections {
         target: Settings.View
         function onShowFallbacksChanged() {
             key.loadChars();
