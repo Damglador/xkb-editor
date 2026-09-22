@@ -327,8 +327,8 @@ class SymbolsFile(QObject):
         try:
             variants = xkb.getVariantsFromFile(urlparse(filePath).path)
             self._variants.setItems(variants)
-            self.variantIndex = 0
-            self._path = urlparse(filePath).path
+            self.variantIndex = 0 # pyright: ignore[reportAttributeAccessIssue]
+            self.path = urlparse(filePath).path # pyright: ignore[reportAttributeAccessIssue]
             self.pathChanged.emit()
         except UnicodeDecodeError:
             self.error.emit("Failed to open file. Not a text file.")
@@ -345,7 +345,6 @@ class SymbolsFile(QObject):
 
     @Slot()
     def clear(self):
+        self._variants.clear()
         self.variantIndex = 0 # pyright: ignore[reportAttributeAccessIssue]
         self.path = "" # pyright: ignore[reportAttributeAccessIssue]
-        self._variants.clear()
-        self.variantChanged.emit()
