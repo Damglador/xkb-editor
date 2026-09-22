@@ -153,7 +153,7 @@ Kirigami.ScrollablePage {
                 if (field.text) {
                     bridge.file.variants.new(field.text);
                     field.text = "";
-                    bridge.file.variantChanged()
+                    bridge.file.updateVariant()
                 }
             }
         }
@@ -175,7 +175,7 @@ Kirigami.ScrollablePage {
         onAccepted: {
             showPassiveNotification(qsTr("Deleted: %1").arg(id));
             mainList.model.remove(targetIndex);
-            bridge.file.variantChanged();
+            bridge.file.updateVariant();
             targetIndex = -1;
         }
     }

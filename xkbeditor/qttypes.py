@@ -311,6 +311,11 @@ class SymbolsFile(QObject):
     @variantIndex.setter
     def variantIndex(self, index: int):
         self._variantIndex = int(index)
+        self.updateVariant()
+        self.variantChanged.emit()
+
+    @Slot()
+    def updateVariant(self):
         self._variant = self._variants.get(self._variantIndex)
         self.variantChanged.emit()
 
