@@ -124,7 +124,7 @@ class IncludesList(List):
             self._items.append(
                 xkb.Include(
                     path=path,
-                    variant=vals.get("variant")
+                    variant=vals.get("variant") or None
                 ))
             self.endInsertRows()
             return True
