@@ -32,12 +32,14 @@ Flow {
                             implicitWidth: Kirigami.Units.gridUnit * 4
                             text: item.include.path
                             onTextEdited: item.include.path = text
+                            onAccepted: chipMenu.close()
                         }
                         Controls.TextField {
                             placeholderText: "Variant"
                             implicitWidth: Kirigami.Units.gridUnit * 4
                             text: item.include.variant ? item.include.variant : ""
                             onTextEdited: item.include.variant = text
+                            onAccepted: chipMenu.close()
                         }
                     }
                     Controls.Button {
@@ -51,6 +53,7 @@ Flow {
                         }
                     }
                 }
+                onClosed: bridge.file.variant.reloadIncludes()
             }
         }
     }
@@ -79,14 +82,17 @@ Flow {
                         id: addMenu_PathField
                         placeholderText: "Path"
                         implicitWidth: Kirigami.Units.gridUnit * 4
+                        onAccepted: addMenu_Button.click()
                     }
                     Controls.TextField {
                         id: addMenu_VariantField
                         placeholderText: "Variant"
                         implicitWidth: Kirigami.Units.gridUnit * 4
+                        onAccepted: addMenu_Button.click()
                     }
                 }
                 Controls.Button {
+                    id: addMenu_Button
                     Layout.fillWidth: true
                     icon.name: "add"
                     text: "Add include"
