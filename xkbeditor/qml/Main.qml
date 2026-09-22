@@ -42,12 +42,12 @@ Kirigami.ApplicationWindow {
             globalToolBarStyle: Kirigami.ApplicationHeaderStyle.None
             RowLayout {
                 anchors.centerIn: parent
-                Kirigami.AbstractCard {
-                    implicitWidth: Kirigami.Units.gridUnit * 10
-                    Layout.fillWidth: true
-                    Layout.fillHeight: true
-                    contentItem: IncludesList { }
-                }
+                // Kirigami.AbstractCard {
+                //     implicitWidth: Kirigami.Units.gridUnit * 10
+                //     Layout.fillWidth: true
+                //     Layout.fillHeight: true
+                //     contentItem: IncludesList { }
+                // }
                 Editor {
                     Component.onCompleted: bridge.loadTestVariant()
                 }
