@@ -72,6 +72,15 @@ Item {
         Keyboard_ANSI {
             id: keyboard
             Layout.alignment: Qt.AlignHCenter
+
+            Controls.Popup {
+                anchors.centerIn: parent
+                visible: !bridge.file.variant
+                closePolicy: Controls.Popup.NoAutoClose
+                Controls.Label {
+                    text: "No variant to edit"
+                }
+            }
         }
 
         Controls.TabBar {
