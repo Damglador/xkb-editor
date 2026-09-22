@@ -87,7 +87,7 @@ Kirigami.ApplicationWindow {
         Connections {
             target: Settings.View
             function onVariantsSidebarChanged() {
-                variantsDrawer.drawerOpen = Settings.View.variantsSidebar
+                variantsDrawer.drawerOpen = Settings.View.variantsSidebar;
             }
         }
 
