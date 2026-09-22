@@ -89,26 +89,27 @@ Controls.Button {
     Connections {
         target: bridge.file.variant
         function onIncludesReloaded() {
-            key.loadChars();
+            key.loadFallback();
         }
     }
     Connections {
         target: Settings.View
         function onShowFallbacksChanged() {
-            key.loadChars();
+            key.loadFallback();
         }
     }
 
     function loadChars() {
-        if (bridge.file.variant) {
-            char = bridge.file.variant.getKeyChar(keycode, symbolsLayer);
-            // Optimization!
-            if (Settings.View.showFallbacks)
-                charFallback = bridge.file.variant.getKeyCharFallback(keycode, symbolsLayer);
-        } else {
-            char = "";
-            charFallback = "";
-        }
+        loadChar()
+        loadFallback()
+    }
+    function loadChar() {
+        char = bridge.file.variant ? bridge.file.variant.getKeyChar(keycode, symbolsLayer) : "";
+    }
+    function loadFallback() {
+        // Optimization!
+        if (Settings.View.showFallbacks)
+            charFallback = bridge.file.variant ? bridge.file.variant.getKeyCharFallback(keycode, symbolsLayer) : "";
     }
 
     checkable: true
