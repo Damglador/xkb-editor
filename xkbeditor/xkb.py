@@ -35,7 +35,7 @@ class Variant(BaseModel):
         key = self.keymap.get(keycode)
         if key is None:
             key = KeyProps()
-        key.symbols[layer - 1] = keysym
+        key.symbols[layer - 1] = keysym.strip()
         self.keymap.update({keycode: key})
 
     def getSymbolOrFallback(self, keycode: str, layer: int, searchSelf: bool = False) -> str:
