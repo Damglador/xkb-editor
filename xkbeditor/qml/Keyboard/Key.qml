@@ -37,14 +37,15 @@ Controls.Button {
             Controls.TextField {
                 implicitWidth: Kirigami.Units.gridUnit * 6
                 onVisibleChanged: {
-                    if (visible == true)
-                        text = bridge.file.variant.getSymbol(key.keycode, key.symbolsLayer)
-                        forceActiveFocus()
+                    if (visible == true) {
+                        text = bridge.file.variant.getSymbol(key.keycode, key.symbolsLayer);
+                        forceActiveFocus();
+                    }
                 }
                 onAccepted: {
-                  bridge.file.variant.setSymbol(key.keycode, key.symbolsLayer, text)
-                  key.loadChars()
-                  tooltip.visible = !tooltip.visible
+                    bridge.file.variant.setSymbol(key.keycode, key.symbolsLayer, text);
+                    key.loadChars();
+                    tooltip.visible = !tooltip.visible;
                 }
             }
         }
@@ -102,18 +103,20 @@ Controls.Button {
         if (bridge.file.variant) {
             char = bridge.file.variant.getKeyChar(keycode, symbolsLayer);
             // Optimization!
-            if (Settings.View.showFallbacks) charFallback = bridge.file.variant.getKeyCharFallback(keycode, symbolsLayer);
-        }
-        else {
-            char = ""
-            charFallback = ""
+            if (Settings.View.showFallbacks)
+                charFallback = bridge.file.variant.getKeyCharFallback(keycode, symbolsLayer);
+        } else {
+            char = "";
+            charFallback = "";
         }
     }
 
     checkable: true
     checked: tooltip.visible
     onClicked: {
-        if (keycode) tooltip.visible = !tooltip.visible;
-        else checked = false
+        if (keycode)
+            tooltip.visible = !tooltip.visible;
+        else
+            checked = false;
     }
 }

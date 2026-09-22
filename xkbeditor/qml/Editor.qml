@@ -43,7 +43,7 @@ Item {
                 Connections {
                     target: bridge.file
                     function onVariantChanged() {
-                        variantComboBox.currentIndex = bridge.file.variantIndex
+                        variantComboBox.currentIndex = bridge.file.variantIndex;
                     }
                 }
             }
