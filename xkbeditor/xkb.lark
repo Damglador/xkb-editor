@@ -104,7 +104,8 @@ ACTION: "NoAction"
       | "MessageAction"
 HEX: "0x" (LETTER|DIGIT)*
 KEY_TYPE: STRING
-KEYCODE: "<" CNAME ">"
+_KEYCODE_INNER: ("_"|LETTER|DIGIT|"+"|"-")*
+KEYCODE: "<" _KEYCODE_INNER ">"
 KEYSYM: CNAME | STRING | DIGIT | HEX | "NoSymbol"
 GROUP: /[Gg]roup/ "1"
 
