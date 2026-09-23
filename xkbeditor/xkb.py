@@ -3,7 +3,7 @@
 import os
 from pathlib import Path
 
-from lark import Lark, Token, Transformer, Tree
+from lark import Discard, Lark, Token, Transformer, Tree
 from pydantic import BaseModel
 
 from .globals import XKB_INCLUDE_PATHS
@@ -285,6 +285,8 @@ class VariantTransformer(Transformer[Token, Variant]):
         name: str = ""
         params: dict[str, str] = {}
         for item in items:
+            if not hasattr(item, "type"):
+                continue
             match item.type:
                 case "ACTION":
                     name = item.value
@@ -305,3 +307,6 @@ class VariantTransformer(Transformer[Token, Variant]):
 
     def key_virtmod(self, items):
         return Token("VIRTMOD", str(items[0]))
+
+    def overlay(self, _items):
+        return Discard
