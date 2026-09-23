@@ -100,8 +100,8 @@ Controls.Button {
     }
 
     function loadChars() {
-        loadChar()
-        loadFallback()
+        loadChar();
+        loadFallback();
     }
     function loadChar() {
         char = bridge.file.variant ? bridge.file.variant.getKeyChar(keycode, symbolsLayer) : "";
