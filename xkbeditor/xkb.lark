@@ -61,8 +61,24 @@ overlay: "overlay" ("1"|"2") "=" KEYCODE
 
 
 BOOL: "True" | "False"
-MODIFIER: "Control"
+
+// https://xkbcommon.org/doc/current/keymap-text-format-v1-v2.html#virtual-modifier-def
+MODIFIER: "None"
+        | "Shift"
+        | "Lock"
+        | "Control"
         | "Mod1"
+        | "Mod2"
+        | "Mod3"
+        | "Mod4"
+        | "Mod5"
+        | "Alt"
+        | "Meta"
+        | "NumLock"
+        | "Super"
+        | "LevelThree"
+        | "LevelFive"
+
 // https://xkbcommon.org/doc/current/keymap-text-format-v1-v2.html#key-actions
 ACTION: "NoAction"
       | "VoidAction"
