@@ -27,29 +27,31 @@ Controls.Button {
 
     enabled: bridge.file.variant
 
-    Controls.ToolTip {
-        id: tooltip
+    Controls.Menu {
+        id: menu
+        x: -menu.width / 2 + key.width / 2
+        y: -menu.height + -Kirigami.Units.smallSpacing / 2
 
-        contentItem: RowLayout {
+        onOpenedChanged: {
+            if (opened == true) {
+                editField.text = bridge.file.variant.getSymbol(key.keycode, key.symbolsLayer);
+                editField.forceActiveFocus();
+            }
+        }
+        RowLayout {
             Kirigami.SelectableLabel {
                 text: key.keycode + ":"
             }
             Controls.TextField {
+                id: editField
                 implicitWidth: Kirigami.Units.gridUnit * 6
-                onVisibleChanged: {
-                    if (visible == true) {
-                        text = bridge.file.variant.getSymbol(key.keycode, key.symbolsLayer);
-                        forceActiveFocus();
-                    }
-                }
                 onAccepted: {
                     bridge.file.variant.setSymbol(key.keycode, key.symbolsLayer, text.replace("U+", "U"));  // strip + for pasting from https://symbl.cc/
                     key.loadChars();
-                    tooltip.visible = !tooltip.visible;
+                    menu.close();
                 }
             }
         }
-        delay: 50
     }
 
     Controls.Label {
@@ -113,10 +115,10 @@ Controls.Button {
     }
 
     checkable: true
-    checked: tooltip.visible
+    checked: menu.visible
     onClicked: {
         if (keycode)
-            tooltip.visible = !tooltip.visible;
+            menu.open();
         else
             checked = false;
     }
