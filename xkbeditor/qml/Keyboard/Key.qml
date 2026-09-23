@@ -27,7 +27,7 @@ Controls.Button {
 
     enabled: bridge.file.variant
 
-    Controls.Menu {
+    Controls.Popup {
         id: menu
         x: -menu.width / 2 + key.width / 2
         y: -menu.height + -Kirigami.Units.smallSpacing / 2
@@ -38,7 +38,9 @@ Controls.Button {
                 editField.forceActiveFocus();
             }
         }
-        RowLayout {
+        dim: false
+        padding: Kirigami.Units.smallSpacing
+        contentItem: RowLayout {
             Kirigami.SelectableLabel {
                 text: key.keycode + ":"
             }
