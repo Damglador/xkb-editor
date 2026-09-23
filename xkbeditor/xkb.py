@@ -128,10 +128,14 @@ class Variant(BaseModel):
 
 lark: Lark = Lark.open("xkb.lark", rel_to=__file__, parser="lalr")
 
+filescache: dict[str, list[Variant]] = {}
 def getVariantsFromFile(filePath: Path | str) -> list[Variant]:
     variants: list[Variant] = []
+    if filePath in filescache:
+        return filescache.get(str(filePath)) # pyright: ignore[reportReturnType]
     with open(filePath, "r") as file:
         variants = fromString(file.read())
+        filescache.update({str(filePath): variants})
     return variants
 
 def getVariant(includePath: str, variantId: str | None = None) -> Variant | None:
