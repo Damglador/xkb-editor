@@ -158,7 +158,7 @@ Kirigami.ScrollablePage {
             }
             function addVariant() {
                 if (field.text) {
-                    bridge.file.variants.new(field.text);
+                    bridge.addVariant(field.text);
                     field.text = "";
                     bridge.file.updateVariant()
                 }

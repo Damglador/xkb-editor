@@ -16,3 +16,16 @@ class RemoveVariant(QUndoCommand):
 
     def undo(self, /) -> None:
         self.variantList.insert(self.index, self.item)
+
+class AddVariant(QUndoCommand):
+    def __init__(self, variantList: VariantsList, id: str, parent=None):
+        super().__init__(parent=parent)
+        self.variantList = variantList
+        self.name = id
+        self.index = variantList.rowCount()
+
+    def redo(self, /) -> None:
+        self.variantList.new(self.name)
+
+    def undo(self, /) -> None:
+        self.variantList.remove(self.index)
