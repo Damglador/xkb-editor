@@ -9,7 +9,7 @@ from PySide6.QtGui import QIcon
 from PySide6.QtQml import QmlElement, QQmlApplicationEngine
 from PySide6.QtWidgets import QApplication
 
-from .qttypes import SymbolsFile
+from xkbeditor.qt.types import SymbolsFile
 
 QML_IMPORT_NAME = "xkbeditor"
 QML_IMPORT_MAJOR_VERSION = 2

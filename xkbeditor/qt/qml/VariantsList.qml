@@ -179,7 +179,7 @@ Kirigami.ScrollablePage {
         property string id: if (targetVariant) { targetVariant.id } else ""
         property string name: if (targetVariant && targetVariant.name) { targetVariant.name } else id
 
-        standardButtons: Kirigami.Dialog.Ok | Kirigami.Dialog.Cancel
+        standardButtons: Kirigami.Dialog.Yes | Kirigami.Dialog.No
 
         subtitle: qsTr("Confirm deletion of variant %1").arg(name)
 
