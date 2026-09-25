@@ -40,6 +40,23 @@ Controls.MenuBar {
         }
     }
     Controls.Menu {
+        title: qsTr("Edit")
+        Kirigami.Action {
+            text: "Undo"
+            icon.name: "edit-undo"
+            enabled: bridge.undoStack.canUndo
+            onTriggered: bridge.undoStack.undo()
+            shortcut: StandardKey.Undo
+        }
+        Kirigami.Action {
+            text: "Redo"
+            icon.name: "edit-redo"
+            enabled: bridge.undoStack.canRedo
+            onTriggered: bridge.undoStack.redo()
+            shortcut: StandardKey.Redo
+        }
+    }
+    Controls.Menu {
         title: qsTr("View")
         Kirigami.Action {
             text: qsTr("Show legends")

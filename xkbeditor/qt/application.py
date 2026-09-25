@@ -5,11 +5,12 @@ import signal
 import sys
 
 from PySide6.QtCore import Property, QObject, QUrl, Signal, Slot
-from PySide6.QtGui import QIcon
+from PySide6.QtGui import QIcon, QUndoStack
 from PySide6.QtQml import QmlElement, QQmlApplicationEngine
 from PySide6.QtWidgets import QApplication
 
 from xkbeditor.qt.types import SymbolsFile
+from xkbeditor.qt.undo import RemoveVariant
 
 QML_IMPORT_NAME = "xkbeditor"
 QML_IMPORT_MAJOR_VERSION = 2
@@ -25,6 +26,7 @@ class Bridge(QObject):
         super().__init__()
 
         self._file = SymbolsFile(parent=self)
+        self._undoStack = QUndoStack(self)
 
         _ = self.fileChanged.connect(self._file.variantChanged.emit)
         _ = self._file.error.connect(self.error.emit)
@@ -33,6 +35,15 @@ class Bridge(QObject):
     @Property(SymbolsFile, notify=fileChanged)
     def file(self):
         return self._file
+
+    undoStackChanged = Signal()
+    @Property(QObject, notify=undoStackChanged)
+    def undoStack(self):
+        return self._undoStack
+
+    @Slot(int)
+    def removeVariant(self, index: int):
+        self._undoStack.push(RemoveVariant(self._file._variants, index))
 
     @Slot()
     def loadTestVariant(self):

@@ -173,6 +173,11 @@ class VariantsList(List):
         self._items.append(xkb.Variant(id=id))
         self.endInsertRows()
 
+    def insert(self, index: int, variant: xkb.Variant):
+        self.beginInsertRows(QModelIndex(), index, index)
+        self._items.insert(index, variant)
+        self.endInsertRows()
+
 class Include(QObject):
     def __init__(self, include: xkb.Include, parent=None):
         super().__init__(parent)
