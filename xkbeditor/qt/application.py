@@ -10,7 +10,14 @@ from PySide6.QtQml import QmlElement, QQmlApplicationEngine
 from PySide6.QtWidgets import QApplication
 
 from xkbeditor.qt.types import SymbolsFile
-from xkbeditor.qt.undo import AddFlag, AddVariant, RemoveFlag, RemoveVariant
+from xkbeditor.qt.undo import (
+    AddFlag,
+    AddInclude,
+    AddVariant,
+    RemoveFlag,
+    RemoveInclude,
+    RemoveVariant,
+)
 
 QML_IMPORT_NAME = "xkbeditor"
 QML_IMPORT_MAJOR_VERSION = 2
@@ -58,6 +65,20 @@ class Bridge(QObject):
     def addFlag(self, flag: str):
         if self._file._variant:
             self._undoStack.push(AddFlag(self._file._variant, flag))
+
+    @Slot(int)
+    def removeInclude(self, index: int):
+        if self._file._variant:
+            self._undoStack.push(RemoveInclude(self._file._variant._includes, index))
+
+    @Slot(dict, result=bool)
+    def addInclude(self, vals: dict[str, str]):
+        if not vals.get("path"):
+            return False
+        if self._file._variant:
+            self._undoStack.push(AddInclude(self._file._variant._includes, vals))
+            return True
+        return False
 
     @Slot()
     def loadTestVariant(self):

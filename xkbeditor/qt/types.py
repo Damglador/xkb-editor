@@ -130,6 +130,11 @@ class IncludesList(List):
             return True
         return False
 
+    def insert(self, index: int, include: xkb.Include):
+        self.beginInsertRows(QModelIndex(), index, index)
+        self._items.insert(index, include)
+        self.endInsertRows()
+
 class VariantsList(List):
     IdRole = Qt.ItemDataRole.UserRole + 2
     NameRole = Qt.ItemDataRole.UserRole + 3

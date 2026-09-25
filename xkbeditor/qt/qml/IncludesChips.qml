@@ -48,7 +48,7 @@ Flow {
                         icon.name: "edit-delete-remove"
                         text: "Remove include"
                         onClicked: {
-                            repeater.model.remove(item.index);
+                            bridge.removeInclude(item.index);
                             bridge.file.variant.reloadIncludes();
                         }
                     }
@@ -97,7 +97,7 @@ Flow {
                     icon.name: "add"
                     text: "Add include"
                     onClicked: {
-                        if (repeater.model.append({
+                        if (bridge.addInclude({
                             "path": addMenu_PathField.text,
                             "variant": addMenu_VariantField.text
                         })) {

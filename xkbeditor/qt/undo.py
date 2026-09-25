@@ -1,7 +1,7 @@
 from PySide6.QtGui import QUndoCommand
 
 from xkbeditor import xkb
-from xkbeditor.qt.types import Variant, VariantsList
+from xkbeditor.qt.types import IncludesList, Variant, VariantsList
 
 
 class RemoveVariant(QUndoCommand):
@@ -68,3 +68,31 @@ class AddFlag(QUndoCommand):
     def undo(self, /) -> None:
         self.variant._variant.flags &= ~self.flag
         self.variant.flagsChanged.emit()
+
+
+class RemoveInclude(QUndoCommand):
+    def __init__(self, includesList: IncludesList, index: int, parent=None):
+        super().__init__(parent=parent)
+        self.includesList = includesList
+        self.index = index
+        self.item = self.includesList._items[index]
+
+    def redo(self, /) -> None:
+        self.includesList.remove(self.index)
+
+    def undo(self, /) -> None:
+        self.includesList.insert(self.index, self.item)
+
+
+class AddInclude(QUndoCommand):
+    def __init__(self, includesList: IncludesList, include: dict[str, str], parent=None):
+        super().__init__(parent=parent)
+        self.includesList = includesList
+        self.include = include
+        self.index = self.includesList.rowCount()
+
+    def redo(self, /) -> None:
+        self.includesList.append(self.include)
+
+    def undo(self, /) -> None:
+        self.includesList.remove(self.index)
