@@ -9,7 +9,7 @@ class RemoveVariant(QUndoCommand):
         super().__init__(parent=parent)
         self.variantList = variantList
         self.index = index
-        self.item: xkb.Variant = self.variantList.get(self.index)._variant # pyright: ignore
+        self.item: xkb.Variant = self.variantList._items[index]  # pyright: ignore
 
     def redo(self, /) -> None:
         self.variantList.remove(self.index)
