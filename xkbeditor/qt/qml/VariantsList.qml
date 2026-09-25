@@ -8,11 +8,25 @@ import org.kde.kirigami as Kirigami
 
 Kirigami.ScrollablePage {
     header: ColumnLayout {
-        Kirigami.Heading {
-            text: "Variants"
+        RowLayout {
             Layout.topMargin: Kirigami.Units.smallSpacing
             Layout.leftMargin: Kirigami.Units.smallSpacing
             Layout.rightMargin: Kirigami.Units.smallSpacing
+            Kirigami.Heading {
+                text: "Variants"
+            }
+            Item {
+                Layout.fillWidth: true
+            }
+            Controls.Button {
+                text: enabled ? "Reload from opened file" : "No file path to load from"
+                display: Controls.AbstractButton.IconOnly
+                icon.name: "reload"
+                Controls.ToolTip.text: text
+                Controls.ToolTip.visible: hovered
+                enabled: bridge.file.path
+                onClicked: bridge.file.load(bridge.file.path)
+            }
         }
         Kirigami.Separator {
             Layout.fillWidth: true

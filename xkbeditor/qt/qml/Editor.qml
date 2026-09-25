@@ -58,15 +58,6 @@ Item {
                 Layout.fillWidth: true
                 onAccepted: focus = false
             }
-            Controls.Button {
-                text: enabled ? "Reload from file" : "No file path to load from"
-                display: Controls.AbstractButton.IconOnly
-                icon.name: "reload"
-                Controls.ToolTip.text: text
-                Controls.ToolTip.visible: hovered
-                enabled: bridge.file.path
-                onClicked: bridge.file.load(bridge.file.path)
-            }
         }
 
         Keyboard_ANSI {
