@@ -9,13 +9,14 @@ class RemoveVariant(QUndoCommand):
         super().__init__(parent=parent)
         self.variantList = variantList
         self.index = index
-        self.item: xkb.Variant = self.variantList._items[index]  # pyright: ignore
+        self.item: xkb.Variant = self.variantList._items[index]
 
     def redo(self, /) -> None:
         self.variantList.remove(self.index)
 
     def undo(self, /) -> None:
         self.variantList.insert(self.index, self.item)
+
 
 class AddVariant(QUndoCommand):
     def __init__(self, variantList: VariantsList, id: str, parent=None):
@@ -29,6 +30,7 @@ class AddVariant(QUndoCommand):
 
     def undo(self, /) -> None:
         self.variantList.remove(self.index)
+
 
 # When the currentIndex is on 0, the VariantList creates an object of Variant for bridge.file,
 # the reference to which is saved here and used in UI. But when current index changes,
@@ -49,8 +51,9 @@ class RemoveFlag(QUndoCommand):
         self.variant.flagsChanged.emit()
 
     def undo(self, /) -> None:
-        self.variant._variant.flags  |= self.flag
+        self.variant._variant.flags |= self.flag
         self.variant.flagsChanged.emit()
+
 
 class AddFlag(QUndoCommand):
     def __init__(self, variant: Variant, flag: str, parent=None):
