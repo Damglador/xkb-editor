@@ -217,6 +217,8 @@ class Variant(QObject):
             self._variant = variant
 
         self._includes = IncludesList(self._variant.includes, parent=self)
+        self._includes.rowsInserted.connect(self.reloadIncludes)
+        self._includes.rowsRemoved.connect(self.reloadIncludes)
 
     idChanged = Signal()
     @Property(str, notify=idChanged)

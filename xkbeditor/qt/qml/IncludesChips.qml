@@ -47,10 +47,7 @@ Flow {
                         Layout.fillWidth: true
                         icon.name: "edit-delete-remove"
                         text: "Remove include"
-                        onClicked: {
-                            bridge.removeInclude(item.index);
-                            bridge.file.variant.reloadIncludes();
-                        }
+                        onClicked: bridge.removeInclude(item.index);
                     }
                 }
                 onClosed: bridge.file.variant.reloadIncludes()
@@ -101,7 +98,6 @@ Flow {
                             "path": addMenu_PathField.text,
                             "variant": addMenu_VariantField.text
                         })) {
-                            bridge.file.variant.reloadIncludes();
                             addMenu_PathField.text = "";
                             addMenu_VariantField.text = "";
                             addMenu.close();
