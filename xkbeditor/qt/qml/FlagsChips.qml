@@ -17,7 +17,7 @@ Flow {
 
             text: modelData
 
-            onRemoved: repeater.variant.removeFlag(modelData)
+            onRemoved: bridge.removeFlag(modelData)
         }
     }
     Controls.Button {
@@ -45,7 +45,7 @@ Flow {
                     required property var modelData
                     text: modelData
                     onClicked: {
-                        repeater.variant.addFlag(modelData);
+                        bridge.addFlag(modelData);
                         menu.close();
                     }
                 }

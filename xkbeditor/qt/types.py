@@ -236,16 +236,6 @@ class Variant(QObject):
     def flags(self):
         return [flag.name for flag in self._variant.flags]
 
-    @Slot(str)
-    def removeFlag(self, str):
-        self._variant.flags &= ~xkb.Flags[str]
-        self.flagsChanged.emit()
-
-    @Slot(str)
-    def addFlag(self, str):
-        self._variant.flags |= xkb.Flags[str]
-        self.flagsChanged.emit()
-
     @Property(list, notify=flagsChanged)
     def availableFlags(self):
         return [flag.name for flag in list(xkb.Flags) if flag not in self._variant.flags]
