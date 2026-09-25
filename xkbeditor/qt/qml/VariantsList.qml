@@ -65,12 +65,12 @@ Kirigami.ScrollablePage {
                         listItem: listItem
                         listView: mainList
                         onMoveRequested: (oldIndex, newIndex) => {
-                            console.log('!!!', oldIndex, newIndex);
+                            // console.log('!!!', oldIndex, newIndex);
                             mainList.model.move(oldIndex, newIndex, 1);
                         }
-                        onDropped: (oldIndex, newIndex) => {
-                            console.log(">>>", oldIndex, newIndex);
-                        }
+                        // onDropped: (oldIndex, newIndex) => {
+                        //     console.log(">>>", oldIndex, newIndex);
+                        // }
                     }
 
                     Controls.Label {
