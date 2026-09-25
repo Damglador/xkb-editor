@@ -93,14 +93,10 @@ Kirigami.ApplicationWindow {
 
         interactiveResizeEnabled: true
 
-        contentItem: Rectangle {
-            color: Kirigami.Theme.alternateBackgroundColor
-            VariantsList {
-                id: content
-                anchors.fill: parent
-                anchors.margins: Kirigami.Units.largeSpacing
-                width: parent.width
-            }
+        contentItem: VariantsList {
+            id: content
+            anchors.fill: parent
+            anchors.margins: 0
         }
 
         preferredSize: Kirigami.Units.gridUnit * 12

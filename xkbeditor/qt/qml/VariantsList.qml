@@ -10,6 +10,9 @@ Kirigami.ScrollablePage {
     header: ColumnLayout {
         Kirigami.Heading {
             text: "Variants"
+            Layout.topMargin: Kirigami.Units.smallSpacing
+            Layout.leftMargin: Kirigami.Units.smallSpacing
+            Layout.rightMargin: Kirigami.Units.smallSpacing
         }
         Kirigami.Separator {
             Layout.fillWidth: true
@@ -146,6 +149,9 @@ Kirigami.ScrollablePage {
             id: field
             placeholderText: qsTr("Add variant")
             Layout.fillWidth: true
+            Layout.leftMargin: Kirigami.Units.smallSpacing
+            Layout.rightMargin: Kirigami.Units.smallSpacing
+            Layout.bottomMargin: Kirigami.Units.smallSpacing
             rightActions: Kirigami.Action {
                 icon.name: "document-send"
                 text: field.placeholderText
