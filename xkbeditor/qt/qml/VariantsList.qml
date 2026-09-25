@@ -160,9 +160,18 @@ Kirigami.ScrollablePage {
                 if (field.text) {
                     bridge.addVariant(field.text);
                     field.text = "";
-                    bridge.file.updateVariant()
                 }
             }
+        }
+    }
+
+    Connections {
+        target: bridge.file.variants
+        function onRowsRemoved(index, first, last) {
+            if (first == mainList.currentIndex) bridge.file.updateVariant()
+        }
+        function onRowsInserted(index, first, last) {
+            if (!bridge.file.variant) bridge.file.updateVariant()
         }
     }
 }
