@@ -1,3 +1,5 @@
+pragma Translator: "Variant Editor"
+
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls as Controls
@@ -15,7 +17,7 @@ Item {
         RowLayout {
             Layout.fillWidth: true
             Controls.Label {
-                text: "Flags:"
+                text: qsTr("Flags:")
             }
             FlagsChips {
                 Layout.fillWidth: true
@@ -24,7 +26,7 @@ Item {
         RowLayout {
             Layout.fillWidth: true
             Controls.Label {
-                text: "Includes:"
+                text: qsTr("Includes:")
             }
             IncludesChips {
                 Layout.fillWidth: true
@@ -32,7 +34,7 @@ Item {
         }
         RowLayout {
             Controls.Label {
-                text: "Variant:"
+                text: qsTr("Variant:")
             }
             Controls.ComboBox {
                 id: variantComboBox
@@ -48,7 +50,7 @@ Item {
                 }
             }
             Controls.Label {
-                text: "Name:"
+                text: qsTr("Name:")
             }
             Controls.TextField {
                 enabled: bridge.file.variant
@@ -69,7 +71,7 @@ Item {
                 visible: !bridge.file.variant
                 closePolicy: Controls.Popup.NoAutoClose
                 Controls.Label {
-                    text: "No variant to edit"
+                    text: qsTr("No variant to edit")
                 }
             }
         }
@@ -82,7 +84,7 @@ Item {
             Layout.topMargin: -parent.spacing
 
             Repeater {
-                model: ["Default layer", "Shift layer", "RAlt layer", "Shift+RAlt layer"]
+                model: [qsTr("Default layer"), qsTr("Shift layer"), qsTr("RAlt layer"), qsTr("Shift+RAlt layer")]
                 delegate: Controls.TabButton {
                     required property var modelData
                     required property var index
@@ -95,7 +97,7 @@ Item {
 
         Controls.Label {
             parent: layerSelector
-            text: "Layer:"
+            text: qsTr("Layer:")
             padding: Kirigami.Units.smallSpacing
             anchors.right: parent.left
         }

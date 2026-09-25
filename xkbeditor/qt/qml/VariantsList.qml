@@ -13,13 +13,13 @@ Kirigami.ScrollablePage {
             Layout.leftMargin: Kirigami.Units.smallSpacing
             Layout.rightMargin: Kirigami.Units.smallSpacing
             Kirigami.Heading {
-                text: "Variants"
+                text: qsTr("Variants")
             }
             Item {
                 Layout.fillWidth: true
             }
             Controls.Button {
-                text: enabled ? "Reload from opened file" : "No file path to load from"
+                text: enabled ? qsTr("Reload from opened file") : qsTr("No file path to load from")
                 display: Controls.AbstractButton.IconOnly
                 icon.name: "reload"
                 Controls.ToolTip.text: text

@@ -13,7 +13,7 @@ Kirigami.ApplicationWindow {
             "version": "1",
             "componentName": "xkbeditor",
             "desktopFileName": "xkbeditor",
-            "shortDescription": "View and edit xkb layouts",
+            "shortDescription": qsTr("View and edit xkb layouts"),
             "homepage": "https://github.com/Damglador/xkb-editor",
             "bugAddress": "https://github.com/Damglador/xkb-editor/issues",
             "authors": [

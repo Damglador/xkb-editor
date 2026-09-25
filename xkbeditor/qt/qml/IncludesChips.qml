@@ -28,14 +28,14 @@ Flow {
                 ColumnLayout {
                     RowLayout {
                         Controls.TextField {
-                            placeholderText: "Path"
+                            placeholderText: qsTr("Path")
                             implicitWidth: Kirigami.Units.gridUnit * 4
                             text: item.include.path
                             onTextEdited: item.include.path = text
                             onAccepted: chipMenu.close()
                         }
                         Controls.TextField {
-                            placeholderText: "Variant"
+                            placeholderText: qsTr("Variant")
                             implicitWidth: Kirigami.Units.gridUnit * 4
                             text: item.include.variant ? item.include.variant : ""
                             onTextEdited: item.include.variant = text
@@ -46,7 +46,7 @@ Flow {
                         id: removeButton
                         Layout.fillWidth: true
                         icon.name: "edit-delete-remove"
-                        text: "Remove include"
+                        text: qsTr("Remove include")
                         onClicked: bridge.removeInclude(item.index);
                     }
                 }
@@ -57,7 +57,7 @@ Flow {
 
     Controls.Button {
         id: button
-        text: "Add include"
+        text: qsTr("Add include")
         icon.name: "add"
         display: Controls.AbstractButton.IconOnly
         implicitHeight: Kirigami.Units.gridUnit * 1.6
@@ -77,13 +77,13 @@ Flow {
                 RowLayout {
                     Controls.TextField {
                         id: addMenu_PathField
-                        placeholderText: "Path"
+                        placeholderText: qsTr("Path")
                         implicitWidth: Kirigami.Units.gridUnit * 4
                         onAccepted: addMenu_Button.click()
                     }
                     Controls.TextField {
                         id: addMenu_VariantField
-                        placeholderText: "Variant"
+                        placeholderText: qsTr("Variant")
                         implicitWidth: Kirigami.Units.gridUnit * 4
                         onAccepted: addMenu_Button.click()
                     }
@@ -92,7 +92,7 @@ Flow {
                     id: addMenu_Button
                     Layout.fillWidth: true
                     icon.name: "add"
-                    text: "Add include"
+                    text: qsTr("Add include")
                     onClicked: {
                         if (bridge.addInclude({
                             "path": addMenu_PathField.text,

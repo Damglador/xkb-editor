@@ -3,26 +3,27 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Dialogs
 import QtQuick.Controls as Controls
+
 import org.kde.kirigami as Kirigami
 
 import Settings as Settings
 
 Controls.MenuBar {
     Controls.Menu {
-        title: "File"
+        title: qsTr("File")
         Kirigami.Action {
             text: "New"
             icon.name: "document-new"
             onTriggered: bridge.newFile()
         }
         Kirigami.Action {
-            text: "Open"
+            text: qsTr("Open")
             icon.name: "document-open"
             onTriggered: openDialog.open()
             shortcut: StandardKey.Open
         }
         Kirigami.Action {
-            text: "Save"
+            text: qsTr("Save")
             icon.name: "document-save"
             onTriggered: {
                 if (bridge.file.path)
@@ -33,7 +34,7 @@ Controls.MenuBar {
             shortcut: StandardKey.Save
         }
         Kirigami.Action {
-            text: "Save As"
+            text: qsTr("Save As")
             icon.name: "document-save-as"
             onTriggered: saveDialog.open()
             shortcut: StandardKey.SaveAs
