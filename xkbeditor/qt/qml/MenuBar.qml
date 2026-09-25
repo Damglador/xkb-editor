@@ -42,14 +42,14 @@ Controls.MenuBar {
     Controls.Menu {
         title: qsTr("Edit")
         Kirigami.Action {
-            text: "Undo"
+            text: bridge.undoStack.undoText ? "Undo: " + bridge.undoStack.undoText : "Undo"
             icon.name: "edit-undo"
             enabled: bridge.undoStack.canUndo
             onTriggered: bridge.undoStack.undo()
             shortcut: StandardKey.Undo
         }
         Kirigami.Action {
-            text: "Redo"
+            text: bridge.undoStack.redoText ? "Redo: " + bridge.undoStack.redoText : "Redo"
             icon.name: "edit-redo"
             enabled: bridge.undoStack.canRedo
             onTriggered: bridge.undoStack.redo()
