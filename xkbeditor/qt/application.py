@@ -104,8 +104,8 @@ class Bridge(QObject):
     def print(self, message: str):
         print(message)
 
-    @Property(str)
-    def licenseText(self):
+    @Slot(result=str)
+    def getLicenseText(self):
         with open(f"{APP_DIR}/../LICENSE", "r") as file:
             return str(file.read())
 

@@ -29,7 +29,7 @@ Kirigami.ApplicationWindow {
             "licenses": [
                 {
                     "name": "GPL v3",
-                    "text": bridge.licenseText,
+                    "text": bridge.getLicenseText(),
                     "spdx": "GPL-3.0"
                 }
             ]
