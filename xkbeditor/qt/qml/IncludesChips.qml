@@ -33,6 +33,7 @@ Flow {
                             text: item.include.path
                             onTextEdited: item.include.path = text
                             onAccepted: chipMenu.close()
+                            onVisibleChanged: forceActiveFocus()
                         }
                         Controls.TextField {
                             placeholderText: qsTr("Variant")
@@ -80,6 +81,7 @@ Flow {
                         placeholderText: qsTr("Path")
                         implicitWidth: Kirigami.Units.gridUnit * 4
                         onAccepted: addMenu_Button.click()
+                        onVisibleChanged: forceActiveFocus()
                     }
                     Controls.TextField {
                         id: addMenu_VariantField
