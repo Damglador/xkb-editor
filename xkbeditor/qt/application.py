@@ -4,7 +4,16 @@ import os
 import signal
 import sys
 
-from PySide6.QtCore import Property, QCoreApplication, QLocale, QObject, QTranslator, QUrl, Signal, Slot
+from PySide6.QtCore import (
+    Property,
+    QCoreApplication,
+    QLocale,
+    QObject,
+    QTranslator,
+    QUrl,
+    Signal,
+    Slot,
+)
 from PySide6.QtGui import QIcon, QUndoStack
 from PySide6.QtQml import QmlElement, QQmlApplicationEngine
 from PySide6.QtWidgets import QApplication
@@ -84,7 +93,7 @@ class Bridge(QObject):
     @Slot()
     def loadTestVariant(self):
         self._file.load("/usr/share/xkeyboard-config-2/symbols/us")
-        self._file.path = "/home/damglador/.config/xkb/symbols/test" # pyright: ignore[reportAttributeAccessIssue]
+        self._file.path = "/home/damglador/.config/xkb/symbols/test"  # pyright: ignore[reportAttributeAccessIssue]
 
     @Slot()
     def newFile(self):
