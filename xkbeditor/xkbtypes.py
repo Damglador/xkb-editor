@@ -50,7 +50,19 @@ Actions = list[Action]
 
 class Include(BaseModel):
     path: str
-    variant: str | None = None
+    _variant: str | None = None
+
+    def __init__(self, variant: str | None=None, **data: Any) -> None:
+        super().__init__(**data)
+        self._variant = variant or None
+
+    @property
+    def variant(self):
+        return self._variant
+
+    @variant.setter
+    def variant(self, str):
+        self._variant = str or None
 
     @override
     def __str__(self):

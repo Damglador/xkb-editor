@@ -145,7 +145,7 @@ def getVariant(includePath: str, variantId: str | None = None) -> Variant | None
         if os.path.isfile(candidate):
             files.append(candidate)
     result: Variant | None = None
-    if variantId is not None:
+    if variantId:
         for file in files:
             variant = getVariantFromFile(file, variantId)
             if variant is not None:
