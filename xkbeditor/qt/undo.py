@@ -16,7 +16,7 @@ class RemoveVariant(QUndoCommand):
         super().__init__(removeStr.format(variantStr.format(variantList._items[index].id)), parent=parent)
         self.variantList = variantList
         self.index = index
-        self.item: xkb.Variant = self.variantList._items[index]
+        self.item: Variant = self.variantList.get(index) # pyright: ignore[reportAttributeAccessIssue]
 
     def redo(self, /) -> None:
         self.variantList.remove(self.index)

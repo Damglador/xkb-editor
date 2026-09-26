@@ -35,6 +35,7 @@ class List(QAbstractListModel):
     def __init__(self, items: list | None = None, parent=None):
         super().__init__(parent=parent)
         self._items = items or []
+        self._objs: list[QObject] | None = None
 
     def initialize(self, items):
         self._items = items
@@ -64,6 +65,8 @@ class List(QAbstractListModel):
 
         self.beginRemoveRows(QModelIndex(), row, row)
         del self._items[row]
+        if self._objs:
+            del self._objs[row]
         self.endRemoveRows()
 
     @Slot(int, int)
@@ -79,12 +82,16 @@ class List(QAbstractListModel):
 
         self.beginMoveRows(QModelIndex(), oldIndex, oldIndex, QModelIndex(), dest)
         self._items[newIndex], self._items[oldIndex] = self._items[oldIndex], self._items[newIndex]
+        if self._objs:
+            self._objs[newIndex], self._objs[oldIndex] = self._objs[oldIndex], self._objs[newIndex]
         self.endMoveRows()
 
     @Slot()
     def clear(self):
         self.beginResetModel()
         self._items = []
+        if self._objs:
+            self._objs = []
         self.endResetModel()
 
     def __iter__(self):
@@ -124,7 +131,7 @@ class IncludesList(List):
             self._items.append(
                 xkb.Include(
                     path=path,
-                    variant=vals.get("variant") or None
+                    variant=vals.get("variant")
                 ))
             self.endInsertRows()
             return True
@@ -142,6 +149,7 @@ class VariantsList(List):
     def __init__(self, items: list[xkb.Variant], parent=None):
         super().__init__(parent=parent)
         self._items = items
+        self._objs: list[Variant] = [Variant(variant, parent=self) for variant in self._items]
 
     def roleNames(self) -> dict:
         return {
@@ -155,32 +163,39 @@ class VariantsList(List):
             return
         match(role):
             case self.ObjectRole:
-                return Variant(self._items[index.row()], parent=self)
+                return self._objs[index.row()]
             case self.IdRole:
-                return self._items[index.row()].id
+                return self._objs[index.row()].id
             case self.NameRole:
-                return self._items[index.row()].name
+                return self._objs[index.row()].name
 
     def setItems(self, items: list[xkb.Variant]):
         self.beginResetModel()
         self._items = items
+        self._objs = [Variant(variant, parent=self) for variant in self._items] # pyright: ignore[reportIncompatibleVariableOverride]
         self.endResetModel()
 
     @Slot(int, result=QObject)
     def get(self, index: int):
         if 0 <= index < len(self._items):
-            return Variant(self._items[index], parent=self)
+            return self._objs[index]
 
     @Slot()
     @Slot(str)
     def new(self, id: str = ""):
         self.beginInsertRows(QModelIndex(), len(self._items), len(self._items))
         self._items.append(xkb.Variant(id=id))
+        self._objs.append(Variant(self._items[len(self._items) - 1]))
         self.endInsertRows()
 
-    def insert(self, index: int, variant: xkb.Variant):
+    def insert(self, index: int, variant: xkb.Variant | Variant):
         self.beginInsertRows(QModelIndex(), index, index)
-        self._items.insert(index, variant)
+        if type(variant) == xkb.Variant:
+            self._items.insert(index, variant)
+            self._objs.insert(index, Variant(self._items[index]))
+        elif type(variant) == Variant:
+            self._objs.insert(index, variant)
+            self._items.insert(index, self._objs[len(self._objs) - 1]._variant)
         self.endInsertRows()
 
 class Include(QObject):
