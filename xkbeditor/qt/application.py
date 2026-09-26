@@ -113,7 +113,7 @@ def main():
     app.setWindowIcon(QIcon.fromTheme("keyboard"))
 
     translator = QTranslator()
-    if translator.load(QLocale(), "xkbeditor", "_", os.path.join(appDir, "translations/release")):
+    if translator.load(QLocale(), "xkbeditor", "_", os.path.join(appDir, "translations")):
         QCoreApplication.installTranslator(translator)
 
     """Needed to close the app with Ctrl+C"""
