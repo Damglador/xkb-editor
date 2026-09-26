@@ -12,12 +12,12 @@ Controls.MenuBar {
     Controls.Menu {
         title: qsTr("File")
         Kirigami.Action {
-            text: "New"
+            text: qsTr("New")
             icon.name: "document-new"
             onTriggered: bridge.newFile()
         }
         Kirigami.Action {
-            text: qsTr("Open")
+            text: qsTr("Open...")
             icon.name: "document-open"
             onTriggered: openDialog.open()
             shortcut: StandardKey.Open
@@ -34,7 +34,7 @@ Controls.MenuBar {
             shortcut: StandardKey.Save
         }
         Kirigami.Action {
-            text: qsTr("Save As")
+            text: qsTr("Save As...")
             icon.name: "document-save-as"
             onTriggered: saveDialog.open()
             shortcut: StandardKey.SaveAs
@@ -43,14 +43,14 @@ Controls.MenuBar {
     Controls.Menu {
         title: qsTr("Edit")
         Kirigami.Action {
-            text: bridge.undoStack.undoText ? "Undo: " + bridge.undoStack.undoText : "Undo"
+            text: bridge.undoStack.undoText ? qsTr("Undo") + ": " + bridge.undoStack.undoText : qsTr("Undo")
             icon.name: "edit-undo"
             enabled: bridge.undoStack.canUndo
             onTriggered: bridge.undoStack.undo()
             shortcut: StandardKey.Undo
         }
         Kirigami.Action {
-            text: bridge.undoStack.redoText ? "Redo: " + bridge.undoStack.redoText : "Redo"
+            text: bridge.undoStack.redoText ? qsTr("Redo") + ": " + bridge.undoStack.redoText : qsTr("Redo")
             icon.name: "edit-redo"
             enabled: bridge.undoStack.canRedo
             onTriggered: bridge.undoStack.redo()

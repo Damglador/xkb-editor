@@ -4,7 +4,7 @@ import os
 import signal
 import sys
 
-from PySide6.QtCore import Property, QObject, QUrl, Signal, Slot
+from PySide6.QtCore import Property, QCoreApplication, QLocale, QObject, QTranslator, QUrl, Signal, Slot
 from PySide6.QtGui import QIcon, QUndoStack
 from PySide6.QtQml import QmlElement, QQmlApplicationEngine
 from PySide6.QtWidgets import QApplication
@@ -101,6 +101,8 @@ class Bridge(QObject):
 
 
 def main():
+    import xkbeditor
+    appDir = os.path.abspath(os.path.dirname(xkbeditor.__file__))
     """Initializes and manages the application execution"""
     app = QApplication(sys.argv)
     engine = QQmlApplicationEngine()
@@ -110,6 +112,10 @@ def main():
     app.setOrganizationName("damglador")
     app.setWindowIcon(QIcon.fromTheme("keyboard"))
 
+    translator = QTranslator()
+    if translator.load(QLocale(), "xkbeditor", "_", os.path.join(appDir, "translations/release")):
+        QCoreApplication.installTranslator(translator)
+
     """Needed to close the app with Ctrl+C"""
     _ = signal.signal(signal.SIGINT, signal.SIG_DFL)
 
@@ -117,9 +123,8 @@ def main():
     if not os.environ.get("QT_QUICK_CONTROLS_STYLE"):
         os.environ["QT_QUICK_CONTROLS_STYLE"] = "org.kde.desktop"
 
-    base_path = os.path.abspath(os.path.dirname(__file__))
-    url = QUrl(f"file://{base_path}/qml/Main.qml")
-    engine.addImportPath(f"{base_path}/qml/")
+    url = QUrl(f"file://{appDir}/qt/qml/Main.qml")
+    engine.addImportPath(f"{appDir}/qt/qml/")
     engine.load(url)
 
     if len(engine.rootObjects()) == 0:

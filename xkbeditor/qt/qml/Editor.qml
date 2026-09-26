@@ -84,7 +84,7 @@ Item {
             Layout.topMargin: -parent.spacing
 
             Repeater {
-                model: [qsTr("Default layer"), qsTr("Shift layer"), qsTr("RAlt layer"), qsTr("Shift+RAlt layer")]
+                model: [qsTr("Default"), qsTr("Shift"), qsTr("Right Alt"), qsTr("Shift+Right Alt")]
                 delegate: Controls.TabButton {
                     required property var modelData
                     required property var index

@@ -1,0 +1,206 @@
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Qt-Contexts: true\n"
+
+#: ../qt/qml/About.qml:16
+msgctxt "About|"
+msgid "View and edit xkb layouts"
+msgstr ""
+
+#: ../qt/qml/FlagsChips.qml:25
+msgctxt "FlagsChips|"
+msgid "Add flag"
+msgstr ""
+
+#: ../qt/qml/IncludesChips.qml:31 ../qt/qml/IncludesChips.qml:80
+msgctxt "IncludesChips|"
+msgid "Path"
+msgstr ""
+
+#: ../qt/qml/IncludesChips.qml:38 ../qt/qml/IncludesChips.qml:86
+msgctxt "IncludesChips|"
+msgid "Variant"
+msgstr ""
+
+#: ../qt/qml/IncludesChips.qml:49
+msgctxt "IncludesChips|"
+msgid "Remove include"
+msgstr ""
+
+#: ../qt/qml/IncludesChips.qml:60 ../qt/qml/IncludesChips.qml:95
+msgctxt "IncludesChips|"
+msgid "Add include"
+msgstr ""
+
+#: ../qt/qml/Main.qml:137
+msgctxt "Main|"
+msgid "Error:"
+msgstr ""
+
+#: ../qt/qml/Main.qml:141
+msgctxt "Main|"
+msgid "Warning:"
+msgstr ""
+
+#: ../qt/qml/MenuBar.qml:13
+msgctxt "MenuBar|"
+msgid "File"
+msgstr ""
+
+#: ../qt/qml/MenuBar.qml:15
+msgctxt "MenuBar|"
+msgid "New"
+msgstr ""
+
+#: ../qt/qml/MenuBar.qml:20
+msgctxt "MenuBar|"
+msgid "Open..."
+msgstr ""
+
+#: ../qt/qml/MenuBar.qml:26
+msgctxt "MenuBar|"
+msgid "Save"
+msgstr ""
+
+#: ../qt/qml/MenuBar.qml:37
+msgctxt "MenuBar|"
+msgid "Save As..."
+msgstr ""
+
+#: ../qt/qml/MenuBar.qml:44
+msgctxt "MenuBar|"
+msgid "Edit"
+msgstr ""
+
+#: ../qt/qml/MenuBar.qml:46
+msgctxt "MenuBar|"
+msgid "Undo"
+msgstr ""
+
+#: ../qt/qml/MenuBar.qml:53
+msgctxt "MenuBar|"
+msgid "Redo"
+msgstr ""
+
+#: ../qt/qml/MenuBar.qml:61
+msgctxt "MenuBar|"
+msgid "View"
+msgstr ""
+
+#: ../qt/qml/MenuBar.qml:63
+msgctxt "MenuBar|"
+msgid "Show legends"
+msgstr ""
+
+#: ../qt/qml/MenuBar.qml:69
+msgctxt "MenuBar|"
+msgid "Show fallback characters"
+msgstr ""
+
+#: ../qt/qml/MenuBar.qml:75
+msgctxt "MenuBar|"
+msgid "Variants sidebar"
+msgstr ""
+
+#: ../qt/qml/MenuBar.qml:82
+msgctxt "MenuBar|"
+msgid "Help"
+msgstr ""
+
+#: ../qt/qml/MenuBar.qml:84
+msgctxt "MenuBar|"
+msgid "Unicode table"
+msgstr ""
+
+#: ../qt/qml/MenuBar.qml:89
+msgctxt "MenuBar|"
+msgid "Xkb documentation"
+msgstr ""
+
+#: ../qt/qml/MenuBar.qml:94
+msgctxt "MenuBar|"
+msgid "About"
+msgstr ""
+
+#: ../qt/qml/Editor.qml:20
+msgctxt "Variant Editor|"
+msgid "Flags:"
+msgstr ""
+
+#: ../qt/qml/Editor.qml:29
+msgctxt "Variant Editor|"
+msgid "Includes:"
+msgstr ""
+
+#: ../qt/qml/Editor.qml:37
+msgctxt "Variant Editor|"
+msgid "Variant:"
+msgstr ""
+
+#: ../qt/qml/Editor.qml:53
+msgctxt "Variant Editor|"
+msgid "Name:"
+msgstr ""
+
+#: ../qt/qml/Editor.qml:74
+msgctxt "Variant Editor|"
+msgid "No variant to edit"
+msgstr ""
+
+#: ../qt/qml/Editor.qml:87
+msgctxt "Variant Editor|"
+msgid "Default"
+msgstr ""
+
+#: ../qt/qml/Editor.qml:87
+msgctxt "Variant Editor|"
+msgid "Shift"
+msgstr ""
+
+#: ../qt/qml/Editor.qml:87
+msgctxt "Variant Editor|"
+msgid "Right Alt"
+msgstr ""
+
+#: ../qt/qml/Editor.qml:87
+msgctxt "Variant Editor|"
+msgid "Shift+Right Alt"
+msgstr ""
+
+#: ../qt/qml/Editor.qml:100
+msgctxt "Variant Editor|"
+msgid "Layer:"
+msgstr ""
+
+#: ../qt/qml/VariantsList.qml:16
+msgctxt "VariantsList|"
+msgid "Variants"
+msgstr ""
+
+#: ../qt/qml/VariantsList.qml:22
+msgctxt "VariantsList|"
+msgid "Reload from opened file"
+msgstr ""
+
+#: ../qt/qml/VariantsList.qml:22
+msgctxt "VariantsList|"
+msgid "No file path to load from"
+msgstr ""
+
+#: ../qt/qml/VariantsList.qml:94
+msgctxt "VariantsList|"
+msgid "Rename"
+msgstr ""
+
+#: ../qt/qml/VariantsList.qml:109
+msgctxt "VariantsList|"
+msgid "Delete"
+msgstr ""
+
+#: ../qt/qml/VariantsList.qml:164
+msgctxt "VariantsList|"
+msgid "Add variant"
+msgstr ""
