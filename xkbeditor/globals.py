@@ -1,6 +1,13 @@
 
 from os import environ, path
 
+APP_DIR = ""
+try:
+    import xkbeditor
+    APP_DIR = path.abspath(path.dirname(xkbeditor.__file__))
+except Exception:
+    print("Couldn't set APP_DIR")
+
 # From xkbcli info
 XKB_CONFIG_ROOT = environ.get("XKB_CONFIG_ROOT") or "/usr/share/xkeyboard-config-2"
 XKB_CONFIG_LEGACY_ROOT = "/usr/share/X11/xkb"

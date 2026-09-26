@@ -9,6 +9,7 @@ from PySide6.QtGui import QIcon, QUndoStack
 from PySide6.QtQml import QmlElement, QQmlApplicationEngine
 from PySide6.QtWidgets import QApplication
 
+from xkbeditor.globals import APP_DIR
 from xkbeditor.qt.types import SymbolsFile
 from xkbeditor.qt.undo import (
     AddFlag,
@@ -94,15 +95,13 @@ class Bridge(QObject):
     def print(self, message: str):
         print(message)
 
-    @Slot(result=str)
-    def getLicense(self) -> str:
-        with open("LICENSE", "r") as file:
+    @Property(str)
+    def licenseText(self):
+        with open(f"{APP_DIR}/../LICENSE", "r") as file:
             return str(file.read())
 
 
 def main():
-    import xkbeditor
-    appDir = os.path.abspath(os.path.dirname(xkbeditor.__file__))
     """Initializes and manages the application execution"""
     app = QApplication(sys.argv)
     engine = QQmlApplicationEngine()
@@ -113,7 +112,7 @@ def main():
     app.setWindowIcon(QIcon.fromTheme("keyboard"))
 
     translator = QTranslator()
-    if translator.load(QLocale(), "xkbeditor", "_", os.path.join(appDir, "translations")):
+    if translator.load(QLocale(), "xkbeditor", "_", f"{APP_DIR}/translations"):
         QCoreApplication.installTranslator(translator)
 
     """Needed to close the app with Ctrl+C"""
@@ -123,8 +122,8 @@ def main():
     if not os.environ.get("QT_QUICK_CONTROLS_STYLE"):
         os.environ["QT_QUICK_CONTROLS_STYLE"] = "org.kde.desktop"
 
-    url = QUrl(f"file://{appDir}/qt/qml/Main.qml")
-    engine.addImportPath(f"{appDir}/qt/qml/")
+    url = QUrl(f"file://{APP_DIR}/qt/qml/Main.qml")
+    engine.addImportPath(f"{APP_DIR}/qt/qml/")
     engine.load(url)
 
     if len(engine.rootObjects()) == 0:
