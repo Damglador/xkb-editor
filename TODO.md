@@ -1,27 +1,26 @@
-
 - Add preview
 - Add re-arrenging includes
 - Changing symbols to undo stack
 - Renaming variants to undo stack
 - Renaming includes to undo stack
 - Detect and display dead characters/keys
-    - dead_tilde - ~
-    - dead_diaeresis - ¨
-    - dead_circumflex - ^
+    - dead_tilde - ˜ã
+    - dead_diaeresis - ¨ä
+    - dead_circumflex - ˆâ
     - dead_abovedot - ˙
     - dead_doubleacute - ˝
-    - dead_macron - ¯
+    - dead_macron - ¯ | āĀˉ
     - dead_cedilla - ¸
-    - dead_horn - ̛
+    - dead_horn - ̛ |
     - dead_ogonek - ˛
     - dead_breve - ˘
-    - dead_abovering - °
     - dead_belowdot - ̣̣̣̣
-    - dead_caron - ˇ
     - dead_hook - ̉
+    - dead_abovering - ˚å
+    - dead_caron - ˇǎ
     - dead_stroke - /
-    - dead_grave - `
-    - dead_acute - ´
-    - dead_iota
+    - dead_grave - ` | ˋà
+    - dead_acute - ´ | ˊá
+    - dead_iota - ᶥ
     - dead_voiced_sound???
     - dead_semivoiced_sound???
