@@ -70,7 +70,17 @@ Controls.Button {
     }
 
     Controls.Label {
+        id: deadKeyIndicator
+        text: "💀"
+        visible: key.symbol.startsWith("dead_")
+
+        anchors.right: parent.right
+        anchors.top: parent.top
+    }
+
+    Controls.Label {
         text: parent.label ?? parent.char
+        color: key.symbol.startsWith("dead_") ? "red" : Kirigami.Theme.textColor
 
         leftPadding: 5
         anchors.centerIn: parent
