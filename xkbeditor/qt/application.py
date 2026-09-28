@@ -18,6 +18,7 @@ from PySide6.QtGui import QIcon, QUndoStack
 from PySide6.QtQml import QmlElement, QQmlApplicationEngine
 from PySide6.QtWidgets import QApplication
 
+from xkbeditor.getchar import getchar
 from xkbeditor.globals import APP_DIR
 from xkbeditor.qt.types import SymbolsFile
 from xkbeditor.qt.undo import (
@@ -89,6 +90,10 @@ class Bridge(QObject):
             self._undoStack.push(AddInclude(self._file._variant._includes, vals))
             return True
         return False
+
+    @Slot(str, result=str)
+    def getSymbolChar(self, str: str):
+        return getchar(str)
 
     @Slot()
     def loadTestVariant(self):

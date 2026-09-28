@@ -22,6 +22,8 @@ Controls.Button {
     property string keycode
     property string char
     property string charFallback
+    property string symbol
+
     property string legend
     property var label
 
@@ -32,9 +34,9 @@ Controls.Button {
         x: -menu.width / 2 + key.width / 2
         y: -menu.height + -Kirigami.Units.smallSpacing / 2
 
-        onOpenedChanged: {
-            if (opened == true) {
-                editField.text = bridge.file.variant.getSymbol(key.keycode, key.symbolsLayer);
+        onVisibleChanged: {
+            if (visible) {
+                editField.text = key.symbol;
                 editField.forceActiveFocus();
             }
         }
@@ -49,7 +51,7 @@ Controls.Button {
                 implicitWidth: Kirigami.Units.gridUnit * 6
                 onAccepted: {
                     bridge.file.variant.setSymbol(key.keycode, key.symbolsLayer, text.replace("U+", "U"));  // strip + for pasting from https://symbl.cc/
-                    key.loadChars();
+                    key.loadChar();
                     menu.close();
                 }
             }
@@ -108,7 +110,8 @@ Controls.Button {
         loadFallback();
     }
     function loadChar() {
-        char = bridge.file.variant ? bridge.file.variant.getKeyChar(keycode, symbolsLayer) : "";
+        symbol = bridge.file.variant ? bridge.file.variant.getSymbol(keycode, symbolsLayer) : "";
+        char = key.symbol ? bridge.getSymbolChar(key.symbol) : "";
     }
     function loadFallback() {
         // Optimization!
