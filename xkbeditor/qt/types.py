@@ -2,6 +2,7 @@ import re
 from enum import Enum, auto
 from urllib.parse import urlparse
 
+from lark.exceptions import UnexpectedCharacters
 from PySide6.QtCore import (
     Property,
     QAbstractListModel,
@@ -354,6 +355,8 @@ class SymbolsFile(QObject):
             self.pathChanged.emit()
         except UnicodeDecodeError:
             self.error.emit("Failed to open file. Not a text file.")
+        except UnexpectedCharacters:
+            self.error.emit("Failed to parse file. The file is likely not an xkb layout.")
 
     @Slot(str, result=bool)
     def write(self, filePath: str) -> bool:
