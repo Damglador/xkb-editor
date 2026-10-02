@@ -125,6 +125,9 @@ Kirigami.ApplicationWindow {
             timeout.start()
 
         contentItem: RowLayout {
+            HoverHandler {
+                onHoveredChanged: if (hovered) timeout.stop(); else timeout.start()
+            }
             Kirigami.SelectableLabel {
                 id: statusBarLabel
 
