@@ -133,7 +133,7 @@ Controls.Button {
     checked: menu.visible
     onClicked: {
         if (keycode)
-            menu.open();
+            menu.visible = !menu.visible
         else
             checked = false;
     }
