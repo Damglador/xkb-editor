@@ -90,7 +90,7 @@ Controls.Button {
         id: fallback
         text: parent.charFallback
         opacity: 0.4
-        visible: Settings.View.showFallbacks && !parent.char
+        visible: Settings.View.showFallbacks && !parent.char && key.symbol != "VoidSymbol"
 
         anchors.centerIn: parent
     }
