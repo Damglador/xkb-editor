@@ -23,6 +23,9 @@ Controls.Button {
     property string char
     property string charFallback
     property string symbol
+    property string symbolFallback
+
+    property bool dead: symbol ? symbol.startsWith("dead_") : symbolFallback.startsWith("dead_")
 
     property string legend
     property var label
@@ -72,7 +75,7 @@ Controls.Button {
     Controls.Label {
         id: deadKeyIndicator
         text: "💀"
-        visible: key.symbol.startsWith("dead_")
+        visible: key.dead
 
         anchors.right: parent.right
         anchors.top: parent.top
@@ -80,7 +83,6 @@ Controls.Button {
 
     Controls.Label {
         text: parent.label ?? parent.char
-        color: key.symbol.startsWith("dead_") ? "red" : Kirigami.Theme.textColor
 
         leftPadding: 5
         anchors.centerIn: parent
@@ -125,8 +127,11 @@ Controls.Button {
     }
     function loadFallback() {
         // Optimization!
-        if (Settings.View.showFallbacks)
-            charFallback = bridge.file.variant ? bridge.file.variant.getKeyCharFallback(keycode, symbolsLayer) : "";
+        if (Settings.View.showFallbacks) {
+            symbolFallback = bridge.file.variant ? bridge.file.variant.getSymbolOrFallback(keycode, symbolsLayer) : "";
+            charFallback = key.symbolFallback ? bridge.getSymbolChar(key.symbolFallback) : "";
+        }
+
     }
 
     checkable: true
