@@ -142,6 +142,34 @@
     </message>
 </context>
 <context>
+    <name>UndoRedoActionText</name>
+    <message>
+        <location filename="../xkbeditor/qt/undo.py" line="10"/>
+        <source>Remove {}</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../xkbeditor/qt/undo.py" line="13"/>
+        <source>Add {}</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../xkbeditor/qt/undo.py" line="16"/>
+        <source>variant «{}»</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../xkbeditor/qt/undo.py" line="19"/>
+        <source>include «{}»</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../xkbeditor/qt/undo.py" line="22"/>
+        <source>flag «{}»</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>Variant Editor</name>
     <message>
         <location filename="../xkbeditor/qt/qml/Editor.qml" line="20"/>

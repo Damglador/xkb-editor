@@ -136,7 +136,37 @@ msgctxt "MenuBar|"
 msgid "About"
 msgstr "Про програму"
 
-#: ../qt/qml/Editor.qml:20
+#: ../xkbeditor/qt/undo.py:10
+#, fuzzy
+msgctxt "UndoRedoActionText|"
+msgid "Remove {}"
+msgstr "Вилучити {}"
+
+#: ../xkbeditor/qt/undo.py:13
+#, fuzzy
+msgctxt "UndoRedoActionText|"
+msgid "Add {}"
+msgstr "Додати {}"
+
+#: ../xkbeditor/qt/undo.py:16
+#, fuzzy
+msgctxt "UndoRedoActionText|"
+msgid "variant «{}»"
+msgstr "варіант «{}»"
+
+#: ../xkbeditor/qt/undo.py:19
+#, fuzzy
+msgctxt "UndoRedoActionText|"
+msgid "include «{}»"
+msgstr "додаток «{}»"
+
+#: ../xkbeditor/qt/undo.py:22
+#, fuzzy
+msgctxt "UndoRedoActionText|"
+msgid "flag «{}»"
+msgstr "прапорець «{}»"
+
+#: ../xkbeditor/qt/qml/Editor.qml:20
 msgctxt "Variant Editor|"
 msgid "Flags:"
 msgstr "Прапорці:"

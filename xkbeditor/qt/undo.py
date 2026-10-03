@@ -1,22 +1,39 @@
-from PySide6.QtCore import QCoreApplication
+from PySide6.QtCore import QObject
 from PySide6.QtGui import QUndoCommand
 
 from xkbeditor.parser import xkb
 from xkbeditor.qt.types import IncludesList, Variant, VariantsList
 
-removeStr = QCoreApplication.translate("Undo/Redo action", "Remove {}")
-addStr = QCoreApplication.translate("Undo/Redo action", "Add {}")
-variantStr = QCoreApplication.translate("Undo/Redo action", "variant «{}»")
-includeStr = QCoreApplication.translate("Undo/Redo action", "include «{}»")
-flagStr = QCoreApplication.translate("Undo/Redo action", "flag «{}»")
+
+class UndoRedoActionText(QObject):
+    def removeStr(self, str):
+        return self.tr("Remove {}").format(str)
+
+    def addStr(self, str):
+        return self.tr("Add {}").format(str)
+
+    def variantStr(self, str):
+        return self.tr("variant «{}»").format(str)
+
+    def includeStr(self, str):
+        return self.tr("include «{}»").format(str)
+
+    def flagStr(self, str):
+        return self.tr("flag «{}»").format(str)
+
+
+tr = UndoRedoActionText()
 
 
 class RemoveVariant(QUndoCommand):
     def __init__(self, variantList: VariantsList, index: int, parent=None):
-        super().__init__(removeStr.format(variantStr.format(variantList._items[index].id)), parent=parent)
+        super().__init__(
+            tr.removeStr(tr.variantStr(variantList._items[index].id)),
+            parent=parent,
+        )
         self.variantList = variantList
         self.index = index
-        self.item: Variant = self.variantList.get(index) # pyright: ignore[reportAttributeAccessIssue]
+        self.item: Variant = self.variantList.get(index)  # pyright: ignore[reportAttributeAccessIssue]
 
     def redo(self, /) -> None:
         self.variantList.remove(self.index)
@@ -27,7 +44,7 @@ class RemoveVariant(QUndoCommand):
 
 class AddVariant(QUndoCommand):
     def __init__(self, variantList: VariantsList, id: str, parent=None):
-        super().__init__(addStr.format(variantStr.format(id)), parent=parent)
+        super().__init__(tr.addStr(tr.variantStr(id)), parent=parent)
         self.variantList = variantList
         self.name = id
         self.index = variantList.rowCount()
@@ -38,9 +55,10 @@ class AddVariant(QUndoCommand):
     def undo(self, /) -> None:
         self.variantList.remove(self.index)
 
+
 class RemoveFlag(QUndoCommand):
     def __init__(self, variant: Variant, flag: str, parent=None):
-        super().__init__(removeStr.format(flagStr.format(flag)), parent=parent)
+        super().__init__(tr.removeStr(tr.flagStr(flag)), parent=parent)
         self.variant = variant
         self.flag = xkb.Flags[flag]
 
@@ -55,7 +73,7 @@ class RemoveFlag(QUndoCommand):
 
 class AddFlag(QUndoCommand):
     def __init__(self, variant: Variant, flag: str, parent=None):
-        super().__init__(addStr.format(flagStr.format(flag)), parent=parent)
+        super().__init__(tr.addStr(tr.flagStr(flag)), parent=parent)
         self.variant = variant
         self.flag = xkb.Flags[flag]
 
@@ -70,7 +88,10 @@ class AddFlag(QUndoCommand):
 
 class RemoveInclude(QUndoCommand):
     def __init__(self, includesList: IncludesList, index: int, parent=None):
-        super().__init__(removeStr.format(includeStr.format(includesList._items[index])), parent=parent)
+        super().__init__(
+            tr.removeStr(tr.includeStr(includesList._items[index])),
+            parent=parent,
+        )
         self.includesList = includesList
         self.index = index
         self.item = self.includesList._items[index]
@@ -83,14 +104,17 @@ class RemoveInclude(QUndoCommand):
 
 
 class AddInclude(QUndoCommand):
-    def __init__(self, includesList: IncludesList, include: dict[str, str], parent=None):
+    def __init__(self, includesList: IncludesList, include: dict, parent=None):
         super().__init__(
-            addStr.format(includeStr.format(
-                include.get("path")
-                if not include.get("variant")
-                else f"{include.get('path')}({include.get('variant')})"
-            )),
-            parent=parent)
+            tr.addStr(
+                tr.includeStr(
+                    include.get("path")
+                    if not include.get("variant")
+                    else f"{include.get('path')}({include.get('variant')})"
+                )
+            ),
+            parent=parent,
+        )
         self.includesList = includesList
         self.include = include
         self.index = self.includesList.rowCount()

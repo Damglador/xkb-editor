@@ -129,7 +129,32 @@ msgctxt "MenuBar|"
 msgid "About"
 msgstr ""
 
-#: ../qt/qml/Editor.qml:20
+#: ../xkbeditor/qt/undo.py:10
+msgctxt "UndoRedoActionText|"
+msgid "Remove {}"
+msgstr ""
+
+#: ../xkbeditor/qt/undo.py:13
+msgctxt "UndoRedoActionText|"
+msgid "Add {}"
+msgstr ""
+
+#: ../xkbeditor/qt/undo.py:16
+msgctxt "UndoRedoActionText|"
+msgid "variant «{}»"
+msgstr ""
+
+#: ../xkbeditor/qt/undo.py:19
+msgctxt "UndoRedoActionText|"
+msgid "include «{}»"
+msgstr ""
+
+#: ../xkbeditor/qt/undo.py:22
+msgctxt "UndoRedoActionText|"
+msgid "flag «{}»"
+msgstr ""
+
+#: ../xkbeditor/qt/qml/Editor.qml:20
 msgctxt "Variant Editor|"
 msgid "Flags:"
 msgstr ""
