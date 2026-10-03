@@ -272,6 +272,7 @@ class Variant(QObject):
     def getSymbol(self, keycode: str, layer: int) -> str:
         return self._variant.getSymbol(keycode, layer)
 
+    symbolsChanged = Signal()
     @Slot(str, int, str)
     def setSymbol(self, keycode: str, layer: int, keysym: str):
         self._variant.setSymbol(keycode, layer, keysym)

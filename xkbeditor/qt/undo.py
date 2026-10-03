@@ -24,6 +24,16 @@ class UndoRedoActionText(QObject):
     def flagStr(self, str):
         return self.tr("flag «{}»").format(str)
 
+    def setSymbolStr(self, keycode: str, variant: str, oldKeysym: str, newKeysym: str):
+        return self.tr(
+            "Change symbol for {keycode} of {variant}: {oldKeysym} → {newKeysym}"
+        ).format(
+            keycode=keycode,
+            variant=variant,
+            oldKeysym=oldKeysym or "N/A",
+            newKeysym=newKeysym or "N/A",
+        )
+
 
 tr = UndoRedoActionText()
 
@@ -128,6 +138,7 @@ class AddInclude(QUndoCommand):
     def undo(self, /) -> None:
         self.includesList.remove(self.index)
 
+
 class RenameVariant(QUndoCommand):
     def __init__(self, variant: Variant, newId: str, parent=None):
         self.variant = variant
@@ -143,3 +154,28 @@ class RenameVariant(QUndoCommand):
 
     def undo(self, /) -> None:
         self.variant.id = self.oldId  # pyright: ignore[reportAttributeAccessIssue]
+
+
+class SetSymbol(QUndoCommand):
+    def __init__(
+        self, variant: Variant, keycode: str, layer: int, keysym: str, parent=None
+    ):
+        self.variant = variant
+        self.keycode = keycode
+        self.layer = layer
+        self.newKeysym = keysym
+        self.oldKeysym = variant.getSymbol(self.keycode, self.layer)
+        super().__init__(
+            tr.setSymbolStr(
+                self.keycode, str(self.variant.id), self.oldKeysym, self.newKeysym
+            ),
+            parent=parent,
+        )
+
+    def redo(self, /) -> None:
+        self.variant.setSymbol(self.keycode, self.layer, self.newKeysym)
+        self.variant.symbolsChanged.emit()
+
+    def undo(self, /) -> None:
+        self.variant.setSymbol(self.keycode, self.layer, self.oldKeysym)
+        self.variant.symbolsChanged.emit()

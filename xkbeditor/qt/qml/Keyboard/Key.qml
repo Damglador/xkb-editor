@@ -53,7 +53,7 @@ Controls.Button {
                 id: editField
                 implicitWidth: Kirigami.Units.gridUnit * 6
                 onAccepted: {
-                    bridge.file.variant.setSymbol(key.keycode, key.symbolsLayer, text.replace("U+", "U"));  // strip + for pasting from https://symbl.cc/
+                    bridge.setSymbol(key.keycode, key.symbolsLayer, text.replace("U+", "U"));  // strip + for pasting from https://symbl.cc/
                     key.loadChar();
                     menu.close();
                 }
@@ -108,6 +108,9 @@ Controls.Button {
         target: bridge.file.variant
         function onIncludesReloaded() {
             key.loadFallback();
+        }
+        function onSymbolsChanged() {
+            key.loadChar();
         }
     }
     Connections {

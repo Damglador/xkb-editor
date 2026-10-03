@@ -173,6 +173,11 @@
         <source>flag «{}»</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="../xkbeditor/qt/undo.py" line="29"/>
+        <source>Change symbol for {keycode} of {variant}: {oldKeysym} → {newKeysym}</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Variant Editor</name>

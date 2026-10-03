@@ -29,6 +29,7 @@ from xkbeditor.qt.undo import (
     RemoveInclude,
     RemoveVariant,
     RenameVariant,
+    SetSymbol,
 )
 
 QML_IMPORT_NAME = "xkbeditor"
@@ -59,6 +60,11 @@ class Bridge(QObject):
     @Property(QObject, notify=undoStackChanged)
     def undoStack(self):
         return self._undoStack
+
+    @Slot(str, int, str)
+    def setSymbol(self, keycode, layer, keysym):
+        if self._file._variant:
+            self._undoStack.push(SetSymbol(self._file._variant, keycode, layer, keysym))
 
     @Slot(Variant, str)
     def renameVariant(self, variant: Variant, str):

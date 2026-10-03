@@ -159,6 +159,11 @@ msgctxt "UndoRedoActionText|"
 msgid "flag «{}»"
 msgstr ""
 
+#: ../xkbeditor/qt/undo.py:29
+msgctxt "UndoRedoActionText|"
+msgid "Change symbol for {keycode} of {variant}: {oldKeysym} → {newKeysym}"
+msgstr ""
+
 #: ../xkbeditor/qt/qml/Editor.qml:20
 msgctxt "Variant Editor|"
 msgid "Flags:"
