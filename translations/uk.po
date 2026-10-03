@@ -137,31 +137,31 @@ msgid "About"
 msgstr "Про програму"
 
 #: ../xkbeditor/qt/undo.py:10
-#, fuzzy
 msgctxt "UndoRedoActionText|"
 msgid "Remove {}"
 msgstr "Вилучити {}"
 
 #: ../xkbeditor/qt/undo.py:13
-#, fuzzy
 msgctxt "UndoRedoActionText|"
 msgid "Add {}"
 msgstr "Додати {}"
 
 #: ../xkbeditor/qt/undo.py:16
-#, fuzzy
+msgctxt "UndoRedoActionText|"
+msgid "Rename {}"
+msgstr "Перейменувати {}"
+
+#: ../xkbeditor/qt/undo.py:19
 msgctxt "UndoRedoActionText|"
 msgid "variant «{}»"
 msgstr "варіант «{}»"
 
-#: ../xkbeditor/qt/undo.py:19
-#, fuzzy
+#: ../xkbeditor/qt/undo.py:22
 msgctxt "UndoRedoActionText|"
 msgid "include «{}»"
 msgstr "додаток «{}»"
 
-#: ../xkbeditor/qt/undo.py:22
-#, fuzzy
+#: ../xkbeditor/qt/undo.py:25
 msgctxt "UndoRedoActionText|"
 msgid "flag «{}»"
 msgstr "прапорець «{}»"
@@ -241,7 +241,7 @@ msgctxt "VariantsList|"
 msgid "Delete"
 msgstr "Видалити"
 
-#: ../xkbeditor/qt/qml/VariantsList.qml:164
+#: ../xkbeditor/qt/qml/VariantsList.qml:168
 msgctxt "VariantsList|"
 msgid "Add variant"
 msgstr "Додати варіант"

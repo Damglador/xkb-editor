@@ -140,15 +140,20 @@ msgstr ""
 
 #: ../xkbeditor/qt/undo.py:16
 msgctxt "UndoRedoActionText|"
-msgid "variant «{}»"
+msgid "Rename {}"
 msgstr ""
 
 #: ../xkbeditor/qt/undo.py:19
 msgctxt "UndoRedoActionText|"
-msgid "include «{}»"
+msgid "variant «{}»"
 msgstr ""
 
 #: ../xkbeditor/qt/undo.py:22
+msgctxt "UndoRedoActionText|"
+msgid "include «{}»"
+msgstr ""
+
+#: ../xkbeditor/qt/undo.py:25
 msgctxt "UndoRedoActionText|"
 msgid "flag «{}»"
 msgstr ""
@@ -228,7 +233,7 @@ msgctxt "VariantsList|"
 msgid "Delete"
 msgstr ""
 
-#: ../xkbeditor/qt/qml/VariantsList.qml:164
+#: ../xkbeditor/qt/qml/VariantsList.qml:168
 msgctxt "VariantsList|"
 msgid "Add variant"
 msgstr ""

@@ -124,14 +124,18 @@ Kirigami.ScrollablePage {
                 width: parent.width
                 height: parent.height
 
-                onVisibleChanged: if (visible == true)
-                    editField.forceActiveFocus()
+                onVisibleChanged: {
+                    if (visible == true) {
+                        editField.forceActiveFocus()
+                    } else {
+                        bridge.renameVariant(bridge.file.variants.get(listItemRoot.index), editField.text)
+                    }
+                }
 
                 contentItem: Kirigami.ActionTextField {
                     id: editField
                     anchors.fill: parent
                     text: listItemRoot.variant.id
-                    onTextEdited: listItemRoot.variant.id = text
                     width: parent.width
                     height: parent.height
                     onAccepted: popup.close()

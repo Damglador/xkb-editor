@@ -155,16 +155,21 @@
     </message>
     <message>
         <location filename="../xkbeditor/qt/undo.py" line="16"/>
-        <source>variant «{}»</source>
+        <source>Rename {}</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../xkbeditor/qt/undo.py" line="19"/>
-        <source>include «{}»</source>
+        <source>variant «{}»</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../xkbeditor/qt/undo.py" line="22"/>
+        <source>include «{}»</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../xkbeditor/qt/undo.py" line="25"/>
         <source>flag «{}»</source>
         <translation type="unfinished"></translation>
     </message>
@@ -250,7 +255,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../xkbeditor/qt/qml/VariantsList.qml" line="164"/>
+        <location filename="../xkbeditor/qt/qml/VariantsList.qml" line="168"/>
         <source>Add variant</source>
         <translation type="unfinished"></translation>
     </message>

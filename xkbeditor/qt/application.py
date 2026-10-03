@@ -20,7 +20,7 @@ from PySide6.QtWidgets import QApplication
 
 from xkbeditor.getchar import getchar
 from xkbeditor.globals import APP_DIR
-from xkbeditor.qt.types import SymbolsFile
+from xkbeditor.qt.types import SymbolsFile, Variant
 from xkbeditor.qt.undo import (
     AddFlag,
     AddInclude,
@@ -28,6 +28,7 @@ from xkbeditor.qt.undo import (
     RemoveFlag,
     RemoveInclude,
     RemoveVariant,
+    RenameVariant,
 )
 
 QML_IMPORT_NAME = "xkbeditor"
@@ -58,6 +59,11 @@ class Bridge(QObject):
     @Property(QObject, notify=undoStackChanged)
     def undoStack(self):
         return self._undoStack
+
+    @Slot(Variant, str)
+    def renameVariant(self, variant: Variant, str):
+        if self._file._variant:
+            self._undoStack.push(RenameVariant(variant, str))
 
     @Slot(int)
     def removeVariant(self, index: int):

@@ -12,6 +12,9 @@ class UndoRedoActionText(QObject):
     def addStr(self, str):
         return self.tr("Add {}").format(str)
 
+    def renameStr(self, str):
+        return self.tr("Rename {}").format(str)
+
     def variantStr(self, str):
         return self.tr("variant «{}»").format(str)
 
@@ -124,3 +127,19 @@ class AddInclude(QUndoCommand):
 
     def undo(self, /) -> None:
         self.includesList.remove(self.index)
+
+class RenameVariant(QUndoCommand):
+    def __init__(self, variant: Variant, newId: str, parent=None):
+        self.variant = variant
+        self.newId: str = newId
+        self.oldId: str = self.variant.id  # pyright: ignore[reportAttributeAccessIssue]
+        super().__init__(
+            tr.renameStr(tr.variantStr(self.oldId + " → " + self.newId)),
+            parent=parent,
+        )
+
+    def redo(self, /) -> None:
+        self.variant.id = self.newId  # pyright: ignore[reportAttributeAccessIssue]
+
+    def undo(self, /) -> None:
+        self.variant.id = self.oldId  # pyright: ignore[reportAttributeAccessIssue]
