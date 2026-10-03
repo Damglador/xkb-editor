@@ -1,6 +1,6 @@
 import os
 
-from xkbeditor import xkb
+from xkbeditor.parser import xkb
 
 # def test_loadIncludes_on_us():
 #     variants = xkb.getVariantsFromFile("/usr/share/xkeyboard-config-2/symbols/us")

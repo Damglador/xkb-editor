@@ -2,7 +2,7 @@
 
 from pathlib import Path
 
-from xkbeditor import xkb
+from xkbeditor.parser import xkb
 
 SAMPLES_DIR = Path(__file__).parent / "symbols"
 
