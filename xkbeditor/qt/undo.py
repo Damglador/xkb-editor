@@ -27,13 +27,13 @@ tr = UndoRedoActionText()
 
 class RemoveVariant(QUndoCommand):
     def __init__(self, variantList: VariantsList, index: int, parent=None):
-        super().__init__(
-            tr.removeStr(tr.variantStr(variantList._items[index].id)),
-            parent=parent,
-        )
         self.variantList = variantList
         self.index = index
         self.item: Variant = self.variantList.get(index)  # pyright: ignore[reportAttributeAccessIssue]
+        super().__init__(
+            tr.removeStr(tr.variantStr(self.item.id)),
+            parent=parent,
+        )
 
     def redo(self, /) -> None:
         self.variantList.remove(self.index)
@@ -44,10 +44,10 @@ class RemoveVariant(QUndoCommand):
 
 class AddVariant(QUndoCommand):
     def __init__(self, variantList: VariantsList, id: str, parent=None):
-        super().__init__(tr.addStr(tr.variantStr(id)), parent=parent)
         self.variantList = variantList
         self.name = id
         self.index = variantList.rowCount()
+        super().__init__(tr.addStr(tr.variantStr(self.name)), parent=parent)
 
     def redo(self, /) -> None:
         self.variantList.new(self.name)
@@ -58,9 +58,9 @@ class AddVariant(QUndoCommand):
 
 class RemoveFlag(QUndoCommand):
     def __init__(self, variant: Variant, flag: str, parent=None):
-        super().__init__(tr.removeStr(tr.flagStr(flag)), parent=parent)
         self.variant = variant
         self.flag = xkb.Flags[flag]
+        super().__init__(tr.removeStr(tr.flagStr(flag)), parent=parent)
 
     def redo(self, /) -> None:
         self.variant._variant.flags &= ~self.flag
@@ -73,9 +73,9 @@ class RemoveFlag(QUndoCommand):
 
 class AddFlag(QUndoCommand):
     def __init__(self, variant: Variant, flag: str, parent=None):
-        super().__init__(tr.addStr(tr.flagStr(flag)), parent=parent)
         self.variant = variant
         self.flag = xkb.Flags[flag]
+        super().__init__(tr.addStr(tr.flagStr(flag)), parent=parent)
 
     def redo(self, /) -> None:
         self.variant._variant.flags |= self.flag
@@ -88,13 +88,13 @@ class AddFlag(QUndoCommand):
 
 class RemoveInclude(QUndoCommand):
     def __init__(self, includesList: IncludesList, index: int, parent=None):
-        super().__init__(
-            tr.removeStr(tr.includeStr(includesList._items[index])),
-            parent=parent,
-        )
         self.includesList = includesList
         self.index = index
         self.item = self.includesList._items[index]
+        super().__init__(
+            tr.removeStr(tr.includeStr(self.item)),
+            parent=parent,
+        )
 
     def redo(self, /) -> None:
         self.includesList.remove(self.index)
@@ -105,6 +105,9 @@ class RemoveInclude(QUndoCommand):
 
 class AddInclude(QUndoCommand):
     def __init__(self, includesList: IncludesList, include: dict, parent=None):
+        self.includesList = includesList
+        self.include = include
+        self.index = self.includesList.rowCount()
         super().__init__(
             tr.addStr(
                 tr.includeStr(
@@ -115,9 +118,6 @@ class AddInclude(QUndoCommand):
             ),
             parent=parent,
         )
-        self.includesList = includesList
-        self.include = include
-        self.index = self.includesList.rowCount()
 
     def redo(self, /) -> None:
         self.includesList.append(self.include)
