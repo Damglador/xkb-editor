@@ -22,13 +22,15 @@ def getchar(input: str) -> str:
         case "dead_macron":
             return "ˉ"
         case "dead_horn":
-            exit
+            return " ̛"
         case "dead_ogonek":
             return "˛"
         case "dead_breve":
             return "˘"
+        case "dead_abovedot":
+            return " ̇"
         case "dead_belowdot":
-            return " ̣̣̣̣"
+            return " ̣"
         case "dead_hook":
             return " ̉"
         case "dead_abovering":
@@ -43,6 +45,8 @@ def getchar(input: str) -> str:
             return "ˊ"
         case "dead_iota":
             return "ᶥ"
+        case "dead_cedilla":
+            return "¸"
         case _:
             pass
     return keysym_to_string(keysym_from_name(input)) or ""
