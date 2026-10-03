@@ -1,10 +1,17 @@
-# xkbcommon doesn't type function
-# pyright: reportUnknownVariableType=false
-# pyright: reportUnknownArgumentType=false
-# pyright: reportMissingTypeStubs=false
+from ctypes import c_uint32, cdll
+from ctypes.util import find_library
 
-from xkbcommon.xkb import keysym_from_name, keysym_to_string
+xkbcommon_path = find_library("xkbcommon")
+if xkbcommon_path:
+    xkbcommon = cdll.LoadLibrary(xkbcommon_path)
+else:
+    raise OSError("Could not find libxkbcommon")
 
+def keysym_from_name(name: str) -> int:
+    return xkbcommon.xkb_keysym_from_name(name.encode("utf-8"), 0)
+
+def keysym_to_string(keysym: int) -> str:
+    return chr(xkbcommon.xkb_keysym_to_utf32(c_uint32(keysym)))
 
 def getchar(input: str) -> str:
     # Assume it's already a character
