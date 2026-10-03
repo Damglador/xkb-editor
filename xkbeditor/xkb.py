@@ -77,7 +77,7 @@ class Variant(BaseModel):
             lines.append(indent + f'name[Group1] = "{self.name}";')
             lines.append("")
         if self.key_type is not None:
-            lines.append(indent + f"key.type[Group1] = {self.key_type};")
+            lines.append(indent + f"key.type = {self.key_type};")
         if self.includes != []:
             for include in self.includes:
                 if include.path != "":
