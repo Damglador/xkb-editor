@@ -2,6 +2,7 @@ import org.kde.kirigami as Kirigami
 
 Kirigami.ApplicationWindow {
     title: aboutPage.title
+    transientParent: null // Show as a separate window in taskbar
     width: Kirigami.Units.gridUnit * 36
     height: Kirigami.Units.gridUnit * 30
     pageStack.initialPage: Kirigami.AboutPage {
