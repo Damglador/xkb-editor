@@ -9,7 +9,7 @@ $(RELEASE_DIR):
 	mkdir -p $@
 
 xkbeditor.ts:
-	pyside6-lupdate ../** -ts $@ -source-language en
+	pyside6-lupdate ../xkbeditor/qt/** -ts $@ -source-language en
 
 xkbeditor.pot: xkbeditor.ts
 	lconvert6 -i xkbeditor.ts -o xkbeditor.pot -drop-translations
