@@ -1,7 +1,7 @@
 from PySide6.QtCore import QCoreApplication
 from PySide6.QtGui import QUndoCommand
 
-from xkbeditor import xkb
+from xkbeditor.parser import xkb
 from xkbeditor.qt.types import IncludesList, Variant, VariantsList
 
 removeStr = QCoreApplication.translate("Undo/Redo action", "Remove {}")

@@ -15,8 +15,8 @@ from PySide6.QtCore import (
     Slot,
 )
 
-from xkbeditor import xkb
 from xkbeditor.getchar import getchar
+from xkbeditor.parser import xkb
 
 
 @QEnum

@@ -6,8 +6,8 @@ from pathlib import Path
 from lark import Discard, Lark, Token, Transformer, Tree
 from pydantic import BaseModel
 
-from .globals import XKB_INCLUDE_PATHS
-from .xkbtypes import *
+from xkbeditor.globals import XKB_INCLUDE_PATHS
+from xkbeditor.parser.types import *
 
 
 class Variant(BaseModel):
