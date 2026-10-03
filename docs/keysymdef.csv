@@ -7,7 +7,7 @@ Tab,0xff09,"U+0009 CHARACTER TABULATION"
 Linefeed,0xff0a,"U+000A LINE FEED"
 Clear,0xff0b,"U+000B LINE TABULATION"
 Return,0xff0d,"U+000D CARRIAGE RETURN"
-Pause,0xff13, "Pause,"hold""
+Pause,0xff13,"Pause, hold"
 Scroll_Lock,0xff14
 Sys_Req,0xff15
 Escape,0xff1b,"U+001B ESCAPE"
@@ -15,7 +15,7 @@ Delete,0xffff,"U+007F DELETE"
 
 
 
-, , "International & multi-key character composition"
+,,"International & multi-key character composition"
 
 Multi_key,0xff20,"Multi-key character compose"
 Codeinput,0xff37
@@ -23,9 +23,9 @@ SingleCandidate,0xff3c
 MultipleCandidate,0xff3d
 PreviousCandidate,0xff3e
 
-, , "Japanese keyboard support"
+,,"Japanese keyboard support"
 
-Kanji,0xff21, "Kanji,"Kanji convert""
+Kanji,0xff21,"Kanji, Kanji convert"
 Muhenkan,0xff22,"Cancel Conversion"
 Henkan_Mode,0xff23,"Start/Stop Conversion"
 Henkan,0xff23,"non-deprecated alias for Henkan_Mode"
@@ -46,14 +46,14 @@ Kanji_Bangou,0xff37,"Codeinput"
 Zen_Koho,0xff3d,"Multiple/All Candidate(s)"
 Mae_Koho,0xff3e,"Previous Candidate"
 
-, , "Cursor control & motion"
+,,"Cursor control & motion"
 
 Home,0xff50
-Left,0xff51, "Move left,"left arrow""
-Up,0xff52, "Move up,"up arrow""
-Right,0xff53, "Move right,"right arrow""
-Down,0xff54, "Move down,"down arrow""
-Prior,0xff55, "Prior,"previous""
+Left,0xff51,"Move left, left arrow"
+Up,0xff52,"Move up, up arrow"
+Right,0xff53,"Move right, right arrow"
+Down,0xff54,"Move down, down arrow"
+Prior,0xff55,"Prior, previous"
 Page_Up,0xff55,"deprecated alias for Prior"
 Next,0xff56,"Next"
 Page_Down,0xff56,"deprecated alias for Next"
@@ -61,29 +61,29 @@ End,0xff57,"EOL"
 Begin,0xff58,"BOL"
 
 
-, , "Misc functions"
+,,"Misc functions"
 
-Select,0xff60, "Select,"mark""
+Select,0xff60,"Select, mark"
 Print,0xff61
-Execute,0xff62, "Execute, run,"do""
-Insert,0xff63, "Insert,"insert here""
+Execute,0xff62,"Execute, run, do"
+Insert,0xff63,"Insert, insert here"
 Undo,0xff65
-Redo,0xff66, "Redo,"again""
+Redo,0xff66,"Redo, again"
 Menu,0xff67
-Find,0xff68, "Find,"search""
-Cancel,0xff69, "Cancel, stop, abort,"exit""
+Find,0xff68,"Find, search"
+Cancel,0xff69,"Cancel, stop, abort, exit"
 Help,0xff6a,"Help"
 Break,0xff6b
 Mode_switch,0xff7e,"Character set switch"
 script_switch,0xff7e,"non-deprecated alias for Mode_switch"
 Num_Lock,0xff7f
 
-, , "Keypad functions, keypad numbers cleverly chosen to map to ASCII"
+,,"Keypad functions, keypad numbers cleverly chosen to map to ASCII"
 
 KP_Space,0xff80,"<U+0020 SPACE>"
 KP_Tab,0xff89,"<U+0009 CHARACTER TABULATION>"
 KP_Enter,0xff8d,"<U+000D CARRIAGE RETURN>"
-KP_F1,0xff91, "PF1, KP_A,"...""
+KP_F1,0xff91,"PF1, KP_A, ..."
 KP_F2,0xff92
 KP_F3,0xff93
 KP_F4,0xff94
@@ -121,7 +121,7 @@ KP_9,0xffb9,"<U+0039 DIGIT NINE>"
 
 
 
-, , "
+,,"
 Auxiliary functions; note the duplicate definitions for left and right
 function keys;  Sun keyboards and a few other manufacturers have such
 function key groups on the left and/or right sides of the keyboard.
@@ -208,7 +208,7 @@ Hyper_L,0xffed,"Left hyper"
 Hyper_R,0xffee,"Right hyper"
 
 
-, , "
+,,"
 Keyboard (XKB) Extension function and modifier keys
 (from Appendix C of 'The X Keyboard Extension: Protocol Specification')
 Byte 3 = 0xfe
@@ -292,13 +292,13 @@ dead_invertedbreve,0xfe6d
 dead_belowcomma,0xfe6e
 dead_currency,0xfe6f
 
-, , "extra dead elements for German T3 layout"
+,,"extra dead elements for German T3 layout"
 dead_lowline,0xfe90
 dead_aboveverticalline,0xfe91
 dead_belowverticalline,0xfe92
 dead_longsolidusoverlay,0xfe93
 
-, , "dead vowels for universal syllable entry"
+,,"dead vowels for universal syllable entry"
 dead_a,0xfe80
 dead_A,0xfe81
 dead_e,0xfe82
@@ -367,7 +367,7 @@ Pointer_Accelerate,0xfefa
 Pointer_DfltBtnNext,0xfefb
 Pointer_DfltBtnPrev,0xfefc
 
-, , "Single-Stroke Multiple-Character N-Graph Keysyms For The X Input Method"
+,,"Single-Stroke Multiple-Character N-Graph Keysyms For The X Input Method"
 
 ch,0xfea0
 Ch,0xfea1
@@ -376,7 +376,7 @@ c_h,0xfea3
 C_h,0xfea4
 C_H,0xfea5
 
-, , "
+,,"
 3270 Terminal Keys
 Byte 3 = 0xfd
  "
@@ -413,10 +413,10 @@ Byte 3 = 0xfd
 3270_PrintScreen,0xfd1d
 3270_Enter,0xfd1e
 
-, , "
+,,"
 Latin 1
 (ISO/IEC 8859-1 = Unicode U+0020..U+00FF)
-Byte 3 =, 0
+Byte 3 = 0
  "
 space,0x0020,"U+0020 SPACE"
 exclam,0x0021,"U+0021 EXCLAMATION MARK"
@@ -620,7 +620,7 @@ yacute,0x00fd,"U+00FD LATIN SMALL LETTER Y WITH ACUTE"
 thorn,0x00fe,"U+00FE LATIN SMALL LETTER THORN"
 ydiaeresis,0x00ff,"U+00FF LATIN SMALL LETTER Y WITH DIAERESIS"
 
-, , "
+,,"
 Latin 2
 Byte 3 = 1
  "
@@ -683,7 +683,7 @@ udoubleacute,0x01fb,"U+0171 LATIN SMALL LETTER U WITH DOUBLE ACUTE"
 tcedilla,0x01fe,"U+0163 LATIN SMALL LETTER T WITH CEDILLA"
 abovedot,0x01ff,"U+02D9 DOT ABOVE"
 
-, , "
+,,"
 Latin 3
 Byte 3 = 2
  "
@@ -712,7 +712,7 @@ ubreve,0x02fd,"U+016D LATIN SMALL LETTER U WITH BREVE"
 scircumflex,0x02fe,"U+015D LATIN SMALL LETTER S WITH CIRCUMFLEX"
 
 
-, , "
+,,"
 Latin 4
 Byte 3 = 3
  "
@@ -754,7 +754,7 @@ uogonek,0x03f9,"U+0173 LATIN SMALL LETTER U WITH OGONEK"
 utilde,0x03fd,"U+0169 LATIN SMALL LETTER U WITH TILDE"
 umacron,0x03fe,"U+016B LATIN SMALL LETTER U WITH MACRON"
 
-, , "
+,,"
 Latin 8
  "
 Wcircumflex,0x1000174,"U+0174 LATIN CAPITAL LETTER W WITH CIRCUMFLEX"
@@ -784,7 +784,7 @@ wdiaeresis,0x1001e85,"U+1E85 LATIN SMALL LETTER W WITH DIAERESIS"
 Ygrave,0x1001ef2,"U+1EF2 LATIN CAPITAL LETTER Y WITH GRAVE"
 ygrave,0x1001ef3,"U+1EF3 LATIN SMALL LETTER Y WITH GRAVE"
 
-, , "
+,,"
 Latin 9
 Byte 3 = 0x13
  "
@@ -793,7 +793,7 @@ OE,0x13bc,"U+0152 LATIN CAPITAL LIGATURE OE"
 oe,0x13bd,"U+0153 LATIN SMALL LIGATURE OE"
 Ydiaeresis,0x13be,"U+0178 LATIN CAPITAL LETTER Y WITH DIAERESIS"
 
-, , "
+,,"
 Katakana
 Byte 3 = 4
  "
@@ -870,7 +870,7 @@ semivoicedsound,0x04df,"U+309C KATAKANA-HIRAGANA SEMI-VOICED SOUND MARK"
 kana_switch,0xff7e,"non-deprecated alias for Mode_switch"
 
 
-, , "
+,,"
 Arabic
 Byte 3 = 5
  "
@@ -968,7 +968,7 @@ Arabic_heh_goal,0x10006c1,"U+06C1 ARABIC LETTER HEH GOAL"
 Arabic_switch,0xff7e,"non-deprecated alias for Mode_switch"
 
 
-, , "
+,,"
 Cyrillic
 Byte 3 = 6
  "
@@ -1116,7 +1116,7 @@ Cyrillic_CHE,0x06fe,"U+0427 CYRILLIC CAPITAL LETTER CHE"
 Cyrillic_HARDSIGN,0x06ff,"U+042A CYRILLIC CAPITAL LETTER HARD SIGN"
 
 
-, , "
+,,"
 Greek
 (based on an early draft of, and not quite identical to, ISO/IEC 8859-7)
 Byte 3 = 7
@@ -1199,7 +1199,7 @@ Greek_omega,0x07f9,"U+03C9 GREEK SMALL LETTER OMEGA"
 Greek_switch,0xff7e,"non-deprecated alias for Mode_switch"
 
 
-, , "
+,,"
 Technical
 (from the DEC VT330/VT420 Technical Character Set, http://vt100.net/charsets/technical.html)
 Byte 3 = 8
@@ -1256,7 +1256,7 @@ rightarrow,0x08fd,"U+2192 RIGHTWARDS ARROW"
 downarrow,0x08fe,"U+2193 DOWNWARDS ARROW"
 
 
-, , "
+,,"
 Special
 (from the DEC VT100 Special Graphics Character Set)
 Byte 3 = 9
@@ -1288,7 +1288,7 @@ topt,0x09f7,"U+252C BOX DRAWINGS LIGHT DOWN AND HORIZONTAL"
 vertbar,0x09f8,"U+2502 BOX DRAWINGS LIGHT VERTICAL"
 
 
-, , "
+,,"
 Publishing
 (these are probably from a long forgotten DEC Publishing
 font that once shipped with DECwrite)
@@ -1381,7 +1381,7 @@ doublelowquotemark,0x0afe,"U+201E DOUBLE LOW-9 QUOTATION MARK"
 cursor,0x0aff
 
 
-, , "
+,,"
 APL
 Byte 3 = 0x0b
  "
@@ -1407,7 +1407,7 @@ lefttack,0x0bdc,"U+22A3 LEFT TACK"
 righttack,0x0bfc,"U+22A2 RIGHT TACK"
 
 
-, , "
+,,"
 Hebrew
 Byte 3 = 0x0c
  "
@@ -1454,7 +1454,7 @@ hebrew_taf,0x0cfa,"deprecated"
 Hebrew_switch,0xff7e,"non-deprecated alias for Mode_switch"
 
 
-, , "
+,,"
 Thai
 Byte 3 = 0x0d
  "
@@ -1545,7 +1545,7 @@ Thai_lekpaet,0x0df8,"U+0E58 THAI DIGIT EIGHT"
 Thai_lekkao,0x0df9,"U+0E59 THAI DIGIT NINE"
 
 
-, , "
+,,"
 Korean
 Byte 3 = 0x0e
  "
@@ -1553,7 +1553,7 @@ Byte 3 = 0x0e
 
 Hangul,0xff31,"Hangul start/stop(toggle)"
 Hangul_Start,0xff32,"Hangul start"
-Hangul_End,0xff33, "Hangul end,"English start""
+Hangul_End,0xff33,"Hangul end, English start"
 Hangul_Hanja,0xff34,"Start Hangul->Hanja Conversion"
 Hangul_Jamo,0xff35,"Hangul Jamo mode"
 Hangul_Romaja,0xff36,"Hangul Romaja mode"
@@ -1568,7 +1568,7 @@ Hangul_PreviousCandidate,0xff3e,"Previous candidate"
 Hangul_Special,0xff3f,"Special symbols"
 Hangul_switch,0xff7e,"non-deprecated alias for Mode_switch"
 
-, , "Hangul Consonant Characters"
+,,"Hangul Consonant Characters"
 Hangul_Kiyeog,0x0ea1,"U+3131 HANGUL LETTER KIYEOK"
 Hangul_SsangKiyeog,0x0ea2,"U+3132 HANGUL LETTER SSANGKIYEOK"
 Hangul_KiyeogSios,0x0ea3,"U+3133 HANGUL LETTER KIYEOK-SIOS"
@@ -1600,7 +1600,7 @@ Hangul_Tieut,0x0ebc,"U+314C HANGUL LETTER THIEUTH"
 Hangul_Phieuf,0x0ebd,"U+314D HANGUL LETTER PHIEUPH"
 Hangul_Hieuh,0x0ebe,"U+314E HANGUL LETTER HIEUH"
 
-, , "Hangul Vowel Characters"
+,,"Hangul Vowel Characters"
 Hangul_A,0x0ebf,"U+314F HANGUL LETTER A"
 Hangul_AE,0x0ec0,"U+3150 HANGUL LETTER AE"
 Hangul_YA,0x0ec1,"U+3151 HANGUL LETTER YA"
@@ -1623,7 +1623,7 @@ Hangul_EU,0x0ed1,"U+3161 HANGUL LETTER EU"
 Hangul_YI,0x0ed2,"U+3162 HANGUL LETTER YI"
 Hangul_I,0x0ed3,"U+3163 HANGUL LETTER I"
 
-, , "Hangul syllable-final (JongSeong) Characters"
+,,"Hangul syllable-final (JongSeong) Characters"
 Hangul_J_Kiyeog,0x0ed4,"U+11A8 HANGUL JONGSEONG KIYEOK"
 Hangul_J_SsangKiyeog,0x0ed5,"U+11A9 HANGUL JONGSEONG SSANGKIYEOK"
 Hangul_J_KiyeogSios,0x0ed6,"U+11AA HANGUL JONGSEONG KIYEOK-SIOS"
@@ -1652,7 +1652,7 @@ Hangul_J_Tieut,0x0eec,"U+11C0 HANGUL JONGSEONG THIEUTH"
 Hangul_J_Phieuf,0x0eed,"U+11C1 HANGUL JONGSEONG PHIEUPH"
 Hangul_J_Hieuh,0x0eee,"U+11C2 HANGUL JONGSEONG HIEUH"
 
-, , "Ancient Hangul Consonant Characters"
+,,"Ancient Hangul Consonant Characters"
 Hangul_RieulYeorinHieuh,0x0eef,"U+316D HANGUL LETTER RIEUL-YEORINHIEUH"
 Hangul_SunkyeongeumMieum,0x0ef0,"U+3171 HANGUL LETTER KAPYEOUNMIEUM"
 Hangul_SunkyeongeumPieub,0x0ef1,"U+3178 HANGUL LETTER KAPYEOUNPIEUP"
@@ -1661,21 +1661,21 @@ Hangul_KkogjiDalrinIeung,0x0ef3,"U+3181 HANGUL LETTER YESIEUNG"
 Hangul_SunkyeongeumPhieuf,0x0ef4,"U+3184 HANGUL LETTER KAPYEOUNPHIEUPH"
 Hangul_YeorinHieuh,0x0ef5,"U+3186 HANGUL LETTER YEORINHIEUH"
 
-, , "Ancient Hangul Vowel Characters"
+,,"Ancient Hangul Vowel Characters"
 Hangul_AraeA,0x0ef6,"U+318D HANGUL LETTER ARAEA"
 Hangul_AraeAE,0x0ef7,"U+318E HANGUL LETTER ARAEAE"
 
-, , "Ancient Hangul syllable-final (JongSeong) Characters"
+,,"Ancient Hangul syllable-final (JongSeong) Characters"
 Hangul_J_PanSios,0x0ef8,"U+11EB HANGUL JONGSEONG PANSIOS"
 Hangul_J_KkogjiDalrinIeung,0x0ef9,"U+11F0 HANGUL JONGSEONG YESIEUNG"
 Hangul_J_YeorinHieuh,0x0efa,"U+11F9 HANGUL JONGSEONG YEORINHIEUH"
 
-, , "Korean currency symbol"
+,,"Korean currency symbol"
 Korean_Won,0x0eff,"U+20A9 WON SIGN"
 
 
 
-, , "
+,,"
 Armenian
  "
 
@@ -1771,7 +1771,7 @@ Armenian_fe,0x1000586,"U+0586 ARMENIAN SMALL LETTER FEH"
 Armenian_apostrophe,0x100055a,"U+055A ARMENIAN APOSTROPHE"
 
 
-, , "
+,,"
 Georgian
  "
 
@@ -1816,7 +1816,7 @@ Georgian_hoe,0x10010f5,"U+10F5 GEORGIAN LETTER HOE"
 Georgian_fi,0x10010f6,"U+10F6 GEORGIAN LETTER FI"
 
 
-, , "
+,,"
 Azeri (and other Turkic or Caucasian languages)
  "
 
@@ -1837,13 +1837,13 @@ SCHWA,0x100018f,"U+018F LATIN CAPITAL LETTER SCHWA"
 schwa,0x1000259,"U+0259 LATIN SMALL LETTER SCHWA"
 EZH,0x10001b7,"U+01B7 LATIN CAPITAL LETTER EZH"
 ezh,0x1000292,"U+0292 LATIN SMALL LETTER EZH"
-, , "those are not really Caucasus"
-, , "For Inupiak"
+,,"those are not really Caucasus"
+,,"For Inupiak"
 Lbelowdot,0x1001e36,"U+1E36 LATIN CAPITAL LETTER L WITH DOT BELOW"
 lbelowdot,0x1001e37,"U+1E37 LATIN SMALL LETTER L WITH DOT BELOW"
 
 
-, , "
+,,"
 Vietnamese
  "
 
@@ -1945,7 +1945,7 @@ combining_acute,0x1000301,"U+0301 COMBINING ACUTE ACCENT"
 combining_hook,0x1000309,"U+0309 COMBINING HOOK ABOVE"
 combining_belowdot,0x1000323,"U+0323 COMBINING DOT BELOW"
 
-, , "
+,,"
 CURRENCY
  "
 
@@ -1964,7 +1964,7 @@ DongSign,0x10020ab,"U+20AB DONG SIGN"
 EuroSign,0x20ac,"U+20AC EURO SIGN"
 
 
-, , "
+,,"
 Mathematical
 one,two and three are defined above.
  "
@@ -2003,7 +2003,7 @@ notidentical,0x1002262,"U+2262 NOT IDENTICAL TO"
 stricteq,0x1002263,"U+2263 STRICTLY EQUIVALENT TO"
 
 
-, , "
+,,"
 BRAILLE
  "
 
@@ -2275,7 +2275,7 @@ braille_dots_2345678,0x10028fe,"U+28FE BRAILLE PATTERN DOTS-2345678"
 braille_dots_12345678,0x10028ff,"U+28FF BRAILLE PATTERN DOTS-12345678"
 
 
-, , "
+,,"
 Sinhala (http://unicode.org/charts/PDF/U0D80.pdf)
 http://www.nongnu.org/sinhala/doc/transliteration/sinhala-transliteration_6.html
  "
