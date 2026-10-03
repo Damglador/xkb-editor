@@ -62,8 +62,7 @@ class Bridge(QObject):
 
     @Slot(Variant, str)
     def renameVariant(self, variant: Variant, str):
-        if self._file._variant:
-            self._undoStack.push(RenameVariant(variant, str))
+        self._undoStack.push(RenameVariant(variant, str))
 
     @Slot(int)
     def removeVariant(self, index: int):
