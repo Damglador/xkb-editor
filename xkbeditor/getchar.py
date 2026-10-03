@@ -11,8 +11,11 @@ def keysym_from_name(name: str) -> int:
     return xkbcommon.xkb_keysym_from_name(name.encode("utf-8"), 0)
 
 def keysym_to_string(keysym: int) -> str:
-    return chr(xkbcommon.xkb_keysym_to_utf32(c_uint32(keysym)))
+    return chr(xkbcommon.xkb_keysym_to_utf32(c_uint32(keysym))).strip('\x00')
 
+# xkb_keysym_from_name will return 0 on NoSymbol or when there's invalid name
+# by that it's possible to determine if a keysym is valid or not
+# and then if it has a displayable character
 def getchar(input: str) -> str:
     # Assume it's already a character
     if len(input) == 1:
