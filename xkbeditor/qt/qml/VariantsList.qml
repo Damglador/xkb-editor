@@ -49,17 +49,22 @@ Kirigami.ScrollablePage {
             width: mainList.width - mainList.leftMargin - mainList.rightMargin
             height: listItem.implicitHeight
 
-            Kirigami.SwipeListItem {
+            Controls.ItemDelegate {
                 id: listItem
                 implicitHeight: Kirigami.Units.gridUnit * 2
-                width: listItemRoot.width
+                anchors.fill: listItemRoot
+                // Padding begone!
+                topInset: 0
+                bottomInset: 0
+                topPadding: 0
+                bottomPadding: 0
+
                 onClicked: {
                     mainList.currentIndex = listItemRoot.index;
                     mainList.forceActiveFocus()
                 }
                 highlighted: listItemRoot.ListView.isCurrentItem
                 contentItem: RowLayout {
-                    anchors.verticalCenter: parent.verticalCenter
                     width: listItem.width - Kirigami.Units.iconSizes.small * 2
                     Kirigami.ListItemDragHandle {
                         listItem: listItem
@@ -83,11 +88,13 @@ Kirigami.ScrollablePage {
                     }
                 }
                 RowLayout {
-                    anchors.right: parent.right
+                    anchors.right: listItem.right
+                    anchors.rightMargin: Kirigami.Units.smallSpacing
                     anchors.verticalCenter: parent.verticalCenter
                     spacing: 0
 
-                    z: parent.contentItem.z + 1
+                    z: parent.z + 1
+                    visible: listItem.hovered
 
                     Controls.Button {
                         icon.name: "edit-rename"
@@ -96,12 +103,8 @@ Kirigami.ScrollablePage {
                         Controls.ToolTip.visible: hovered
                         Controls.ToolTip.delay: Kirigami.Units.toolTipDelay
 
-                        onClicked: {
-                            // showPassiveNotification(qsTr("Renaming %1").arg(listItemRoot.title));
-                            popup.open();
-                        }
+                        onClicked: popup.open();
                         icon.height: Kirigami.Units.iconSizes.small
-                        visible: listItem.hovered
                         display: Controls.AbstractButton.IconOnly
                     }
                     Controls.Button {
@@ -113,7 +116,6 @@ Kirigami.ScrollablePage {
 
                         onClicked: bridge.removeVariant(listItemRoot.index);
                         icon.height: Kirigami.Units.iconSizes.small
-                        visible: listItem.hovered
                         display: Controls.AbstractButton.IconOnly
                     }
                 }
