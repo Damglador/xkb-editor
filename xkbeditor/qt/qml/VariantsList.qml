@@ -80,7 +80,6 @@ Kirigami.ScrollablePage {
 
                     Controls.Label {
                         Layout.fillWidth: true
-                        Layout.preferredHeight: Math.max(implicitHeight, Kirigami.Units.iconSizes.small)
                         text: listItemRoot.title
                     }
                     Item {
