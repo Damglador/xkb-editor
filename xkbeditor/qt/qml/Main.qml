@@ -37,21 +37,13 @@ Kirigami.ApplicationWindow {
 
     menuBar: MenuBar {}
 
-    Component {
+    Kirigami.Page {
         id: initPage
-        Kirigami.Page {
-            globalToolBarStyle: Kirigami.ApplicationHeaderStyle.None
-            RowLayout {
-                anchors.centerIn: parent
-                // Kirigami.AbstractCard {
-                //     implicitWidth: Kirigami.Units.gridUnit * 10
-                //     Layout.fillWidth: true
-                //     Layout.fillHeight: true
-                //     contentItem: IncludesList { }
-                // }
-                Editor {
-                    Component.onCompleted: bridge.loadTestVariant()
-                }
+        globalToolBarStyle: Kirigami.ApplicationHeaderStyle.None
+        RowLayout {
+            anchors.centerIn: parent
+            Editor {
+                Component.onCompleted: bridge.loadTestVariant()
             }
         }
     }
@@ -110,7 +102,7 @@ Kirigami.ApplicationWindow {
 
         parent: window.overlay
         anchors.bottom: parent.bottom
-        anchors.left: parent.top
+        anchors.left: parent.left
         padding: Kirigami.Units.smallSpacing
 
         Timer {
