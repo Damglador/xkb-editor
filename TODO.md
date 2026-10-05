@@ -1,7 +1,6 @@
 - Add preview
-- Add re-arrenging includes
-- Changing symbols to undo stack
 - Renaming includes to undo stack
+- Warning about not finding an include
 - Parse /usr/include/X11/keysymdef.h and display as a table
     - Name
     - Keysym

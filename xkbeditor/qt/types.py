@@ -105,6 +105,7 @@ class IncludesList(List):
     def __init__(self, items: list[xkb.Include], parent=None):
         super().__init__(parent=parent)
         self._items = items
+        self._objs: list[Include] = [Include(include, parent=self) for include in self._items] # pyright: ignore[reportIncompatibleVariableOverride]
 
     def roleNames(self) -> dict:
         return {
@@ -118,11 +119,11 @@ class IncludesList(List):
             return
         match(role):
             case self.ObjectRole:
-                return Include(self._items[index.row()])
+                return self._objs[index.row()]
             case self.PathRole:
-                return self._items[index.row()].path
+                return self._objs[index.row()].path
             case self.VariantRole:
-                return self._items[index.row()].variant
+                return self._objs[index.row()].variant
 
     @Slot(dict, result=bool)
     def append(self, vals: dict[str, str]):
@@ -134,13 +135,15 @@ class IncludesList(List):
                     path=path,
                     variant=vals.get("variant")
                 ))
+            self._objs.append(Include(self._items[len(self._items) - 1]))
             self.endInsertRows()
             return True
         return False
 
-    def insert(self, index: int, include: xkb.Include):
+    def insert(self, index: int, include: Include):
         self.beginInsertRows(QModelIndex(), index, index)
-        self._items.insert(index, include)
+        self._objs.insert(index, include)
+        self._items.insert(index, self._objs[len(self._objs) - 1]._include)
         self.endInsertRows()
 
 class VariantsList(List):
@@ -222,6 +225,10 @@ class Include(QObject):
         self._include.variant = str
         self.variantChanged.emit()
 
+    @Slot(result=str)
+    def toString(self) -> str:
+        return str(self._include)
+
 
 # pyright: reportRedeclaration=false
 class Variant(QObject):
@@ -235,6 +242,7 @@ class Variant(QObject):
         self._includes = IncludesList(self._variant.includes, parent=self)
         self._includes.rowsInserted.connect(self.reloadIncludes)
         self._includes.rowsRemoved.connect(self.reloadIncludes)
+        self._includes.rowsMoved.connect(self.reloadIncludes)
 
     idChanged = Signal()
     @Property(str, notify=idChanged)

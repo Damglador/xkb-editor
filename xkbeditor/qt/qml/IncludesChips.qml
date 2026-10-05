@@ -26,6 +26,13 @@ Flow {
 
                 text: item.include.toString()
 
+                Connections {
+                    target: bridge.file.variant
+                    function onIncludesReloaded() {
+                        chip.text = item.include.toString()
+                    }
+                }
+
                 onClicked: chipMenu.open()
                 closable: false
                 checkable: false
@@ -59,36 +66,11 @@ Flow {
                     xAxis.maximum: flow.implicitWidth - item.x - item.width - 1 - addButton.width - Kirigami.Units.smallSpacing
                 }
 
-                Controls.Menu {
+                IncludeMenu {
                     id: chipMenu
-                    y: parent.height
-                    ColumnLayout {
-                        RowLayout {
-                            Controls.TextField {
-                                placeholderText: qsTr("Path")
-                                implicitWidth: Kirigami.Units.gridUnit * 4
-                                text: item.include.path
-                                onTextEdited: item.include.path = text
-                                onAccepted: chipMenu.close()
-                                onVisibleChanged: forceActiveFocus()
-                            }
-                            Controls.TextField {
-                                placeholderText: qsTr("Variant")
-                                implicitWidth: Kirigami.Units.gridUnit * 4
-                                text: item.include.variant ? item.include.variant : ""
-                                onTextEdited: item.include.variant = text
-                                onAccepted: chipMenu.close()
-                            }
-                        }
-                        Controls.Button {
-                            id: removeButton
-                            Layout.fillWidth: true
-                            icon.name: "edit-delete-remove"
-                            text: qsTr("Remove include")
-                            onClicked: bridge.removeInclude(item.index)
-                        }
-                    }
-                    onClosed: bridge.file.variant.reloadIncludes()
+                    index: item.index
+                    include: item.include
+                    type: IncludeMenu.Type.Edit
                 }
             }
         }
@@ -109,42 +91,9 @@ Flow {
         }
 
         onClicked: addMenu.open()
-        Controls.Menu {
+        IncludeMenu {
             id: addMenu
-            y: parent.height
-            ColumnLayout {
-                RowLayout {
-                    Controls.TextField {
-                        id: addMenu_PathField
-                        placeholderText: qsTr("Path")
-                        implicitWidth: Kirigami.Units.gridUnit * 4
-                        onAccepted: addMenu_Button.click()
-                        onVisibleChanged: forceActiveFocus()
-                    }
-                    Controls.TextField {
-                        id: addMenu_VariantField
-                        placeholderText: qsTr("Variant")
-                        implicitWidth: Kirigami.Units.gridUnit * 4
-                        onAccepted: addMenu_Button.click()
-                    }
-                }
-                Controls.Button {
-                    id: addMenu_Button
-                    Layout.fillWidth: true
-                    icon.name: "add"
-                    text: qsTr("Add include")
-                    onClicked: {
-                        if (bridge.addInclude({
-                            "path": addMenu_PathField.text,
-                            "variant": addMenu_VariantField.text
-                        })) {
-                            addMenu_PathField.text = "";
-                            addMenu_VariantField.text = "";
-                            addMenu.close();
-                        }
-                    }
-                }
-            }
+            type: IncludeMenu.Type.Add
         }
     }
 }

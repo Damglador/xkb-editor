@@ -103,7 +103,7 @@ class RemoveInclude(QUndoCommand):
     def __init__(self, includesList: IncludesList, index: int, parent=None):
         self.includesList = includesList
         self.index = index
-        self.item = self.includesList._items[index]
+        self.item = self.includesList._objs[index]
         super().__init__(
             tr.removeStr(tr.includeStr(self.item)),
             parent=parent,
