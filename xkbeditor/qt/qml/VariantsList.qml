@@ -82,9 +82,6 @@ Kirigami.ScrollablePage {
                         Layout.fillWidth: true
                         text: listItemRoot.title
                     }
-                    Item {
-                        Layout.fillWidth: true
-                    }
                 }
                 RowLayout {
                     anchors.right: listItem.right
