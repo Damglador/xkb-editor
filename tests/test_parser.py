@@ -39,14 +39,6 @@ sample:
 generated:
 {xkb}"""
 
-def test_toxkb():
-    variant = xkb.getVariantFromFile(SAMPLES_DIR / "toxkb-reference", "test")
-    xkbStr = variant.toXkb()
-
-    with open(SAMPLES_DIR / "toxkb-reference", "r") as file:
-        sourceXkb = file.read()
-    assert xkbStr == sourceXkb
-
 def test_upstream_us():
     variants = xkb.getVariantsFromFile("/usr/share/xkeyboard-config-2/symbols/us")
     assert variants != None

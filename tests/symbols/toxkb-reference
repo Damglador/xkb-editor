@@ -11,6 +11,6 @@ xkb_symbols "test" {
                    type = "FOUR_LEVEL_SEMIALPHABETIC",
                    repeat = True,
                    virtualModifiers = Alt };
-    key <AE12> { [ "\"" ] };
-    key <AE13> { [ "#" ] };
+    key <AE12> { [ "\""  ] };
+    key <AE13> { [ "#"   ] };
 };

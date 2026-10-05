@@ -9,6 +9,14 @@ from pydantic import BaseModel
 from xkbeditor.globals import XKB_INCLUDE_PATHS
 from xkbeditor.parser.types import *
 
+def quoteSymbol(symbol: str) -> str:
+    if symbol == '"':
+        symbol = f'"\\{symbol}"'
+    elif len(symbol) == 1 or symbol == r"\"":
+        symbol = f'"{symbol}"'
+
+    return symbol or "NoSymbol"
+
 
 class Variant(BaseModel):
     id: str | None = None  # xkb_symbols "<id>"
@@ -84,25 +92,38 @@ class Variant(BaseModel):
                     lines.append(indent + f'include "{include}"')
             lines.append("")
         if self.keymap != {}:
+            columnWidths = [0, 0, 0, 0,
+                            0, 0, 0, 0]
+            explicitCount = {}
+            for keycode, keyprops in self.keymap.items():
+                if keyprops.symbols != []:
+                    # Count the last explicit symbol in the list to avoid adding trailing NoSymbol to keysyms list
+                    explicit = 0
+                    for i in range(len(keyprops.symbols)):
+                        if not isImplicit(keyprops.symbols[i]):
+                            explicit = i + 1
+                    explicitCount.update({keycode: explicit})
+
+                    for i in range(explicit):
+                        symbol = quoteSymbol(keyprops.symbols[i])
+
+                        if len(symbol) > columnWidths[i]:
+                            columnWidths[i] = len(symbol)
+
             for keycode, keyprops in self.keymap.items():
                 props: list[str] = []
                 if keyprops.symbols != []:
-                    symbols: list[str] = []
-                    # Count the last explicit symbol in the list to avoid adding trailing NoSymbol to keysyms list
-                    explicitSymbols: int = 0
-                    for i in range(len(keyprops.symbols)):
-                        if not isImplicit(keyprops.symbols[i]):
-                            explicitSymbols = i + 1
-                    for i in range(explicitSymbols):
-                        symbol = keyprops.symbols[i]
-                        if symbol == '"':
-                            symbols.append(f'"\\{symbol}"')
-                        elif len(symbol) == 1 or symbol == r"\"":
-                            symbols.append(f'"{symbol}"')
+                    columns: list[str] = []
+                    for i in range(explicitCount[keycode]):
+                        symbol = quoteSymbol(keyprops.symbols[i])
+
+                        if i < explicitCount[keycode] - 1:
+                            columns.append((symbol + ",").ljust(columnWidths[i] + 5)) # 4 padding and 1 for comma
                         else:
-                            symbols.append(symbol or "NoSymbol")
-                    symbolsStr = f"[ {',    '.join(symbols)} ]"
-                    props.append(symbolsStr)
+                            columns.append(symbol.ljust(columnWidths[i]))
+
+                    props.append(f"[ {"".join(columns)} ]")
+
                 if keyprops.actions is not None:
                     actions: list[str] = []
                     for action in keyprops.actions:
@@ -111,6 +132,7 @@ class Variant(BaseModel):
                             params.append(f'{param}={val}')
                         actions.append(f'{action.name}({",".join(params)})')
                     props.append(f'actions = [ {", ".join(actions)} ]')
+
                 if keyprops.type is not None:
                     props.append(f'type = "{keyprops.type}"')
                 if keyprops.repeat is not None:
