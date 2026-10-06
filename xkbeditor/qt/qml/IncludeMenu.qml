@@ -9,20 +9,11 @@ import org.kde.kirigami as Kirigami
 Controls.Menu {
     id: menu
     required property int type
-    property int index
     property var include
 
     enum Type {
         Edit,
         Add
-    }
-
-    function accept() {
-        if (menu.type == IncludeMenu.Type.Add) {
-            addButton.click();
-        } else {
-            menu.close();
-        }
     }
 
     function action() {
@@ -36,7 +27,11 @@ Controls.Menu {
                 menu.close();
             }
         } else {
-            bridge.removeInclude(menu.index)
+            if (menu.include) {
+                menu.include.path = pathField.text;
+                menu.include.variant = variantField.text;
+                bridge.file.variant.reloadIncludes();
+            }
         }
     }
 
@@ -48,8 +43,7 @@ Controls.Menu {
                 placeholderText: qsTr("Path")
                 implicitWidth: Kirigami.Units.gridUnit * 4
                 text: menu.include ? menu.include.path : ""
-                onTextEdited: if (menu.include) menu.include.path = text
-                onAccepted: menu.accept()
+                onAccepted: menu.action()
                 onVisibleChanged: forceActiveFocus()
             }
             Controls.TextField {
@@ -57,16 +51,15 @@ Controls.Menu {
                 placeholderText: qsTr("Variant")
                 implicitWidth: Kirigami.Units.gridUnit * 4
                 text: (menu.include && menu.include.variant) ? menu.include.variant : ""
-                onTextEdited: if (menu.include) menu.include.variant = text
-                onAccepted: menu.accept()
+                onAccepted: menu.action()
             }
         }
         Controls.Button {
             id: removeButton
             visible: menu.type == IncludeMenu.Type.Edit
             Layout.fillWidth: true
-            icon.name: "edit-delete-remove"
-            text: qsTr("Remove include")
+            icon.name: "dialog-ok"
+            text: qsTr("Confirm")
             onClicked: menu.action()
         }
         Controls.Button {
@@ -78,5 +71,4 @@ Controls.Menu {
             onClicked: menu.action()
         }
     }
-    onClosed: bridge.file.variant.reloadIncludes()
 }

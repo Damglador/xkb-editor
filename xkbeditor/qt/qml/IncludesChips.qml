@@ -33,7 +33,6 @@ Flow {
                 }
 
                 onClicked: chipMenu.open()
-                closable: false
                 checkable: false
 
                 Controls.ToolTip {
@@ -87,10 +86,11 @@ Flow {
 
                 IncludeMenu {
                     id: chipMenu
-                    index: item.index
                     include: item.include
                     type: IncludeMenu.Type.Edit
                 }
+
+                onRemoved: bridge.removeInclude(item.index)
             }
         }
     }
