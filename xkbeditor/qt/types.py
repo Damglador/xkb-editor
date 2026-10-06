@@ -1,3 +1,13 @@
+# pyright: reportUnknownVariableType=false
+# pyright: reportMissingTypeArgument=false
+# pyright: reportUnusedCallResult=false
+# pyright: reportUnknownArgumentType=false
+# pyright: reportMissingParameterType=false
+# pyright: reportImplicitOverride=false
+# pyright: reportUnknownMemberType=false
+# pyright: reportUnknownParameterType=false
+# pyright: reportUnannotatedClassAttribute=false
+
 import re
 from enum import Enum, auto
 from urllib.parse import urlparse

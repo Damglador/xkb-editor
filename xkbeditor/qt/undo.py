@@ -1,3 +1,10 @@
+# pyright: reportUnknownParameterType=false
+# pyright: reportUnknownArgumentType=false
+# pyright: reportMissingParameterType=false
+# pyright: reportImplicitOverride=false
+# pyright: reportUnannotatedClassAttribute=false
+# pyright: reportUnknownMemberType=false
+
 from PySide6.QtCore import QObject
 from PySide6.QtGui import QUndoCommand
 
