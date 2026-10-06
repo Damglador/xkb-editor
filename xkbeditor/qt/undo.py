@@ -105,7 +105,7 @@ class RemoveInclude(QUndoCommand):
         self.index = index
         self.item = self.includesList._objs[index]
         super().__init__(
-            tr.removeStr(tr.includeStr(self.item)),
+            tr.removeStr(tr.includeStr(self.item.toString())),
             parent=parent,
         )
 
