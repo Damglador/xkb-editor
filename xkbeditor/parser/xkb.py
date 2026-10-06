@@ -52,11 +52,10 @@ class Variant(BaseModel):
                 return keysym
         # TODO: search in reverse order instead of applying the last match?
         for include in self.includes:
-            variant = includesDB.get(str(include))
-            if variant is None:
+            if not str(include) in includesDB:
                 includesDB.update({str(include): getVariant(include.path, include.variant)})
-                variant = includesDB.get(str(include))
 
+            variant = includesDB.get(str(include))
             if variant:
                 result = variant.getSymbolOrFallback(keycode, layer, searchSelf=True)
                 if not isImplicit(result):
