@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# pyright: reportPrivateUsage=false
 
 import os
 import signal
@@ -62,12 +63,12 @@ class Bridge(QObject):
         return self._undoStack
 
     @Slot(str, int, str)
-    def setSymbol(self, keycode, layer, keysym):
+    def setSymbol(self, keycode: str, layer: int, keysym: str):
         if self._file._variant:
             self._undoStack.push(SetSymbol(self._file._variant, keycode, layer, keysym))
 
     @Slot(Variant, str)
-    def renameVariant(self, variant: Variant, str):
+    def renameVariant(self, variant: Variant, str: str):
         self._undoStack.push(RenameVariant(variant, str))
 
     @Slot(int)
