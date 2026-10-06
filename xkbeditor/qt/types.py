@@ -300,7 +300,6 @@ class Variant(QObject):
     includesReloaded = Signal()
     @Slot()
     def reloadIncludes(self):
-        self._variant.reloadIncludes()
         self.includesReloaded.emit()
 
     def setVariant(self, variant: xkb.Variant):

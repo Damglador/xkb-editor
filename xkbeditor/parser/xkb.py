@@ -17,7 +17,7 @@ def quoteSymbol(symbol: str) -> str:
 
     return symbol or "NoSymbol"
 
-
+includesDB: dict[str, Variant | None] = {}
 class Variant(BaseModel):
     id: str | None = None  # xkb_symbols "<id>"
     # Human-readable name of the `variant`.
@@ -27,8 +27,6 @@ class Variant(BaseModel):
     keymap: dict[str, KeyProps] = {}
     includes: list[Include] = []
     key_type: str | None = None
-
-    deps: list[Variant] | None = None
 
     def getSymbol(self, keycode: str, layer: int) -> str:
         sym = ""
@@ -47,32 +45,23 @@ class Variant(BaseModel):
         self.keymap.update({keycode: key})
 
     def getSymbolOrFallback(self, keycode: str, layer: int, searchSelf: bool = False) -> str:
-        if self.deps is None:
-            self.loadIncludes()
         keysym: str = ""
         if searchSelf:
             keysym = self.getSymbol(keycode, layer)
             if not isImplicit(keysym):
                 return keysym
         # TODO: search in reverse order instead of applying the last match?
-        for dep in self.deps: # pyright: ignore self.deps shouldn't be None at this point
-            result = dep.getSymbolOrFallback(keycode, layer, searchSelf=True)
-            if not isImplicit(result):
-                keysym = result
-        return keysym
-
-
-    def reloadIncludes(self):
-        self.deps = None
-        self.loadIncludes()
-
-    def loadIncludes(self):
-        if self.deps is None:
-            self.deps = []
         for include in self.includes:
-            variant = getVariant(include.path, include.variant)
-            if variant is not None:
-                self.deps.append(variant)
+            variant = includesDB.get(str(include))
+            if variant is None:
+                includesDB.update({str(include): getVariant(include.path, include.variant)})
+                variant = includesDB.get(str(include))
+
+            if variant:
+                result = variant.getSymbolOrFallback(keycode, layer, searchSelf=True)
+                if not isImplicit(result):
+                    keysym = result
+        return keysym
 
     def toXkb(self) -> str:
         indent: str = "    "
