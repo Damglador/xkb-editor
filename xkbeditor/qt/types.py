@@ -301,6 +301,16 @@ class Variant(QObject):
     def includes(self):
         return self._includes
 
+    keytypeChanged = Signal()
+    @Property(str, notify=keytypeChanged)
+    def key_type(self):
+        return self._variant.key_type
+
+    @key_type.setter
+    def key_type(self, str):
+        self._variant.key_type = str
+        self.keytypeChanged.emit()
+
     @Slot(str, int, result=str)
     def getSymbol(self, keycode: str, layer: int) -> str:
         return self._variant.getSymbol(keycode, layer)
