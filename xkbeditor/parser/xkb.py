@@ -18,6 +18,15 @@ def quoteSymbol(symbol: str) -> str:
     return symbol or "NoSymbol"
 
 includesDB: dict[str, Variant | None] = {}
+def ensure(include: Include):
+    if not str(include) in includesDB:
+        includesDB.update({str(include): getVariant(include.path, include.variant)})
+
+def isAvailable(include: Include):
+    ensure(include)
+    return includesDB.get(str(include)) != None
+
+
 class Variant(BaseModel):
     id: str | None = None  # xkb_symbols "<id>"
     # Human-readable name of the `variant`.
@@ -52,8 +61,7 @@ class Variant(BaseModel):
                 return keysym
         # TODO: search in reverse order instead of applying the last match?
         for include in self.includes:
-            if not str(include) in includesDB:
-                includesDB.update({str(include): getVariant(include.path, include.variant)})
+            ensure(include)
 
             variant = includesDB.get(str(include))
             if variant:

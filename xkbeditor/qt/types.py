@@ -206,6 +206,8 @@ class Include(QObject):
     def __init__(self, include: xkb.Include, parent=None):
         super().__init__(parent)
         self._include = include
+        self.pathChanged.connect(self.availableChanged.emit)
+        self.variantChanged.connect(self.availableChanged.emit)
 
     pathChanged = Signal()
     @Property(str, notify=pathChanged)
@@ -224,6 +226,12 @@ class Include(QObject):
     def variant(self, str):
         self._include.variant = str
         self.variantChanged.emit()
+
+    availableChanged = Signal()
+    @Property(bool, notify=availableChanged)
+    def available(self):
+        xkb.ensure(self._include)
+        return xkb.includesDB.get(str(self._include)) != None
 
     @Slot(result=str)
     def toString(self) -> str:

@@ -36,6 +36,11 @@ Flow {
                 closable: false
                 checkable: false
 
+                Controls.ToolTip {
+                    text: item.include.available ? "" : "File for this include is not available"
+                    visible: chip.hovered && text && !dragHangler.active
+                }
+
                 Kirigami.AbstractCard {
                     anchors.fill: parent
                     z: parent.z - 1
@@ -45,6 +50,13 @@ Flow {
                     anchors.fill: parent
                     cursorShape: dragHangler.active ? Qt.ClosedHandCursor : Qt.ArrowCursor
                     z: parent.z - 1
+                }
+
+                Controls.Label {
+                    text: "🔴"
+                    anchors.right: parent.right
+                    anchors.top: parent.top
+                    visible: !item.include.available
                 }
 
                 down: pressed || dragHangler.active
