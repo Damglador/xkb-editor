@@ -143,7 +143,7 @@ class IncludesList(List):
     def insert(self, index: int, include: Include):
         self.beginInsertRows(QModelIndex(), index, index)
         self._objs.insert(index, include)
-        self._items.insert(index, self._objs[len(self._objs) - 1]._include)
+        self._items.insert(index, self._objs[index]._include)
         self.endInsertRows()
 
 class VariantsList(List):
@@ -199,7 +199,7 @@ class VariantsList(List):
             self._objs.insert(index, Variant(self._items[index]))
         elif type(variant) == Variant:
             self._objs.insert(index, variant)
-            self._items.insert(index, self._objs[len(self._objs) - 1]._variant)
+            self._items.insert(index, self._objs[index]._variant)
         self.endInsertRows()
 
 class Include(QObject):
