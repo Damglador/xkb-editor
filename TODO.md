@@ -1,8 +1,13 @@
 - Add preview
+- Show resolved file paths for includes
+    - Show file path in tooltip
+    - Allow copying it in context menu
 - Renaming includes to undo stack
-- Warning about not finding an include
+- Changing variant name to undo stack
 - Parse /usr/include/X11/keysymdef.h and display as a table
     - Name
     - Keysym
     - Character
     - Comment
+- Make file loading async
+    - Add loading indicators
