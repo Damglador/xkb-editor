@@ -71,6 +71,9 @@ Kirigami.ApplicationWindow {
         function onError(str) {
             statusBarLabel.setError(str);
         }
+        function onNotify(str) {
+            showPassiveNotification(str);
+        }
     }
 
     globalDrawer: Kirigami.GlobalDrawer {
@@ -118,7 +121,10 @@ Kirigami.ApplicationWindow {
 
         contentItem: RowLayout {
             HoverHandler {
-                onHoveredChanged: if (hovered) timeout.stop(); else timeout.start()
+                onHoveredChanged: if (hovered)
+                    timeout.stop()
+                else
+                    timeout.start()
             }
             Kirigami.SelectableLabel {
                 id: statusBarLabel

@@ -36,7 +36,7 @@ Flow {
                 checkable: false
 
                 Controls.ToolTip {
-                    text: item.include.available ? "" : "File for this include is not available"
+                    text: item.include.available ? item.include.file : "File for this include is not available"
                     visible: chip.hovered && text && !dragHangler.active
                 }
 
@@ -88,6 +88,19 @@ Flow {
                     id: chipMenu
                     include: item.include
                     type: IncludeMenu.Type.Edit
+                }
+
+                Controls.ContextMenu.menu: Controls.Menu {
+                    Controls.MenuItem {
+                        text: qsTr("Copy file path")
+                        icon.name: "edit-copy"
+                        onTriggered: bridge.copyText(item.include.file)
+                    }
+                    Controls.MenuItem {
+                        text: qsTr("Copy include string")
+                        icon.name: "edit-copy"
+                        onTriggered: bridge.copyText(item.include.toString())
+                    }
                 }
 
                 onRemoved: bridge.removeInclude(item.index)

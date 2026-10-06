@@ -233,6 +233,13 @@ class Include(QObject):
         xkb.ensure(self._include)
         return xkb.includesDB.get(str(self._include)) != None
 
+    @Property(str, notify=availableChanged)
+    def file(self):
+        xkb.ensure(self._include)
+        variant = xkb.includesDB.get(str(self._include))
+        if variant:
+            return variant._source
+
     @Slot(result=str)
     def toString(self) -> str:
         return str(self._include)

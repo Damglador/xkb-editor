@@ -32,6 +32,7 @@ class Variant(BaseModel):
     # Human-readable name of the `variant`.
     # Defined as `name[Group1]="English (US, symbolic)";`
     name: str | None = None  # name[Group1] = "<name>"
+    _source: str = ""
     flags: Flags = Flags(0)
     keymap: dict[str, KeyProps] = {}
     includes: list[Include] = []
@@ -153,6 +154,8 @@ def getVariantsFromFile(filePath: Path | str) -> list[Variant]:
         return filescache.get(str(filePath)) # pyright: ignore[reportReturnType]
     with open(filePath, "r") as file:
         variants = fromString(file.read())
+        for variant in variants:
+            variant._source = str(filePath)
         filescache.update({str(filePath): variants})
     return variants
 

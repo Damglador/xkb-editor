@@ -15,7 +15,7 @@ from PySide6.QtCore import (
     Signal,
     Slot,
 )
-from PySide6.QtGui import QIcon, QUndoStack
+from PySide6.QtGui import QClipboard, QGuiApplication, QIcon, QUndoStack
 from PySide6.QtQml import QmlElement, QQmlApplicationEngine
 from PySide6.QtWidgets import QApplication
 
@@ -42,6 +42,7 @@ QML_IMPORT_MAJOR_VERSION = 2
 class Bridge(QObject):
     fileChanged = Signal()
     error = Signal(str)
+    notify = Signal(str)
 
     def __init__(self):
         super().__init__()
@@ -61,6 +62,11 @@ class Bridge(QObject):
     @Property(QObject, notify=undoStackChanged)
     def undoStack(self):
         return self._undoStack
+
+    @Slot(str)
+    def copyText(self, text: str):
+        QGuiApplication.clipboard().setText(text)
+        self.notify.emit(self.tr(f"Copied: {text}"))
 
     @Slot(str, int, str)
     def setSymbol(self, keycode: str, layer: int, keysym: str):
