@@ -82,9 +82,9 @@ class List(QAbstractListModel):
             dest = newIndex + 1
 
         self.beginMoveRows(QModelIndex(), oldIndex, oldIndex, QModelIndex(), dest)
-        self._items[newIndex], self._items[oldIndex] = self._items[oldIndex], self._items[newIndex]
+        self._items.insert(newIndex, self._items.pop(oldIndex))
         if self._objs:
-            self._objs[newIndex], self._objs[oldIndex] = self._objs[oldIndex], self._objs[newIndex]
+            self._objs.insert(newIndex, self._objs.pop(oldIndex))
         self.endMoveRows()
 
     @Slot()
