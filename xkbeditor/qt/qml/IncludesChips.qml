@@ -1,7 +1,6 @@
 pragma ComponentBehavior: Bound
 
 import QtQuick
-import QtQuick.Layouts
 import QtQuick.Controls as Controls
 
 import org.kde.kirigami as Kirigami
@@ -29,7 +28,7 @@ Flow {
                 Connections {
                     target: bridge.file.variant
                     function onIncludesReloaded() {
-                        chip.text = item.include.toString()
+                        chip.text = item.include.toString();
                     }
                 }
 
@@ -42,12 +41,20 @@ Flow {
                     z: parent.z - 1
                 }
 
+                MouseArea {
+                    anchors.fill: parent
+                    cursorShape: dragHangler.active ? Qt.ClosedHandCursor : Qt.ArrowCursor
+                    z: parent.z - 1
+                }
+
+                down: pressed || dragHangler.active
+
                 DragHandler {
                     id: dragHangler
-                    cursorShape: Qt.CursorShape.ClosedHandCursor
                     onActiveChanged: {
-                        if (active)
+                        if (active) {
                             return;
+                        }
                         const p = chip.mapToItem(flow, chip.width / 2, chip.height / 2);
                         const target = flow.childAt(p.x, p.y);
 
