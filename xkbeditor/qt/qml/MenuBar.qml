@@ -82,8 +82,13 @@ Controls.MenuBar {
         title: qsTr("Help")
         Kirigami.Action {
             text: qsTr("Unicode table")
-            icon.name: "table"
+            icon.name: "draw-text"
             onTriggered: Qt.openUrlExternally("https://symbl.cc/en/unicode-table/")
+        }
+        Kirigami.Action {
+            text: qsTr("Keysym table")
+            icon.name: "table"
+            onTriggered: keysymTable.show()
         }
         Kirigami.Action {
             text: qsTr("Xkb documentation")

@@ -150,4 +150,9 @@ Kirigami.ApplicationWindow {
         id: about
         visible: false
     }
+
+    KeysymTable {
+        id: keysymTable
+        visible: false
+    }
 }
