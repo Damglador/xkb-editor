@@ -11,7 +11,7 @@ import xkbeditor
 Kirigami.ApplicationWindow {
     title: keysymTablePage.title
     transientParent: null // Show as a separate window in taskbar
-    width: Kirigami.Units.gridUnit * 35
+    width: Kirigami.Units.gridUnit * 36
 
     pageStack.initialPage: Kirigami.ScrollablePage {
         id: keysymTablePage
@@ -76,7 +76,7 @@ Kirigami.ApplicationWindow {
                     if (column == 0)
                         minWidth = Kirigami.Units.gridUnit * 10;
                     else if (column == 1)
-                        minWidth = Kirigami.Units.gridUnit * 4;
+                        minWidth = Kirigami.Units.gridUnit * 5;
                     else if (column == 2)
                         minWidth = Kirigami.Units.gridUnit * 4;
                     else if (column == 3)
