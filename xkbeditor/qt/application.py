@@ -21,7 +21,7 @@ from PySide6.QtWidgets import QApplication
 
 from xkbeditor.getchar import getchar
 from xkbeditor.globals import APP_DIR
-from xkbeditor.parser.keysymdef import getTableFromFile
+from xkbeditor.qt import table
 from xkbeditor.qt.types import SymbolsFile, Variant
 from xkbeditor.qt.undo import (
     AddFlag,
@@ -68,10 +68,6 @@ class Bridge(QObject):
     def copyText(self, text: str):
         QGuiApplication.clipboard().setText(text)
         self.notify.emit(self.tr(f"Copied: {text}"))
-
-    @Slot(result=list)
-    def getKeysymTable(self):
-        return getTableFromFile("/usr/include/X11/keysymdef.h")
 
     @Slot(str, int, str)
     def setSymbol(self, keycode: str, layer: int, keysym: str):
