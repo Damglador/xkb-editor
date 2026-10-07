@@ -1,0 +1,25 @@
+start: COPYRIGHT _WS C_COMMENT (keysym | C_COMMENT | _WS | ifdef | endif)+
+
+keysym: "#define " KEYSYMNAME _ILWS HEX (_ILWS DESC)?
+
+ifdef: "#ifdef" _ILWS CNAME
+endif: "#endif" (_ILWS DESC)?
+
+SECTIONCOMMENT: DEFCOMMENT
+
+COPYRIGHT: C_COMMENT
+DOC: C_COMMENT
+
+DESC: C_COMMENT
+KEYSYMNAME: CNAME
+DEFCOMMENT: "/*" /(.| |\t)+/ "*/"
+
+HEX: "0x" HEXDIGIT+
+
+%import common.HEXDIGIT
+%import common.CNAME
+%import common.C_COMMENT
+
+%import common.WS -> _WS
+%import common.WS_INLINE -> _ILWS
+%import common.NEWLINE
