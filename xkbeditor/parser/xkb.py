@@ -235,9 +235,7 @@ class Variant(BaseModel):
 
                     for i in range(explicit):
                         symbol = quoteSymbol(keyprops.symbols[i])
-
-                        if len(symbol) > columnWidths[i]:
-                            columnWidths[i] = len(symbol)
+                        columnWidths[i] = max(len(symbol), columnWidths[i])
 
             for keycode, keyprops in self.keymap.items():
                 props: list[str] = []
