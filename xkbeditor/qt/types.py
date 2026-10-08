@@ -352,6 +352,7 @@ class SymbolsFile(QObject):
         self._variants = VariantsList([], parent=self)
         self._variant: Variant | None = None
 
+    fileLoaded = Signal()
     variantChanged = Signal()
     error = Signal(str)
 
@@ -396,6 +397,7 @@ class SymbolsFile(QObject):
             self.variantIndex = 0 # pyright: ignore[reportAttributeAccessIssue]
             self.path = urlparse(filePath).path # pyright: ignore[reportAttributeAccessIssue]
             self.pathChanged.emit()
+            self.fileLoaded.emit()
         except UnicodeDecodeError:
             self.error.emit("Failed to open file. Not a text file.")
         except UnexpectedCharacters:

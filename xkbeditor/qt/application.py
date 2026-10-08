@@ -52,6 +52,7 @@ class Bridge(QObject):
         self._undoStack = QUndoStack(self)
 
         _ = self.fileChanged.connect(self._file.variantChanged.emit)
+        _ = self._file.fileLoaded.connect(self._undoStack.clear)
         _ = self._file.error.connect(self.error.emit)
         _ = self.error.connect(self.print)
 
