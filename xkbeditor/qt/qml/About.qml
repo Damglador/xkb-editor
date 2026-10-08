@@ -9,6 +9,7 @@ Kirigami.ApplicationWindow {
         id: aboutPage
         globalToolBarStyle: Kirigami.ApplicationHeaderStyle.None
         getInvolvedUrl: "https://github.com/Damglador/xkb-editor"
+        loadAvatars: true
         aboutData: {
             "displayName": "Xkb Editor",
             "version": "1",
@@ -23,7 +24,8 @@ Kirigami.ApplicationWindow {
                     "task": "Code, UI",
                     "emailAddress": "damglador@gmail.com",
                     "webAddress": "https://damglador.com",
-                    "ocsUsername": "damglador"
+                    "ocsUsername": "damglador",
+                    "avatarUrl": "https://avatars.githubusercontent.com/u/52221087",
                 }
             ],
             "copyrightStatement": "© 2026 Vsevolod «Damglador» Stopchanskyi",
