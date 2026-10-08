@@ -82,18 +82,18 @@ Controls.MenuBar {
         title: qsTr("Help")
         Kirigami.Action {
             text: qsTr("Unicode table")
-            icon.name: "draw-text"
+            icon.name: "open-link-symbolic"
             onTriggered: Qt.openUrlExternally("https://symbl.cc/en/unicode-table/")
+        }
+        Kirigami.Action {
+            text: qsTr("Xkb documentation")
+            icon.name: "open-link-symbolic"
+            onTriggered: Qt.openUrlExternally("https://xkbcommon.org/doc/current/keymap-text-format-v1-v2.html#the-xkb_symbols-section")
         }
         Kirigami.Action {
             text: qsTr("Keysym table")
             icon.name: "table"
             onTriggered: keysymTable.show()
-        }
-        Kirigami.Action {
-            text: qsTr("Xkb documentation")
-            icon.name: "documentation"
-            onTriggered: Qt.openUrlExternally("https://xkbcommon.org/doc/current/keymap-text-format-v1-v2.html#the-xkb_symbols-section")
         }
         Kirigami.Action {
             text: qsTr("About")
