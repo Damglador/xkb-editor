@@ -48,7 +48,7 @@ def getchar(input: str) -> str:
         case "dead_caron":
             return "ˇ"
         case "dead_stroke":
-            return "N/A"
+            return "ⱥ/ᵽ"
         case "dead_grave":
             return "ˋ"
         case "dead_acute":
@@ -58,7 +58,8 @@ def getchar(input: str) -> str:
         case "dead_cedilla":
             return "¸"
         case _:
-            pass
+            if (input.startswith("dead_")):
+                return "N/A"
     return keysym_to_string(keysym_from_name(input)) or ""
 
 if __name__ == "__main__":
