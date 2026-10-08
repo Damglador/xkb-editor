@@ -7,6 +7,7 @@ from PySide6.QtCore import (
 )
 from PySide6.QtQml import QmlElement
 
+from xkbeditor.globals import KEYSYMDEF_PATH
 from xkbeditor.parser.keysymdef import getTableFromFile
 
 QML_IMPORT_NAME = "xkbeditor"
@@ -16,8 +17,7 @@ QML_IMPORT_MAJOR_VERSION = 2
 class KeysymTableModel(QAbstractTableModel):
     def __init__(self, parent=None):
         super().__init__(parent)
-        self.sourcePath = "/usr/include/X11/keysymdef.h"
-        self._items = getTableFromFile(self.sourcePath)
+        self._items = getTableFromFile(KEYSYMDEF_PATH)
         self.copyright = ""
         self.doc = ""
         if not self._items[0].get("name"):
@@ -36,7 +36,7 @@ class KeysymTableModel(QAbstractTableModel):
 
     @Slot(result=str)
     def getSourcePath(self):
-        return self.sourcePath
+        return KEYSYMDEF_PATH
 
     def rowCount(self, /, parent=QModelIndex) -> int:
         return len(self._items)

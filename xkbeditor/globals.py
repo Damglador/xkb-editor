@@ -1,11 +1,11 @@
 
 from os import environ, path
 
-APP_DIR = ""
 try:
     import xkbeditor
     APP_DIR = path.abspath(path.dirname(xkbeditor.__file__))
 except Exception:
+    APP_DIR = ""
     print("Couldn't set APP_DIR")
 
 # From xkbcli info
@@ -30,6 +30,11 @@ for xkbpath in [
     XKB_CONFIG_EXTRA_PATH,
     XKB_CONFIG_UNVERSIONED_EXTENSIONS_PATH,
     XKB_CONFIG_VERSIONED_EXTENSIONS_PATH,
-    path.join(XDG_CONFIG_HOME, "xkb") ]:
+    XDG_CONFIG_HOME + "/xkb" ]:
         if path.isdir(xkbpath):
             XKB_INCLUDE_PATHS.append(xkbpath)
+
+if path.isfile("/usr/include/X11/keysymdef.h"):
+    KEYSYMDEF_PATH = "/usr/include/X11/keysymdef.h"
+else:
+    KEYSYMDEF_PATH = f"{APP_DIR}/assets/keysymdef.h"

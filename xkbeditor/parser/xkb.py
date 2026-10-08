@@ -8,6 +8,7 @@ from typing import Any, override
 
 from lark import Discard, Lark, Token, Transformer, Tree
 from pydantic import BaseModel, ConfigDict
+
 from xkbeditor.globals import XKB_INCLUDE_PATHS
 
 
