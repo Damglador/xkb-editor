@@ -34,6 +34,7 @@ Controls.Button {
 
     Controls.Menu {
         id: menu
+        visible: key.checked
         x: -menu.width / 2 + key.width / 2
         y: -menu.height + -Kirigami.Units.smallSpacing / 2
         implicitWidth: Kirigami.Units.gridUnit * 8
@@ -136,12 +137,6 @@ Controls.Button {
 
     }
 
-    checkable: true
+    checkable: keycode
     checked: menu.visible
-    onClicked: {
-        if (keycode)
-            menu.visible = !menu.visible
-        else
-            checked = false;
-    }
 }
