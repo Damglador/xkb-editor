@@ -32,10 +32,11 @@ Controls.Button {
 
     enabled: bridge.file.variant
 
-    Controls.Popup {
+    Controls.Menu {
         id: menu
         x: -menu.width / 2 + key.width / 2
         y: -menu.height + -Kirigami.Units.smallSpacing / 2
+        implicitWidth: Kirigami.Units.gridUnit * 8
 
         onVisibleChanged: {
             if (visible) {
@@ -43,15 +44,13 @@ Controls.Button {
                 editField.forceActiveFocus();
             }
         }
-        dim: false
-        padding: Kirigami.Units.smallSpacing
-        contentItem: RowLayout {
+        RowLayout {
             Kirigami.SelectableLabel {
                 text: key.keycode + ":"
             }
             Controls.TextField {
                 id: editField
-                implicitWidth: Kirigami.Units.gridUnit * 6
+                Layout.fillWidth: true
                 onAccepted: {
                     bridge.setSymbol(key.keycode, key.symbolsLayer, text.replace("U+", "U"));  // strip + for pasting from https://symbl.cc/
                     key.loadChar();
