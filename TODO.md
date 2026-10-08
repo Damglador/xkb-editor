@@ -7,3 +7,6 @@
 - Make file loading async
     - Add loading indicators
 - Toggle for labels on modifier keys
+- Generate evdev.xml for user-installed xkb layouts for them to appear in desktop settings
+- Display actual modifiers for each level
+    - Read modifiers from ~/.config/kxkbrc
