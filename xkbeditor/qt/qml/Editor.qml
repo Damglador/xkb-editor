@@ -77,7 +77,7 @@ Item {
         }
 
         Controls.TabBar {
-            id: layerSelector
+            id: levelSelector
 
             Layout.alignment: Qt.AlignHCenter
             position: Controls.TabBar.Footer
@@ -96,8 +96,8 @@ Item {
         }
 
         Controls.Label {
-            parent: layerSelector
-            text: qsTr("Layer:")
+            parent: levelSelector
+            text: qsTr("Level:")
             padding: Kirigami.Units.smallSpacing
             anchors.right: parent.left
         }

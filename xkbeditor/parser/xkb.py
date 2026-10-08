@@ -171,26 +171,26 @@ class Variant(BaseModel):
     includes: list[Include] = []
     key_type: str | None = None
 
-    def getSymbol(self, keycode: str, layer: int) -> str:
+    def getSymbol(self, keycode: str, level: int) -> str:
         sym = ""
         key = self.keymap.get(keycode)
         if key is not None:
-            sym = key.symbols[layer - 1]
+            sym = key.symbols[level - 1]
         if isImplicit(sym):
             sym = ""
         return sym
 
-    def setSymbol(self, keycode: str, layer: int, keysym: str):
+    def setSymbol(self, keycode: str, level: int, keysym: str):
         key = self.keymap.get(keycode)
         if key is None:
             key = KeyProps()
-        key.symbols[layer - 1] = keysym.strip()
+        key.symbols[level - 1] = keysym.strip()
         self.keymap.update({keycode: key})
 
-    def getSymbolOrFallback(self, keycode: str, layer: int, searchSelf: bool = False) -> str:
+    def getSymbolOrFallback(self, keycode: str, level: int, searchSelf: bool = False) -> str:
         keysym: str = ""
         if searchSelf:
-            keysym = self.getSymbol(keycode, layer)
+            keysym = self.getSymbol(keycode, level)
             if not isImplicit(keysym):
                 return keysym
         # TODO: search in reverse order instead of applying the last match?
@@ -199,7 +199,7 @@ class Variant(BaseModel):
 
             variant = includesDB.get(str(include))
             if variant:
-                result = variant.getSymbolOrFallback(keycode, layer, searchSelf=True)
+                result = variant.getSymbolOrFallback(keycode, level, searchSelf=True)
                 if not isImplicit(result):
                     keysym = result
         return keysym

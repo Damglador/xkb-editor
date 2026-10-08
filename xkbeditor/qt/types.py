@@ -312,25 +312,25 @@ class Variant(QObject):
         self.keytypeChanged.emit()
 
     @Slot(str, int, result=str)
-    def getSymbol(self, keycode: str, layer: int) -> str:
-        return self._variant.getSymbol(keycode, layer)
+    def getSymbol(self, keycode: str, level: int) -> str:
+        return self._variant.getSymbol(keycode, level)
 
     symbolsChanged = Signal()
     @Slot(str, int, str)
-    def setSymbol(self, keycode: str, layer: int, keysym: str):
-        self._variant.setSymbol(keycode, layer, keysym)
+    def setSymbol(self, keycode: str, level: int, keysym: str):
+        self._variant.setSymbol(keycode, level, keysym)
 
     @Slot(str, int, result=str)
-    def getSymbolOrFallback(self, keycode: str, layer: int, searchSelf: bool = False) -> str:
-        return self._variant.getSymbolOrFallback(keycode, layer)
+    def getSymbolOrFallback(self, keycode: str, level: int, searchSelf: bool = False) -> str:
+        return self._variant.getSymbolOrFallback(keycode, level)
 
     @Slot(str, int, result=str)
-    def getKeyChar(self, keycode: str, layer: int):
-        return getchar(self.getSymbol(keycode, layer))
+    def getKeyChar(self, keycode: str, level: int):
+        return getchar(self.getSymbol(keycode, level))
 
     @Slot(str, int, result=str)
-    def getKeyCharFallback(self, keycode: str, layer: int):
-        return getchar(self.getSymbolOrFallback(keycode, layer))
+    def getKeyCharFallback(self, keycode: str, level: int):
+        return getchar(self.getSymbolOrFallback(keycode, level))
 
     includesReloaded = Signal()
     @Slot()

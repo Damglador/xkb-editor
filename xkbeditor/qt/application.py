@@ -71,9 +71,9 @@ class Bridge(QObject):
         self.notify.emit(self.tr(f"Copied: {text}"))
 
     @Slot(str, int, str)
-    def setSymbol(self, keycode: str, layer: int, keysym: str):
+    def setSymbol(self, keycode: str, level: int, keysym: str):
         if self._file._variant:
-            self._undoStack.push(SetSymbol(self._file._variant, keycode, layer, keysym))
+            self._undoStack.push(SetSymbol(self._file._variant, keycode, level, keysym))
 
     @Slot(Variant, str)
     def renameVariant(self, variant: Variant, str: str):

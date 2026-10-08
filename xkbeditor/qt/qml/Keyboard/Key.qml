@@ -17,7 +17,7 @@ Controls.Button {
     Layout.rowSpan: unitHeight / unitSize
 
     // Shared properties
-    property int symbolsLayer: layerSelector.currentIndex + 1
+    property int level: levelSelector.currentIndex + 1
 
     property string keycode
     property string char
@@ -53,7 +53,7 @@ Controls.Button {
                 id: editField
                 Layout.fillWidth: true
                 onAccepted: {
-                    bridge.setSymbol(key.keycode, key.symbolsLayer, text.replace("U+", "U"));  // strip + for pasting from https://symbl.cc/
+                    bridge.setSymbol(key.keycode, key.level, text.replace("U+", "U"));  // strip + for pasting from https://symbl.cc/
                     key.loadChar();
                     menu.close();
                 }
@@ -97,7 +97,7 @@ Controls.Button {
         anchors.centerIn: parent
     }
 
-    onSymbolsLayerChanged: loadChars()
+    onLevelChanged: loadChars()
     Connections {
         target: bridge.file
         function onVariantChanged() {
@@ -125,13 +125,13 @@ Controls.Button {
         loadFallback();
     }
     function loadChar() {
-        symbol = bridge.file.variant ? bridge.file.variant.getSymbol(keycode, symbolsLayer) : "";
+        symbol = bridge.file.variant ? bridge.file.variant.getSymbol(keycode, level) : "";
         char = key.symbol ? bridge.getSymbolChar(key.symbol) : "";
     }
     function loadFallback() {
         // Optimization!
         if (Settings.View.showFallbacks) {
-            symbolFallback = bridge.file.variant ? bridge.file.variant.getSymbolOrFallback(keycode, symbolsLayer) : "";
+            symbolFallback = bridge.file.variant ? bridge.file.variant.getSymbolOrFallback(keycode, level) : "";
             charFallback = key.symbolFallback ? bridge.getSymbolChar(key.symbolFallback) : "";
         }
 

@@ -165,13 +165,13 @@ class RenameVariant(QUndoCommand):
 
 class SetSymbol(QUndoCommand):
     def __init__(
-        self, variant: Variant, keycode: str, layer: int, keysym: str, parent=None
+        self, variant: Variant, keycode: str, level: int, keysym: str, parent=None
     ):
         self.variant = variant
         self.keycode = keycode
-        self.layer = layer
+        self.level = level
         self.newKeysym = keysym
-        self.oldKeysym = variant.getSymbol(self.keycode, self.layer)
+        self.oldKeysym = variant.getSymbol(self.keycode, self.level)
         super().__init__(
             tr.setSymbolStr(
                 self.keycode, str(self.variant.id), self.oldKeysym, self.newKeysym
@@ -180,9 +180,9 @@ class SetSymbol(QUndoCommand):
         )
 
     def redo(self, /) -> None:
-        self.variant.setSymbol(self.keycode, self.layer, self.newKeysym)
+        self.variant.setSymbol(self.keycode, self.level, self.newKeysym)
         self.variant.symbolsChanged.emit()
 
     def undo(self, /) -> None:
-        self.variant.setSymbol(self.keycode, self.layer, self.oldKeysym)
+        self.variant.setSymbol(self.keycode, self.level, self.oldKeysym)
         self.variant.symbolsChanged.emit()
