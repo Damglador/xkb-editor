@@ -3,6 +3,7 @@ from PySide6.QtCore import (
     QModelIndex,
     QPersistentModelIndex,
     Qt,
+    Slot,
 )
 from PySide6.QtQml import QmlElement
 
@@ -15,7 +16,27 @@ QML_IMPORT_MAJOR_VERSION = 2
 class KeysymTableModel(QAbstractTableModel):
     def __init__(self, parent=None):
         super().__init__(parent)
-        self._items = getTableFromFile("/usr/include/X11/keysymdef.h")
+        self.sourcePath = "/usr/include/X11/keysymdef.h"
+        self._items = getTableFromFile(self.sourcePath)
+        self.copyright = ""
+        self.doc = ""
+        if not self._items[0].get("name"):
+            self.copyright = self._items.pop(0).get("desc")
+        if not self._items[0].get("name"):
+            string: str = self._items.pop(0).get("desc")
+            self.doc = "\n".join([line.strip(" *") for line in string.split("\n")])
+
+    @Slot(result=str)
+    def getCopyright(self):
+        return self.copyright
+
+    @Slot(result=str)
+    def getDoc(self):
+        return self.doc
+
+    @Slot(result=str)
+    def getSourcePath(self):
+        return self.sourcePath
 
     def rowCount(self, /, parent=QModelIndex) -> int:
         return len(self._items)

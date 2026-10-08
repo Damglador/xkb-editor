@@ -1,9 +1,10 @@
 pragma ComponentBehavior: Bound
 
 import QtQuick
-import org.kde.kitemmodels
-import Qt.labs.qmlmodels
+import QtQuick.Layouts
 import QtQuick.Controls as Controls
+
+import org.kde.kitemmodels
 import org.kde.kirigami as Kirigami
 
 import xkbeditor
@@ -20,28 +21,37 @@ Kirigami.ApplicationWindow {
 
         actions: [
             Kirigami.Action {
+                text: copyrightSheet.title
+                icon.name: "text-x-copying"
+                displayHint: Kirigami.DisplayHint.IconOnly
+                onTriggered: copyrightSheet.open()
+            },
+            Kirigami.Action {
+                text: docSheet.title
+                icon.name: "help-about"
+                displayHint: Kirigami.DisplayHint.IconOnly
+                onTriggered: docSheet.open()
+            },
+            Kirigami.Action {
                 displayComponent: Kirigami.SearchField {
                     id: searchField
                     onTextChanged: proxyModel.filterString = text
                 }
             },
             Kirigami.Action {
-                displayComponent: Controls.ToolButton {
-                    text: "Match case"
-                    icon.name: "format-text-superscript"
-                    display: Controls.AbstractButton.Display.IconOnly
-                    checkable: true
-                    checked: proxyModel.filterCaseSensitivity == Qt.CaseSensitive
+                text: "Match case"
+                icon.name: "format-text-superscript"
+                displayHint: Kirigami.DisplayHint.IconOnly
+                checkable: true
+                checked: proxyModel.filterCaseSensitivity == Qt.CaseSensitive
 
-                    Controls.ToolTip.text: text
-                    Controls.ToolTip.visible: hovered
+                tooltip: text
 
-                    onCheckedChanged: {
-                        if (checked)
-                            proxyModel.filterCaseSensitivity = Qt.CaseSensitive;
-                        else
-                            proxyModel.filterCaseSensitivity = Qt.CaseInsensitive;
-                    }
+                onCheckedChanged: checked => {
+                    if (checked)
+                        proxyModel.filterCaseSensitivity = Qt.CaseSensitive;
+                    else
+                        proxyModel.filterCaseSensitivity = Qt.CaseInsensitive;
                 }
             }
         ]
@@ -89,6 +99,44 @@ Kirigami.ApplicationWindow {
                 contentItem: Kirigami.SelectableLabel {
                     text: cell.model.display ? cell.model.display : ""
                 }
+            }
+        }
+    }
+
+    Kirigami.OverlaySheet {
+        id: copyrightSheet
+        title: qsTr("Copyright for keysymdef.h")
+        Kirigami.SelectableLabel {
+            Layout.fillWidth: true
+            padding: Kirigami.Units.largeSpacing
+            wrapMode: Text.WordWrap
+            text: proxyModel.sourceModel.getCopyright()
+        }
+    }
+    Kirigami.OverlaySheet {
+        id: docSheet
+        title: qsTr("About keysymdef.h")
+        ColumnLayout {
+            width: docSheet.width
+            Kirigami.SelectableLabel {
+                Layout.fillWidth: true
+                padding: Kirigami.Units.largeSpacing
+                wrapMode: Text.WordWrap
+                textFormat: Text.PlainText
+                text: qsTr(
+`Information in this table, copyright as well as the section below are parsed
+from /usr/include/X11/keysymdef.h or pre-packaged keysymdef.h,
+if one is not available on your system.
+
+Current source: %1`).arg(proxyModel.sourceModel.getSourcePath())
+            }
+            Kirigami.Separator {
+                Layout.fillWidth: true
+            }
+            Kirigami.SelectableLabel {
+                padding: Kirigami.Units.largeSpacing
+                wrapMode: Text.WordWrap
+                text: proxyModel.sourceModel.getDoc()
             }
         }
     }

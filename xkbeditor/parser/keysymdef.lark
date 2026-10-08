@@ -1,4 +1,4 @@
-start: COPYRIGHT _WS C_COMMENT (keysym | C_COMMENT | _WS | ifdef | endif)+
+start: COPYRIGHT _WS DOC (keysym | C_COMMENT | _WS | ifdef | endif)+
 
 keysym: "#define " KEYSYMNAME _ILWS HEX (_ILWS DESC)?
 

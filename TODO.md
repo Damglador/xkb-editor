@@ -4,10 +4,6 @@
     - Allow copying it in context menu
 - Renaming includes to undo stack
 - Changing variant name to undo stack
-- Parse /usr/include/X11/keysymdef.h and display as a table
-    - Name
-    - Keysym
-    - Character
-    - Comment
 - Make file loading async
     - Add loading indicators
+- Toggle for labels on modifier keys

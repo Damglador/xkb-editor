@@ -25,6 +25,12 @@ class KeysymdefTransformer(Transformer[Token, list]):
         for item in items:
             if type(item) == Keysym:
                 result.append(item.__dict__)
+            if type(item) == Token:
+                match item.type:
+                    case "COPYRIGHT":
+                        result.insert(0, {"desc": str(item.value).strip("/* \n")})
+                    case "DOC":
+                        result.insert(1, {"desc": str(item.value).strip("/* \n")})
 
         return result
 
