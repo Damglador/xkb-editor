@@ -58,7 +58,6 @@ Kirigami.ApplicationWindow {
         header: Controls.HorizontalHeaderView {
             id: header
             syncView: table
-            anchors.left: table.left
             width: keysymTablePage.width
         }
 
