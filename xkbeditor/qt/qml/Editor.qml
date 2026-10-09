@@ -8,11 +8,13 @@ import org.kde.kirigami as Kirigami
 
 import "Keyboard"
 
-Item {
-    width: keyboard.width
-    height: layout.height
+Kirigami.Page {
+    globalToolBarStyle: Kirigami.ApplicationHeaderStyle.None
+
     ColumnLayout {
         id: layout
+        width: keyboard.width
+        anchors.centerIn: parent
 
         RowLayout {
             Layout.fillWidth: true

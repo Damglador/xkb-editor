@@ -29,7 +29,7 @@ Kirigami.ApplicationWindow {
         property alias height: window.height
     }
 
-    pageStack.initialPage: initPage
+    pageStack.initialPage: editorPage
 
     Bridge {
         id: bridge
@@ -37,15 +37,9 @@ Kirigami.ApplicationWindow {
 
     menuBar: MenuBar {}
 
-    Kirigami.Page {
-        id: initPage
-        globalToolBarStyle: Kirigami.ApplicationHeaderStyle.None
-        RowLayout {
-            anchors.centerIn: parent
-            Editor {
-                Component.onCompleted: bridge.loadTestVariant()
-            }
-        }
+    Editor {
+        id: editorPage
+        Component.onCompleted: bridge.loadTestVariant()
     }
 
     FileDialog {
