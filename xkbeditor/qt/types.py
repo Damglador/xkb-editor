@@ -392,7 +392,7 @@ class SymbolsFile(QObject):
     @Slot(str)
     def load(self, filePath: str):
         try:
-            variants = xkb.getVariantsFromFile(urlparse(filePath).path)
+            variants = xkb.getVariantsFromFile(urlparse(filePath).path, dropCache=True)
             self._variants.setItems(variants)
             self.variantIndex = 0 # pyright: ignore[reportAttributeAccessIssue]
             self.path = urlparse(filePath).path # pyright: ignore[reportAttributeAccessIssue]
