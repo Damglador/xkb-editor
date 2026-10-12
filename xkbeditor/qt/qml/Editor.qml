@@ -109,7 +109,6 @@ Kirigami.Page {
                 text: modelData.text
                 implicitHeight: Kirigami.Units.gridUnit * 1.4
                 icon.name: modelData.isGlobal ? "globe" : ""
-                type: modelData.isGlobal ? Kirigami.Badge.Type.Warning : Kirigami.Badge.Type.Positive
                 Controls.ToolTip.text: modelData.isGlobal ? "Set by desktop" : ""
             }
         }
