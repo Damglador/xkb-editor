@@ -70,7 +70,7 @@ Flow {
                         const target = flow.childAt(p.x, p.y);
 
                         if (target && (target != item) && target != addButton)
-                            repeater.model.move(item.index, target.index);
+                            bridge.moveElement(repeater.model, item.index, target.index);
 
                         chip.x = 0;
                         chip.y = 0;

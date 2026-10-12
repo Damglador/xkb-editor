@@ -71,7 +71,7 @@ Kirigami.ScrollablePage {
                         listView: mainList
                         onMoveRequested: (oldIndex, newIndex) => {
                             // console.log('!!!', oldIndex, newIndex);
-                            mainList.model.move(oldIndex, newIndex, 1);
+                            bridge.moveElement(mainList.model, oldIndex, newIndex);
                         }
                         // onDropped: (oldIndex, newIndex) => {
                         //     console.log(">>>", oldIndex, newIndex);

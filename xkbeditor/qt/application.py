@@ -7,6 +7,7 @@ import sys
 
 from PySide6.QtCore import (
     Property,
+    QAbstractListModel,
     QCoreApplication,
     QLocale,
     QObject,
@@ -22,11 +23,12 @@ from PySide6.QtWidgets import QApplication
 from xkbeditor.getchar import getchar
 from xkbeditor.globals import APP_DIR
 from xkbeditor.qt import table
-from xkbeditor.qt.types import SymbolsFile, Variant
+from xkbeditor.qt.types import List, SymbolsFile, Variant
 from xkbeditor.qt.undo import (
     AddFlag,
     AddInclude,
     AddVariant,
+    MoveElement,
     RemoveFlag,
     RemoveInclude,
     RemoveVariant,
@@ -110,6 +112,10 @@ class Bridge(QObject):
             self._undoStack.push(AddInclude(self._file._variant._includes, vals))
             return True
         return False
+
+    @Slot(QAbstractListModel, int, int)
+    def moveElement(self, list: List, oldIndex: int, newIndex: int):
+        self._undoStack.push(MoveElement(list, oldIndex, newIndex))
 
     @Slot(str, result=str)
     def getSymbolChar(self, str: str):

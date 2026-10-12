@@ -9,7 +9,7 @@ from PySide6.QtCore import QObject
 from PySide6.QtGui import QUndoCommand
 
 from xkbeditor.parser import xkb
-from xkbeditor.qt.types import IncludesList, Variant, VariantsList
+from xkbeditor.qt.types import IncludesList, List, Variant, VariantsList
 
 
 class UndoRedoActionText(QObject):
@@ -40,6 +40,9 @@ class UndoRedoActionText(QObject):
             oldKeysym=oldKeysym or "N/A",
             newKeysym=newKeysym or "N/A",
         )
+
+    def moveStr(self, str):
+        return self.tr("Move «{}»").format(str)
 
 
 tr = UndoRedoActionText()
@@ -186,3 +189,38 @@ class SetSymbol(QUndoCommand):
     def undo(self, /) -> None:
         self.variant.setSymbol(self.keycode, self.level, self.oldKeysym)
         self.variant.symbolsChanged.emit()
+
+
+class MoveElement(QUndoCommand):
+    def __init__(self, list: List, oldIndex: int, newIndex: int, parent=None) -> None:
+        self.list = list
+        self.oldIndex = oldIndex
+        self.newIndex = newIndex
+        self.obj = self.list.get(oldIndex)
+        itemName = self.list.data(self.list.index(oldIndex))
+        super().__init__(tr.moveStr(itemName), parent=parent)
+
+    def id(self) -> int:
+        return 1001
+
+    def redo(self, /) -> None:
+        self.list.move(self.oldIndex, self.newIndex)
+
+    def undo(self, /) -> None:
+        self.list.move(self.newIndex, self.oldIndex)
+
+    def mergeWith(self, other: MoveElement, /) -> bool:  # pyright: ignore[reportIncompatibleMethodOverride]
+        if self.id() != other.id():
+            return False
+
+        if type(self.list) != type(other.list):
+            return False
+
+        if self.obj != other.obj:
+            return False
+
+        self.newIndex = other.newIndex
+        if (self.newIndex == self.oldIndex):
+            self.setObsolete(True)
+
+        return True

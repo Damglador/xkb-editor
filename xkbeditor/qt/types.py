@@ -130,6 +130,11 @@ class List(QAbstractListModel):
     def __iter__(self):
         return iter(self._items)
 
+    @Slot(int, result=QObject)
+    def get(self, index: int):
+        if self._objs and 0 <= index < len(self._objs):
+            return self._objs[index]
+
 class IncludesList(List):
     PathRole = Qt.ItemDataRole.UserRole + 2
     VariantRole = Qt.ItemDataRole.UserRole + 3
@@ -200,7 +205,7 @@ class VariantsList(List):
         match(role):
             case self.ObjectRole:
                 return self._objs[index.row()]
-            case self.IdRole:
+            case self.IdRole | Qt.ItemDataRole.DisplayRole:
                 return self._objs[index.row()].id
             case self.NameRole:
                 return self._objs[index.row()].name
@@ -210,11 +215,6 @@ class VariantsList(List):
         self._items = items
         self._objs = [Variant(variant, parent=self) for variant in self._items] # pyright: ignore[reportIncompatibleVariableOverride]
         self.endResetModel()
-
-    @Slot(int, result=QObject)
-    def get(self, index: int):
-        if 0 <= index < len(self._items):
-            return self._objs[index]
 
     @Slot()
     @Slot(str)
@@ -233,6 +233,11 @@ class VariantsList(List):
             self._objs.insert(index, variant)
             self._items.insert(index, self._objs[index]._variant)
         self.endInsertRows()
+
+    @Slot(int, result=QObject)
+    def get(self, index: int):
+        if 0 <= index < len(self._objs):
+            return self._objs[index]
 
 class Include(QObject):
     def __init__(self, include: xkb.Include, parent=None):
