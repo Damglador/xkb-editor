@@ -1,5 +1,3 @@
-pragma Translator: "Variant Editor"
-
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls as Controls
@@ -86,7 +84,7 @@ Kirigami.Page {
             Layout.topMargin: -parent.spacing
 
             Repeater {
-                model: [qsTr("Default"), qsTr("Shift"), qsTr("Right Alt"), qsTr("Shift+Right Alt")]
+                model: [qsTr("Default"), qsTr("Shift"), qsTr("L3M"), qsTr("L3M + Shift")]
                 delegate: Controls.TabButton {
                     required property var modelData
                     required property var index
@@ -102,6 +100,69 @@ Kirigami.Page {
             text: qsTr("Level:")
             padding: Kirigami.Units.smallSpacing
             anchors.right: parent.left
+        }
+
+        Component {
+            id: modifierBadgeComponent
+            Kirigami.Badge {
+                required property var modelData
+                text: modelData.text
+                implicitHeight: Kirigami.Units.gridUnit * 1.4
+                icon.name: modelData.isGlobal ? "globe" : ""
+                type: modelData.isGlobal ? Kirigami.Badge.Type.Warning : Kirigami.Badge.Type.Positive
+                Controls.ToolTip.text: modelData.isGlobal ? "Set by desktop" : ""
+            }
+        }
+
+        GridLayout {
+            uniformCellWidths: true
+            columnSpacing: Kirigami.Units.largeSpacing
+            Flow {
+                Layout.preferredWidth: 1
+                Layout.column: 0
+                Layout.fillWidth: true
+                spacing: Kirigami.Units.mediumSpacing
+                Controls.Label {
+                    text: "L3M:"
+                    topPadding: Kirigami.Units.smallSpacing
+                    Controls.ToolTip.text: qsTr("Level 3 modifiers")
+                    Controls.ToolTip.visible: hh3.hovered
+                    HoverHandler {
+                        id: hh3
+                    }
+                }
+                Repeater {
+                    model: bridge.file.variant.level3Mods
+                    delegate: modifierBadgeComponent
+                }
+                Item {
+                    Layout.fillWidth: true
+                }
+            }
+
+            Flow {
+                // visible: false
+                Layout.preferredWidth: 1
+                Layout.column: 1
+                Layout.fillWidth: true
+                spacing: Kirigami.Units.mediumSpacing
+                Controls.Label {
+                    text: qsTr("L5M:")
+                    topPadding: Kirigami.Units.smallSpacing
+                    Controls.ToolTip.text: qsTr("Level 5 modifiers")
+                    Controls.ToolTip.visible: hh5.hovered
+                    HoverHandler {
+                        id: hh5
+                    }
+                }
+                Repeater {
+                    model: bridge.file.variant.level5Mods
+                    delegate: modifierBadgeComponent
+                }
+                Item {
+                    Layout.fillWidth: true
+                }
+            }
         }
     }
 }

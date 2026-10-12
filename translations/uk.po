@@ -13,45 +13,154 @@ msgstr ""
 "X-Qt-Contexts: true\n"
 "X-Generator: Poedit 3.9\n"
 
-#: ../xkbeditor/qt/qml/About.qml:16
+#: ../xkbeditor/qt/qml/About.qml:18
 msgctxt "About|"
 msgid "View and edit xkb layouts"
 msgstr "Переглядайте та редагуйте xkb розкладки"
+
+#: ../xkbeditor/qt/application.py:71
+msgctxt "Bridge|"
+msgid "Copied: {text}"
+msgstr "Скопійовано: {text}"
+
+#: ../xkbeditor/qt/qml/Editor.qml:20
+msgctxt "Editor|"
+msgid "Flags:"
+msgstr "Прапорці:"
+
+#: ../xkbeditor/qt/qml/Editor.qml:29
+msgctxt "Editor|"
+msgid "Includes:"
+msgstr "Додатки:"
+
+#: ../xkbeditor/qt/qml/Editor.qml:37
+msgctxt "Editor|"
+msgid "Variant:"
+msgstr "Варіант:"
+
+#: ../xkbeditor/qt/qml/Editor.qml:53
+msgctxt "Editor|"
+msgid "Name:"
+msgstr "Назва:"
+
+#: ../xkbeditor/qt/qml/Editor.qml:74
+msgctxt "Editor|"
+msgid "No variant to edit"
+msgstr "Немає варіанту для редагування"
+
+#: ../xkbeditor/qt/qml/Editor.qml:87
+msgctxt "Editor|"
+msgid "Default"
+msgstr "Стандартний"
+
+#: ../xkbeditor/qt/qml/Editor.qml:87
+msgctxt "Editor|"
+msgid "Shift"
+msgstr "Shift"
+
+#: ../xkbeditor/qt/qml/Editor.qml:87
+msgctxt "Editor|"
+msgid "L3M"
+msgstr "L3M"
+
+#: ../xkbeditor/qt/qml/Editor.qml:87
+msgctxt "Editor|"
+msgid "L3M + Shift"
+msgstr "L3M + Shift"
+
+#: ../xkbeditor/qt/qml/Editor.qml:100
+msgctxt "Editor|"
+msgid "Level:"
+msgstr "Рівень:"
+
+#: ../xkbeditor/qt/qml/Editor.qml:128
+msgctxt "Editor|"
+msgid "Level 3 modifiers"
+msgstr "Модифікатори 3-го рівня"
+
+#: ../xkbeditor/qt/qml/Editor.qml:150
+msgctxt "Editor|"
+msgid "L5M:"
+msgstr "L5M:"
+
+#: ../xkbeditor/qt/qml/Editor.qml:152
+msgctxt "Editor|"
+msgid "Level 5 modifiers"
+msgstr "Модифікатори 5-го рівня"
 
 #: ../xkbeditor/qt/qml/FlagsChips.qml:25
 msgctxt "FlagsChips|"
 msgid "Add flag"
 msgstr "Додати прапорець"
 
-#: ../xkbeditor/qt/qml/IncludesChips.qml:31
-#: ../xkbeditor/qt/qml/IncludesChips.qml:81
-msgctxt "IncludesChips|"
+#: ../xkbeditor/qt/qml/IncludeMenu.qml:43
+msgctxt "IncludeMenu|"
 msgid "Path"
 msgstr "Шлях"
 
-#: ../xkbeditor/qt/qml/IncludesChips.qml:39
-#: ../xkbeditor/qt/qml/IncludesChips.qml:88
-msgctxt "IncludesChips|"
+#: ../xkbeditor/qt/qml/IncludeMenu.qml:51
+msgctxt "IncludeMenu|"
 msgid "Variant"
 msgstr "Варіант"
 
-#: ../xkbeditor/qt/qml/IncludesChips.qml:50
-msgctxt "IncludesChips|"
-msgid "Remove include"
-msgstr "Вилучити додаток"
+#: ../xkbeditor/qt/qml/IncludeMenu.qml:62
+msgctxt "IncludeMenu|"
+msgid "Confirm"
+msgstr "Підтвердити"
 
-#: ../xkbeditor/qt/qml/IncludesChips.qml:61
-#: ../xkbeditor/qt/qml/IncludesChips.qml:97
+#: ../xkbeditor/qt/qml/IncludeMenu.qml:70
+msgctxt "IncludeMenu|"
+msgid "Add include"
+msgstr "Додати"
+
+#: ../xkbeditor/qt/qml/IncludesChips.qml:95
+msgctxt "IncludesChips|"
+msgid "Copy file path"
+msgstr "Копіювати шлях файлу"
+
+#: ../xkbeditor/qt/qml/IncludesChips.qml:100
+msgctxt "IncludesChips|"
+msgid "Copy include string"
+msgstr "Копіювати"
+
+#: ../xkbeditor/qt/qml/IncludesChips.qml:113
 msgctxt "IncludesChips|"
 msgid "Add include"
 msgstr "Додати"
 
-#: ../xkbeditor/qt/qml/Main.qml:140
+#: ../xkbeditor/qt/qml/KeysymTable.qml:19
+msgctxt "KeysymTable|"
+msgid "Keysym table"
+msgstr ""
+
+#: ../xkbeditor/qt/qml/KeysymTable.qml:107
+msgctxt "KeysymTable|"
+msgid "Copyright for keysymdef.h"
+msgstr ""
+
+#: ../xkbeditor/qt/qml/KeysymTable.qml:117
+msgctxt "KeysymTable|"
+msgid "About keysymdef.h"
+msgstr "Про keysymdef.h"
+
+#: ../xkbeditor/qt/qml/KeysymTable.qml:125
+#, qt-format
+msgctxt "KeysymTable|"
+msgid ""
+"Information in this table, copyright as well as the section below are "
+"parsed\n"
+"from /usr/include/X11/keysymdef.h or pre-packaged keysymdef.h,\n"
+"if one is not available on your system.\n"
+"\n"
+"Current source: %1"
+msgstr ""
+
+#: ../xkbeditor/qt/qml/Main.qml:132
 msgctxt "Main|"
 msgid "Error:"
 msgstr "Помилка:"
 
-#: ../xkbeditor/qt/qml/Main.qml:144
+#: ../xkbeditor/qt/qml/Main.qml:136
 msgctxt "Main|"
 msgid "Warning:"
 msgstr "Попередження:"
@@ -133,95 +242,90 @@ msgstr "Документація xkb"
 
 #: ../xkbeditor/qt/qml/MenuBar.qml:94
 msgctxt "MenuBar|"
+msgid "Keysym table"
+msgstr ""
+
+#: ../xkbeditor/qt/qml/MenuBar.qml:99
+msgctxt "MenuBar|"
 msgid "About"
 msgstr "Про програму"
 
-#: ../xkbeditor/qt/undo.py:10
+#: ../xkbeditor/qt/modifiers.py:7
+msgctxt "Text|"
+msgid "Right Alt"
+msgstr "Правий Alt"
+
+#: ../xkbeditor/qt/modifiers.py:8
+msgctxt "Text|"
+msgid "Left Alt"
+msgstr "Лівий Alt"
+
+#: ../xkbeditor/qt/modifiers.py:9
+msgctxt "Text|"
+msgid "Any Alt"
+msgstr "Будь-який Alt"
+
+#: ../xkbeditor/qt/modifiers.py:10
+msgctxt "Text|"
+msgid "Right Ctrl"
+msgstr "Правий Ctrl"
+
+#: ../xkbeditor/qt/modifiers.py:11
+msgctxt "Text|"
+msgid "Less/Greater key"
+msgstr "Клавіша більше/менше"
+
+#: ../xkbeditor/qt/modifiers.py:12
+msgctxt "Text|"
+msgid "Right Meta"
+msgstr "Права Meta"
+
+#: ../xkbeditor/qt/modifiers.py:13
+msgctxt "Text|"
+msgid "Left Meta"
+msgstr "Ліва Meta"
+
+#: ../xkbeditor/qt/modifiers.py:14
+msgctxt "Text|"
+msgid "Meta"
+msgstr "Meta"
+
+#: ../xkbeditor/qt/undo.py:17
 msgctxt "UndoRedoActionText|"
 msgid "Remove {}"
 msgstr "Вилучити {}"
 
-#: ../xkbeditor/qt/undo.py:13
+#: ../xkbeditor/qt/undo.py:20
 msgctxt "UndoRedoActionText|"
 msgid "Add {}"
 msgstr "Додати {}"
 
-#: ../xkbeditor/qt/undo.py:16
+#: ../xkbeditor/qt/undo.py:23
 msgctxt "UndoRedoActionText|"
 msgid "Rename {}"
 msgstr "Перейменувати {}"
 
-#: ../xkbeditor/qt/undo.py:19
+#: ../xkbeditor/qt/undo.py:26
 msgctxt "UndoRedoActionText|"
 msgid "variant «{}»"
 msgstr "варіант «{}»"
 
-#: ../xkbeditor/qt/undo.py:22
+#: ../xkbeditor/qt/undo.py:29
 msgctxt "UndoRedoActionText|"
 msgid "include «{}»"
 msgstr "додаток «{}»"
 
-#: ../xkbeditor/qt/undo.py:25
+#: ../xkbeditor/qt/undo.py:32
 msgctxt "UndoRedoActionText|"
 msgid "flag «{}»"
 msgstr "прапорець «{}»"
 
-#: ../xkbeditor/qt/undo.py:29
+#: ../xkbeditor/qt/undo.py:36
 msgctxt "UndoRedoActionText|"
 msgid "Change symbol for {keycode} of {variant}: {oldKeysym} → {newKeysym}"
 msgstr ""
 "Змінити символ клавіші {keycode} варіанту {variant}: {oldKeysym} → "
 "{newKeysym}"
-
-#: ../xkbeditor/qt/qml/Editor.qml:20
-msgctxt "Variant Editor|"
-msgid "Flags:"
-msgstr "Прапорці:"
-
-#: ../xkbeditor/qt/qml/Editor.qml:29
-msgctxt "Variant Editor|"
-msgid "Includes:"
-msgstr "Додатки:"
-
-#: ../xkbeditor/qt/qml/Editor.qml:37
-msgctxt "Variant Editor|"
-msgid "Variant:"
-msgstr "Варіант:"
-
-#: ../xkbeditor/qt/qml/Editor.qml:53
-msgctxt "Variant Editor|"
-msgid "Name:"
-msgstr "Назва:"
-
-#: ../xkbeditor/qt/qml/Editor.qml:74
-msgctxt "Variant Editor|"
-msgid "No variant to edit"
-msgstr "Немає варіанту для редагування"
-
-#: ../xkbeditor/qt/qml/Editor.qml:87
-msgctxt "Variant Editor|"
-msgid "Default"
-msgstr "Стандартний"
-
-#: ../xkbeditor/qt/qml/Editor.qml:87
-msgctxt "Variant Editor|"
-msgid "Shift"
-msgstr "Shift"
-
-#: ../xkbeditor/qt/qml/Editor.qml:87
-msgctxt "Variant Editor|"
-msgid "Right Alt"
-msgstr "Правий Alt"
-
-#: ../xkbeditor/qt/qml/Editor.qml:87
-msgctxt "Variant Editor|"
-msgid "Shift+Right Alt"
-msgstr "Shift+Правий Alt"
-
-#: ../xkbeditor/qt/qml/Editor.qml:100
-msgctxt "Variant Editor|"
-msgid "Layer:"
-msgstr "Шар:"
 
 #: ../xkbeditor/qt/qml/VariantsList.qml:16
 msgctxt "VariantsList|"
@@ -238,17 +342,17 @@ msgctxt "VariantsList|"
 msgid "No file path to load from"
 msgstr "Немає шляху для завантаження"
 
-#: ../xkbeditor/qt/qml/VariantsList.qml:94
+#: ../xkbeditor/qt/qml/VariantsList.qml:97
 msgctxt "VariantsList|"
 msgid "Rename"
 msgstr "Перейменувати"
 
-#: ../xkbeditor/qt/qml/VariantsList.qml:109
+#: ../xkbeditor/qt/qml/VariantsList.qml:108
 msgctxt "VariantsList|"
 msgid "Delete"
 msgstr "Видалити"
 
-#: ../xkbeditor/qt/qml/VariantsList.qml:168
+#: ../xkbeditor/qt/qml/VariantsList.qml:166
 msgctxt "VariantsList|"
 msgid "Add variant"
 msgstr "Додати варіант"

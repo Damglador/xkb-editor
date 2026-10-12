@@ -8,6 +8,7 @@
 # pyright: reportUnknownParameterType=false
 # pyright: reportUnannotatedClassAttribute=false
 
+import configparser
 import re
 from enum import Enum, auto
 from urllib.parse import urlparse
@@ -26,8 +27,29 @@ from PySide6.QtCore import (
 )
 
 from xkbeditor.getchar import getchar
+from xkbeditor.globals import XDG_CONFIG_HOME
 from xkbeditor.parser import xkb
+from xkbeditor.qt import modifiers
 
+
+def appendMod(modList: list[Modifier], mod: str, isGlobal: bool = False):
+    switches = modifiers.Text().switches
+    if not mod:
+        print("No mod provided")
+        return
+
+    if mod == "ralt_alt":
+        for index in range(len(modList)):
+            if modList[index].id == "ralt_switch":
+                del modList[index]
+        return
+
+    if mod not in switches:
+        print(f"Didn't find {mod} in switches")
+        return
+
+    if mod not in [mod.id for mod in modList]:
+        modList.append(Modifier(id=mod, text=switches[mod], isGlobal=isGlobal))
 
 @QEnum
 class XkbFlag(Enum):
@@ -254,6 +276,24 @@ class Include(QObject):
     def toString(self) -> str:
         return str(self._include)
 
+class Modifier(QObject):
+    def __init__(self, id: str, text: str, isGlobal: bool):
+        super().__init__(None)
+        self._id = id
+        self._text = text
+        self._isGlobal = isGlobal
+
+    @Property(str, constant=True)
+    def id(self):
+        return self._id
+
+    @Property(str, constant=True)
+    def text(self):
+        return self._text
+
+    @Property(bool, constant=True)
+    def isGlobal(self):
+        return self._isGlobal
 
 # pyright: reportRedeclaration=false
 class Variant(QObject):
@@ -268,6 +308,9 @@ class Variant(QObject):
         self._includes.rowsInserted.connect(self.reloadIncludes)
         self._includes.rowsRemoved.connect(self.reloadIncludes)
         self._includes.rowsMoved.connect(self.reloadIncludes)
+
+        self._level3Mods: list[Modifier] = []
+        self._level5Mods: list[Modifier] = []
 
     idChanged = Signal()
     @Property(str, notify=idChanged)
@@ -336,6 +379,43 @@ class Variant(QObject):
     @Slot()
     def reloadIncludes(self):
         self.includesReloaded.emit()
+
+    @Property(list, notify=includesReloaded)
+    def level3Mods(self):
+        self.reloadLevelMods()
+        return self._level3Mods
+
+    @Property(list, notify=includesReloaded)
+    def level5Mods(self):
+        self.reloadLevelMods()
+        return self._level5Mods
+
+    def reloadLevelMods(self):
+        for include in self._includes:
+            if include.path == "level3":
+                appendMod(self._level3Mods, include.variant or "ralt_switch")
+            if include.path == "level5":
+                appendMod(self._level5Mods, include.variant or "rctrl_switch")
+
+        try:
+            xkbrc = configparser.ConfigParser()
+            xkbrc.read(f"{XDG_CONFIG_HOME}/kxkbrc")
+            optionsValue = xkbrc["Layout"].get("Options")
+            if optionsValue:
+                # Get each option:val by splitting with ",", then get option and value
+                # by splitting with ":"
+                # Example entry:
+                # Options=grp:caps_toggle,grp:shift_caps_toggle,caps:none,lv3:ralt_switch
+                for option in [option.split(":") for option in optionsValue.split(",")]:
+                    opt = option[0]
+                    val = option[1]
+                    if opt == "lv3":
+                        appendMod(self._level3Mods, val, isGlobal=True)
+                    if opt == "lv5":
+                        appendMod(self._level5Mods, val, isGlobal=True)
+
+        except Exception as err:
+            print(err)
 
     def setVariant(self, variant: xkb.Variant):
         self._variant = variant

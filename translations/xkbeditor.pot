@@ -6,9 +6,79 @@ msgstr ""
 "X-Source-Language: en\n"
 "X-Qt-Contexts: true\n"
 
-#: ../xkbeditor/qt/qml/About.qml:16
+#: ../xkbeditor/qt/qml/About.qml:18
 msgctxt "About|"
 msgid "View and edit xkb layouts"
+msgstr ""
+
+#: ../xkbeditor/qt/application.py:71
+msgctxt "Bridge|"
+msgid "Copied: {text}"
+msgstr ""
+
+#: ../xkbeditor/qt/qml/Editor.qml:20
+msgctxt "Editor|"
+msgid "Flags:"
+msgstr ""
+
+#: ../xkbeditor/qt/qml/Editor.qml:29
+msgctxt "Editor|"
+msgid "Includes:"
+msgstr ""
+
+#: ../xkbeditor/qt/qml/Editor.qml:37
+msgctxt "Editor|"
+msgid "Variant:"
+msgstr ""
+
+#: ../xkbeditor/qt/qml/Editor.qml:53
+msgctxt "Editor|"
+msgid "Name:"
+msgstr ""
+
+#: ../xkbeditor/qt/qml/Editor.qml:74
+msgctxt "Editor|"
+msgid "No variant to edit"
+msgstr ""
+
+#: ../xkbeditor/qt/qml/Editor.qml:87
+msgctxt "Editor|"
+msgid "Default"
+msgstr ""
+
+#: ../xkbeditor/qt/qml/Editor.qml:87
+msgctxt "Editor|"
+msgid "Shift"
+msgstr ""
+
+#: ../xkbeditor/qt/qml/Editor.qml:87
+msgctxt "Editor|"
+msgid "L3M"
+msgstr ""
+
+#: ../xkbeditor/qt/qml/Editor.qml:87
+msgctxt "Editor|"
+msgid "L3M + Shift"
+msgstr ""
+
+#: ../xkbeditor/qt/qml/Editor.qml:100
+msgctxt "Editor|"
+msgid "Level:"
+msgstr ""
+
+#: ../xkbeditor/qt/qml/Editor.qml:128
+msgctxt "Editor|"
+msgid "Level 3 modifiers"
+msgstr ""
+
+#: ../xkbeditor/qt/qml/Editor.qml:150
+msgctxt "Editor|"
+msgid "L5M:"
+msgstr ""
+
+#: ../xkbeditor/qt/qml/Editor.qml:152
+msgctxt "Editor|"
+msgid "Level 5 modifiers"
 msgstr ""
 
 #: ../xkbeditor/qt/qml/FlagsChips.qml:25
@@ -16,35 +86,74 @@ msgctxt "FlagsChips|"
 msgid "Add flag"
 msgstr ""
 
-#: ../xkbeditor/qt/qml/IncludesChips.qml:31
-#: ../xkbeditor/qt/qml/IncludesChips.qml:81
-msgctxt "IncludesChips|"
+#: ../xkbeditor/qt/qml/IncludeMenu.qml:43
+msgctxt "IncludeMenu|"
 msgid "Path"
 msgstr ""
 
-#: ../xkbeditor/qt/qml/IncludesChips.qml:39
-#: ../xkbeditor/qt/qml/IncludesChips.qml:88
-msgctxt "IncludesChips|"
+#: ../xkbeditor/qt/qml/IncludeMenu.qml:51
+msgctxt "IncludeMenu|"
 msgid "Variant"
 msgstr ""
 
-#: ../xkbeditor/qt/qml/IncludesChips.qml:50
-msgctxt "IncludesChips|"
-msgid "Remove include"
+#: ../xkbeditor/qt/qml/IncludeMenu.qml:62
+msgctxt "IncludeMenu|"
+msgid "Confirm"
 msgstr ""
 
-#: ../xkbeditor/qt/qml/IncludesChips.qml:61
-#: ../xkbeditor/qt/qml/IncludesChips.qml:97
+#: ../xkbeditor/qt/qml/IncludeMenu.qml:70
+msgctxt "IncludeMenu|"
+msgid "Add include"
+msgstr ""
+
+#: ../xkbeditor/qt/qml/IncludesChips.qml:95
+msgctxt "IncludesChips|"
+msgid "Copy file path"
+msgstr ""
+
+#: ../xkbeditor/qt/qml/IncludesChips.qml:100
+msgctxt "IncludesChips|"
+msgid "Copy include string"
+msgstr ""
+
+#: ../xkbeditor/qt/qml/IncludesChips.qml:113
 msgctxt "IncludesChips|"
 msgid "Add include"
 msgstr ""
 
-#: ../xkbeditor/qt/qml/Main.qml:140
+#: ../xkbeditor/qt/qml/KeysymTable.qml:19
+msgctxt "KeysymTable|"
+msgid "Keysym table"
+msgstr ""
+
+#: ../xkbeditor/qt/qml/KeysymTable.qml:107
+msgctxt "KeysymTable|"
+msgid "Copyright for keysymdef.h"
+msgstr ""
+
+#: ../xkbeditor/qt/qml/KeysymTable.qml:117
+msgctxt "KeysymTable|"
+msgid "About keysymdef.h"
+msgstr ""
+
+#: ../xkbeditor/qt/qml/KeysymTable.qml:125
+#, qt-format
+msgctxt "KeysymTable|"
+msgid ""
+"Information in this table, copyright as well as the section below are "
+"parsed\n"
+"from /usr/include/X11/keysymdef.h or pre-packaged keysymdef.h,\n"
+"if one is not available on your system.\n"
+"\n"
+"Current source: %1"
+msgstr ""
+
+#: ../xkbeditor/qt/qml/Main.qml:132
 msgctxt "Main|"
 msgid "Error:"
 msgstr ""
 
-#: ../xkbeditor/qt/qml/Main.qml:144
+#: ../xkbeditor/qt/qml/Main.qml:136
 msgctxt "Main|"
 msgid "Warning:"
 msgstr ""
@@ -126,92 +235,87 @@ msgstr ""
 
 #: ../xkbeditor/qt/qml/MenuBar.qml:94
 msgctxt "MenuBar|"
+msgid "Keysym table"
+msgstr ""
+
+#: ../xkbeditor/qt/qml/MenuBar.qml:99
+msgctxt "MenuBar|"
 msgid "About"
 msgstr ""
 
-#: ../xkbeditor/qt/undo.py:10
+#: ../xkbeditor/qt/modifiers.py:7
+msgctxt "Text|"
+msgid "Right Alt"
+msgstr ""
+
+#: ../xkbeditor/qt/modifiers.py:8
+msgctxt "Text|"
+msgid "Left Alt"
+msgstr ""
+
+#: ../xkbeditor/qt/modifiers.py:9
+msgctxt "Text|"
+msgid "Any Alt"
+msgstr ""
+
+#: ../xkbeditor/qt/modifiers.py:10
+msgctxt "Text|"
+msgid "Right Ctrl"
+msgstr ""
+
+#: ../xkbeditor/qt/modifiers.py:11
+msgctxt "Text|"
+msgid "Less/Greater key"
+msgstr ""
+
+#: ../xkbeditor/qt/modifiers.py:12
+msgctxt "Text|"
+msgid "Right Meta"
+msgstr ""
+
+#: ../xkbeditor/qt/modifiers.py:13
+msgctxt "Text|"
+msgid "Left Meta"
+msgstr ""
+
+#: ../xkbeditor/qt/modifiers.py:14
+msgctxt "Text|"
+msgid "Meta"
+msgstr ""
+
+#: ../xkbeditor/qt/undo.py:17
 msgctxt "UndoRedoActionText|"
 msgid "Remove {}"
 msgstr ""
 
-#: ../xkbeditor/qt/undo.py:13
+#: ../xkbeditor/qt/undo.py:20
 msgctxt "UndoRedoActionText|"
 msgid "Add {}"
 msgstr ""
 
-#: ../xkbeditor/qt/undo.py:16
+#: ../xkbeditor/qt/undo.py:23
 msgctxt "UndoRedoActionText|"
 msgid "Rename {}"
 msgstr ""
 
-#: ../xkbeditor/qt/undo.py:19
+#: ../xkbeditor/qt/undo.py:26
 msgctxt "UndoRedoActionText|"
 msgid "variant «{}»"
 msgstr ""
 
-#: ../xkbeditor/qt/undo.py:22
+#: ../xkbeditor/qt/undo.py:29
 msgctxt "UndoRedoActionText|"
 msgid "include «{}»"
 msgstr ""
 
-#: ../xkbeditor/qt/undo.py:25
+#: ../xkbeditor/qt/undo.py:32
 msgctxt "UndoRedoActionText|"
 msgid "flag «{}»"
 msgstr ""
 
-#: ../xkbeditor/qt/undo.py:29
+#: ../xkbeditor/qt/undo.py:36
 msgctxt "UndoRedoActionText|"
 msgid "Change symbol for {keycode} of {variant}: {oldKeysym} → {newKeysym}"
-msgstr ""
-
-#: ../xkbeditor/qt/qml/Editor.qml:20
-msgctxt "Variant Editor|"
-msgid "Flags:"
-msgstr ""
-
-#: ../xkbeditor/qt/qml/Editor.qml:29
-msgctxt "Variant Editor|"
-msgid "Includes:"
-msgstr ""
-
-#: ../xkbeditor/qt/qml/Editor.qml:37
-msgctxt "Variant Editor|"
-msgid "Variant:"
-msgstr ""
-
-#: ../xkbeditor/qt/qml/Editor.qml:53
-msgctxt "Variant Editor|"
-msgid "Name:"
-msgstr ""
-
-#: ../xkbeditor/qt/qml/Editor.qml:74
-msgctxt "Variant Editor|"
-msgid "No variant to edit"
-msgstr ""
-
-#: ../xkbeditor/qt/qml/Editor.qml:87
-msgctxt "Variant Editor|"
-msgid "Default"
-msgstr ""
-
-#: ../xkbeditor/qt/qml/Editor.qml:87
-msgctxt "Variant Editor|"
-msgid "Shift"
-msgstr ""
-
-#: ../xkbeditor/qt/qml/Editor.qml:87
-msgctxt "Variant Editor|"
-msgid "Right Alt"
-msgstr ""
-
-#: ../xkbeditor/qt/qml/Editor.qml:87
-msgctxt "Variant Editor|"
-msgid "Shift+Right Alt"
-msgstr ""
-
-#: ../xkbeditor/qt/qml/Editor.qml:100
-msgctxt "Variant Editor|"
-msgid "Layer:"
 msgstr ""
 
 #: ../xkbeditor/qt/qml/VariantsList.qml:16
@@ -229,17 +333,17 @@ msgctxt "VariantsList|"
 msgid "No file path to load from"
 msgstr ""
 
-#: ../xkbeditor/qt/qml/VariantsList.qml:94
+#: ../xkbeditor/qt/qml/VariantsList.qml:97
 msgctxt "VariantsList|"
 msgid "Rename"
 msgstr ""
 
-#: ../xkbeditor/qt/qml/VariantsList.qml:109
+#: ../xkbeditor/qt/qml/VariantsList.qml:108
 msgctxt "VariantsList|"
 msgid "Delete"
 msgstr ""
 
-#: ../xkbeditor/qt/qml/VariantsList.qml:168
+#: ../xkbeditor/qt/qml/VariantsList.qml:166
 msgctxt "VariantsList|"
 msgid "Add variant"
 msgstr ""
