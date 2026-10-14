@@ -7,6 +7,9 @@ import org.kde.kirigami as Kirigami
 import "Keyboard"
 
 Kirigami.Page {
+    id: root
+    property var variant
+
     globalToolBarStyle: Kirigami.ApplicationHeaderStyle.None
 
     ColumnLayout {
@@ -53,9 +56,9 @@ Kirigami.Page {
                 text: qsTr("Name:")
             }
             Controls.TextField {
-                enabled: bridge.file.variant
-                text: bridge.file.variant ? bridge.file.variant.name : ""
-                onTextEdited: bridge.file.variant.name = text
+                enabled: root.variant
+                text: root.variant ? root.variant.name : ""
+                onTextEdited: root.variant.name = text
 
                 Layout.fillWidth: true
                 onAccepted: focus = false
@@ -68,7 +71,7 @@ Kirigami.Page {
 
             Controls.Popup {
                 anchors.centerIn: parent
-                visible: !bridge.file.variant
+                visible: !root.variant
                 closePolicy: Controls.Popup.NoAutoClose
                 Controls.Label {
                     text: qsTr("No variant to edit")
@@ -131,7 +134,7 @@ Kirigami.Page {
                     }
                 }
                 Repeater {
-                    model: bridge.file.variant.level3Mods
+                    model: root.variant.level3Mods
                     delegate: modifierBadgeComponent
                 }
                 Item {
@@ -155,7 +158,7 @@ Kirigami.Page {
                     }
                 }
                 Repeater {
-                    model: bridge.file.variant.level5Mods
+                    model: root.variant.level5Mods
                     delegate: modifierBadgeComponent
                 }
                 Item {

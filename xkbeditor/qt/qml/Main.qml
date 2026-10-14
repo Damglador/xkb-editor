@@ -40,6 +40,7 @@ Kirigami.ApplicationWindow {
     Editor {
         id: editorPage
         Component.onCompleted: bridge.loadTestVariant()
+        variant: bridge.file.variant
     }
 
     FileDialog {
