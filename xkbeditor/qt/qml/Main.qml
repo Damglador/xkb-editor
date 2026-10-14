@@ -87,6 +87,11 @@ Kirigami.ApplicationWindow {
         }
 
         interactiveResizeEnabled: true
+        QtCore.Settings {
+            category: "Sidebar"
+            location: Settings.Paths.stateFile
+            property alias width: variantsDrawer.preferredSize
+        }
 
         contentItem: VariantsList {
             id: content
