@@ -102,7 +102,7 @@ Kirigami.ApplicationWindow {
         }
     }
 
-    Kirigami.OverlaySheet {
+    Kirigami.Dialog {
         id: copyrightSheet
         title: qsTr("Copyright for keysymdef.h")
         Kirigami.SelectableLabel {
@@ -112,7 +112,7 @@ Kirigami.ApplicationWindow {
             text: proxyModel.sourceModel.getCopyright()
         }
     }
-    Kirigami.OverlaySheet {
+    Kirigami.Dialog {
         id: docSheet
         title: qsTr("About keysymdef.h")
         ColumnLayout {
