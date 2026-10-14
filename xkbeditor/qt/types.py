@@ -62,6 +62,7 @@ class XkbFlag(Enum):
     FUNCTION_KEYS = auto()
     ALTERNATE_GROUP = auto()
 
+
 class List(QAbstractListModel):
     ObjectRole = Qt.ItemDataRole.UserRole + 1
 
@@ -78,8 +79,8 @@ class List(QAbstractListModel):
 
     def setData(self, index, value, /, role=Qt.ItemDataRole.EditRole) -> bool:
         if role == Qt.ItemDataRole.EditRole:
-            self._items[index.row()]=value
-            self.dataChanged.emit(index, index);
+            self._items[index.row()] = value
+            self.dataChanged.emit(index, index)
             return True
         return False
 
@@ -135,6 +136,7 @@ class List(QAbstractListModel):
         if self._objs and 0 <= index < len(self._objs):
             return self._objs[index]
 
+
 class IncludesList(List):
     PathRole = Qt.ItemDataRole.UserRole + 2
     VariantRole = Qt.ItemDataRole.UserRole + 3
@@ -148,13 +150,13 @@ class IncludesList(List):
         return {
             self.ObjectRole: b"include",
             self.PathRole: b"path",
-            self.VariantRole: b"variant"
+            self.VariantRole: b"variant",
         }
 
     def data(self, index: QModelIndex | QPersistentModelIndex, role: int=Qt.ItemDataRole.DisplayRole):
         if not index.isValid() or not 0 <= index.row() < self.rowCount():
             return
-        match(role):
+        match role:
             case self.ObjectRole:
                 return self._objs[index.row()]
             case self.PathRole:
@@ -167,11 +169,7 @@ class IncludesList(List):
         path = vals.get("path")
         if path:
             self.beginInsertRows(QModelIndex(), self.rowCount(), self.rowCount())
-            self._items.append(
-                xkb.Include(
-                    path=path,
-                    variant=vals.get("variant")
-                ))
+            self._items.append(xkb.Include(path=path, variant=vals.get("variant")))
             self._objs.append(Include(self._items[len(self._items) - 1]))
             self.endInsertRows()
             return True
@@ -182,6 +180,7 @@ class IncludesList(List):
         self._objs.insert(index, include)
         self._items.insert(index, self._objs[index]._include)
         self.endInsertRows()
+
 
 class VariantsList(List):
     IdRole = Qt.ItemDataRole.UserRole + 2
@@ -202,7 +201,7 @@ class VariantsList(List):
     def data(self, index: QModelIndex | QPersistentModelIndex, role: int=Qt.ItemDataRole.DisplayRole):
         if not index.isValid() or not 0 <= index.row() < self.rowCount():
             return
-        match(role):
+        match role:
             case self.ObjectRole:
                 return self._objs[index.row()]
             case self.IdRole | Qt.ItemDataRole.DisplayRole:
@@ -213,7 +212,7 @@ class VariantsList(List):
     def setItems(self, items: list[xkb.Variant]):
         self.beginResetModel()
         self._items = items
-        self._objs = [Variant(variant, parent=self) for variant in self._items] # pyright: ignore[reportIncompatibleVariableOverride]
+        self._objs = [Variant(variant, parent=self) for variant in self._items]  # pyright: ignore[reportIncompatibleVariableOverride]
         self.endResetModel()
 
     @Slot()
@@ -479,8 +478,8 @@ class SymbolsFile(QObject):
         try:
             variants = xkb.getVariantsFromFile(urlparse(filePath).path, dropCache=True)
             self._variants.setItems(variants)
-            self.variantIndex = 0 # pyright: ignore[reportAttributeAccessIssue]
-            self.path = urlparse(filePath).path # pyright: ignore[reportAttributeAccessIssue]
+            self.variantIndex = 0  # pyright: ignore[reportAttributeAccessIssue]
+            self.path = urlparse(filePath).path  # pyright: ignore[reportAttributeAccessIssue]
             self.pathChanged.emit()
             self.fileLoaded.emit()
         except UnicodeDecodeError:
@@ -501,5 +500,5 @@ class SymbolsFile(QObject):
     @Slot()
     def clear(self):
         self._variants.clear()
-        self.variantIndex = 0 # pyright: ignore[reportAttributeAccessIssue]
-        self.path = "" # pyright: ignore[reportAttributeAccessIssue]
+        self.variantIndex = 0  # pyright: ignore[reportAttributeAccessIssue]
+        self.path = ""  # pyright: ignore[reportAttributeAccessIssue]
