@@ -45,3 +45,5 @@ class Text(QObject):
             "ralt_switch_lock_cancel": "",
             "rwin_switch_lock_cancel": "",
         }
+
+text = Text()

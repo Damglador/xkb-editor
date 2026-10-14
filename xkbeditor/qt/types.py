@@ -31,26 +31,6 @@ from xkbeditor.globals import XDG_CONFIG_HOME
 from xkbeditor.parser import xkb
 from xkbeditor.qt import modifiers
 
-
-def appendMod(modList: list[Modifier], mod: str, isGlobal: bool = False):
-    switches = modifiers.Text().switches
-    if not mod:
-        print("No mod provided")
-        return
-
-    if mod == "ralt_alt":
-        for index in range(len(modList)):
-            if modList[index].id == "ralt_switch":
-                del modList[index]
-        return
-
-    if mod not in switches:
-        print(f"Didn't find {mod} in switches")
-        return
-
-    if mod not in [mod.id for mod in modList]:
-        modList.append(Modifier(id=mod, text=switches[mod], isGlobal=isGlobal))
-
 @QEnum
 class XkbFlag(Enum):
     DEFAULT = auto()
@@ -397,9 +377,9 @@ class Variant(QObject):
     def reloadLevelMods(self):
         for include in self._includes:
             if include.path == "level3":
-                appendMod(self._level3Mods, include.variant or "ralt_switch")
+                self.appendMod(self._level3Mods, include.variant or "ralt_switch")
             if include.path == "level5":
-                appendMod(self._level5Mods, include.variant or "rctrl_switch")
+                self.appendMod(self._level5Mods, include.variant or "rctrl_switch")
 
         try:
             xkbrc = configparser.ConfigParser()
@@ -414,9 +394,9 @@ class Variant(QObject):
                     opt = option[0]
                     val = option[1]
                     if opt == "lv3":
-                        appendMod(self._level3Mods, val, isGlobal=True)
+                        self.appendMod(self._level3Mods, val, isGlobal=True)
                     if opt == "lv5":
-                        appendMod(self._level5Mods, val, isGlobal=True)
+                        self.appendMod(self._level5Mods, val, isGlobal=True)
 
         except Exception as err:
             print(err)
@@ -427,6 +407,25 @@ class Variant(QObject):
     def toXkb(self) -> str:
         return self._variant.toXkb()
 
+    @staticmethod
+    def appendMod(modList: list[Modifier], mod: str, isGlobal: bool = False):
+        switches = modifiers.text.switches
+        if not mod:
+            print("No mod provided")
+            return
+
+        if mod == "ralt_alt":
+            for index in range(len(modList)):
+                if modList[index].id == "ralt_switch":
+                    del modList[index]
+            return
+
+        if mod not in switches:
+            print(f"Didn't find {mod} in switches")
+            return
+
+        if mod not in [mod.id for mod in modList]:
+            modList.append(Modifier(id=mod, text=switches[mod], isGlobal=isGlobal))
 class SymbolsFile(QObject):
     def __init__(self, parent=None):
         super().__init__(parent)
