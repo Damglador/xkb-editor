@@ -113,6 +113,7 @@ Kirigami.Page {
                 implicitHeight: Kirigami.Units.gridUnit * 1.4
                 icon.name: modelData.isGlobal ? "globe" : ""
                 Controls.ToolTip.text: modelData.isGlobal ? "Set by desktop" : ""
+                Controls.ToolTip.visible: modelData.isGlobal && hovered
             }
         }
 
