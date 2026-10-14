@@ -43,17 +43,17 @@ Controls.MenuBar {
     Controls.Menu {
         title: qsTr("Edit")
         Kirigami.Action {
-            text: bridge.undoStack.undoText ? qsTr("Undo") + ": " + bridge.undoStack.undoText : qsTr("Undo")
+            text: undoStack.undoText ? qsTr("Undo") + ": " + undoStack.undoText : qsTr("Undo")
             icon.name: "edit-undo"
-            enabled: bridge.undoStack.canUndo
-            onTriggered: bridge.undoStack.undo()
+            enabled: undoStack.canUndo
+            onTriggered: undoStack.undo()
             shortcut: StandardKey.Undo
         }
         Kirigami.Action {
-            text: bridge.undoStack.redoText ? qsTr("Redo") + ": " + bridge.undoStack.redoText : qsTr("Redo")
+            text: undoStack.redoText ? qsTr("Redo") + ": " + undoStack.redoText : qsTr("Redo")
             icon.name: "edit-redo"
-            enabled: bridge.undoStack.canRedo
-            onTriggered: bridge.undoStack.redo()
+            enabled: undoStack.canRedo
+            onTriggered: undoStack.redo()
             shortcut: StandardKey.Redo
         }
     }

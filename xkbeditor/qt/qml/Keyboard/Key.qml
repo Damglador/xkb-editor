@@ -30,7 +30,7 @@ Controls.Button {
     property string legend
     property var label
 
-    enabled: bridge.file.variant
+    enabled: root.variant
 
     Controls.Menu {
         id: menu
@@ -53,7 +53,7 @@ Controls.Button {
                 id: editField
                 Layout.fillWidth: true
                 onAccepted: {
-                    bridge.setSymbol(key.keycode, key.level, text.replace("U+", "U"));  // strip + for pasting from https://symbl.cc/
+                    undoStack.setSymbol(root.variant, key.keycode, key.level, text.replace("U+", "U"));  // strip + for pasting from https://symbl.cc/
                     key.loadChar();
                     menu.close();
                 }
@@ -105,7 +105,7 @@ Controls.Button {
         }
     }
     Connections {
-        target: bridge.file.variant
+        target: root.variant
         function onIncludesReloaded() {
             key.loadFallback();
         }
@@ -125,13 +125,13 @@ Controls.Button {
         loadFallback();
     }
     function loadChar() {
-        symbol = bridge.file.variant ? bridge.file.variant.getSymbol(keycode, level) : "";
+        symbol = root.variant ? root.variant.getSymbol(keycode, level) : "";
         char = key.symbol ? bridge.getSymbolChar(key.symbol) : "";
     }
     function loadFallback() {
         // Optimization!
         if (Settings.View.showFallbacks) {
-            symbolFallback = bridge.file.variant ? bridge.file.variant.getSymbolOrFallback(keycode, level) : "";
+            symbolFallback = root.variant ? root.variant.getSymbolOrFallback(keycode, level) : "";
             charFallback = key.symbolFallback ? bridge.getSymbolChar(key.symbolFallback) : "";
         }
 

@@ -18,7 +18,7 @@ Controls.Menu {
 
     function action() {
         if (menu.type == IncludeMenu.Type.Add) {
-            if (bridge.addInclude({
+            if (undoStack.addInclude(root.variant.includes, {
                 "path": pathField.text,
                 "variant": variantField.text
             })) {
@@ -30,7 +30,7 @@ Controls.Menu {
             if (menu.include) {
                 menu.include.path = pathField.text;
                 menu.include.variant = variantField.text;
-                bridge.file.variant.reloadIncludes();
+                root.variant.reloadIncludes();
             }
         }
     }

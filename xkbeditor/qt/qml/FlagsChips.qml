@@ -9,15 +9,14 @@ Flow {
     spacing: Kirigami.Units.smallSpacing
     Repeater {
         id: repeater
-        property QtObject variant: bridge.file.variant
-        model: variant ? variant.flags : []
+        model: root.variant ? root.variant.flags : []
         delegate: Kirigami.Chip {
             required property int index
             required property var modelData
 
             text: modelData
 
-            onRemoved: bridge.removeFlag(modelData)
+            onRemoved: undoStack.removeFlag(root.variant, modelData)
         }
     }
     Controls.Button {
@@ -40,12 +39,12 @@ Flow {
             y: parent.height
             Repeater {
                 id: list
-                model: repeater.variant ? repeater.variant.availableFlags : []
+                model: root.variant ? root.variant.availableFlags : []
                 delegate: Controls.MenuItem {
                     required property var modelData
                     text: modelData
                     onClicked: {
-                        bridge.addFlag(modelData);
+                        undoStack.addFlag(root.variant, modelData);
                         menu.close();
                     }
                 }

@@ -7,6 +7,9 @@ import QtQuick.Controls as Controls
 import org.kde.kirigami as Kirigami
 
 Kirigami.ScrollablePage {
+    id: root
+    property var file
+
     header: ColumnLayout {
         RowLayout {
             Layout.topMargin: Kirigami.Units.smallSpacing
@@ -24,8 +27,8 @@ Kirigami.ScrollablePage {
                 icon.name: "reload"
                 Controls.ToolTip.text: text
                 Controls.ToolTip.visible: hovered
-                enabled: bridge.file.path
-                onClicked: bridge.file.load(bridge.file.path)
+                enabled: root.file.path
+                onClicked: root.file.load(root.file.path)
             }
         }
         Kirigami.Separator {
@@ -71,7 +74,7 @@ Kirigami.ScrollablePage {
                         listView: mainList
                         onMoveRequested: (oldIndex, newIndex) => {
                             // console.log('!!!', oldIndex, newIndex);
-                            bridge.moveElement(mainList.model, oldIndex, newIndex);
+                            undoStack.moveElement(mainList.model, oldIndex, newIndex);
                         }
                         // onDropped: (oldIndex, newIndex) => {
                         //     console.log(">>>", oldIndex, newIndex);
@@ -110,7 +113,7 @@ Kirigami.ScrollablePage {
                         Controls.ToolTip.visible: hovered
                         Controls.ToolTip.delay: Kirigami.Units.toolTipDelay
 
-                        onClicked: bridge.removeVariant(listItemRoot.index);
+                        onClicked: undoStack.removeVariant(root.file.variants, listItemRoot.index);
                         icon.height: Kirigami.Units.iconSizes.small
                         display: Controls.AbstractButton.IconOnly
                     }
@@ -126,7 +129,7 @@ Kirigami.ScrollablePage {
                     if (visible == true) {
                         editField.forceActiveFocus()
                     } else {
-                        bridge.renameVariant(bridge.file.variants.get(listItemRoot.index), editField.text)
+                        undoStack.renameVariant(root.file.variants.get(listItemRoot.index), editField.text)
                     }
                 }
 
@@ -143,14 +146,14 @@ Kirigami.ScrollablePage {
     }
     ListView {
         id: mainList
-        model: bridge.file.variants
+        model: root.file.variants
         delegate: delegateComponent
         clip: true
-        onCurrentIndexChanged: bridge.file.variantIndex = currentIndex
+        onCurrentIndexChanged: root.file.variantIndex = currentIndex
         Connections {
-            target: bridge.file
+            target: root.file
             function onVariantChanged() {
-                mainList.currentIndex = bridge.file.variantIndex
+                mainList.currentIndex = root.file.variantIndex
             }
         }
         keyNavigationEnabled: true
@@ -180,7 +183,7 @@ Kirigami.ScrollablePage {
             }
             function addVariant() {
                 if (field.text) {
-                    bridge.addVariant(field.text);
+                    undoStack.addVariant(root.file.variants, field.text);
                     field.text = "";
                 }
             }
@@ -188,12 +191,12 @@ Kirigami.ScrollablePage {
     }
 
     Connections {
-        target: bridge.file.variants
+        target: root.file.variants
         function onRowsRemoved(index, first, last) {
-            if (first == mainList.currentIndex) bridge.file.updateVariant()
+            if (first == mainList.currentIndex) root.file.updateVariant()
         }
         function onRowsInserted(index, first, last) {
-            if (!bridge.file.variant) bridge.file.updateVariant()
+            if (!root.file.variant) root.file.updateVariant()
         }
     }
 }

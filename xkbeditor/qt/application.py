@@ -7,7 +7,6 @@ import sys
 
 from PySide6.QtCore import (
     Property,
-    QAbstractListModel,
     QCoreApplication,
     QLocale,
     QObject,
@@ -22,19 +21,9 @@ from PySide6.QtWidgets import QApplication
 
 from xkbeditor.getchar import getchar
 from xkbeditor.globals import APP_DIR
-from xkbeditor.qt import table
-from xkbeditor.qt.types import List, SymbolsFile, Variant
-from xkbeditor.qt.undo import (
-    AddFlag,
-    AddInclude,
-    AddVariant,
-    MoveElement,
-    RemoveFlag,
-    RemoveInclude,
-    RemoveVariant,
-    RenameVariant,
-    SetSymbol,
-)
+from xkbeditor.qt.table import *
+from xkbeditor.qt.types import SymbolsFile
+from xkbeditor.qt.undoStack import *
 
 QML_IMPORT_NAME = "xkbeditor"
 QML_IMPORT_MAJOR_VERSION = 2
@@ -71,51 +60,6 @@ class Bridge(QObject):
     def copyText(self, text: str):
         QGuiApplication.clipboard().setText(text)
         self.notify.emit(self.tr(f"Copied: {text}"))
-
-    @Slot(str, int, str)
-    def setSymbol(self, keycode: str, level: int, keysym: str):
-        if self._file._variant:
-            self._undoStack.push(SetSymbol(self._file._variant, keycode, level, keysym))
-
-    @Slot(Variant, str)
-    def renameVariant(self, variant: Variant, str: str):
-        self._undoStack.push(RenameVariant(variant, str))
-
-    @Slot(int)
-    def removeVariant(self, index: int):
-        self._undoStack.push(RemoveVariant(self._file._variants, index))
-
-    @Slot(str)
-    def addVariant(self, id: str):
-        self._undoStack.push(AddVariant(self._file._variants, id))
-
-    @Slot(str)
-    def removeFlag(self, flag: str):
-        if self._file._variant:
-            self._undoStack.push(RemoveFlag(self._file._variant, flag))
-
-    @Slot(str)
-    def addFlag(self, flag: str):
-        if self._file._variant:
-            self._undoStack.push(AddFlag(self._file._variant, flag))
-
-    @Slot(int)
-    def removeInclude(self, index: int):
-        if self._file._variant:
-            self._undoStack.push(RemoveInclude(self._file._variant._includes, index))
-
-    @Slot(dict, result=bool)
-    def addInclude(self, vals: dict[str, str]):
-        if not vals.get("path"):
-            return False
-        if self._file._variant:
-            self._undoStack.push(AddInclude(self._file._variant._includes, vals))
-            return True
-        return False
-
-    @Slot(QAbstractListModel, int, int)
-    def moveElement(self, list: List, oldIndex: int, newIndex: int):
-        self._undoStack.push(MoveElement(list, oldIndex, newIndex))
 
     @Slot(str, result=str)
     def getSymbolChar(self, str: str):

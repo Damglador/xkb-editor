@@ -43,6 +43,10 @@ Kirigami.ApplicationWindow {
         variant: bridge.file.variant
     }
 
+    UndoStack {
+        id: undoStack
+    }
+
     FileDialog {
         id: openDialog
         title: "Open xkb layout"
@@ -88,6 +92,7 @@ Kirigami.ApplicationWindow {
             id: content
             anchors.fill: parent
             anchors.margins: 0
+            file: bridge.file
         }
 
         preferredSize: Kirigami.Units.gridUnit * 12

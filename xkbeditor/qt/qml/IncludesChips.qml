@@ -10,7 +10,7 @@ Flow {
     spacing: Kirigami.Units.smallSpacing
     Repeater {
         id: repeater
-        model: bridge.file.variant ? bridge.file.variant.includes : []
+        model: root.variant ? root.variant.includes : []
         delegate: Item {
             id: item
             required property int index
@@ -26,7 +26,7 @@ Flow {
                 text: item.include.toString()
 
                 Connections {
-                    target: bridge.file.variant
+                    target: root.variant
                     function onIncludesReloaded() {
                         chip.text = item.include.toString();
                     }
@@ -70,7 +70,7 @@ Flow {
                         const target = flow.childAt(p.x, p.y);
 
                         if (target && (target != item) && target != addButton)
-                            bridge.moveElement(repeater.model, item.index, target.index);
+                            undoStack.moveElement(repeater.model, item.index, target.index);
 
                         chip.x = 0;
                         chip.y = 0;
@@ -103,7 +103,7 @@ Flow {
                     }
                 }
 
-                onRemoved: bridge.removeInclude(item.index)
+                onRemoved: undoStack.removeInclude(root.variant.includes, item.index)
             }
         }
     }
@@ -114,7 +114,7 @@ Flow {
         icon.name: "add"
         display: Controls.AbstractButton.IconOnly
         implicitHeight: Kirigami.Units.gridUnit * 1.6
-        enabled: bridge.file.variant
+        enabled: root.variant
 
         Controls.ToolTip {
             visible: addButton.hovered
