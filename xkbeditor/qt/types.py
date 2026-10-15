@@ -24,6 +24,7 @@ from PySide6.QtCore import (
     Signal,
     Slot,
 )
+from PySide6.QtQml import QmlElement
 
 from xkbeditor.getchar import getchar
 from xkbeditor.globals import XDG_CONFIG_HOME
@@ -31,6 +32,8 @@ from xkbeditor.parser import xkb
 from xkbeditor.qt import modifiers
 from xkbeditor.qt.dataTypes import *
 
+QML_IMPORT_NAME = "xkbeditor"
+QML_IMPORT_MAJOR_VERSION = 2
 
 class List(QAbstractListModel):
     ObjectRole = Qt.ItemDataRole.UserRole + 1
@@ -207,6 +210,14 @@ class VariantsList(List):
         if 0 <= index < len(self._objs):
             return self._objs[index]
 
+    @Slot(QObject)
+    def append(self, variant: Variant):
+        self.beginInsertRows(QModelIndex(), self.rowCount(), self.rowCount())
+        self._objs.append(variant)
+        self._items.append(self._objs[len(self._objs) - 1]._variant)
+        self.endInsertRows()
+
+
 
 class Variant(QObject):
     def __init__(self, variant: xkb.Variant | None = None, parent=None):
@@ -223,6 +234,19 @@ class Variant(QObject):
 
         self._level3Mods: list[Modifier] = []
         self._level5Mods: list[Modifier] = []
+
+        # Checked is for CheckDelegates, mainly in ImportMenu, because
+        # they don't save state by themselves
+        self._checked: bool = False
+
+    checkedChanged = Signal()
+    @Property(bool, notify=checkedChanged)
+    def checked(self):
+        return self._checked
+
+    @checked.setter
+    def checked(self, value: bool):
+        self._checked = value
 
     idChanged = Signal()
     @Property(str, notify=idChanged)
@@ -354,6 +378,8 @@ class Variant(QObject):
 
         if mod not in [mod.id for mod in modList]:
             modList.append(Modifier(id=mod, text=switches[mod], isGlobal=isGlobal))
+
+@QmlElement
 class SymbolsFile(QObject):
     def __init__(self, parent=None):
         super().__init__(parent)

@@ -56,6 +56,11 @@ Controls.MenuBar {
             onTriggered: undoStack.redo()
             shortcut: StandardKey.Redo
         }
+        Kirigami.Action {
+            text: qsTr("Import variants...")
+            icon.name: "document-import"
+            onTriggered: importFileDialog.open()
+        }
     }
     Controls.Menu {
         title: qsTr("View")

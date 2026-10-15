@@ -64,6 +64,14 @@ Kirigami.ApplicationWindow {
             bridge.file.path = selectedFile
         currentFolder: StandardPaths.standardLocations(StandardPaths.ConfigLocation)[0] + "/xkb/symbols"
     }
+    FileDialog {
+        id: importFileDialog
+        title: qsTr("Open xkb layout")
+        fileMode: FileDialog.OpenFile
+
+        onAccepted: importDialog.load(selectedFile)
+        currentFolder: "/usr/share/xkeyboard-config-2/symbols/"
+    }
 
     Connections {
         target: bridge
@@ -159,5 +167,11 @@ Kirigami.ApplicationWindow {
     KeysymTable {
         id: keysymTable
         visible: false
+    }
+
+    ImportDialog {
+        id: importDialog
+        parent: window.overlay
+        y: parent ? Math.round(((parent && parent.height) - implicitHeight) / 2) + Kirigami.Units.gridUnit * 2 * (1 - opacity) : 0 // move animation
     }
 }
