@@ -300,16 +300,18 @@ class Variant(QObject):
         self._variant.setSymbol(keycode, level, keysym)
 
     @Slot(str, int, result=str)
+    @Slot(str, int, bool, result=str)
     def getSymbolOrFallback(self, keycode: str, level: int, searchSelf: bool = False) -> str:
-        return self._variant.getSymbolOrFallback(keycode, level)
+        return self._variant.getSymbolOrFallback(keycode, level, searchSelf)
 
     @Slot(str, int, result=str)
     def getKeyChar(self, keycode: str, level: int):
         return getchar(self.getSymbol(keycode, level))
 
     @Slot(str, int, result=str)
-    def getKeyCharFallback(self, keycode: str, level: int):
-        return getchar(self.getSymbolOrFallback(keycode, level))
+    @Slot(str, int, bool, result=str)
+    def getKeyCharFallback(self, keycode: str, level: int, searchSelf: bool = False) -> str:
+        return getchar(self.getSymbolOrFallback(keycode, level, searchSelf))
 
     includesReloaded = Signal()
     @Slot()
