@@ -69,6 +69,15 @@ Kirigami.Page {
             id: keyboard
             Layout.alignment: Qt.AlignHCenter
 
+            delegate: Key {
+                required property var modelData
+                keycode: modelData.keycode || keycode
+                label: modelData.label || label
+                legend: modelData.legend || legend
+                unitWidth: modelData.unitWidth || unitWidth
+                unitHeight: modelData.unitHeight || unitHeight
+            }
+
             Controls.Popup {
                 anchors.centerIn: parent
                 visible: !root.variant
