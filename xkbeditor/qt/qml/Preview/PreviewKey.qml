@@ -6,25 +6,22 @@ import QtQuick.Controls as Controls
 
 import org.kde.kirigami as Kirigami
 
-Rectangle {
+import "../Keyboard"
+
+AbstractKey {
     id: key
     property double zoom: 1
 
-    property var unitSize: Kirigami.Units.gridUnit * 3
-    property var unitWidth: 1
-    property var unitHeight: 1
     implicitWidth: unitWidth * unitSize * zoom
     implicitHeight: unitHeight * unitSize * zoom
-    Layout.columnSpan: unitWidth
-    Layout.rowSpan: unitHeight
 
-    property string keycode
-    property var label
-
-    color: label ? "gray" : "white"
-    border.width: Kirigami.Units.smallSpacing / 2
-    border.color: "black"
-    radius: Kirigami.Units.cornerRadius
+    Rectangle {
+        anchors.fill: parent
+        color: parent.label ? "gray" : "white"
+        border.width: Kirigami.Units.smallSpacing / 2
+        border.color: "black"
+        radius: Kirigami.Units.cornerRadius
+    }
 
     Controls.Label {
         text: parent.label || ""

@@ -5,21 +5,12 @@ import org.kde.kirigami as Kirigami
 
 import Settings as Settings
 
-Controls.Button {
+AbstractKey {
     id: key
-
-    property var unitSize: Kirigami.Units.gridUnit * 3
-    property var unitWidth: 1
-    property var unitHeight: 1
-    implicitWidth: unitWidth * unitSize
-    implicitHeight: unitHeight * unitSize
-    Layout.columnSpan: unitWidth
-    Layout.rowSpan: unitHeight
 
     // Shared properties
     property int level: levelSelector.currentIndex + 1
 
-    property string keycode
     property string char
     property string charFallback
     property string symbol
@@ -28,13 +19,19 @@ Controls.Button {
     property bool dead: symbol ? symbol.startsWith("dead_") : symbolFallback.startsWith("dead_")
 
     property string legend
-    property var label
 
-    enabled: root.variant
+    Controls.Button {
+        id: keyButton
+        anchors.fill: parent
+        enabled: root.variant
+
+        checkable: key.keycode
+        checked: menu.visible
+    }
 
     Controls.Menu {
         id: menu
-        visible: key.checked
+        visible: keyButton.checked
         x: -menu.width / 2 + key.width / 2
         y: -menu.height + -Kirigami.Units.smallSpacing / 2
         implicitWidth: Kirigami.Units.gridUnit * 8
@@ -82,7 +79,7 @@ Controls.Button {
     }
 
     Controls.Label {
-        text: parent.label ?? parent.char
+        text: parent.label ? parent.label : parent.char
 
         leftPadding: 5
         anchors.centerIn: parent
@@ -134,9 +131,5 @@ Controls.Button {
             symbolFallback = root.variant ? root.variant.getSymbolOrFallback(keycode, level) : "";
             charFallback = key.symbolFallback ? bridge.getSymbolChar(key.symbolFallback) : "";
         }
-
     }
-
-    checkable: keycode
-    checked: menu.visible
 }
