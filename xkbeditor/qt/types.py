@@ -13,7 +13,7 @@ import configparser
 import re
 from urllib.parse import urlparse
 
-from lark.exceptions import UnexpectedCharacters
+from lark.exceptions import UnexpectedCharacters, UnexpectedToken
 from PySide6.QtCore import (
     Property,
     QAbstractListModel,
@@ -437,7 +437,7 @@ class SymbolsFile(QObject):
             self.fileLoaded.emit()
         except UnicodeDecodeError:
             self.error.emit("Failed to open file. Not a text file.")
-        except UnexpectedCharacters:
+        except (UnexpectedCharacters, UnexpectedToken):
             self.error.emit("Failed to parse file. The file is likely not an xkb layout.")
 
     @Slot(str, result=bool)

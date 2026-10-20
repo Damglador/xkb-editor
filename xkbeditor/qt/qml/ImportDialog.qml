@@ -30,12 +30,20 @@ Kirigami.Dialog {
 
     function load(filePath) {
         file.load(filePath)
-        listView.update()
-        importDialog.open()
     }
 
     SymbolsFile {
         id: file
+    }
+
+    Connections {
+        target: file
+        function onError(message) {
+            bridge.error(message)
+        }
+        function onFileLoaded() {
+            importDialog.open()
+        }
     }
 
     Component {
