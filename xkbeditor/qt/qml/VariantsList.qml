@@ -129,7 +129,7 @@ Kirigami.ScrollablePage {
                     if (visible == true) {
                         editField.forceActiveFocus()
                     } else {
-                        undoStack.renameVariant(root.file.variants.get(listItemRoot.index), editField.text)
+                        undoStack.editText(root.file.variants.get(listItemRoot.index), "id", editField.text)
                     }
                 }
 

@@ -14,9 +14,9 @@ class UndoStack(QUndoStack):
     def setSymbol(self, variant: Variant, keycode: str, level: int, keysym: str):
         self.push(SetSymbol(variant, keycode, level, keysym))
 
-    @Slot(Variant, str)
-    def renameVariant(self, variant: Variant, str: str):
-        self.push(RenameVariant(variant, str))
+    @Slot(QObject, str, str)
+    def editText(self, target: QObject, property: str, text: str):
+        self.push(EditText(target, property, text))
 
     @Slot(VariantsList, int)
     def removeVariant(self, variants: VariantsList, index: int):

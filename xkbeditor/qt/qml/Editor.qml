@@ -58,7 +58,7 @@ Kirigami.Page {
             Controls.TextField {
                 enabled: root.variant
                 text: root.variant ? root.variant.name : ""
-                onTextEdited: root.variant.name = text
+                onTextEdited: undoStack.editText(root.variant, "name", text)
 
                 Layout.fillWidth: true
                 onAccepted: focus = false

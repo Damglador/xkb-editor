@@ -149,21 +149,42 @@ class AddInclude(QUndoCommand):
         self.includesList.remove(self.index)
 
 
-class RenameVariant(QUndoCommand):
-    def __init__(self, variant: Variant, newId: str, parent=None):
-        self.variant = variant
-        self.newId: str = newId
-        self.oldId: str = self.variant.id  # pyright: ignore[reportAttributeAccessIssue]
+class EditText(QUndoCommand):
+    def __init__(self, target: QObject, property: str, text: str, parent=None):
+        self.target = target
+        self.property = property
+        self.newText: str = text
+        self.oldText: str = target.property(property)
         super().__init__(
-            tr.renameStr(tr.variantStr(self.oldId + " → " + self.newId)),
+            self.oldText + " → " + self.newText,
             parent=parent,
         )
 
+    def id(self) -> int:
+        return 1002
+
     def redo(self, /) -> None:
-        self.variant.id = self.newId  # pyright: ignore[reportAttributeAccessIssue]
+        self.target.setProperty(self.property, self.newText)
 
     def undo(self, /) -> None:
-        self.variant.id = self.oldId  # pyright: ignore[reportAttributeAccessIssue]
+        self.target.setProperty(self.property, self.oldText)
+
+    def mergeWith(self, other: EditText, /) -> bool:  # pyright: ignore[reportIncompatibleMethodOverride]
+        if self.id() != other.id():
+            return False
+
+        if self.target != other.target:
+            return False
+
+        if self.property != other.property:
+            return False
+
+        self.newText = other.newText
+        self.setText(self.oldText + " → " + self.newText)
+        if (self.newText == self.oldText):
+            self.setObsolete(True)
+
+        return True
 
 
 class SetSymbol(QUndoCommand):
