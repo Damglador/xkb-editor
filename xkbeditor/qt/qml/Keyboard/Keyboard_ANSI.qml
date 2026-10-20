@@ -23,7 +23,7 @@ ColumnLayout {
         Key { keycode: "AE12"; legend: "=" }
         Key {
             label: "Backspace"
-            unitWidth: unitSize * 2
+            unitWidth: 2
         }
     }
 
@@ -32,7 +32,7 @@ ColumnLayout {
         spacing: 0
         Key {
             label: "Tab"
-            unitWidth: unitSize * 1.5
+            unitWidth: 1.5
         }
         Key { keycode: "AD01"; legend: "Q" }
         Key { keycode: "AD02"; legend: "W" }
@@ -46,7 +46,7 @@ ColumnLayout {
         Key { keycode: "AD10"; legend: "P" }
         Key { keycode: "AD11"; legend: "[" }
         Key { keycode: "AD12"; legend: "]" }
-        Key { keycode: "BKSL"; legend: "\\"; unitWidth: unitSize * 1.5 }
+        Key { keycode: "BKSL"; legend: "\\"; unitWidth: 1.5 }
     }
 
     RowLayout {
@@ -54,7 +54,7 @@ ColumnLayout {
         spacing: 0
         Key {
             label: "CapsLock"
-            unitWidth: unitSize * 1.75
+            unitWidth: 1.75
         }
         Key { keycode: "AC01"; legend: "A" }
         Key { keycode: "AC02"; legend: "S" }
@@ -69,7 +69,7 @@ ColumnLayout {
         Key { keycode: "AC11"; legend: "'" }
         Key {
             label: "Enter"
-            unitWidth: unitSize * 2.25
+            unitWidth: 2.25
         }
     }
 
@@ -78,7 +78,7 @@ ColumnLayout {
         spacing: 0
         Key {
             label: "Left Shift"
-            unitWidth: unitSize * 2.25
+            unitWidth: 2.25
         }
         Key { keycode: "AB01"; legend: "Z" }
         Key { keycode: "AB02"; legend: "X" }
@@ -92,7 +92,7 @@ ColumnLayout {
         Key { keycode: "AB10"; legend: "/" }
         Key {
             label: "Right Shift"
-            unitWidth: unitSize * 2.75
+            unitWidth: 2.75
         }
     }
 }

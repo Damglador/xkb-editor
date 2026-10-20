@@ -9,12 +9,12 @@ Controls.Button {
     id: key
 
     property var unitSize: Kirigami.Units.gridUnit * 3
-    property var unitWidth: unitSize
-    property var unitHeight: unitSize
-    implicitWidth: unitWidth
-    implicitHeight: unitHeight
-    Layout.columnSpan: unitWidth / unitSize
-    Layout.rowSpan: unitHeight / unitSize
+    property var unitWidth: 1
+    property var unitHeight: 1
+    implicitWidth: unitWidth * unitSize
+    implicitHeight: unitHeight * unitSize
+    Layout.columnSpan: unitWidth
+    Layout.rowSpan: unitHeight
 
     // Shared properties
     property int level: levelSelector.currentIndex + 1
