@@ -149,6 +149,7 @@ Kirigami.ScrollablePage {
         model: root.file.variants
         delegate: delegateComponent
         clip: true
+        topMargin: Kirigami.Units.smallSpacing
         onCurrentIndexChanged: root.file.variantIndex = currentIndex
         Connections {
             target: root.file
