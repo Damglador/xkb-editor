@@ -10,10 +10,7 @@ import "../Keyboard"
 
 AbstractKey {
     id: key
-    property double zoom: 1
 
-    implicitWidth: unitWidth * unitSize * zoom
-    implicitHeight: unitHeight * unitSize * zoom
 
     Rectangle {
         anchors.fill: parent
@@ -28,7 +25,7 @@ AbstractKey {
 
         leftPadding: 5
         anchors.centerIn: parent
-        font.pointSize: 10 * key.zoom
+        font.pointSize: Math.max(key.unitSize / 6, 1)
         color: "black"
     }
 

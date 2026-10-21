@@ -9,6 +9,6 @@ Controls.Label {
 
     text: char
 
-    font.pointSize: 10 * key.zoom
+    font.pointSize: Math.max(key.unitSize / 6, 1)
     color: dead ? "red" : (level < 3 ? "black" : "gray")
 }

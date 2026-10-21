@@ -11,6 +11,7 @@ AbstractKey {
     PreviewKey {
         keycode:    keyItem.keycode
         label:      keyItem.label
+        unitSize:   keyItem.unitSize
         unitWidth:  keyItem.unitWidth
         unitHeight: keyItem.unitHeight
     }
@@ -21,9 +22,9 @@ AbstractKey {
 
     Controls.ToolTip {
         contentItem: PreviewKey {
-            zoom: 2
             keycode: keyItem.keycode
             label: keyItem.label
+            unitSize: keyItem.unitSize * 2
             unitWidth:  keyItem.unitWidth
             unitHeight: keyItem.unitHeight
         }
