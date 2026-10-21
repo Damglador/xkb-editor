@@ -157,5 +157,4 @@ Kirigami.ApplicationWindow {
         id: keysymTable
         visible: false
     }
-
 }
