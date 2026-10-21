@@ -8,6 +8,8 @@ Item {
     id: root
     required property var variant
 
+    implicitHeight: childrenRect.height
+
     Keyboard_ANSI {
         delegate: PreviewKeyDelegate {
             required property var modelData
