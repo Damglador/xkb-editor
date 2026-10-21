@@ -69,8 +69,25 @@ Kirigami.ApplicationWindow {
         title: qsTr("Open xkb layout")
         fileMode: FileDialog.OpenFile
 
-        onAccepted: importDialog.load(selectedFile)
-        currentFolder: "/usr/share/xkeyboard-config-2/symbols/"
+        onAccepted: importDialogLoader.load(selectedFile);
+        currentFolder: "file:///usr/share/xkeyboard-config-2/symbols/"
+    }
+    Loader {
+        id: importDialogLoader
+        active: false
+        sourceComponent: ImportDialog {
+            y: parent ? Math.round(((parent && parent.height) - implicitHeight) / 2) + Kirigami.Units.gridUnit * 2 * (1 - opacity) : 0 // move animation
+        }
+        function load(filePath) {
+            active = true
+            item.load(filePath)
+        }
+        Connections {
+            target: importDialogLoader.item
+            function onClosed() {
+                importDialogLoader.active = false;
+            }
+        }
     }
 
     Connections {
@@ -169,9 +186,4 @@ Kirigami.ApplicationWindow {
         visible: false
     }
 
-    ImportDialog {
-        id: importDialog
-        parent: window.overlay
-        y: parent ? Math.round(((parent && parent.height) - implicitHeight) / 2) + Kirigami.Units.gridUnit * 2 * (1 - opacity) : 0 // move animation
-    }
 }
