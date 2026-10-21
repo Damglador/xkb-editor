@@ -94,7 +94,11 @@ AbstractKey {
         anchors.centerIn: parent
     }
 
-    onLevelChanged: loadChars()
+    onLevelChanged: {
+        menu.close();
+        loadChars();
+    }
+
     Connections {
         target: bridge.file
         function onVariantChanged() {
