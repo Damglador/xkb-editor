@@ -86,30 +86,34 @@ Item {
             }
         }
 
-        Controls.TabBar {
-            id: levelSelector
-
-            Layout.alignment: Qt.AlignHCenter
-            position: Controls.TabBar.Footer
+        Item {
             Layout.topMargin: -parent.spacing
+            implicitWidth: keyboard.width
+            implicitHeight: levelSelector.height
 
-            Repeater {
-                model: [qsTr("Default"), qsTr("Shift"), qsTr("L3M"), qsTr("L3M + Shift")]
-                delegate: Controls.TabButton {
-                    required property var modelData
-                    required property var index
-                    text: index + 1
-                    Controls.ToolTip.text: modelData
-                    Controls.ToolTip.visible: hovered
+            Controls.Label {
+                parent: levelSelector
+                text: qsTr("Level:")
+                padding: Kirigami.Units.smallSpacing
+                anchors.right: parent.left
+            }
+            Controls.TabBar {
+                id: levelSelector
+
+                anchors.horizontalCenter: parent.horizontalCenter
+                position: Controls.TabBar.Footer
+
+                Repeater {
+                    model: [qsTr("Default"), qsTr("Shift"), qsTr("L3M"), qsTr("L3M + Shift")]
+                    delegate: Controls.TabButton {
+                        required property var modelData
+                        required property var index
+                        text: index + 1
+                        Controls.ToolTip.text: modelData
+                        Controls.ToolTip.visible: hovered
+                    }
                 }
             }
-        }
-
-        Controls.Label {
-            parent: levelSelector
-            text: qsTr("Level:")
-            padding: Kirigami.Units.smallSpacing
-            anchors.right: parent.left
         }
 
         Component {
