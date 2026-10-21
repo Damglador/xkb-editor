@@ -37,10 +37,10 @@ Kirigami.ApplicationWindow {
 
     menuBar: MenuBar {}
 
-    Editor {
+    EditorPage {
         id: editorPage
         Component.onCompleted: bridge.loadTestVariant()
-        variant: bridge.file.variant
+        file: bridge.file
     }
 
     UndoStack {
@@ -69,7 +69,7 @@ Kirigami.ApplicationWindow {
         title: qsTr("Open xkb layout")
         fileMode: FileDialog.OpenFile
 
-        onAccepted: importDialogLoader.load(selectedFile);
+        onAccepted: importDialogLoader.load(selectedFile)
         currentFolder: "file:///usr/share/xkeyboard-config-2/symbols/"
     }
     Loader {
@@ -79,8 +79,8 @@ Kirigami.ApplicationWindow {
             y: parent ? Math.round(((parent && parent.height) - implicitHeight) / 2) + Kirigami.Units.gridUnit * 2 * (1 - opacity) : 0 // move animation
         }
         function load(filePath) {
-            active = true
-            item.load(filePath)
+            active = true;
+            item.load(filePath);
         }
         Connections {
             target: importDialogLoader.item
@@ -98,34 +98,6 @@ Kirigami.ApplicationWindow {
         function onNotify(str) {
             showPassiveNotification(str);
         }
-    }
-
-    globalDrawer: Kirigami.GlobalDrawer {
-        id: variantsDrawer
-        modal: false
-        drawerOpen: Settings.View.variantsSidebar
-        Connections {
-            target: Settings.View
-            function onVariantsSidebarChanged() {
-                variantsDrawer.drawerOpen = Settings.View.variantsSidebar;
-            }
-        }
-
-        interactiveResizeEnabled: true
-        QtCore.Settings {
-            category: "Sidebar"
-            location: Settings.Paths.stateFile
-            property alias width: variantsDrawer.preferredSize
-        }
-
-        contentItem: VariantsList {
-            id: content
-            anchors.fill: parent
-            anchors.margins: 0
-            file: bridge.file
-        }
-
-        preferredSize: Kirigami.Units.gridUnit * 12
     }
 
     Kirigami.AbstractCard {

@@ -6,11 +6,9 @@ import org.kde.kirigami as Kirigami
 
 import "Keyboard"
 
-Kirigami.Page {
+Item {
     id: root
     property var variant
-
-    globalToolBarStyle: Kirigami.ApplicationHeaderStyle.None
 
     ColumnLayout {
         id: layout
