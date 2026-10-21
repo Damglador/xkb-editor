@@ -10,7 +10,8 @@ import "Preview"
 
 Kirigami.Dialog {
     id: importDialog
-    title: qsTr("Import variants")
+    property string fileName: (file.path.slice(file.path.lastIndexOf("/") + 1))
+    title: qsTr("Import variants from %1").arg(fileName)
     preferredWidth: Kirigami.Units.gridUnit * 20
     standardButtons: Kirigami.Dialog.Ok | Kirigami.Dialog.Cancel
     onAccepted: {
