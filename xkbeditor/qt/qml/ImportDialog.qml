@@ -58,10 +58,14 @@ Kirigami.Dialog {
             checked: variant.checked
             onClicked: variant.checked = checked
             Controls.ToolTip {
+                id: tooltip
                 visible: listItem.hovered
-                contentItem: PreviewKeyboard {
-                    variant: listItem.variant
-                    width: Kirigami.Units.gridUnit * 30
+                contentItem: Loader {
+                    active: tooltip.visible
+                    sourceComponent: PreviewKeyboard {
+                        variant: listItem.variant
+                        implicitWidth: Kirigami.Units.gridUnit * 30
+                    }
                 }
             }
         }
