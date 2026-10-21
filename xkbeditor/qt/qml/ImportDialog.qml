@@ -6,6 +6,7 @@ import QtQuick.Controls as Controls
 import org.kde.kirigami as Kirigami
 
 import xkbeditor
+import "Preview"
 
 Kirigami.Dialog {
     id: importDialog
@@ -56,6 +57,13 @@ Kirigami.Dialog {
             width: listView.width - listView.leftMargin - listView.rightMargin
             checked: variant.checked
             onClicked: variant.checked = checked
+            Controls.ToolTip {
+                visible: listItem.hovered
+                contentItem: PreviewKeyboard {
+                    variant: listItem.variant
+                    width: Kirigami.Units.gridUnit * 30
+                }
+            }
         }
     }
 }
