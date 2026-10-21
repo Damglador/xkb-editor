@@ -60,6 +60,7 @@ Kirigami.Dialog {
             Controls.ToolTip {
                 id: tooltip
                 visible: listItem.hovered
+                delay: Kirigami.Units.toolTipDelay * 1.4
                 contentItem: Loader {
                     active: tooltip.visible
                     sourceComponent: PreviewKeyboard {
