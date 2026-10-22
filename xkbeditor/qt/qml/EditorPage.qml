@@ -1,5 +1,3 @@
-pragma ComponentBehavior: Bound
-
 import QtCore
 import QtQuick
 import QtQuick.Controls as Controls
@@ -7,7 +5,6 @@ import QtQuick.Controls as Controls
 import org.kde.kirigami as Kirigami
 
 import Settings as AppSettings
-import "Preview"
 
 Kirigami.Page {
     id: page
@@ -27,50 +24,12 @@ Kirigami.Page {
             Controls.SplitView.minimumWidth: Kirigami.Units.gridUnit * 7
             z: editorView.z + 1
         }
-        Item {
+        Editor {
             id: editorView
-            Controls.StackView {
-                id: stackView
-                initialItem: editorComponent
-                anchors.fill: parent
-            }
-            Controls.ToolButton {
-                id: preview
-                text: qsTr("Preview")
-                icon.name: "preview"
-                checkable: true
-                anchors.top: parent.top
-                anchors.right: parent.right
-                onToggled: {
-                    if (checked) {
-                        stackView.replaceCurrentItem(previewComponent);
-                    } else {
-                        stackView.replaceCurrentItem(editorComponent);
-                    }
-                }
-            }
+            variant: page.file.variant
         }
         Component.onCompleted: restoreState(settings.splitView)
         Component.onDestruction: settings.splitView = saveState()
-    }
-
-    Component {
-        id: editorComponent
-        Editor {
-            variant: page.file.variant
-        }
-    }
-
-    Component {
-        id: previewComponent
-        Item {
-            PreviewKeyboard {
-                variant: page.file.variant
-                anchors.centerIn: parent
-                implicitHeight: childrenRect.height
-                implicitWidth: childrenRect.width
-            }
-        }
     }
 
     Settings {

@@ -5,6 +5,7 @@ import QtQuick.Controls as Controls
 import org.kde.kirigami as Kirigami
 
 import "Keyboard"
+import "Preview"
 
 Item {
     id: root
@@ -30,6 +31,7 @@ Item {
                 text: qsTr("Includes:")
             }
             IncludesChips {
+                enabled: !preview.checked
                 Layout.fillWidth: true
             }
         }
@@ -61,28 +63,52 @@ Item {
                 Layout.fillWidth: true
                 onAccepted: focus = false
             }
+            Controls.ToolButton {
+                id: preview
+                text: qsTr("Preview")
+                icon.name: "preview"
+                checkable: true
+                onToggled: if (checked) {
+                    keyboard.sourceComponent = previewComponent
+                } else {
+                    keyboard.sourceComponent = keyboardComponent
+                }
+            }
         }
 
-        Keyboard_ANSI {
+        Loader {
             id: keyboard
-            Layout.alignment: Qt.AlignHCenter
+            sourceComponent: keyboardComponent
+        }
+        Component {
+            id: keyboardComponent
+            Keyboard_ANSI {
+                id: keyboard
 
-            delegate: Key {
-                required property var modelData
-                keycode: modelData.keycode || keycode
-                label: modelData.label || label
-                legend: modelData.legend || legend
-                unitWidth: modelData.unitWidth || unitWidth
-                unitHeight: modelData.unitHeight || unitHeight
-            }
-
-            Controls.Popup {
-                anchors.centerIn: parent
-                visible: !root.variant
-                closePolicy: Controls.Popup.NoAutoClose
-                Controls.Label {
-                    text: qsTr("No variant to edit")
+                delegate: Key {
+                    required property var modelData
+                    keycode: modelData.keycode || keycode
+                    label: modelData.label || label
+                    legend: modelData.legend || legend
+                    unitWidth: modelData.unitWidth || unitWidth
+                    unitHeight: modelData.unitHeight || unitHeight
                 }
+
+                Controls.Popup {
+                    anchors.centerIn: parent
+                    visible: !root.variant
+                    closePolicy: Controls.Popup.NoAutoClose
+                    Controls.Label {
+                        text: qsTr("No variant to edit")
+                    }
+                }
+            }
+        }
+
+        Component {
+            id: previewComponent
+            PreviewKeyboard {
+                variant: root.variant
             }
         }
 
