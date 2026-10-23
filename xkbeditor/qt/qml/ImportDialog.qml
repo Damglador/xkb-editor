@@ -66,7 +66,7 @@ Kirigami.Dialog {
                     active: tooltip.visible
                     sourceComponent: PreviewKeyboard {
                         variant: listItem.variant
-                        implicitWidth: Kirigami.Units.gridUnit * 30
+                        fillWidth: Kirigami.Units.gridUnit * 30
                     }
                 }
             }
