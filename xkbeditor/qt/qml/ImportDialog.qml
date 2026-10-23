@@ -18,6 +18,7 @@ Kirigami.Dialog {
         for (let i = 0; i < file.variants.rowCount(); i++) {
             let variant = file.variants.get(i)
             if (variant.checked) {
+                variant.setParent(bridge.file.variants)
                 bridge.file.variants.append(variant);
                 bridge.notify(qsTr("Imported %1").arg(variant.id));
             }
