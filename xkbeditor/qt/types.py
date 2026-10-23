@@ -318,6 +318,10 @@ class Variant(QObject):
     def reloadIncludes(self):
         self.includesReloaded.emit()
 
+    @Slot(QObject)
+    def setParent(self, parent: QObject | None, /) -> None:
+        return super().setParent(parent)
+
     @Property(list, notify=includesReloaded)
     def level3Mods(self):
         self.reloadLevelMods()
