@@ -17,6 +17,7 @@ Kirigami.ScrollablePage {
             Layout.rightMargin: Kirigami.Units.smallSpacing
             Kirigami.Heading {
                 text: qsTr("Variants")
+                leftPadding: Kirigami.Units.largeSpacing
             }
             Item {
                 Layout.fillWidth: true
