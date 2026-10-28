@@ -6,6 +6,7 @@ import org.kde.kirigami as Kirigami
 
 import "Keyboard"
 import "Preview"
+import "EditorComponents"
 
 Item {
     id: root
