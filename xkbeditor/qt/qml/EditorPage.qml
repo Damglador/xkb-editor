@@ -24,7 +24,7 @@ Kirigami.Page {
             Controls.SplitView.minimumWidth: Kirigami.Units.gridUnit * 7
             z: editorView.z + 1
         }
-        Editor {
+        VariantEditor {
             id: editorView
             variant: page.file.variant
         }
