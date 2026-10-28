@@ -15,4 +15,12 @@ dependencies = [
 ]
 
 [project.gui-scripts]
-xkbeditor = "xkbeditor.__main__:main"
+xkb-editor = "xkbeditor.__main__:main"
+
+[tool.setuptools]
+package-dir = {xkbeditor = "xkbeditor"}
+
+[tool.setuptools.package-data]
+"xkbeditor.translations" = ['**']
+"xkbeditor.qt.qml" = ['**']
+"xkbeditor.parser" = ['*.lark']
