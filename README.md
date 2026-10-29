@@ -48,10 +48,10 @@ pythom -m xkbeditor
 
 # Screenshots
 
-![Blank File](.github/screenshots/Blank File.png)
+![Blank File](.github/screenshots/Blank_File.png)
 
-![Keysym Table](.github/screenshots/Keysym Table.png)
+![Keysym Table](.github/screenshots/Keysym_Table.png)
 
-![Variant Editor](.github/screenshots/Variant Editor.png)
+![Variant Editor](.github/screenshots/Variant_Editor.png)
 
-![Variant Preview](.github/screenshots/Variant Preview.png)
+![Variant Preview](.github/screenshots/Variant_Preview.png)
