@@ -12,7 +12,39 @@ target_sources(xkb-editor
 
 ecm_target_qml_sources(xkb-editor
     SOURCES
-    Main.qml
+    qml/Main.qml
+    qml/Keyboard/Keyboard_ANSI.qml
+    qml/Keyboard/Keypad.qml
+    qml/Keyboard/Key.qml
+    qml/Keyboard/AbstractKey.qml
+    qml/Preview/CharLabel.qml
+    qml/Preview/PreviewKey.qml
+    qml/Preview/PreviewKeyDelegate.qml
+    qml/Preview/PreviewKeyboard.qml
+    qml/EditorComponents/FlagsChips.qml
+    qml/EditorComponents/IncludeMenu.qml
+    qml/EditorComponents/IncludesChips.qml
+    qml/KeysymTable.qml
+    qml/MenuBar.qml
+    qml/ImportDialog.qml
+    qml/EditorPage.qml
+    qml/VariantEditor.qml
+    qml/About.qml
+    qml/VariantsList.qml
+)
+
+set(QML_SETTINGS
+    qml/Settings/Paths.qml
+    qml/Settings/GeneralSettings.qml
+    qml/Settings/ViewSettings.qml
+)
+
+set_source_files_properties(${QML_SETTINGS}
+    PROPERTIES QT_QML_SINGLETON_TYPE TRUE)
+
+ecm_target_qml_sources(xkb-editor
+    SOURCES ${QML_SETTINGS}
+    PATH Settings
 )
 
 target_link_libraries(xkb-editor
