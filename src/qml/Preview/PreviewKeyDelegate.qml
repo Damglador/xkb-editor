@@ -3,8 +3,6 @@ pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Controls as Controls
 
-import "../Keyboard"
-
 AbstractKey {
     id: keyItem
 

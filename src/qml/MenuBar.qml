@@ -6,7 +6,7 @@ import QtQuick.Controls as Controls
 
 import org.kde.kirigami as Kirigami
 
-import Settings as Settings
+import xkbeditor
 
 Controls.MenuBar {
     Controls.Menu {
@@ -67,20 +67,20 @@ Controls.MenuBar {
         Kirigami.Action {
             text: qsTr("Show legends")
             checkable: true
-            checked: Settings.View.showLegends
-            onToggled: Settings.View.showLegends = checked
+            checked: ViewSettings.showLegends
+            onToggled: ViewSettings.showLegends = checked
         }
         Kirigami.Action {
             text: qsTr("Show fallback characters")
             checkable: true
-            checked: Settings.View.showFallbacks
-            onToggled: Settings.View.showFallbacks = checked
+            checked: ViewSettings.showFallbacks
+            onToggled: ViewSettings.showFallbacks = checked
         }
         Kirigami.Action {
             text: qsTr("Variants sidebar")
             checkable: true
-            checked: Settings.View.variantsSidebar
-            onToggled: Settings.View.variantsSidebar = checked
+            checked: ViewSettings.variantsSidebar
+            onToggled: ViewSettings.variantsSidebar = checked
         }
     }
     Controls.Menu {

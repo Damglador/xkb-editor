@@ -4,7 +4,7 @@ import QtQuick.Controls as Controls
 
 import org.kde.kirigami as Kirigami
 
-import Settings as AppSettings
+import xkbeditor
 
 Kirigami.Page {
     id: page
@@ -18,7 +18,7 @@ Kirigami.Page {
             id: variantsList
             file: page.file
 
-            visible: AppSettings.View.variantsSidebar
+            visible: ViewSettings.variantsSidebar
             Controls.SplitView.preferredWidth: Kirigami.Units.gridUnit * 12
             Controls.SplitView.maximumWidth: page.width / 2
             Controls.SplitView.minimumWidth: Kirigami.Units.gridUnit * 7
@@ -35,7 +35,7 @@ Kirigami.Page {
     Settings {
         id: settings
         category: "Editor"
-        location: AppSettings.Paths.stateFile
+        location: Paths.stateFile
         property var splitView
     }
 }

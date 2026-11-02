@@ -4,8 +4,6 @@ import QtQuick
 
 import org.kde.kirigami as Kirigami
 
-import "../Keyboard"
-
 Item {
     id: root
     required property var variant

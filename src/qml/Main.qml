@@ -10,7 +10,6 @@ import QtQuick.Controls as Controls
 import org.kde.kirigami as Kirigami
 
 import xkbeditor
-import Settings as Settings
 
 Kirigami.ApplicationWindow {
     id: window
@@ -24,7 +23,7 @@ Kirigami.ApplicationWindow {
 
     QtCore.Settings {
         category: "Window"
-        location: Settings.Paths.stateFile
+        location: Paths.stateFile
         property alias width: window.width
         property alias height: window.height
     }

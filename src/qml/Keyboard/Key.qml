@@ -3,8 +3,6 @@ import QtQuick.Layouts
 import QtQuick.Controls as Controls
 import org.kde.kirigami as Kirigami
 
-import Settings as Settings
-
 AbstractKey {
     id: key
 
@@ -62,7 +60,7 @@ AbstractKey {
         id: legend
         text: parent.legend
         opacity: 0.2
-        visible: Settings.View.showLegends
+        visible: ViewSettings.showLegends
 
         leftPadding: 5
         anchors.left: parent.left
@@ -89,7 +87,7 @@ AbstractKey {
         id: fallback
         text: parent.charFallback
         opacity: 0.4
-        visible: Settings.View.showFallbacks && !parent.char && key.symbol != "VoidSymbol"
+        visible: ViewSettings.showFallbacks && !parent.char && key.symbol != "VoidSymbol"
 
         anchors.centerIn: parent
     }
@@ -115,7 +113,7 @@ AbstractKey {
         }
     }
     Connections {
-        target: Settings.View
+        target: ViewSettings
         function onShowFallbacksChanged() {
             key.loadFallback();
         }
@@ -131,7 +129,7 @@ AbstractKey {
     }
     function loadFallback() {
         // Optimization!
-        if (Settings.View.showFallbacks) {
+        if (ViewSettings.showFallbacks) {
             symbolFallback = root.variant ? root.variant.getSymbolOrFallback(keycode, level) : "";
             charFallback = key.symbolFallback ? bridge.getSymbolChar(key.symbolFallback) : "";
         }

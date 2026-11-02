@@ -4,9 +4,7 @@ import QtQuick.Controls as Controls
 
 import org.kde.kirigami as Kirigami
 
-import "Keyboard"
-import "Preview"
-import "EditorComponents"
+import xkbeditor
 
 Item {
     id: root

@@ -6,8 +6,6 @@ import QtQuick.Controls as Controls
 
 import org.kde.kirigami as Kirigami
 
-import "../Keyboard"
-
 AbstractKey {
     id: key
 
