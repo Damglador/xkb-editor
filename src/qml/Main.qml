@@ -14,7 +14,7 @@ import xkbeditor
 Kirigami.ApplicationWindow {
     id: window
 
-    title: bridge.file.path ? Qt.application.name + " — " + bridge.file.path : Qt.application.name
+    title: Bridge.file.path ? Qt.application.name + " — " + Bridge.file.path : Qt.application.name
 
     minimumWidth: Kirigami.Units.gridUnit * 46
     minimumHeight: Kirigami.Units.gridUnit * 22
@@ -30,16 +30,12 @@ Kirigami.ApplicationWindow {
 
     pageStack.initialPage: editorPage
 
-    Bridge {
-        id: bridge
-    }
-
     menuBar: MenuBar {}
 
     EditorPage {
         id: editorPage
-        Component.onCompleted: bridge.loadTestVariant()
-        file: bridge.file
+        Component.onCompleted: Bridge.loadTestVariant()
+        file: Bridge.file
     }
 
     UndoStack {
@@ -51,7 +47,7 @@ Kirigami.ApplicationWindow {
         title: "Open xkb layout"
         fileMode: FileDialog.OpenFile
 
-        onAccepted: bridge.file.load(selectedFile)
+        onAccepted: Bridge.file.load(selectedFile)
         currentFolder: StandardPaths.standardLocations(StandardPaths.ConfigLocation)[0] + "/xkb/symbols"
     }
     FileDialog {
@@ -59,8 +55,8 @@ Kirigami.ApplicationWindow {
         title: "Save xkb layout"
         fileMode: FileDialog.SaveFile
 
-        onAccepted: if (bridge.file.write(selectedFile))
-            bridge.file.path = selectedFile
+        onAccepted: if (Bridge.file.write(selectedFile))
+            Bridge.file.path = selectedFile
         currentFolder: StandardPaths.standardLocations(StandardPaths.ConfigLocation)[0] + "/xkb/symbols"
     }
     FileDialog {
@@ -90,7 +86,7 @@ Kirigami.ApplicationWindow {
     }
 
     Connections {
-        target: bridge
+        target: Bridge
         function onError(str) {
             statusBarLabel.setError(str);
         }

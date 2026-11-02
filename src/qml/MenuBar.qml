@@ -14,7 +14,7 @@ Controls.MenuBar {
         Kirigami.Action {
             text: qsTr("New")
             icon.name: "document-new"
-            onTriggered: bridge.newFile()
+            onTriggered: Bridge.newFile()
         }
         Kirigami.Action {
             text: qsTr("Open...")
@@ -26,8 +26,8 @@ Controls.MenuBar {
             text: qsTr("Save")
             icon.name: "document-save"
             onTriggered: {
-                if (bridge.file.path)
-                    bridge.file.write(bridge.file.path);
+                if (Bridge.file.path)
+                    Bridge.file.write(Bridge.file.path);
                 else
                     saveDialog.open();
             }

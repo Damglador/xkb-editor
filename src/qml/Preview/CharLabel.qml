@@ -1,10 +1,12 @@
 import QtQuick
 import QtQuick.Controls as Controls
 
+import xkbeditor
+
 Controls.Label {
     required property int level
     property string symbol: root.variant ? root.variant.getSymbolOrFallback(key.keycode, level, true) : "";
-    property string char: symbol ? bridge.getSymbolChar(symbol) : "";
+    property string char: symbol ? Bridge.getSymbolChar(symbol) : "";
     property bool dead: symbol.startsWith("dead_")
 
     text: char

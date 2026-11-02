@@ -3,6 +3,8 @@ import QtQuick.Layouts
 import QtQuick.Controls as Controls
 import org.kde.kirigami as Kirigami
 
+import xkbeditor
+
 AbstractKey {
     id: key
 
@@ -98,7 +100,7 @@ AbstractKey {
     }
 
     Connections {
-        target: bridge.file
+        target: Bridge.file
         function onVariantChanged() {
             key.loadChars();
         }
@@ -125,13 +127,13 @@ AbstractKey {
     }
     function loadChar() {
         symbol = root.variant ? root.variant.getSymbol(keycode, level) : "";
-        char = key.symbol ? bridge.getSymbolChar(key.symbol) : "";
+        char = key.symbol ? Bridge.getSymbolChar(key.symbol) : "";
     }
     function loadFallback() {
         // Optimization!
         if (ViewSettings.showFallbacks) {
             symbolFallback = root.variant ? root.variant.getSymbolOrFallback(keycode, level) : "";
-            charFallback = key.symbolFallback ? bridge.getSymbolChar(key.symbolFallback) : "";
+            charFallback = key.symbolFallback ? Bridge.getSymbolChar(key.symbolFallback) : "";
         }
     }
 }

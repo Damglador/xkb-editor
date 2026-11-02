@@ -17,9 +17,9 @@ Kirigami.Dialog {
         for (let i = 0; i < file.variants.rowCount(); i++) {
             let variant = file.variants.get(i)
             if (variant.checked) {
-                variant.setParent(bridge.file.variants)
-                bridge.file.variants.append(variant);
-                bridge.notify(qsTr("Imported %1").arg(variant.id));
+                variant.setParent(Bridge.file.variants)
+                Bridge.file.variants.append(variant);
+                Bridge.notify(qsTr("Imported %1").arg(variant.id));
             }
         }
     }
@@ -41,7 +41,7 @@ Kirigami.Dialog {
     Connections {
         target: file
         function onError(message) {
-            bridge.error(message)
+            Bridge.error(message)
         }
         function onFileLoaded() {
             importDialog.open()

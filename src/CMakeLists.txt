@@ -8,6 +8,8 @@ ecm_add_qml_module(xkb-editor
 target_sources(xkb-editor
     PRIVATE
     main.cpp
+    Bridge.cpp
+    Bridge.h
 )
 
 ecm_target_qml_sources(xkb-editor

@@ -40,14 +40,14 @@ Item {
             }
             Controls.ComboBox {
                 id: variantComboBox
-                model: bridge.file.variants
+                model: Bridge.file.variants
                 textRole: "id"
-                onActivated: bridge.file.variantIndex = currentIndex
+                onActivated: Bridge.file.variantIndex = currentIndex
                 enabled: count != 0
                 Connections {
-                    target: bridge.file
+                    target: Bridge.file
                     function onVariantChanged() {
-                        variantComboBox.currentIndex = bridge.file.variantIndex;
+                        variantComboBox.currentIndex = Bridge.file.variantIndex;
                     }
                 }
             }

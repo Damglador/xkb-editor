@@ -5,6 +5,8 @@ import QtQuick.Controls as Controls
 
 import org.kde.kirigami as Kirigami
 
+import xkbeditor
+
 Flow {
     id: flow
     spacing: Kirigami.Units.smallSpacing
@@ -94,12 +96,12 @@ Flow {
                     Controls.MenuItem {
                         text: qsTr("Copy file path")
                         icon.name: "edit-copy"
-                        onTriggered: bridge.copyText(item.include.file)
+                        onTriggered: Bridge.copyText(item.include.file)
                     }
                     Controls.MenuItem {
                         text: qsTr("Copy include string")
                         icon.name: "edit-copy"
-                        onTriggered: bridge.copyText(item.include.toString())
+                        onTriggered: Bridge.copyText(item.include.toString())
                     }
                 }
 
