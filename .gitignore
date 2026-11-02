@@ -1,3 +1,6 @@
 /.venv
 /.python-version
 /uv.lock
+/xkbeditor.egg-info
+/build
+/dist
