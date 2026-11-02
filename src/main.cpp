@@ -11,6 +11,7 @@
 #include <kaboutdata.h>
 #include <qapplication.h>
 #include <qbitarray.h>
+#include <qcoreapplication.h>
 
 #define s QStringLiteral
 
@@ -24,8 +25,10 @@ int main(int argc, char *argv[])
     QApplication::setWindowIcon(QIcon::fromTheme(QStringLiteral("input-keyboard")));
 
     KAboutData aboutData(s("xkb-editor"), s("Xkb Editor"), s("0.1.0"));
+    aboutData.setOrganizationDomain("damglador.com");
     aboutData.setShortDescription(s("View and edit xkb layouts"));
     aboutData.setHomepage(s("https://github.com/Damglador/xkb-editor"));
+    aboutData.setBugAddress("https://github.com/Damglador/xkb-editor/issues");
     aboutData.setCopyrightStatement(s("Copyright © 2026 Vsevolod «Damglador» Stopchanskyi"));
     aboutData.setLicense(KAboutLicense::GPL_V3);
     KAboutData::setApplicationData(aboutData);
