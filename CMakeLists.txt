@@ -4,6 +4,7 @@ project(xkb-editor)
 find_package(ECM 6.0.0 REQUIRED NO_MODULE)
 set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH})
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+set(QT_QML_GENERATE_QMLLS_INI ON)
 
 include(KDEInstallDirs)
 include(KDECMakeSettings)
