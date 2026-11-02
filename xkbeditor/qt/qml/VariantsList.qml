@@ -10,14 +10,20 @@ Kirigami.ScrollablePage {
     id: root
     property var file
 
-    header: ColumnLayout {
+    header: Kirigami.AbstractApplicationHeader {
+        id: variantsHeader
+
+        preferredHeight: headerLayout.implicitHeight + topPadding + bottomPadding
+
+        topPadding: Kirigami.Units.smallSpacing
+        bottomPadding: Kirigami.Units.smallSpacing
+
         RowLayout {
-            Layout.topMargin: Kirigami.Units.smallSpacing
-            Layout.leftMargin: Kirigami.Units.smallSpacing
-            Layout.rightMargin: Kirigami.Units.smallSpacing
+            id: headerLayout
+            anchors.fill: parent
+
             Kirigami.Heading {
                 text: qsTr("Variants")
-                leftPadding: Kirigami.Units.largeSpacing
             }
             Item {
                 Layout.fillWidth: true
@@ -31,9 +37,6 @@ Kirigami.ScrollablePage {
                 enabled: root.file.path
                 onClicked: root.file.load(root.file.path)
             }
-        }
-        Kirigami.Separator {
-            Layout.fillWidth: true
         }
     }
 
