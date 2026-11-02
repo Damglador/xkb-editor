@@ -14,18 +14,21 @@
 #include <qcoreapplication.h>
 
 #define s QStringLiteral
+#define APPID QStringLiteral("xkb-editor")
+#define APPNAME QStringLiteral("Xkb Editor")
 
 int main(int argc, char *argv[])
 {
     KIconTheme::initTheme();
     QApplication app(argc, argv);
     QApplication::setOrganizationName(QStringLiteral("damglador"));
-    QApplication::setApplicationName(QStringLiteral("Xkb Editor"));
-    QApplication::setDesktopFileName(QStringLiteral("xkb-editor"));
+    QApplication::setApplicationName(APPNAME);
+    QApplication::setDesktopFileName(APPID);
     QApplication::setWindowIcon(QIcon::fromTheme(QStringLiteral("input-keyboard")));
 
-    KAboutData aboutData(s("xkb-editor"), s("Xkb Editor"), s("0.1.0"));
+    KAboutData aboutData(APPID, APPNAME, s("0.1.0"));
     aboutData.setOrganizationDomain("damglador.com");
+    aboutData.setDesktopFileName(APPID);
     aboutData.setShortDescription(s("View and edit xkb layouts"));
     aboutData.setHomepage(s("https://github.com/Damglador/xkb-editor"));
     aboutData.setBugAddress("https://github.com/Damglador/xkb-editor/issues");
