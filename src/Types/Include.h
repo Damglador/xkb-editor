@@ -22,13 +22,13 @@ public:
     QString path() { return m_path; }
     QString variant() { return m_variant; }
 
-    void setPath(QString value) {
+    void setPath(const QString value) {
         if (m_path == value)
             return;
         m_path = value;
         Q_EMIT pathChanged();
     }
-    void setVariant(QString value) {
+    void setVariant(const QString value) {
         if (m_variant == value)
             return;
         m_variant = value;
