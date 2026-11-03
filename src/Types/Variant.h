@@ -1,3 +1,5 @@
+#pragma once
+
 #include <qcontainerfwd.h>
 #include <qflags.h>
 #include <qhashfunctions.h>
