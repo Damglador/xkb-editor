@@ -9,6 +9,7 @@ set(QT_QML_GENERATE_QMLLS_INI ON)
 include(KDEInstallDirs)
 include(KDECMakeSettings)
 include(KDECompilerSettings NO_POLICY_SCOPE)
+include(ECMAddTests)
 include(ECMFindQmlModule)
 include(ECMQmlModule)
 
@@ -30,6 +31,10 @@ find_package(KF6 REQUIRED COMPONENTS
 )
 
 ecm_find_qmlmodule(org.kde.kirigami REQUIRED)
+
+if(BUILD_TESTING)
+  add_subdirectory(tests)
+endif()
 
 add_subdirectory(src)
 
