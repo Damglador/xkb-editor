@@ -3,7 +3,7 @@
 #include <qhashfunctions.h>
 #include <qlist.h>
 #include <qmetaobject.h>
-#include <qqmlintegration.h>
+#include <QtQml/qqmlregistration.h>
 #include <qobject.h>
 #include <qtmetamacros.h>
 #include <qurl.h>
