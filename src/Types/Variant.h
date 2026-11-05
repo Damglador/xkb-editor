@@ -36,8 +36,6 @@ class Variant : public QObject {
     PROP(QString, keytype,  setKeytype)
     PROP(QString, source,   setSource)
 public:
-    explicit Variant(QObject* parent = nullptr) : QObject(parent) {}
-
     void addFlag(QString name) {
         auto meta = QMetaEnum::fromType<Enums::Flag>();
         m_flags |= Enums::Flags::fromInt(meta.keyToValue(name.toUpper().toUtf8().data()));
