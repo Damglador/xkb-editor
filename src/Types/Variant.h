@@ -12,19 +12,9 @@
 
 #include "Include.h"
 #include "Enums.h"
+#include "macros.h"
 
 #define s QStringLiteral
-
-#define PROP(type, name, setter)                        \
-public:                                                 \
-    type name() const { return m_##name; }              \
-    void setter(const type &value) {                    \
-        if (m_##name == value) return;                  \
-        m_##name = value;                               \
-        Q_EMIT name##Changed();                         \
-    }                                                   \
-private:                                                \
-    type m_##name;                                      \
 
 class Variant : public QObject {
     Q_OBJECT
@@ -64,11 +54,7 @@ public:
     }
 
 Q_SIGNALS:
-    void idChanged();
-    void nameChanged();
     void flagsChanged();
     void keymapChanged();
     void includesChanged();
-    void keytypeChanged();
-    void sourceChanged();
 };
