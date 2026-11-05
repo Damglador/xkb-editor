@@ -8,7 +8,7 @@ class Enums
 public:
     // https://www.charvolant.org/doug/xkb/html/node5.html
     enum Flag {
-        DEFAULT,
+        DEFAULT = 1,
         PARTIAL,
         HIDDEN,
         ALPHANUMERIC_KEYS,
