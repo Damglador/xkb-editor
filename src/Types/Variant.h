@@ -24,15 +24,15 @@ class Variant : public QObject {
     Q_PROPERTY(QString name             READ name       WRITE setName       NOTIFY nameChanged)
     Q_PROPERTY(QStringList flags        READ flags                          NOTIFY flagsChanged)
     Q_PROPERTY(QString keymap           READ keymap     WRITE setKeymap     NOTIFY keymapChanged)
-    Q_PROPERTY(QList<Include> includes  READ includes                       NOTIFY includesChanged)
+    Q_PROPERTY(QList<Include*> includes  READ includes                       NOTIFY includesChanged)
     Q_PROPERTY(QString keytype          READ keytype    WRITE setKeytype    NOTIFY keytypeChanged)
     Q_PROPERTY(QString source           READ source     WRITE setSource     NOTIFY sourceChanged)
 
     PROP(QString, id,       setId)
     PROP(QString, name,     setName)
     Enums::Flags m_flags;
-    QMap<QString, KeyProps> m_keymap; // TODO: come up with a proper type
-    QList<Include> m_includes;
+    QMap<QString, KeyProps*> m_keymap; // TODO: come up with a proper type
+    QList<Include*> m_includes;
     PROP(QString, keytype,  setKeytype)
     PROP(QString, source,   setSource)
 public:
@@ -52,7 +52,7 @@ public:
         return QString::fromUtf8(keys).toLower().split(QLatin1Char('|'), Qt::SkipEmptyParts);
     }
 
-    QList<Include> includes() { return m_includes; }
+    QList<Include*> includes() { return m_includes; }
 
 Q_SIGNALS:
     void flagsChanged();
