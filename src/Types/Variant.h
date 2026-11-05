@@ -11,6 +11,7 @@
 #include <qurl.h>
 
 #include "Include.h"
+#include "KeyProps.h"
 #include "Enums.h"
 #include "macros.h"
 
