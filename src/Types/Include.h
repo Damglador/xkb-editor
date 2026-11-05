@@ -4,13 +4,14 @@
 #include <qregularexpression.h>
 #include <qtmetamacros.h>
 
+#include "macros.h"
+
 using namespace Qt::Literals::StringLiterals;
 
 class Include : public QObject {
     Q_OBJECT
-private:
-    QString m_path;
-    QString m_variant;
+    PROP(QString, path, setPath)
+    PROP(QString, variant, setVariant)
 public:
     Include(QString path, QString variant, QObject *parent = nullptr) : QObject(parent) {
         m_path = path;
@@ -18,21 +19,6 @@ public:
     }
     Include(QString path, QObject *parent = nullptr) : QObject(parent) {
         m_path = path;
-    }
-    QString path() { return m_path; }
-    QString variant() { return m_variant; }
-
-    void setPath(const QString value) {
-        if (m_path == value)
-            return;
-        m_path = value;
-        Q_EMIT pathChanged();
-    }
-    void setVariant(const QString value) {
-        if (m_variant == value)
-            return;
-        m_variant = value;
-        Q_EMIT variantChanged();
     }
     // TODO: from string and to string
     QString toString() {
@@ -50,7 +36,4 @@ public:
             return new Include(string);
         }
     }
-Q_SIGNALS:
-    void pathChanged();
-    void variantChanged();
 };
