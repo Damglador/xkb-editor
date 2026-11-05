@@ -1,3 +1,5 @@
+#pragma once
+
 #include <QObject> // Need QObject for macros to work
 
 // Use Q_GADGET for lightweight meta-data support
