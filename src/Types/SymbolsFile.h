@@ -5,52 +5,27 @@
 #include <qtmetamacros.h>
 #include <qurl.h>
 
-#define s QStringLiteral
+#include "macros.h"
+
+using namespace Qt::Literals::StringLiterals;
 
 class SymbolsFile : public QObject {
     Q_OBJECT
     QML_ELEMENT
+    Q_PROPERTY(QString path READ path WRITE setPath NOTIFY pathChanged)
+    Q_PROPERTY(int variantIndex READ variantIndex WRITE setVariantIndex NOTIFY variantChanged)
 private:
-    int m_variantIndex = 0;
-    QString m_path = {};
+    PROP(int, variantIndex, setVariantIndex)
+    PROP(QString, path, setPath)
 public:
     explicit SymbolsFile(QObject* parent = nullptr) : QObject(parent) {}
-
-    Q_PROPERTY(QString path READ path WRITE setPath NOTIFY pathChanged)
-    void setPath(const QString urlString) {
-        QString newPath;
-        const QUrl url(urlString);
-        if (url.isLocalFile()) {
-            newPath = QDir::toNativeSeparators(url.toLocalFile());
-        } else {
-            newPath = urlString;
-        }
-        if (m_path == newPath)
-            return;
-        m_path = newPath;
-        Q_EMIT pathChanged();
-    }
-    QString path() {
-        return m_path;
-    }
-
-    Q_PROPERTY(int variantIndex READ variantIndex WRITE setVariantIndex NOTIFY variantChanged)
-    void setVariantIndex(const int newIndex) {
-        if (m_variantIndex == newIndex)
-            return;
-        m_variantIndex = newIndex;
-        Q_EMIT variantChanged();
-    }
-    int variantIndex() {
-        return m_variantIndex;
-    }
 
     Q_INVOKABLE void load(QString filePath) {
         // TODO
     }
 
     Q_INVOKABLE void clear() {
-        setPath(s(""));
+        setPath(u""_s);
         setVariantIndex(0);
         // TODO: clear variants
     }
@@ -60,7 +35,6 @@ Q_SIGNALS:
     void error(QString message);
 
     void fileLoaded();
-    void pathChanged();
     void variantChanged();
 };
 
