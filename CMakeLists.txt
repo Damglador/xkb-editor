@@ -32,11 +32,11 @@ find_package(KF6 REQUIRED COMPONENTS
 
 ecm_find_qmlmodule(org.kde.kirigami REQUIRED)
 
-if(BUILD_TESTING)
-  add_subdirectory(tests)
-endif()
-
 add_subdirectory(src)
+
+if(BUILD_TESTING)
+    add_subdirectory(tests)
+endif()
 
 install(PROGRAMS xkb-editor.desktop DESTINATION ${KDE_INSTALL_APPDIR})
 

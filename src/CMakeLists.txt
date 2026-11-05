@@ -1,3 +1,5 @@
+add_subdirectory(Types)
+
 add_executable(xkb-editor)
 
 ecm_add_qml_module(xkb-editor
