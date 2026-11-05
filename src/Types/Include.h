@@ -10,6 +10,7 @@ using namespace Qt::Literals::StringLiterals;
 
 class Include : public QObject {
     Q_OBJECT
+
     PROP(QString, path, setPath)
     PROP(QString, variant, setVariant)
 public:

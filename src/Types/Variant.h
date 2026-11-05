@@ -15,11 +15,10 @@
 #include "Enums.h"
 #include "macros.h"
 
-#define s QStringLiteral
+using namespace Qt::Literals::StringLiterals;
 
 class Variant : public QObject {
     Q_OBJECT
-    QML_ELEMENT
 
     Q_PROPERTY(QString id               READ id         WRITE setId         NOTIFY idChanged)
     Q_PROPERTY(QString name             READ name       WRITE setName       NOTIFY nameChanged)

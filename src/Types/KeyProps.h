@@ -17,7 +17,6 @@ using namespace Qt::Literals::StringLiterals;
 
 class KeyProps : public QObject {
     Q_OBJECT
-    QML_ELEMENT
 
     Q_PROPERTY(QStringList symbols  READ symbols    WRITE setSymbols    NOTIFY symbolsChanged)
     // Q_PROPERTY(QString actions      READ actions    WRITE setActions    NOTIFY actionsChanged)

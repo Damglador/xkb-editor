@@ -5,7 +5,6 @@ add_library(xkb-types
     Enums.h
     Include.h
     KeyProps.h
-    SymbolsFile.h
     Variant.h
 )
 

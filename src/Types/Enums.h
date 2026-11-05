@@ -6,7 +6,6 @@
 class Enums
 {
     Q_GADGET
-
 public:
     // https://www.charvolant.org/doug/xkb/html/node5.html
     enum Flag {
