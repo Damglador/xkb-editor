@@ -53,6 +53,7 @@ ecm_target_qml_sources(xkb-editor
 
 target_link_libraries(xkb-editor
     PRIVATE
+    xkb-types
     Qt6::Quick
     Qt6::Qml
     Qt6::Gui
