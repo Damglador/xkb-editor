@@ -10,7 +10,6 @@ ecm_add_qml_module(xkb-editor
 target_sources(xkb-editor
     PRIVATE
     main.cpp
-    Bridge.cpp
     Bridge.h
     SymbolsFile.h
 )
