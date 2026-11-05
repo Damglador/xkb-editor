@@ -31,7 +31,7 @@ class Variant : public QObject {
     PROP(QString, id,       setId)
     PROP(QString, name,     setName)
     Enums::Flags m_flags;
-    int m_keymap; // TODO: come up with a proper type
+    QMap<QString, KeyProps> m_keymap; // TODO: come up with a proper type
     QList<Include> m_includes;
     PROP(QString, keytype,  setKeytype)
     PROP(QString, source,   setSource)

@@ -10,6 +10,7 @@ ecm_add_test(Types/Include.cpp
 
 ecm_add_test(Types/Variant.cpp
     ${CMAKE_SOURCE_DIR}/src/Types/Variant.h
+    ${CMAKE_SOURCE_DIR}/src/Types/KeyProps.h
     ${CMAKE_SOURCE_DIR}/src/Types/Include.h
     ${CMAKE_SOURCE_DIR}/src/Types/Enums.h
     TEST_NAME test-types-variant
