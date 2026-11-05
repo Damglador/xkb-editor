@@ -15,7 +15,6 @@
 
 using namespace Qt::Literals::StringLiterals;
 
-
 class KeyProps : public QObject {
     Q_OBJECT
     QML_ELEMENT

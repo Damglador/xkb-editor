@@ -53,6 +53,8 @@ public:
         return QString::fromUtf8(keys).toLower().split(QLatin1Char('|'), Qt::SkipEmptyParts);
     }
 
+    QList<Include> includes() { return m_includes; }
+
 Q_SIGNALS:
     void flagsChanged();
     void keymapChanged();
