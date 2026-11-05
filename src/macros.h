@@ -8,9 +8,10 @@
 public:                                                 \
     type name() const { return m_##name; }              \
     void setter(const type &value) {                    \
-        if (m_##name == value) return;                  \
-        m_##name = value;                               \
-        Q_EMIT name##Changed();                         \
+        if (m_##name != value) {                        \
+            m_##name = value;                           \
+            Q_EMIT name##Changed();                     \
+        }                                               \
     }                                                   \
 Q_SIGNALS:                                              \
     void name##Changed();                               \
