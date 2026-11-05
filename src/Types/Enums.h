@@ -8,14 +8,14 @@ class Enums
 public:
     // https://www.charvolant.org/doug/xkb/html/node5.html
     enum Flag {
-        DEFAULT = 1,
-        PARTIAL,
-        HIDDEN,
-        ALPHANUMERIC_KEYS,
-        MODIFIER_KEYS,
-        KEYPAD_KEYS,
-        FUNCTION_KEYS,
-        ALTERNATE_GROUP,
+        DEFAULT             = 1 << 0,
+        PARTIAL             = 1 << 1,
+        HIDDEN              = 1 << 2,
+        ALPHANUMERIC_KEYS   = 1 << 3,
+        MODIFIER_KEYS       = 1 << 4,
+        KEYPAD_KEYS         = 1 << 5,
+        FUNCTION_KEYS       = 1 << 6,
+        ALTERNATE_GROUP     = 1 << 7,
     };
     Q_ENUM(Flag)
     Q_DECLARE_FLAGS(Flags, Flag)
