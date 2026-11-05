@@ -17,7 +17,7 @@ class SymbolsFile : public QObject {
     QML_ELEMENT
 
     Q_PROPERTY(QString  path     READ path         WRITE setPath         NOTIFY pathChanged)
-    Q_PROPERTY(QList<Variant*> variants READ variants     CONSTANT)
+    Q_PROPERTY(QRangeModel* variants READ variants     CONSTANT)
     Q_PROPERTY(Variant* variant  READ variant                            NOTIFY variantChanged)
     Q_PROPERTY(int variantIndex READ variantIndex WRITE setVariantIndex NOTIFY variantChanged)
     PROP(int, variantIndex, setVariantIndex)
@@ -25,6 +25,7 @@ class SymbolsFile : public QObject {
 
 private:
     QList<Variant*> m_variants;
+    QRangeModel* m_variantsModel = new QRangeModel(&m_variants);
     Variant* m_variant;
     void updateVariant() {
         if (0 <= m_variantIndex && m_variantIndex < m_variants.length()) {
@@ -36,6 +37,7 @@ private:
     }
 public:
     QList<Variant*> variants() { return m_variants; }
+    QRangeModel* variants() { return m_variantsModel; }
     Variant* variant() { return m_variant; }
 
     Q_INVOKABLE void load(QString filePath) {
