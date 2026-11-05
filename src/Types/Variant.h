@@ -49,8 +49,9 @@ public:
         Q_EMIT flagsChanged();
     }
     QStringList flags() {
-        QStringList names;
-        return names;
+        auto meta = QMetaEnum::fromType<Enums::Flag>();
+        QByteArray keys = meta.valueToKeys(m_flags);
+        return QString::fromUtf8(keys).toLower().split(QLatin1Char('|'), Qt::SkipEmptyParts);
     }
 
 Q_SIGNALS:

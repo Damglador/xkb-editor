@@ -26,6 +26,12 @@ private Q_SLOTS:
         QCOMPARE(variant.keytype(), u"validKeytype"_s);
         QCOMPARE(variant.source(), u"validSource"_s);
     }
+    void testFlags() {
+        Variant variant;
+        variant.addFlag(u"default"_s);
+        variant.addFlag(u"partial"_s);
+        QCOMPARE(variant.flags().join(u", "_s), u"default, partial"_s);
+    }
 };
 
 QTEST_GUILESS_MAIN(TestVariant)

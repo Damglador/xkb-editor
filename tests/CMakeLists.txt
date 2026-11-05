@@ -11,6 +11,7 @@ ecm_add_test(Types/Include.cpp
 ecm_add_test(Types/Variant.cpp
     ${CMAKE_SOURCE_DIR}/src/Types/Variant.h
     ${CMAKE_SOURCE_DIR}/src/Types/Include.h
+    ${CMAKE_SOURCE_DIR}/src/Types/Enums.h
     TEST_NAME test-types-variant
     LINK_LIBRARIES Qt6::Test Qt6::Core
 )
