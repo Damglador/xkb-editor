@@ -40,12 +40,12 @@ public:
 
     void addFlag(QString name) {
         auto meta = QMetaEnum::fromType<Enums::Flag>();
-        m_flags |= static_cast<Enums::Flag>(meta.keyToValue(name.toUpper().toUtf8().data()));
+        m_flags |= Enums::Flags::fromInt(meta.keyToValue(name.toUpper().toUtf8().data()));
         Q_EMIT flagsChanged();
     }
     void removeFlag(QString name) {
         auto meta = QMetaEnum::fromType<Enums::Flag>();
-        m_flags &= ~static_cast<Enums::Flag>(meta.keyToValue(name.toUpper().toUtf8().data()));
+        m_flags &= ~Enums::Flags::fromInt(meta.keyToValue(name.toUpper().toUtf8().data()));
         Q_EMIT flagsChanged();
     }
     QStringList flags() {
