@@ -13,6 +13,8 @@ target_sources(xkb-editor
     Bridge.h
     SymbolsFile.h
     KeysymTable.h
+    getchar.cpp
+    getchar.h
 )
 
 ecm_target_qml_sources(xkb-editor
@@ -52,6 +54,9 @@ ecm_target_qml_sources(xkb-editor
     PATH Settings
 )
 
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(xkbcommon REQUIRED IMPORTED_TARGET xkbcommon)
+
 target_link_libraries(xkb-editor
     PRIVATE
     xkb-types
@@ -64,6 +69,7 @@ target_link_libraries(xkb-editor
     KF6::I18nQml
     KF6::CoreAddons
     KF6::IconThemes
+    PkgConfig::xkbcommon
 )
 
 install(TARGETS xkb-editor ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
