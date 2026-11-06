@@ -1,7 +1,7 @@
 #pragma once
 
-#include <qobject.h>
-#include <qregularexpression.h>
+#include <QObject>
+#include <QRegularExpression>
 #include <qtmetamacros.h>
 
 #include "macros.h"
@@ -14,20 +14,20 @@ class Include : public QObject {
     PROP(QString, path, setPath)
     PROP(QString, variant, setVariant)
 public:
-    Include(QString path, QString variant, QObject *parent = nullptr) : QObject(parent) {
+    Include(QString path, QString variant, QObject* parent = nullptr) : QObject(parent) {
         m_path = path;
         m_variant = variant;
     }
-    Include(QString path, QObject *parent = nullptr) : QObject(parent) {
+    Include(QString path, QObject* parent = nullptr) : QObject(parent) {
         m_path = path;
     }
     // TODO: from string and to string
     QString toString() {
         return m_variant.isEmpty() ? m_path : m_path + u"("_s + m_variant + u")"_s;
     }
-    static Include *fromString(const QString string) {
+    static Include* fromString(const QString string) {
         if (string.isEmpty())
-             return nullptr;
+            return nullptr;
 
         QRegularExpression re(uR"((.*)\((.*)\)$)"_s);
         QRegularExpressionMatch match = re.match(string);

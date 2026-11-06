@@ -3,8 +3,7 @@
 #include <QObject> // Need QObject for macros to work
 
 // Use Q_GADGET for lightweight meta-data support
-class Enums
-{
+class Enums {
     Q_GADGET
 public:
     // https://www.charvolant.org/doug/xkb/html/node5.html

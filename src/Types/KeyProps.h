@@ -1,15 +1,12 @@
 #pragma once
 
-#include <algorithm>
-#include <qcontainerfwd.h>
-#include <qflags.h>
-#include <qhashfunctions.h>
-#include <qlist.h>
-#include <qmetaobject.h>
+#include <QList>
+#include <QMetaObject>
+#include <QObject>
+#include <QtContainerFwd>
 #include <QtQml/qqmlregistration.h>
-#include <qobject.h>
+#include <algorithm>
 #include <qtmetamacros.h>
-#include <qurl.h>
 
 #include "macros.h"
 

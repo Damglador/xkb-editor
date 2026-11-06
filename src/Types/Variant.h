@@ -1,18 +1,16 @@
 #pragma once
 
-#include <qcontainerfwd.h>
-#include <qflags.h>
-#include <qhashfunctions.h>
-#include <qlist.h>
-#include <qmetaobject.h>
+#include <QHashFunctions>
+#include <QList>
+#include <QMetaEnum>
+#include <QObject>
+#include <QtContainerFwd>
 #include <QtQml/qqmlregistration.h>
-#include <qobject.h>
 #include <qtmetamacros.h>
-#include <qurl.h>
 
+#include "Enums.h"
 #include "Include.h"
 #include "KeyProps.h"
-#include "Enums.h"
 #include "macros.h"
 
 using namespace Qt::Literals::StringLiterals;
@@ -24,7 +22,7 @@ class Variant : public QObject {
     Q_PROPERTY(QString name             READ name       WRITE setName       NOTIFY nameChanged)
     Q_PROPERTY(QStringList flags        READ flags                          NOTIFY flagsChanged)
     Q_PROPERTY(QString keymap           READ keymap     WRITE setKeymap     NOTIFY keymapChanged)
-    Q_PROPERTY(QList<Include*> includes  READ includes                       NOTIFY includesChanged)
+    Q_PROPERTY(QList<Include*> includes READ includes                       NOTIFY includesChanged)
     Q_PROPERTY(QString keytype          READ keytype    WRITE setKeytype    NOTIFY keytypeChanged)
     Q_PROPERTY(QString source           READ source     WRITE setSource     NOTIFY sourceChanged)
 

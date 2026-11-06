@@ -1,13 +1,13 @@
-#include <QApplication>
-#include <QQmlApplicationEngine>
-#include <QtQml>
-#include <QUrl>
-#include <QIcon>
-#include <QQuickStyle>
+#include <KIconTheme>
 #include <KLocalization>
 #include <KLocalizedQmlContext>
 #include <KLocalizedString>
-#include <KIconTheme>
+#include <QApplication>
+#include <QIcon>
+#include <QQmlApplicationEngine>
+#include <QQuickStyle>
+#include <QUrl>
+#include <QtQml>
 #include <kaboutdata.h>
 #include <qapplication.h>
 #include <qbitarray.h>
@@ -18,8 +18,7 @@ using namespace Qt::Literals::StringLiterals;
 #define APPID QStringLiteral("xkb-editor")
 #define APPNAME QStringLiteral("Xkb Editor")
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char* argv[]) {
     KIconTheme::initTheme();
     QApplication app(argc, argv);
     QApplication::setOrganizationName(u"damglador"_s);
@@ -36,7 +35,6 @@ int main(int argc, char *argv[])
     aboutData.setCopyrightStatement(u"Copyright © 2026 Vsevolod «Damglador» Stopchanskyi"_s);
     aboutData.setLicense(KAboutLicense::GPL_V3);
     KAboutData::setApplicationData(aboutData);
-
 
     QApplication::setStyle(u"breeze"_s);
     if (qEnvironmentVariableIsEmpty("QT_QUICK_CONTROLS_STYLE")) {

@@ -2,8 +2,8 @@
 
 #include <qdir.h>
 #include <qlist.h>
-#include <qqmlintegration.h>
 #include <qobject.h>
+#include <qqmlintegration.h>
 #include <qtmetamacros.h>
 #include <qurl.h>
 
@@ -16,10 +16,10 @@ class SymbolsFile : public QObject {
     Q_OBJECT
     QML_ELEMENT
 
-    Q_PROPERTY(QString  path     READ path         WRITE setPath         NOTIFY pathChanged)
+    Q_PROPERTY(QString  path            READ path         WRITE setPath         NOTIFY pathChanged)
     Q_PROPERTY(QList<Variant*> variants READ variants     CONSTANT)
-    Q_PROPERTY(Variant* variant  READ variant                            NOTIFY variantChanged)
-    Q_PROPERTY(int variantIndex READ variantIndex WRITE setVariantIndex NOTIFY variantChanged)
+    Q_PROPERTY(Variant* variant         READ variant                            NOTIFY variantChanged)
+    Q_PROPERTY(int variantIndex         READ variantIndex WRITE setVariantIndex NOTIFY variantChanged)
     PROP(int, variantIndex, setVariantIndex)
     PROP(QString, path, setPath)
 
@@ -34,7 +34,9 @@ private:
         }
         Q_EMIT variantChanged();
     }
+
 public:
+    SymbolsFile(QObject* parent = nullptr) : QObject(parent) {};
     QList<Variant*> variants() { return m_variants; }
     Variant* variant() { return m_variant; }
 
@@ -48,7 +50,6 @@ public:
         m_variants.clear();
         // TODO: clear variants
     }
-
 
 Q_SIGNALS:
     void error(QString message);
