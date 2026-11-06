@@ -12,6 +12,7 @@ target_sources(xkb-editor
     main.cpp
     Bridge.h
     SymbolsFile.h
+    KeysymTable.h
 )
 
 ecm_target_qml_sources(xkb-editor

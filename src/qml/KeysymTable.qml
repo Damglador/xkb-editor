@@ -63,7 +63,7 @@ Kirigami.ApplicationWindow {
 
         KSortFilterProxyModel {
             id: proxyModel
-            sourceModel: KeysymTableModel {}
+            sourceModel: Bridge.keysymTable
             filterCaseSensitivity: Qt.CaseInsensitive
             filterKeyColumn: -1
         }
