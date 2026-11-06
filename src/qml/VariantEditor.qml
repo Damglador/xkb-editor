@@ -65,8 +65,11 @@ Item {
             Controls.ToolButton {
                 id: preview
                 text: qsTr("Preview")
+                enabled: root.variant
                 icon.name: "preview"
                 checkable: true
+                onEnabledChanged: if (!enabled)
+                    checked = false
             }
         }
 
