@@ -19,7 +19,7 @@ QString keysymToString(const xkb_keysym_t keysym) {
     return QString::fromUcs4(&character, 1);
 }
 
-QString getchar(QString input) {
+QString xkb_getchar(const QString input) {
     if (input.length() == 1) {
         return input;
     }

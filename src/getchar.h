@@ -8,4 +8,4 @@ xkb_keysym_t keysymFromName(const QString &name);
 
 QString keysymToString(const xkb_keysym_t keysym);
 
-QString xkb_getchar(QString input);
+QString xkb_getchar(const QString input);
