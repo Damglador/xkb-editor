@@ -5,7 +5,7 @@
 #include <QIcon>
 #include <QQuickStyle>
 #include <KLocalization>
-#include <KLocalizedContext>
+#include <KLocalizedQmlContext>
 #include <KLocalizedString>
 #include <KIconTheme>
 #include <kaboutdata.h>
@@ -44,7 +44,7 @@ int main(int argc, char *argv[])
 
     QQmlApplicationEngine engine;
 
-    engine.rootContext()->setContextObject(new KLocalizedContext(&engine));
+    engine.rootContext()->setContextObject(new KLocalizedQmlContext(&engine));
     engine.loadFromModule("xkbeditor", "Main");
 
     if (engine.rootObjects().isEmpty()) {
