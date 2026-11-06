@@ -7,6 +7,7 @@
 
 #include "SymbolsFile.h"
 #include "KeysymTable.h"
+#include "getchar.h"
 #include "macros.h"
 
 class Bridge : public QObject {
@@ -28,6 +29,10 @@ public:
     KeysymTableModel* keysymTable() { return m_keysymTable; }
     Q_SLOT void print(QString message) {
         qDebug() << message;
+    }
+
+    Q_INVOKABLE QString getSymbolChar(QString symbol) {
+        return xkb_getchar(symbol);
     }
 
 Q_SIGNALS:
