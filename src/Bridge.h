@@ -1,5 +1,6 @@
 #pragma once
 
+#include <qlogging.h>
 #include <qobject.h>
 #include <qqmlintegration.h>
 #include <qtmetamacros.h>
@@ -19,9 +20,18 @@ class Bridge : public QObject {
     SymbolsFile* m_file = new SymbolsFile;
     KeysymTableModel* m_keysymTable = new KeysymTableModel;
 public:
+    Bridge(QObject* parent = nullptr) : QObject(parent) {
+        connect(this, &Bridge::error, this, &Bridge::print);
+        connect(m_file, &SymbolsFile::error, this, &Bridge::error);
+    }
     SymbolsFile* file() { return m_file; }
     KeysymTableModel* keysymTable() { return m_keysymTable; }
+    Q_SLOT void print(QString message) {
+        qDebug() << message;
+    }
 
 Q_SIGNALS:
     void fileChanged();
+    void error(QString message);
+    void notify(QString message);
 };
