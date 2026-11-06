@@ -67,17 +67,12 @@ Item {
                 text: qsTr("Preview")
                 icon.name: "preview"
                 checkable: true
-                onToggled: if (checked) {
-                    keyboard.sourceComponent = previewComponent
-                } else {
-                    keyboard.sourceComponent = keyboardComponent
-                }
             }
         }
 
         Loader {
             id: keyboard
-            sourceComponent: keyboardComponent
+            sourceComponent: preview.checked ? previewComponent : keyboardComponent
         }
         Component {
             id: keyboardComponent
