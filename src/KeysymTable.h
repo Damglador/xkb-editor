@@ -15,7 +15,9 @@ public:
     explicit KeysymTableModel(QObject* parent = nullptr) : QAbstractTableModel(parent) {};
     Q_INVOKABLE QString getDoc() { return u"mega docs"_s; };
     Q_INVOKABLE QString getCopyright() { return u"mega copyright"_s; };
-
+    Q_INVOKABLE QString getSourcePath() {
+        return u"dummy path"_s; // TODO: return proper path
+    }
 
     int rowCount(const QModelIndex& parent = QModelIndex()) const override {
         return 0; // TODO: return proper count of elements
@@ -37,5 +39,4 @@ public:
         }
         return QVariant();
     }
-
 };
