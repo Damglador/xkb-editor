@@ -15,6 +15,8 @@ target_sources(xkb-editor
     KeysymTable.h
     getchar.cpp
     getchar.h
+    List.h
+    VariantsList.h
 )
 
 ecm_target_qml_sources(xkb-editor
