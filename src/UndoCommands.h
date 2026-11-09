@@ -1,24 +1,28 @@
-#include "Variant.h"
+#pragma once
+
 #include <QUndoCommand>
-#include <qobject.h>
-#include <qrangemodel.h>
+#include <QObject>
+
+#include "Variant.h"
+#include "VariantsList.h"
 
 using namespace Qt::Literals::StringLiterals;
 
 class AddVariant : public QUndoCommand {
-    QRangeModel* variants;
+    VariantsList* variants;
     const QString id;
     const int index;
-    AddVariant(QRangeModel* _variants, const QString _id)
+public:
+    AddVariant(VariantsList* _variants, const QString _id)
         : variants(_variants), id(_id), index(_variants->rowCount()) {
         setText(u"Add %1"_s.arg(id));
     };
-    void undo() override { variants->removeRows(index, 1); }
+    void undo() override { variants->remove(index); }
     void redo() override {
         if (!variants->insertRows(index, 1))
             return;
-        auto variant = new Variant();
+        Variant* variant = new Variant();
         variant->setId(id);
-        variants[index] = variant;
+        variants->insert(index, variant);
     }
 };

@@ -3,14 +3,14 @@
 #include <qlist.h>
 #include <qtmetamacros.h>
 
-#include "Variant.h"
+#include "UndoCommands.h"
 #include "VariantsList.h"
 
 class UndoStack : public QUndoStack {
     Q_OBJECT
     QML_ELEMENT
 public:
-    void addVariant(VariantsList, QString id) {
-
+    Q_INVOKABLE void addVariant(VariantsList* list, QString id) {
+        push(new AddVariant(list, id));
     }
 };
