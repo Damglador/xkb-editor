@@ -8,4 +8,5 @@ PointerAlignment: Left
 ReferenceAlignment: Right
 IndentCaseLabels: true
 SpacesInContainerLiterals: true
-Cpp11BracedListStyle: false
+Cpp11BracedListStyle: false # spaced afte { and before } in lists
+AllowShortCaseLabelsOnASingleLine: true
