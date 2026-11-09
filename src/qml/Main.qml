@@ -93,6 +93,9 @@ Kirigami.ApplicationWindow {
         function onNotify(str) {
             showPassiveNotification(str);
         }
+        function onFileChanged() {
+            undoStack.clear()
+        }
     }
 
     Kirigami.AbstractCard {

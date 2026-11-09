@@ -25,6 +25,7 @@ public:
     Bridge(QObject* parent = nullptr) : QObject(parent) {
         connect(this, &Bridge::error, this, &Bridge::print);
         connect(m_file, &SymbolsFile::error, this, &Bridge::error);
+        connect(m_file, &SymbolsFile::fileLoaded, this, &Bridge::fileChanged);
     }
     SymbolsFile* file() { return m_file; }
     KeysymTableModel* keysymTable() { return m_keysymTable; }

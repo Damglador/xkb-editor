@@ -49,6 +49,7 @@ public:
         setPath(u""_s);
         setVariantIndex(0);
         m_variants->clear();
+        Q_EMIT fileLoaded();
     }
 
 Q_SIGNALS:

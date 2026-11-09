@@ -14,7 +14,7 @@ Controls.MenuBar {
         Kirigami.Action {
             text: qsTr("New")
             icon.name: "document-new"
-            onTriggered: Bridge.newFile()
+            onTriggered: Bridge.file.clear()
         }
         Kirigami.Action {
             text: qsTr("Open...")
