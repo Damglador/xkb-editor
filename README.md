@@ -26,11 +26,12 @@ yay -S xkb-editor
 
 ## Other
 
-Grab AppImage from https://github.com/Damglador/xkb-editor/releases, should run even on Alpine.
+Check out https://github.com/Damglador/xkb-editor/releases for packages for your distro
 
 # Dependencies
 
 - kirigami (The KDE QML module, consequently all QML stuff)
+- qqc2-desktop-style
 - kitemmodels
 - python
 - pyside6
