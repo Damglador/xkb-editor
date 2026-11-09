@@ -21,7 +21,7 @@ class Variant : public QObject {
     Q_PROPERTY(QString id               READ id         WRITE setId         NOTIFY idChanged)
     Q_PROPERTY(QString name             READ name       WRITE setName       NOTIFY nameChanged)
     Q_PROPERTY(QStringList flags        READ flags                          NOTIFY flagsChanged)
-    Q_PROPERTY(QString keymap           READ keymap     WRITE setKeymap     NOTIFY keymapChanged)
+    Q_PROPERTY(QMap<QString, KeyProps*> keymap           READ keymap                         NOTIFY keymapChanged)
     Q_PROPERTY(QList<Include*> includes READ includes                       NOTIFY includesChanged)
     Q_PROPERTY(QString keytype          READ keytype    WRITE setKeytype    NOTIFY keytypeChanged)
     Q_PROPERTY(QString source           READ source     WRITE setSource     NOTIFY sourceChanged)
@@ -51,6 +51,7 @@ public:
     }
 
     QList<Include*> includes() { return m_includes; }
+    QMap<QString, KeyProps*> keymap() { return m_keymap; }
 
 Q_SIGNALS:
     void flagsChanged();
