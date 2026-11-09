@@ -19,14 +19,19 @@ public:
     }
 
     int rowCount(const QModelIndex &parent = QModelIndex()) const override {
+        Q_UNUSED(parent);
         return 0; // TODO: return proper count of elements
     }
-    int columnCount(const QModelIndex &parent = QModelIndex()) const override { return 4; }
+    int columnCount(const QModelIndex &parent = QModelIndex()) const override {
+        Q_UNUSED(parent);
+        return 4;
+    }
     QVariant data(const QModelIndex &index, int role) const override {
         return QVariant(); // TODO: return proper data
     }
     QVariant headerData(int section, Qt::Orientation orientation,
-                        int _ = Qt::DisplayRole) const override {
+                        int role = Qt::DisplayRole) const override {
+        Q_UNUSED(role);
         if (orientation == Qt::Orientation::Horizontal) {
             switch (section) {
                 case 0: return u"Name"_s;
