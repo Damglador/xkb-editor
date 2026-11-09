@@ -21,7 +21,7 @@ class VariantsList : public List {
 public:
     QHash<int, QByteArray> roleNames() const override {
         QHash<int, QByteArray> roles;
-        roles[ObjectRole] = "modelData";
+        roles[ObjectRole] = "variant";
         roles[IdRole] = "id";
         roles[NameRole] = "name";
         return roles;
