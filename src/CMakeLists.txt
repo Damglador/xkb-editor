@@ -17,6 +17,7 @@ target_sources(xkb-editor
     getchar.h
     List.h
     VariantsList.h
+    UndoStack.h
 )
 
 ecm_target_qml_sources(xkb-editor
