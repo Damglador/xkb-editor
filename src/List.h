@@ -3,7 +3,6 @@
 #include <QAbstractListModel>
 #include <QHash>
 #include <QList>
-#include <qtmetamacros.h>
 
 class List : public QAbstractListModel {
     Q_OBJECT
@@ -57,6 +56,7 @@ public:
 
     Q_INVOKABLE void clear() {
         beginResetModel();
+        qDeleteAll(list);
         list.clear();
         endResetModel();
     }
