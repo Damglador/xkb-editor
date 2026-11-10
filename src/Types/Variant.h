@@ -5,7 +5,7 @@
 #include <QObject>
 
 #include "Enums.h"
-#include "Include.h"
+#include "IncludesList.h"
 #include "KeyProps.h"
 #include "macros.h"
 
@@ -20,7 +20,7 @@ class Variant : public QObject {
     Q_PROPERTY(QString                  keytype     READ keytype    WRITE setKeytype    NOTIFY keytypeChanged)
     Q_PROPERTY(QString                  source      READ source     WRITE setSource     NOTIFY sourceChanged)
     Q_PROPERTY(QStringList              flags       READ flags                          NOTIFY flagsChanged)
-    Q_PROPERTY(QList<Include*>          includes    READ includes                       NOTIFY includesChanged)
+    Q_PROPERTY(IncludesList*            includes    READ includes                       NOTIFY includesChanged)
     Q_PROPERTY(QMap<QString, KeyProps*> keymap      READ keymap                         NOTIFY keymapChanged)
 
     PROP(QString, id,       setId)
@@ -28,7 +28,7 @@ class Variant : public QObject {
     PROP(QString, keytype,  setKeytype)
     PROP(QString, source,   setSource)
     Enums::Flags m_flags;
-    QList<Include*> m_includes;
+    IncludesList* m_includes;
     QMap<QString, KeyProps*> m_keymap;
     // clang-format on
 
@@ -51,7 +51,7 @@ public:
         return QString::fromUtf8(keys).toLower().split(QLatin1Char('|'), Qt::SkipEmptyParts);
     }
 
-    QList<Include*> includes() { return m_includes; }
+    IncludesList* includes() { return m_includes; }
     QMap<QString, KeyProps*> keymap() { return m_keymap; }
 
     Q_INVOKABLE void setSymbol(const QString keycode, const int level, const QString keysym) {
