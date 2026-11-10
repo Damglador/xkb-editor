@@ -25,16 +25,16 @@ public:
     QString toString() {
         return m_variant.isEmpty() ? m_path : m_path + u"("_s + m_variant + u")"_s;
     }
-    static Include* fromString(const QString string) {
+    static Include* fromString(const QString string, QObject* parent = nullptr) {
         if (string.isEmpty())
             return nullptr;
 
         QRegularExpression re(uR"((.*)\((.*)\)$)"_s);
         QRegularExpressionMatch match = re.match(string);
         if (match.hasMatch()) {
-            return new Include(match.captured(1), match.captured(2));
+            return new Include(match.captured(1), match.captured(2), parent);
         } else {
-            return new Include(string);
+            return new Include(string, parent);
         }
     }
 };
