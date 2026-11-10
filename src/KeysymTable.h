@@ -3,9 +3,6 @@
 #include <QAbstractItemModel>
 #include <QObject>
 #include <QVariant>
-#include <QtQmlIntegration>
-#include <qnamespace.h>
-#include <qtmetamacros.h>
 
 using namespace Qt::Literals::StringLiterals;
 

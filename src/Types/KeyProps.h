@@ -1,12 +1,8 @@
 #pragma once
 
 #include <QList>
-#include <QMetaObject>
 #include <QObject>
-#include <QtContainerFwd>
-#include <QtQml/qqmlregistration.h>
 #include <algorithm>
-#include <qtmetamacros.h>
 
 #include "macros.h"
 
@@ -15,13 +11,15 @@ using namespace Qt::Literals::StringLiterals;
 class KeyProps : public QObject {
     Q_OBJECT
 
-    Q_PROPERTY(QStringList symbols  READ symbols    WRITE setSymbols    NOTIFY symbolsChanged)
-    // Q_PROPERTY(QString actions      READ actions    WRITE setActions    NOTIFY actionsChanged)
+    // clang-format off
+    Q_PROPERTY(QStringList  symbols  READ symbols    WRITE setSymbols    NOTIFY symbolsChanged)
+    // Q_PROPERTY(QString      actions  READ actions    WRITE setActions    NOTIFY actionsChanged)
     QStringList m_symbols = { NOSYM, NOSYM, NOSYM, NOSYM };
     QStringList m_actions;
-    PROP(QString, virtmod, setVirtmod)
-    PROP(bool, repeat, setRepeat)
-    PROP(QString, type, setType)
+    PROP(QString,  virtmod,  setVirtmod)
+    PROP(bool,     repeat,   setRepeat)
+    PROP(QString,  type,     setType)
+    // clang-format on
 
 public:
     KeyProps(QObject* parent = nullptr) : QObject(parent) {};

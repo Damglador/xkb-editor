@@ -1,11 +1,8 @@
 #pragma once
 
-#include <qdir.h>
-#include <qlist.h>
-#include <qobject.h>
+#include <QList>
+#include <QObject>
 #include <qqmlintegration.h>
-#include <qtmetamacros.h>
-#include <qurl.h>
 
 #include "Variant.h"
 #include "VariantsList.h"
@@ -17,12 +14,14 @@ class SymbolsFile : public QObject {
     Q_OBJECT
     QML_ELEMENT
 
-    Q_PROPERTY(QString  path            READ path         WRITE setPath         NOTIFY pathChanged)
-    Q_PROPERTY(VariantsList* variants READ variants     CONSTANT)
-    Q_PROPERTY(Variant* variant         READ variant                            NOTIFY variantChanged)
-    Q_PROPERTY(int variantIndex         READ variantIndex WRITE setVariantIndex NOTIFY variantChanged)
-    PROP(int, variantIndex, setVariantIndex)
-    PROP(QString, path, setPath)
+    // clang-format off
+    Q_PROPERTY(QString        path            READ path          WRITE setPath          NOTIFY pathChanged)
+    Q_PROPERTY(VariantsList*  variants        READ variants      CONSTANT)
+    Q_PROPERTY(Variant*       variant         READ variant                              NOTIFY variantChanged)
+    Q_PROPERTY(int            variantIndex    READ variantIndex  WRITE setVariantIndex  NOTIFY variantChanged)
+    PROP(int,     variantIndex, setVariantIndex)
+    PROP(QString, path,         setPath)
+    // clang-format on
 
 private:
     VariantsList* m_variants = new VariantsList(this);

@@ -3,12 +3,10 @@
 #include <QObject>
 #include <QtLogging>
 #include <QtQmlIntegration>
-#include <qtmetamacros.h>
 
 #include "KeysymTable.h"
 #include "SymbolsFile.h"
 #include "getchar.h"
-#include "macros.h"
 
 class Bridge : public QObject {
     Q_OBJECT

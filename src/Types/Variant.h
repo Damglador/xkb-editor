@@ -1,12 +1,8 @@
 #pragma once
 
-#include <QHashFunctions>
 #include <QList>
 #include <QMetaEnum>
 #include <QObject>
-#include <QtContainerFwd>
-#include <QtQml/qqmlregistration.h>
-#include <qtmetamacros.h>
 
 #include "Enums.h"
 #include "Include.h"
