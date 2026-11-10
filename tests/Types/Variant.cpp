@@ -32,6 +32,17 @@ private Q_SLOTS:
         variant.addFlag(u"partial"_s);
         QCOMPARE(variant.flags().join(u", "_s), u"default, partial"_s);
     }
+    void testSymbols() {
+        Variant variant;
+        variant.setSymbol(u"AE12"_s, 1, u"E"_s);
+        QCOMPARE(variant.getSymbol(u"AE12"_s, 1), u"E"_s);
+        QCOMPARE(variant.getSymbol(u"AE13"_s, 1), u""_s);
+        QCOMPARE(variant.getSymbol(u"AE12"_s, 2), u""_s);
+
+        variant.setSymbol(u"AE12"_s, 4, u"Ї"_s);
+        QCOMPARE(variant.getSymbol(u"AE12"_s, 4), u"Ї"_s);
+        QCOMPARE(variant.getSymbol(u"AE12"_s, 3), u""_s);
+    }
 };
 
 QTEST_GUILESS_MAIN(TestVariant)

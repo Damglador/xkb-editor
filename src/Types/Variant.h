@@ -53,6 +53,25 @@ public:
     QList<Include*> includes() { return m_includes; }
     QMap<QString, KeyProps*> keymap() { return m_keymap; }
 
+    Q_INVOKABLE void setSymbol(const QString keycode, const int level, const QString keysym) {
+        KeyProps* props = m_keymap.value(keycode, nullptr);
+        if (!props) {
+            props = new KeyProps();
+        }
+        props->symbolsP()->insert(level - 1, isImplicit(keysym.trimmed()) ? NOSYM : keysym.trimmed());
+        m_keymap.insert(keycode, props); // if there wasn't such a keycode, it adds it, otherwise shouldn't make a difference
+    }
+
+    Q_INVOKABLE QString getSymbol(const QString keycode, const int level) const {
+        KeyProps* props = m_keymap.value(keycode, nullptr);
+        if (!props) {
+            return {};
+        }
+
+        const QString result = props->symbolsP()->value(level - 1, {});
+        return isImplicit(result) ? u""_s : result;
+    }
+
 Q_SIGNALS:
     void flagsChanged();
     void keymapChanged();

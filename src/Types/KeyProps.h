@@ -25,6 +25,7 @@ class KeyProps : public QObject {
 
 public:
     QStringList symbols() { return m_symbols; }
+    QStringList* symbolsP() { return &m_symbols; }
     void setSymbols(const QStringList value) {
         bool changed = false;
         for (int i = 0; i < std::min(value.length(), m_symbols.length()); i++) {
