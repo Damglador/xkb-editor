@@ -1,11 +1,5 @@
 #pragma once
 
-#include <QAbstractListModel>
-#include <QList>
-#include <QVariant>
-#include <qnamespace.h>
-#include <qtmetamacros.h>
-
 #include "List.h"
 #include "Variant.h"
 

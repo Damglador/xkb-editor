@@ -6,6 +6,8 @@ add_library(xkb-types
     Include.h
     KeyProps.h
     Variant.h
+    List.h
+    VariantsList.h
 )
 
 target_link_libraries(xkb-types

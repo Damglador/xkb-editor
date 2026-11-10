@@ -15,8 +15,6 @@ target_sources(xkb-editor
     KeysymTable.h
     getchar.cpp
     getchar.h
-    List.h
-    VariantsList.h
     UndoStack.h
     UndoCommands.h
 )
