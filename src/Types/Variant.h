@@ -18,6 +18,7 @@ using namespace Qt::Literals::StringLiterals;
 class Variant : public QObject {
     Q_OBJECT
 
+    // clang-format off
     Q_PROPERTY(QString                  id          READ id         WRITE setId         NOTIFY idChanged)
     Q_PROPERTY(QString                  name        READ name       WRITE setName       NOTIFY nameChanged)
     Q_PROPERTY(QString                  keytype     READ keytype    WRITE setKeytype    NOTIFY keytypeChanged)
@@ -33,6 +34,7 @@ class Variant : public QObject {
     Enums::Flags m_flags;
     QList<Include*> m_includes;
     QMap<QString, KeyProps*> m_keymap;
+    // clang-format on
 
 public:
     Variant(QObject* parent = nullptr) : QObject(parent) {};
