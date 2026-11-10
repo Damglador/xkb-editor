@@ -63,8 +63,10 @@ public:
         if (!props) {
             props = new KeyProps(this);
         }
-        props->symbolsP()->insert(level - 1, isImplicit(keysym.trimmed()) ? NOSYM : keysym.trimmed());
-        m_keymap.insert(keycode, props); // if there wasn't such a keycode, it adds it, otherwise shouldn't make a difference
+        props->symbolsP()->insert(level - 1,
+                                  isImplicit(keysym.trimmed()) ? NOSYM : keysym.trimmed());
+        m_keymap.insert(keycode, props); // if there wasn't such a keycode, it adds it, otherwise
+                                         // shouldn't make a difference
     }
 
     Q_INVOKABLE QString getSymbol(const QString keycode, const int level) const {
