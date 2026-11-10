@@ -27,7 +27,7 @@ class SymbolsFile : public QObject {
 private:
     VariantsList* m_variants = new VariantsList();
     Variant* m_variant = nullptr;
-    void updateVariant() {
+    Q_SLOT void updateVariant() {
         if (0 <= m_variantIndex && m_variantIndex < m_variants->rowCount()) {
             m_variant = m_variants->getVariant(m_variantIndex);
         } else {
@@ -37,7 +37,9 @@ private:
     }
 
 public:
-    SymbolsFile(QObject* parent = nullptr) : QObject(parent) {};
+    SymbolsFile(QObject* parent = nullptr) : QObject(parent) {
+        connect(this, &SymbolsFile::variantIndexChanged, this, &SymbolsFile::updateVariant);
+    };
     VariantsList* variants() { return m_variants; }
     Variant* variant() { return m_variant; }
 
