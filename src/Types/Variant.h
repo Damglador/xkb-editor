@@ -18,21 +18,22 @@ using namespace Qt::Literals::StringLiterals;
 class Variant : public QObject {
     Q_OBJECT
 
-    Q_PROPERTY(QString id               READ id         WRITE setId         NOTIFY idChanged)
-    Q_PROPERTY(QString name             READ name       WRITE setName       NOTIFY nameChanged)
-    Q_PROPERTY(QStringList flags        READ flags                          NOTIFY flagsChanged)
-    Q_PROPERTY(QMap<QString, KeyProps*> keymap           READ keymap                         NOTIFY keymapChanged)
-    Q_PROPERTY(QList<Include*> includes READ includes                       NOTIFY includesChanged)
-    Q_PROPERTY(QString keytype          READ keytype    WRITE setKeytype    NOTIFY keytypeChanged)
-    Q_PROPERTY(QString source           READ source     WRITE setSource     NOTIFY sourceChanged)
+    Q_PROPERTY(QString                  id          READ id         WRITE setId         NOTIFY idChanged)
+    Q_PROPERTY(QString                  name        READ name       WRITE setName       NOTIFY nameChanged)
+    Q_PROPERTY(QString                  keytype     READ keytype    WRITE setKeytype    NOTIFY keytypeChanged)
+    Q_PROPERTY(QString                  source      READ source     WRITE setSource     NOTIFY sourceChanged)
+    Q_PROPERTY(QStringList              flags       READ flags                          NOTIFY flagsChanged)
+    Q_PROPERTY(QList<Include*>          includes    READ includes                       NOTIFY includesChanged)
+    Q_PROPERTY(QMap<QString, KeyProps*> keymap      READ keymap                         NOTIFY keymapChanged)
 
     PROP(QString, id,       setId)
     PROP(QString, name,     setName)
-    Enums::Flags m_flags;
-    QMap<QString, KeyProps*> m_keymap; // TODO: come up with a proper type
-    QList<Include*> m_includes;
     PROP(QString, keytype,  setKeytype)
     PROP(QString, source,   setSource)
+    Enums::Flags m_flags;
+    QList<Include*> m_includes;
+    QMap<QString, KeyProps*> m_keymap;
+
 public:
     Variant(QObject* parent = nullptr) : QObject(parent) {};
 
