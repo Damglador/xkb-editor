@@ -34,6 +34,8 @@ class Variant : public QObject {
     PROP(QString, keytype,  setKeytype)
     PROP(QString, source,   setSource)
 public:
+    Variant(QObject* parent = nullptr) : QObject(parent) {};
+
     void addFlag(QString name) {
         auto meta = QMetaEnum::fromType<Enums::Flag>();
         m_flags |= Enums::Flags::fromInt(meta.keyToValue(name.toUpper().toUtf8().data()));
@@ -56,7 +58,7 @@ public:
     Q_INVOKABLE void setSymbol(const QString keycode, const int level, const QString keysym) {
         KeyProps* props = m_keymap.value(keycode, nullptr);
         if (!props) {
-            props = new KeyProps();
+            props = new KeyProps(this);
         }
         props->symbolsP()->insert(level - 1, isImplicit(keysym.trimmed()) ? NOSYM : keysym.trimmed());
         m_keymap.insert(keycode, props); // if there wasn't such a keycode, it adds it, otherwise shouldn't make a difference

@@ -14,6 +14,8 @@ protected:
     };
 
 public:
+    List(QObject* parent = nullptr) : QAbstractListModel(parent) {};
+
     int rowCount(const QModelIndex &parent = QModelIndex()) const override {
         Q_UNUSED(parent);
         return list.count();

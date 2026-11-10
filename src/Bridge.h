@@ -18,8 +18,8 @@ class Bridge : public QObject {
     Q_PROPERTY(SymbolsFile* file READ file CONSTANT)
     Q_PROPERTY(KeysymTableModel* keysymTable READ keysymTable CONSTANT)
 
-    SymbolsFile* m_file = new SymbolsFile;
-    KeysymTableModel* m_keysymTable = new KeysymTableModel;
+    SymbolsFile* m_file = new SymbolsFile(this);
+    KeysymTableModel* m_keysymTable = new KeysymTableModel(this);
 
 public:
     Bridge(QObject* parent = nullptr) : QObject(parent) {

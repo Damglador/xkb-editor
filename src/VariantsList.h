@@ -19,6 +19,8 @@ class VariantsList : public List {
     };
 
 public:
+    VariantsList(QObject* parent = nullptr) : List(parent) {};
+
     QHash<int, QByteArray> roleNames() const override {
         QHash<int, QByteArray> roles;
         roles[ObjectRole] = "variant";

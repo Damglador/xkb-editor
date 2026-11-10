@@ -25,7 +25,8 @@ class SymbolsFile : public QObject {
     PROP(QString, path, setPath)
 
 private:
-    VariantsList* m_variants = new VariantsList();
+    VariantsList* m_variants = new VariantsList(this);
+
     Variant* m_variant = nullptr;
     Q_SLOT void updateVariant() {
         if (0 <= m_variantIndex && m_variantIndex < m_variants->rowCount()) {

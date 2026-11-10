@@ -24,6 +24,8 @@ class KeyProps : public QObject {
     PROP(QString, type, setType)
 
 public:
+    KeyProps(QObject* parent = nullptr) : QObject(parent) {};
+
     QStringList symbols() { return m_symbols; }
     QStringList* symbolsP() { return &m_symbols; }
     void setSymbols(const QStringList value) {

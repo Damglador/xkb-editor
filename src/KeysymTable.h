@@ -12,6 +12,8 @@ using namespace Qt::Literals::StringLiterals;
 class KeysymTableModel : public QAbstractTableModel {
     Q_OBJECT
 public:
+    KeysymTableModel(QObject* parent = nullptr) : QAbstractTableModel(parent) {};
+
     Q_INVOKABLE QString getDoc() { return u"mega docs"_s; };
     Q_INVOKABLE QString getCopyright() { return u"mega copyright"_s; };
     Q_INVOKABLE QString getSourcePath() {
