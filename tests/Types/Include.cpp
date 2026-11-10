@@ -51,5 +51,5 @@ private Q_SLOTS:
 
 };
 
-QTEST_GUILESS_MAIN(TestInclude)
+QTEST_APPLESS_MAIN(TestInclude)
 #include "Include.moc"
