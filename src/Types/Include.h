@@ -21,7 +21,6 @@ public:
     Include(QString path, QObject* parent = nullptr) : QObject(parent) {
         m_path = path;
     }
-    // TODO: from string and to string
     QString toString() {
         return m_variant.isEmpty() ? m_path : m_path + u"("_s + m_variant + u")"_s;
     }
