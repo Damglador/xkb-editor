@@ -23,6 +23,7 @@ class KeyProps : public QObject {
     PROP(bool, repeat, setRepeat)
     PROP(QString, type, setType)
 
+public:
     QStringList symbols() { return m_symbols; }
     void setSymbols(const QStringList value) {
         bool changed = false;
