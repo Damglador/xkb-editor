@@ -9,7 +9,7 @@
 using namespace std;
 
 #define semvals peg::SemanticValues
-#define tokenToString [](const semvals &vs) { return vs.token_to_string(); }
+#define tokenToString [](const semvals& vs) { return trim(vs.token_to_string()); }
 
 const string grammar = {
 #embed "keysymdef.peg"
@@ -46,7 +46,7 @@ vector<Item> tableFromFile(string filePath) {
     vector<Item> items;
     peg::parser parser(grammar);
 
-    parser["COPYRIGHT"] = [](const semvals &vs) {
+    parser["COPYRIGHT"] = [](const semvals& vs) {
         // Don't fold
         return Item{ {}, {}, vs.token_to_string() };
     };
@@ -59,7 +59,7 @@ vector<Item> tableFromFile(string filePath) {
     parser["HEX"] = tokenToString;
     parser["DESC"] = tokenToString;
 
-    parser["keysym"] = [](const semvals &vs) {
+    parser["keysym"] = [](const semvals& vs) {
         Item item{
             any_cast<string>(vs[0]),
             any_cast<string>(vs[1]),
@@ -71,7 +71,7 @@ vector<Item> tableFromFile(string filePath) {
         return item;
     };
 
-    parser["start"] = [](const semvals &sv) { return sv.transform<Item>(); };
+    parser["start"] = [](const semvals& sv) { return sv.transform<Item>(); };
 
     parser.parse(readFile(filePath), items);
 
