@@ -34,10 +34,10 @@ public:
             return QVariant();
 
         switch (role) {
-            case Qt::DisplayRole: return QVariant(getInclude(row)->toString());
-            case ObjectRole: return QVariant::fromValue(getInclude(row));
-            case PathRole: return QVariant(getInclude(row)->path());
-            case VariantRole: return QVariant(getInclude(row)->variant());
+        case Qt::DisplayRole: return QVariant(getInclude(row)->toString());
+        case ObjectRole: return QVariant::fromValue(getInclude(row));
+        case PathRole: return QVariant(getInclude(row)->path());
+        case VariantRole: return QVariant(getInclude(row)->variant());
         }
         return QVariant();
     }

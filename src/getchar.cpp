@@ -25,42 +25,24 @@ QString xkb_getchar(const QString input) {
     }
     xkb_keysym_t keysym = keysymFromName(input);
     switch (keysym) {
-        case XKB_KEY_dead_tilde:
-            return s("˜");
-        case XKB_KEY_dead_diaeresis:
-            return s("¨");
-        case XKB_KEY_dead_circumflex:
-            return s("ˆ");
-        case XKB_KEY_dead_doubleacute:
-            return s("˝");
-        case XKB_KEY_dead_macron:
-            return s("ˉ");
-        case XKB_KEY_dead_horn:
-            return s(" ̛");
-        case XKB_KEY_dead_ogonek:
-            return s("˛");
-        case XKB_KEY_dead_breve:
-            return s("˘");
-        case XKB_KEY_dead_abovedot:
-            return s(" ̇");
-        case XKB_KEY_dead_belowdot:
-            return s(" ̣");
-        case XKB_KEY_dead_hook:
-            return s(" ̉");
-        case XKB_KEY_dead_abovering:
-            return s("˚");
-        case XKB_KEY_dead_caron:
-            return s("ˇ");
-        case XKB_KEY_dead_stroke:
-            return s("ⱥ/ᵽ");
-        case XKB_KEY_dead_grave:
-            return s("ˋ");
-        case XKB_KEY_dead_acute:
-            return s("ˊ");
-        case XKB_KEY_dead_iota:
-            return s("ᶥ");
-        case XKB_KEY_dead_cedilla:
-            return s("¸");
+    case XKB_KEY_dead_tilde: return s("˜");
+    case XKB_KEY_dead_diaeresis: return s("¨");
+    case XKB_KEY_dead_circumflex: return s("ˆ");
+    case XKB_KEY_dead_doubleacute: return s("˝");
+    case XKB_KEY_dead_macron: return s("ˉ");
+    case XKB_KEY_dead_horn: return s(" ̛");
+    case XKB_KEY_dead_ogonek: return s("˛");
+    case XKB_KEY_dead_breve: return s("˘");
+    case XKB_KEY_dead_abovedot: return s(" ̇");
+    case XKB_KEY_dead_belowdot: return s(" ̣");
+    case XKB_KEY_dead_hook: return s(" ̉");
+    case XKB_KEY_dead_abovering: return s("˚");
+    case XKB_KEY_dead_caron: return s("ˇ");
+    case XKB_KEY_dead_stroke: return s("ⱥ/ᵽ");
+    case XKB_KEY_dead_grave: return s("ˋ");
+    case XKB_KEY_dead_acute: return s("ˊ");
+    case XKB_KEY_dead_iota: return s("ᶥ");
+    case XKB_KEY_dead_cedilla: return s("¸");
     }
     if (input.startsWith(s("dead_"))) {
         return s("N/A");
