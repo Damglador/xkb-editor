@@ -78,7 +78,9 @@ vector<Item> tableFromFile(string filePath) {
     return items;
 }
 
+#ifdef TEST
 int main() {
     cout << grammar;
     cout << itemsToString(tableFromFile("/usr/include/X11/keysymdef.h"));
 }
+#endif
