@@ -4,6 +4,8 @@
 #include <peglib.h>
 #include <string>
 
+#include "keysymdef_parser.h"
+
 using namespace std;
 
 #define semvals peg::SemanticValues
@@ -11,12 +13,6 @@ using namespace std;
 
 const string grammar = {
 #embed "keysymdef.peg"
-};
-
-struct Item {
-    string name;
-    string keysym;
-    string comment;
 };
 
 string readFile(string filePath) {
@@ -38,15 +34,16 @@ string readFile(string filePath) {
     return result;
 }
 
-void printItems(vector<Item> items) {
+string itemsToString(vector<Item> items) {
+    string result;
     for (Item item : items) {
-        cout << item.name << "\t" << item.keysym << "\t" << item.comment << endl;
+        result += item.name + "\t" + item.keysym + "\t" + item.comment + "\n";
     }
-    return;
+    return result;
 }
 
-int main() {
-    cout << grammar;
+vector<Item> tableFromFile(string filePath) {
+    vector<Item> items;
     peg::parser parser(grammar);
 
     parser["COPYRIGHT"] = [](const semvals &vs) {
@@ -74,9 +71,14 @@ int main() {
         return item;
     };
 
-    vector<Item> items;
     parser["start"] = [](const semvals &sv) { return sv.transform<Item>(); };
 
-    parser.parse(readFile("/usr/include/X11/keysymdef.h"), items);
-    printItems(items);
+    parser.parse(readFile(filePath), items);
+
+    return items;
+}
+
+int main() {
+    cout << grammar;
+    cout << itemsToString(tableFromFile("/usr/include/X11/keysymdef.h"));
 }
