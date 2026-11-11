@@ -1,20 +1,20 @@
-start <- COPYRIGHT _WS DOC (keysym / COMMENT / _WS / ifdef / endif)+
+start <- COPYRIGHT _WS DOC (keysym / ~COMMENT / _WS / ifdef / endif)+
 
 keysym <- "#define" _ILWS KEYSYMNAME _ILWS HEX (_ILWS DESC)?
 
-ifdef <- "#ifdef" _ILWS CNAME
-endif <- "#endif" (_ILWS DESC)?
+~ifdef <- "#ifdef" _ILWS < CNAME >
+~endif <- "#endif" (_ILWS DESC)?
 
 SECTIONCOMMENT <- DEFCOMMENT
 
 COPYRIGHT <- < COMMENT >
 DOC <- < COMMENT >
 
-DESC <- < COMMENT >
 KEYSYMNAME <- < CNAME >
-DEFCOMMENT <- "/*" (!"*/"!"\n" .)* "*/"
-
 HEX <- "0x" [0-9a-fA-F]+
+DESC <- < COMMENT >
+
+DEFCOMMENT <- "/*" (!"*/"!"\n" .)* "*/"
 
 CNAME <- [a-zA-Z][a-zA-Z0-9_]*
 COMMENT <- "/*" (!"*/" .)* "*/"

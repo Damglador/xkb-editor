@@ -1,17 +1,22 @@
+#include <any>
 #include <fstream>
 #include <iostream>
 #include <peglib.h>
-#include <QString>
+#include <string>
 
 using namespace std;
 
 #define semvals peg::SemanticValues
+#define tokenToString [](const semvals &vs) { return vs.token_to_string(); }
+
+const string grammar = {
+#embed "keysymdef.peg"
+};
 
 struct Item {
-    QString name;
-    QString keysym;
-    QString character;
-    QString comment;
+    string name;
+    string keysym;
+    string comment;
 };
 
 string readFile(string filePath) {
@@ -33,21 +38,45 @@ string readFile(string filePath) {
     return result;
 }
 
-int main() {
-    string filePath = "/home/damglador/projects/xkb-editor/src/parser/keysymdef.peg";
+void printItems(vector<Item> items) {
+    for (Item item : items) {
+        cout << item.name << "\t" << item.keysym << "\t" << item.comment << endl;
+    }
+    return;
+}
 
-    string grammar = readFile(filePath);
+int main() {
     cout << grammar;
     peg::parser parser(grammar);
 
-    parser["COPYRIGHT"] = [](const semvals &sv) {
-        return Item { .comment = QString::fromUtf8(sv.token_to_string()) };
+    parser["COPYRIGHT"] = [](const semvals &vs) {
+        // Don't fold
+        return Item{ {}, {}, vs.token_to_string() };
+    };
+    parser["DOC"] = [](const semvals &vs) {
+        // Don't fold
+        return Item{ {}, {}, vs.token_to_string() };
     };
 
-    parser["start"] = [](const semvals &sv) {
-        sv.transform<Item>();
+    parser["KEYSYMNAME"] = tokenToString;
+    parser["HEX"] = tokenToString;
+    parser["DESC"] = tokenToString;
+
+    parser["keysym"] = [](const semvals &vs) {
+        Item item{
+            any_cast<string>(vs[0]),
+            any_cast<string>(vs[1]),
+            {},
+        };
+        if (vs.size() == 3) {
+            item.comment = any_cast<string>(vs[2]);
+        }
+        return item;
     };
 
+    vector<Item> items;
+    parser["start"] = [](const semvals &sv) { return sv.transform<Item>(); };
 
-    // parser.parse(readFile("/usr/include/X11/keysymdef.h"));
+    parser.parse(readFile("/usr/include/X11/keysymdef.h"), items);
+    printItems(items);
 }
