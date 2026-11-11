@@ -1,3 +1,5 @@
+add_subdirectory(parser)
+kde_target_enable_exceptions(xkb-parser PRIVATE) # cpp-peglib won't compile otherwise
 add_subdirectory(Types)
 
 add_executable(xkb-editor)
@@ -62,6 +64,7 @@ pkg_check_modules(xkbcommon REQUIRED IMPORTED_TARGET xkbcommon)
 target_link_libraries(xkb-editor
     PRIVATE
     xkb-types
+    xkb-parser
     Qt6::Quick
     Qt6::Qml
     Qt6::Gui

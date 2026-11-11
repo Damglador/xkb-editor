@@ -109,7 +109,7 @@ Kirigami.ApplicationWindow {
             Layout.fillWidth: true
             padding: Kirigami.Units.largeSpacing
             wrapMode: Text.WordWrap
-            text: proxyModel.sourceModel.getCopyright()
+            text: proxyModel.sourceModel.copyright()
         }
     }
     Kirigami.Dialog {
@@ -127,7 +127,7 @@ Kirigami.ApplicationWindow {
 from /usr/include/X11/keysymdef.h or pre-packaged keysymdef.h,
 if one is not available on your system.
 
-Current source: %1`).arg(proxyModel.sourceModel.getSourcePath())
+Current source: %1`).arg(proxyModel.sourceModel.sourcePath())
             }
             Kirigami.Separator {
                 Layout.fillWidth: true
@@ -135,7 +135,7 @@ Current source: %1`).arg(proxyModel.sourceModel.getSourcePath())
             Kirigami.SelectableLabel {
                 padding: Kirigami.Units.largeSpacing
                 wrapMode: Text.WordWrap
-                text: proxyModel.sourceModel.getDoc()
+                text: proxyModel.sourceModel.doc()
             }
         }
     }
