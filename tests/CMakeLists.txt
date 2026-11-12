@@ -18,6 +18,15 @@ ecm_add_test(Types/Variant.cpp
     Qt6::Core
 )
 
+ecm_add_test(parser/xkb.cpp
+    TEST_NAME test-parser-xkb
+    LINK_LIBRARIES
+    xkb-parser
+    xkb-types
+    Qt6::Test
+    Qt6::Core
+)
+
 ecm_add_test(parser/keysymdef.cpp
     TEST_NAME test-parser-keysymdef
     LINK_LIBRARIES

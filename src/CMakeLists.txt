@@ -1,6 +1,7 @@
-add_subdirectory(parser)
-kde_target_enable_exceptions(xkb-parser PRIVATE) # cpp-peglib won't compile otherwise
 add_subdirectory(Types)
+add_subdirectory(parser)
+# cpp-peglib won't compile otherwise
+kde_target_enable_exceptions(xkb-parser PRIVATE)
 
 add_executable(xkb-editor)
 
