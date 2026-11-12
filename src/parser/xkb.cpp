@@ -1,16 +1,13 @@
 #include <QList>
+#include <QObject>
 #include <QString>
-#include <any>
+#include <QtLogging>
 #include <cstddef>
 #include <fstream>
 #include <iostream>
 #include <peglib.h>
-#include <qlist.h>
-#include <qlogging.h>
-#include <qobject.h>
 #include <string>
 
-#include "Enums.h"
 #include "Types/KeyProps.h"
 #include "Types/Variant.h"
 #include "macros.h"
