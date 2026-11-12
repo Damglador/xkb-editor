@@ -11,6 +11,7 @@ translations:
 test: build
 	build/bin/test-types-include
 	build/bin/test-types-variant
+	build/bin/test-parser-keysymdef
 
 .PHONY: run
 run: build
