@@ -118,10 +118,3 @@ QList<Variant*> variantsFromFile(QString filePath, QObject* parent) {
 
     return list;
 }
-
-#ifdef TEST
-int main() {
-    cout << grammar;
-    cout << itemsToString(tableFromFile("/usr/share/xkeyboard-config-2/symbols/us"));
-}
-#endif
