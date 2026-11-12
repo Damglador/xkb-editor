@@ -26,7 +26,7 @@ name <- "name" "[" GROUP "]"      "=" STRING ";"
 include <- "include" < STRING >
 
 # https://xkbcommon.org/doc/current/keymap-text-format-v1-v2.html#set-real-mod-map
-modifier_map <- "modifier_map" MODIFIER "{" KEYCODE / KEYSYM ("," (KEYCODE / KEYSYM))* "}" ";"
+modifier_map <- "modifier_map" MODIFIER "{" (KEYCODE / KEYSYM) ("," (KEYCODE / KEYSYM))* "}" ";"
 
 # TODO: I do not care to actually do anything with this one, so it's a stub
 virtual_modifiers <- < "virtual_modifiers" IDENT ";" >
@@ -49,7 +49,7 @@ action <- ACTION "(" .* ")"
 repeat <- "repeat" "=" BOOL
 key_virtmod <- ("virtualModifiers" / "virtualMods") "=" IDENT
 # https://xkbcommon.org/doc/current/keymap-text-format-v1-v2.html#the-xkb_symbols-section under Type section
-key_type_default <- "key."key_type ";"
+key_type_default <- "key.type" "[" GROUP "]" "=" < STRING > ";"
 
 # DEPRECATED
 overlay <- "overlay" ("1" / "2") "=" KEYCODE
