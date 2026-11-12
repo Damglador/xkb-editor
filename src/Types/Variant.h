@@ -28,7 +28,7 @@ class Variant : public QObject {
     PROP(QString, keytype,  setKeytype)
     PROP(QString, source,   setSource)
     Enums::Flags m_flags;
-    IncludesList* m_includes = new IncludesList(this);
+    IncludesList m_includes = IncludesList(this);
     QMap<QString, KeyProps*> m_keymap;
     // clang-format on
 
@@ -51,7 +51,7 @@ public:
         return QString::fromUtf8(keys).toLower().split(QLatin1Char('|'), Qt::SkipEmptyParts);
     }
 
-    IncludesList* includes() { return m_includes; }
+    IncludesList* includes() { return &m_includes; }
     QMap<QString, KeyProps*> keymap() { return m_keymap; }
 
     Q_INVOKABLE void setSymbol(const QString keycode, const int level, const QString keysym) {

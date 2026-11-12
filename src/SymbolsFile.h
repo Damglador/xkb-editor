@@ -24,12 +24,12 @@ class SymbolsFile : public QObject {
     // clang-format on
 
 private:
-    VariantsList* m_variants = new VariantsList(this);
+    VariantsList m_variants = VariantsList(this);
 
     Variant* m_variant = nullptr;
     Q_SLOT void updateVariant() {
-        if (0 <= m_variantIndex && m_variantIndex < m_variants->rowCount()) {
-            m_variant = m_variants->getVariant(m_variantIndex);
+        if (0 <= m_variantIndex && m_variantIndex < m_variants.rowCount()) {
+            m_variant = m_variants.getVariant(m_variantIndex);
         } else {
             m_variant = nullptr;
         }
@@ -40,7 +40,7 @@ public:
     SymbolsFile(QObject* parent = nullptr) : QObject(parent) {
         connect(this, &SymbolsFile::variantIndexChanged, this, &SymbolsFile::updateVariant);
     };
-    VariantsList* variants() { return m_variants; }
+    VariantsList* variants() { return &m_variants; }
     Variant* variant() { return m_variant; }
 
     Q_INVOKABLE void load(QString filePath) {
@@ -50,7 +50,7 @@ public:
     Q_INVOKABLE void clear() {
         setPath(u""_s);
         setVariantIndex(0);
-        m_variants->clear();
+        m_variants.clear();
         Q_EMIT fileLoaded();
     }
 
