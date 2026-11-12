@@ -11,17 +11,19 @@
 
 using namespace Qt::Literals::StringLiterals;
 
+#define Keymap QMap<QString, KeyProps*>
+
 class Variant : public QObject {
     Q_OBJECT
 
     // clang-format off
-    Q_PROPERTY(QString                  id          READ id         WRITE setId         NOTIFY idChanged)
-    Q_PROPERTY(QString                  name        READ name       WRITE setName       NOTIFY nameChanged)
-    Q_PROPERTY(QString                  keytype     READ keytype    WRITE setKeytype    NOTIFY keytypeChanged)
-    Q_PROPERTY(QString                  source      READ source     WRITE setSource     NOTIFY sourceChanged)
-    Q_PROPERTY(QStringList              flags       READ flags                          NOTIFY flagsChanged)
-    Q_PROPERTY(IncludesList*            includes    READ includes                       NOTIFY includesChanged)
-    Q_PROPERTY(QMap<QString, KeyProps*> keymap      READ keymap                         NOTIFY keymapChanged)
+    Q_PROPERTY(QString        id          READ id         WRITE setId         NOTIFY idChanged     )
+    Q_PROPERTY(QString        name        READ name       WRITE setName       NOTIFY nameChanged   )
+    Q_PROPERTY(QString        keytype     READ keytype    WRITE setKeytype    NOTIFY keytypeChanged)
+    Q_PROPERTY(QString        source      READ source     WRITE setSource     NOTIFY sourceChanged )
+    Q_PROPERTY(QStringList    flags       READ flags                          NOTIFY flagsChanged  )
+    Q_PROPERTY(IncludesList*  includes    READ includes   CONSTANT)
+    Q_PROPERTY(Keymap         keymap      READ keymap     CONSTANT)
 
     PROP(QString, id,       setId)
     PROP(QString, name,     setName)
@@ -77,6 +79,4 @@ public:
 
 Q_SIGNALS:
     void flagsChanged();
-    void keymapChanged();
-    void includesChanged();
 };
