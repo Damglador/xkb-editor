@@ -20,8 +20,8 @@ statement <- name
            / virtual_modifiers
 
 id <- < STRING >
-name <- "name" "[" GROUP "]"      "=" STRING ";"
-      / "groupName" "[" [0-9]+ "]" "=" STRING ";"
+name <- "name" "[" GROUP "]"       "=" < STRING > ";"
+      / "groupName" "[" [0-9]+ "]" "=" < STRING >";"
 
 include <- "include" < STRING >
 
@@ -107,7 +107,7 @@ KEYTYPE         <- < STRING >
 KEYCODE         <- < "<" (IDENT / "+" / "-")* ">" >
 KEYSYM          <- < HEX / IDENT / STRING >
 IDENT           <- < [a-zA-Z0-9_]+ >
-GROUP           <- < [Gg]"roup" "1" >
+~GROUP          <- < [Gg]"roup" "1" >
 STRING          <- < '"' (!'"' .)* '"' >
 
 ~COMMENT <- "//" (!'\n' .)*
