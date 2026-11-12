@@ -4,12 +4,13 @@
 #include <peglib.h>
 #include <string>
 
+#include "macros.h"
 #include "keysymdef_parser.h"
 
 using namespace std;
 
 #define semvals peg::SemanticValues
-#define tokenToString [](const semvals& vs) { return trim(vs.token_to_string()); }
+#define tokenToString [](const semvals& vs) { return trim(vs.token_to_string(), " \t\n\r*/"); }
 
 const string grammar = {
 #embed "keysymdef.peg"
@@ -34,20 +35,6 @@ string readFile(string filePath) {
     return result;
 }
 
-// https://stackoverflow.com/questions/1798112/removing-leading-and-trailing-spaces-from-a-string
-std::string trim(const std::string& str)
-{
-    std::string ignored = " \t\n\r*/";
-    const auto strBegin = str.find_first_not_of(ignored);
-    if (strBegin == std::string::npos)
-        return ""; // no content
-
-    const auto strEnd = str.find_last_not_of(ignored);
-    const auto strRange = strEnd - strBegin + 1;
-
-    return str.substr(strBegin, strRange);
-}
-
 string itemsToString(vector<Item> items) {
     string result;
     for (Item item : items) {
@@ -62,13 +49,13 @@ vector<Item> tableFromFile(string filePath) {
 
     parser["COPYRIGHT"] = [](const semvals& vs) {
         // Don't fold
-        return Item{ {}, {}, trim(vs.token_to_string()) };
+        return Item{ {}, {}, trim(vs.token_to_string(), " \t\n\r*/") };
     };
 
     // TODO: trim spaces and * on every line
     parser["DOC"] = [](const semvals &vs) {
         // Don't fold
-        return Item{ {}, {}, trim(vs.token_to_string()) };
+        return Item{ {}, {}, trim(vs.token_to_string(), " \t\n\r*/") };
     };
 
     parser["KEYSYMNAME"] = tokenToString;
