@@ -4,8 +4,8 @@
 #include <peglib.h>
 #include <string>
 
-#include "macros.h"
 #include "keysymdef_parser.h"
+#include "macros.h"
 
 using namespace std;
 
@@ -53,7 +53,7 @@ vector<Item> tableFromFile(string filePath) {
     };
 
     // TODO: trim spaces and * on every line
-    parser["DOC"] = [](const semvals &vs) {
+    parser["DOC"] = [](const semvals& vs) {
         // Don't fold
         return Item{ {}, {}, trim(vs.token_to_string(), " \t\n\r*/") };
     };
