@@ -43,9 +43,7 @@ public:
     VariantsList* variants() { return &m_variants; }
     Variant* variant() { return m_variant; }
 
-    Q_INVOKABLE void load(QString filePath) {
-        error(u"Test error"_s);
-    }
+    Q_INVOKABLE void load(QString filePath) { error(u"Test error"_s); }
 
     Q_INVOKABLE void clear() {
         setPath(u""_s);
