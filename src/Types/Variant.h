@@ -28,7 +28,7 @@ class Variant : public QObject {
     PROP(QString, keytype,  setKeytype)
     PROP(QString, source,   setSource)
     Enums::Flags m_flags;
-    IncludesList* m_includes;
+    IncludesList* m_includes = new IncludesList(this);
     QMap<QString, KeyProps*> m_keymap;
     // clang-format on
 
