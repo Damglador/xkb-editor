@@ -4,8 +4,10 @@
 #include <string>
 
 using namespace std;
+using namespace Qt::Literals::StringLiterals;
 
 #define NOSYM QStringLiteral("NoSymbol")
+#define INDENT QStringLiteral("    ")
 
 #define PROP(type, name, setter)                        \
 public:                                                 \
@@ -39,4 +41,13 @@ inline string trim(const string& str, const string& ignored)
     const auto strRange = strEnd - strBegin + 1;
 
     return str.substr(strBegin, strRange);
+}
+
+inline QString quoteSymbol(QString symbol) {
+    if (symbol == u"\""_s) {
+        symbol = symbol.prepend(u"\"\\"_s).append(u"\""_s);
+    } else if (symbol.length() == 1 || symbol == u"\\\""_s) {
+        symbol = symbol.prepend(u"\""_s).append(u"\""_s);
+    }
+    return symbol.isEmpty() ? NOSYM : symbol;
 }

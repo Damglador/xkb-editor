@@ -20,6 +20,12 @@ public:
         Q_UNUSED(parent);
         return list.count();
     }
+    int count() const {
+        return list.count();
+    };
+    int length() const {
+        return list.length();
+    };
 
     // bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole)
     // override {

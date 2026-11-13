@@ -17,7 +17,7 @@ class KeyProps : public QObject {
     QStringList m_symbols = { NOSYM, NOSYM, NOSYM, NOSYM };
     QStringList m_actions;
     PROP(QString,  virtmod,  setVirtmod)
-    PROP(bool,     repeat,   setRepeat)
+    PROP(QString,  repeat,   setRepeat)
     PROP(QString,  type,     setType)
     // clang-format on
 

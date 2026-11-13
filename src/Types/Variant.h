@@ -2,6 +2,7 @@
 
 #include <QMetaEnum>
 #include <QObject>
+#include <algorithm>
 
 #include "Enums.h"
 #include "IncludesList.h"
@@ -74,6 +75,74 @@ public:
 
         const QString result = props->symbolsP()->value(level - 1, {});
         return isImplicit(result) ? u""_s : result;
+    }
+
+    Q_INVOKABLE QString toXkb() {
+        QStringList lines;
+        if (flags().length() != 0)
+            lines.append(flags().join(u" "_s));
+        lines.append(u"xkb_symbols \"%1\" {"_s.arg(m_id));
+
+        if (!m_name.isEmpty()) {
+            lines.append(INDENT + u"name[Group1] = \"%1\";"_s.arg(m_name));
+            lines.append(u""_s);
+        }
+        if (!m_keytype.isEmpty())
+            lines.append(INDENT + u"key.type = \"%1\";"_s.arg(m_keytype));
+        if (m_includes.count() != 0) {
+            for (int i = 0; i < m_includes.count(); i++) {
+                Include* include = m_includes.getInclude(i);
+                if (!include->path().isEmpty())
+                    lines.append(INDENT + u"include \"%1\""_s.arg(include->toString()));
+            }
+        }
+        if (!m_keymap.isEmpty()) {
+            int columnWidths[] = { 0, 0, 0, 0, 0, 0, 0, 0 };
+            QMap<QString, int> explicitMap;
+
+            // Pre-pass to determine width of every symbols column
+            for (auto [keycode, keyprops] : m_keymap.asKeyValueRange()) {
+                if (keyprops->symbols().count() == 0)
+                    continue;
+                int explicitCount = 0;
+                for (int i = 0; i < keyprops->symbols().count(); i++)
+                    if (!isImplicit(keyprops->symbols()[i]))
+                        explicitCount = i + 1;
+                explicitMap.insert(keycode, explicitCount);
+
+                for (int i = 0; i < explicitCount; i++) {
+                    const QString symbol = quoteSymbol(keyprops->symbols()[i]);
+                    columnWidths[i] = max((int)symbol.length(), columnWidths[i]);
+                }
+            }
+            for (auto [keycode, keyprops] : m_keymap.asKeyValueRange()) {
+                QStringList props;
+                if (keyprops->symbols().count() != 0) {
+                    QStringList symbols;
+                    for (int i = 0; i < explicitMap[keycode]; i++) {
+                        const QString symbol = quoteSymbol(keyprops->symbols()[i]);
+
+                        if (i < explicitMap[keycode] - 1) // + 5 is 4 padding and 1 comma
+                            symbols.append(QString(symbol + u","_s).leftJustified(columnWidths[i] + 5));
+                        else
+                            symbols.append(symbol.leftJustified(columnWidths[i]));
+                    }
+                    props.append(u"[ %1 ]"_s.arg(symbols.join(u""_s)));
+                }
+                if (!keyprops->type().isEmpty())
+                    props.append(u"type = \"%1\""_s.arg(keyprops->type()));
+                if (!keyprops->repeat().isEmpty())
+                    props.append(u"repeat = \"%1\""_s.arg(keyprops->repeat()));
+                if (!keyprops->virtmod().isEmpty())
+                    props.append(u"virtualModifiers = \"%1\""_s.arg(keyprops->virtmod()));
+
+                QString propsString = props.join(u",\n                   "_s);
+                lines.append(INDENT + u"key <%1> { %2 }"_s.arg(keycode).arg(propsString));
+            }
+        }
+
+        lines.append(u"};"_s);
+        return lines.join(u"\n").append(u"\n");
     }
 
 Q_SIGNALS:
