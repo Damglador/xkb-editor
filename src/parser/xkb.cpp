@@ -109,12 +109,7 @@ QList<Variant*> variantsFromFile(QString filePath, QObject* parent) {
     const string content = readFile(filePath.toStdString());
     parser.parse(content, ast);
 
-    qDebug().noquote() << ast_to_s(ast);
-
     parseXkbSymbols(ast, &list, parent);
-    qDebug() << list[0]->id();
-    qDebug() << list[0]->name();
-    qDebug() << list[0]->flags();
 
     return list;
 }
