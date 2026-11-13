@@ -1,6 +1,5 @@
 #pragma once
 
-#include <QList>
 #include <QMetaEnum>
 #include <QObject>
 

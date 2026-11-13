@@ -1,7 +1,6 @@
 #include <QList>
 #include <QObject>
 #include <QString>
-#include <QtLogging>
 #include <cstddef>
 #include <fstream>
 #include <iostream>
