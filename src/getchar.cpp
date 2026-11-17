@@ -49,3 +49,21 @@ QString xkb_getchar(const QString input) {
     }
     return keysymToString(keysymFromName(input));
 }
+
+xkb_keycode_t xkb_get_keycode(const QString keyname) {
+    xkb_context *context = xkb_context_new(XKB_CONTEXT_NO_FLAGS);
+    xkb_keymap *keymap = xkb_keymap_new_from_names2(context, nullptr, XKB_KEYMAP_FORMAT_TEXT_V2, XKB_KEYMAP_COMPILE_NO_FLAGS);
+    xkb_keycode_t result = xkb_keymap_key_by_name(keymap, keyname.toLocal8Bit().data());
+    xkb_keymap_unref(keymap);
+    xkb_context_unref(context);
+    return result;
+}
+
+QString xkb_get_keyname(const xkb_keycode_t keycode) {
+    xkb_context *context = xkb_context_new(XKB_CONTEXT_NO_FLAGS);
+    xkb_keymap *keymap = xkb_keymap_new_from_names2(context, nullptr, XKB_KEYMAP_FORMAT_TEXT_V2, XKB_KEYMAP_COMPILE_NO_FLAGS);
+    QString result = QString::fromLocal8Bit(xkb_keymap_key_get_name(keymap, keycode));
+    xkb_keymap_unref(keymap);
+    xkb_context_unref(context);
+    return result;
+}

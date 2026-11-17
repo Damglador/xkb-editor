@@ -4,9 +4,11 @@
 #include <cstddef>
 #include <peglib.h>
 #include <string>
+#include <xkbcommon/xkbcommon.h>
 
 #include "Types/KeyProps.h"
 #include "Types/Variant.h"
+#include "getchar.h"
 #include "macros.h"
 
 #include "xkb.h"
@@ -60,8 +62,9 @@ Variant* parseVariant(const shared_ptr<Ast> ast, QObject* parent = nullptr) {
         } else if (rule == "key_type_default") {
             var->setKeytype(str(node->token_to_string()));
         } else if (rule == "key") {
-            QString name = str(trim(node->nodes[0]->token_to_string(), "<>")); // KEYCODE
-            var->keymap()->insert(name, parseKeyProps(node->nodes[1]));
+            xkb_keycode_t keycode =
+                xkb_get_keycode(str(trim(node->nodes[0]->token_to_string(), "<>"))); // KEYCODE
+            var->keymap()->insert(keycode, parseKeyProps(node->nodes[1]));
         }
     }
 

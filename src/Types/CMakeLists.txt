@@ -9,11 +9,14 @@ add_library(xkb-types
     List.h
     IncludesList.h
     VariantsList.h
+    ../getchar.cpp
+    ../getchar.h
 )
 
 target_link_libraries(xkb-types
     PRIVATE
     xkb-parser
+    xkbcommon
     Qt6::Core
     Qt6::Quick
 )

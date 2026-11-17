@@ -3,15 +3,17 @@
 #include <QMetaEnum>
 #include <QObject>
 #include <algorithm>
+#include <xkbcommon/xkbcommon.h>
 
 #include "Enums.h"
 #include "IncludesList.h"
 #include "KeyProps.h"
+#include "getchar.h"
 #include "macros.h"
 
 using namespace Qt::Literals::StringLiterals;
 
-#define Keymap QMap<QString, KeyProps*>
+#define Keymap QMap<xkb_keycode_t, KeyProps*>
 
 class Variant : public QObject {
     Q_OBJECT
@@ -56,7 +58,8 @@ public:
     IncludesList* includes() { return &m_includes; }
     Keymap* keymap() { return &m_keymap; }
 
-    Q_INVOKABLE void setSymbol(const QString keycode, const int level, const QString keysym) {
+    Q_INVOKABLE void setSymbol(const QString keyname, const int level, const QString keysym) {
+        xkb_keycode_t keycode = xkb_get_keycode(keyname);
         KeyProps* props = m_keymap.value(keycode, nullptr);
         if (!props) {
             props = new KeyProps(this);
@@ -67,7 +70,8 @@ public:
                                          // shouldn't make a difference
     }
 
-    Q_INVOKABLE QString getSymbol(const QString keycode, const int level) const {
+    Q_INVOKABLE QString getSymbol(const QString keyname, const int level) const {
+        xkb_keycode_t keycode = xkb_get_keycode(keyname);
         KeyProps* props = m_keymap.value(keycode, nullptr);
         if (!props) {
             return {};
@@ -98,7 +102,7 @@ public:
         }
         if (!m_keymap.isEmpty()) {
             int columnWidths[] = { 0, 0, 0, 0, 0, 0, 0, 0 };
-            QMap<QString, int> explicitMap;
+            QMap<xkb_keycode_t, int> explicitMap;
 
             // Pre-pass to determine width of every symbols column
             for (auto [keycode, keyprops] : m_keymap.asKeyValueRange()) {
