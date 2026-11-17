@@ -76,8 +76,6 @@ void parseXkbSymbols(const shared_ptr<Ast> ast, QList<Variant*>* list, QObject* 
 }
 
 QList<Variant*> variantsFromFile(QString filePath, QObject* parent) {
-    QObject buffer;
-
     peg::parser parser(grammar);
 
     QList<Variant*> list;
