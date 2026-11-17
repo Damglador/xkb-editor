@@ -1,7 +1,7 @@
 .PHONY: build
 build: translations
 	cmake -S . -B build/
-	cmake --build build/ -j $(nproc)
+	cmake --build build/ -j$(nproc)
 
 .PHONY: translations
 translations:
