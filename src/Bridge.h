@@ -30,6 +30,10 @@ public:
     Q_SLOT void print(QString message) { qDebug() << message; }
 
     Q_INVOKABLE QString getSymbolChar(QString symbol) { return xkb_getchar(symbol); }
+    Q_INVOKABLE void loadTestVariant() {
+        m_file.load(u"/usr/share/xkeyboard-config-2/symbols/us"_s);
+        // m_file.m_path = "/home/damglador/.config/xkb/symbols/test";
+    }
 
 Q_SIGNALS:
     void fileChanged();
