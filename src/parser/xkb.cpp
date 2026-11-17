@@ -2,8 +2,6 @@
 #include <QObject>
 #include <QString>
 #include <cstddef>
-#include <fstream>
-#include <iostream>
 #include <peglib.h>
 #include <string>
 
@@ -23,25 +21,6 @@ using namespace peg;
 const string grammar = {
 #embed "xkb.peg"
 };
-
-string readFile(string filePath) {
-
-    ifstream file(filePath);
-
-    if (!file.is_open()) {
-        cerr << "Failed to open: " << filePath << std::endl;
-        return "";
-    }
-
-    string result;
-    string line;
-    while (getline(file, line)) {
-        result += line;
-        result += "\n";
-    }
-
-    return result;
-}
 
 KeyProps* parseKeyProps(const shared_ptr<Ast> ast, QObject* parent = nullptr) {
     auto props = new KeyProps(parent);

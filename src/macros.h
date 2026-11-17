@@ -1,6 +1,8 @@
 #pragma once
 
 #include <QObject>
+#include <fstream>
+#include <iostream>
 #include <string>
 
 using namespace std;
@@ -50,4 +52,23 @@ inline QString quoteSymbol(QString symbol) {
         symbol = symbol.prepend(u"\""_s).append(u"\""_s);
     }
     return symbol.isEmpty() ? NOSYM : symbol;
+}
+
+inline string readFile(string filePath) {
+
+    ifstream file = ifstream(filePath);
+
+    if (!file.is_open()) {
+        cerr << "Failed to open: " << filePath << endl;
+        return "";
+    }
+
+    string result;
+    string line;
+    while (getline(file, line)) {
+        result += line;
+        result += "\n";
+    }
+
+    return result;
 }

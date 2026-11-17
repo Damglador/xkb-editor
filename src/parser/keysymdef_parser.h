@@ -9,6 +9,5 @@ struct Item {
     string comment;
 };
 
-string readFile(string filePath);
 string itemsToString(vector<Item>);
 vector<Item> tableFromFile(string filePath);

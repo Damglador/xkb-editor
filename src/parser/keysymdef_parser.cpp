@@ -1,6 +1,4 @@
 #include <any>
-#include <fstream>
-#include <iostream>
 #include <peglib.h>
 #include <string>
 
@@ -15,25 +13,6 @@ using namespace std;
 const string grammar = {
 #embed "keysymdef.peg"
 };
-
-string readFile(string filePath) {
-
-    ifstream file(filePath);
-
-    if (!file.is_open()) {
-        cerr << "Failed to open: " << filePath << std::endl;
-        return "";
-    }
-
-    string result;
-    string line;
-    while (getline(file, line)) {
-        result += line;
-        result += "\n";
-    }
-
-    return result;
-}
 
 string itemsToString(vector<Item> items) {
     string result;
