@@ -23,7 +23,7 @@ class Variant : public QObject {
     Q_PROPERTY(QString        source      READ source     WRITE setSource     NOTIFY sourceChanged )
     Q_PROPERTY(QStringList    flags       READ flags                          NOTIFY flagsChanged  )
     Q_PROPERTY(IncludesList*  includes    READ includes   CONSTANT)
-    Q_PROPERTY(Keymap         keymap      READ keymap     CONSTANT)
+    Q_PROPERTY(Keymap*        keymap      READ keymap     CONSTANT)
 
     PROP(QString, id,       setId)
     PROP(QString, name,     setName)
@@ -31,7 +31,7 @@ class Variant : public QObject {
     PROP(QString, source,   setSource)
     Enums::Flags m_flags;
     IncludesList m_includes = IncludesList(this);
-    QMap<QString, KeyProps*> m_keymap;
+    Keymap m_keymap;
     // clang-format on
 
 public:
@@ -54,14 +54,14 @@ public:
     }
 
     IncludesList* includes() { return &m_includes; }
-    QMap<QString, KeyProps*> keymap() { return m_keymap; }
+    Keymap* keymap() { return &m_keymap; }
 
     Q_INVOKABLE void setSymbol(const QString keycode, const int level, const QString keysym) {
         KeyProps* props = m_keymap.value(keycode, nullptr);
         if (!props) {
             props = new KeyProps(this);
         }
-        props->symbolsP()->insert(level - 1,
+        props->symbols()->insert(level - 1,
                                   isImplicit(keysym.trimmed()) ? NOSYM : keysym.trimmed());
         m_keymap.insert(keycode, props); // if there wasn't such a keycode, it adds it, otherwise
                                          // shouldn't make a difference
@@ -73,7 +73,7 @@ public:
             return {};
         }
 
-        const QString result = props->symbolsP()->value(level - 1, {});
+        const QString result = props->symbols()->value(level - 1, {});
         return isImplicit(result) ? u""_s : result;
     }
 
@@ -102,25 +102,25 @@ public:
 
             // Pre-pass to determine width of every symbols column
             for (auto [keycode, keyprops] : m_keymap.asKeyValueRange()) {
-                if (keyprops->symbols().count() == 0)
+                if (keyprops->symbols()->count() == 0)
                     continue;
                 int explicitCount = 0;
-                for (int i = 0; i < keyprops->symbols().count(); i++)
-                    if (!isImplicit(keyprops->symbols()[i]))
+                for (int i = 0; i < keyprops->symbols()->count(); i++)
+                    if (!isImplicit(keyprops->symbols()->value(i)))
                         explicitCount = i + 1;
                 explicitMap.insert(keycode, explicitCount);
 
                 for (int i = 0; i < explicitCount; i++) {
-                    const QString symbol = quoteSymbol(keyprops->symbols()[i]);
+                    const QString symbol = quoteSymbol(keyprops->symbols()->value(i));
                     columnWidths[i] = max((int)symbol.length(), columnWidths[i]);
                 }
             }
             for (auto [keycode, keyprops] : m_keymap.asKeyValueRange()) {
                 QStringList props;
-                if (keyprops->symbols().count() != 0) {
+                if (keyprops->symbols()->count() != 0) {
                     QStringList symbols;
                     for (int i = 0; i < explicitMap[keycode]; i++) {
-                        const QString symbol = quoteSymbol(keyprops->symbols()[i]);
+                        const QString symbol = quoteSymbol(keyprops->symbols()->value(i));
 
                         if (i < explicitMap[keycode] - 1) // + 5 is 4 padding and 1 comma
                             symbols.append(QString(symbol + u","_s).leftJustified(columnWidths[i] + 5));

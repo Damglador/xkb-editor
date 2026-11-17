@@ -12,8 +12,8 @@ class KeyProps : public QObject {
     Q_OBJECT
 
     // clang-format off
-    Q_PROPERTY(QStringList  symbols  READ symbols    WRITE setSymbols    NOTIFY symbolsChanged)
-    // Q_PROPERTY(QString      actions  READ actions    WRITE setActions    NOTIFY actionsChanged)
+    Q_PROPERTY(QStringList*  symbols  READ  symbols  NOTIFY  symbolsChanged)
+    // Q_PROPERTY(QString       actions  READ  actions  NOTIFY  actionsChanged)
     QStringList m_symbols = { NOSYM, NOSYM, NOSYM, NOSYM };
     QStringList m_actions;
     PROP(QString,  virtmod,  setVirtmod)
@@ -24,8 +24,7 @@ class KeyProps : public QObject {
 public:
     KeyProps(QObject* parent = nullptr) : QObject(parent) {};
 
-    QStringList symbols() { return m_symbols; }
-    QStringList* symbolsP() { return &m_symbols; }
+    QStringList* symbols() { return &m_symbols; }
     void setSymbols(const QStringList value) {
         bool changed = false;
         for (int i = 0; i < std::min(value.length(), m_symbols.length()); i++) {

@@ -27,14 +27,14 @@ KeyProps* parseKeyProps(const shared_ptr<Ast> ast, QObject* parent = nullptr) {
     const auto& nodes = ast->nodes;
     for (auto node : nodes) {
         if (node->name == "key_syms") {
-            for (size_t i = 0; i < min(node->nodes.size(), (size_t)props->symbols().size()); i++) {
+            for (size_t i = 0; i < min(node->nodes.size(), (size_t)props->symbols()->size()); i++) {
                 auto symNode = node->nodes[i];
                 switch (node->nodes[i]->choice) {
                 case 2: // STRING choice
-                    props->symbols()[i] = str(trim(symNode->token_to_string(), "\""));
+                    props->symbols()->insert(i, str(trim(symNode->token_to_string(), "\"")));
                     break;
                 default: // HEX or IDENT
-                    props->symbols()[i] = str(symNode->token_to_string());
+                    props->symbols()->insert(i, str(symNode->token_to_string()));
                     break;
                 }
             }
@@ -61,7 +61,7 @@ Variant* parseVariant(const shared_ptr<Ast> ast, QObject* parent = nullptr) {
             var->setKeytype(str(node->token_to_string()));
         } else if (rule == "key") {
             QString name = str(trim(node->nodes[0]->token_to_string(), "<>")); // KEYCODE
-            var->keymap().insert(name, parseKeyProps(node->nodes[1]));
+            var->keymap()->insert(name, parseKeyProps(node->nodes[1]));
         }
     }
 
