@@ -16,16 +16,16 @@ class Bridge : public QObject {
     Q_PROPERTY(SymbolsFile* file READ file CONSTANT)
     Q_PROPERTY(KeysymTableModel* keysymTable READ keysymTable CONSTANT)
 
-    SymbolsFile* m_file = new SymbolsFile(this);
+    SymbolsFile m_file = SymbolsFile(this);
     KeysymTableModel* m_keysymTable = new KeysymTableModel(this);
 
 public:
     Bridge(QObject* parent = nullptr) : QObject(parent) {
         connect(this, &Bridge::error, this, &Bridge::print);
-        connect(m_file, &SymbolsFile::error, this, &Bridge::error);
-        connect(m_file, &SymbolsFile::fileLoaded, this, &Bridge::fileChanged);
+        connect(&m_file, &SymbolsFile::error, this, &Bridge::error);
+        connect(&m_file, &SymbolsFile::fileLoaded, this, &Bridge::fileChanged);
     }
-    SymbolsFile* file() { return m_file; }
+    SymbolsFile* file() { return &m_file; }
     KeysymTableModel* keysymTable() { return m_keysymTable; }
     Q_SLOT void print(QString message) { qDebug() << message; }
 
