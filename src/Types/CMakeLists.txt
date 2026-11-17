@@ -13,6 +13,7 @@ add_library(xkb-types
 
 target_link_libraries(xkb-types
     PRIVATE
+    xkb-parser
     Qt6::Core
     Qt6::Quick
 )

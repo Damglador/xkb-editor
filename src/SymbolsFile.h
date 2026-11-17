@@ -2,11 +2,13 @@
 
 #include <QList>
 #include <QObject>
+#include <QUrl>
 #include <qqmlintegration.h>
 
 #include "Variant.h"
 #include "VariantsList.h"
 #include "macros.h"
+#include "parser/xkb.h"
 
 using namespace Qt::Literals::StringLiterals;
 
@@ -46,7 +48,15 @@ public:
     VariantsList* variants() { return &m_variants; }
     Variant* variant() { return m_variant; }
 
-    Q_INVOKABLE void load(QString filePath) { error(u"Test error"_s); }
+    Q_INVOKABLE void load(QString filePath) {
+        // TODO: check if a file is a binary and catch parse failures
+        QString path = QUrl(filePath).path();
+        auto variants = variantsFromFile(path, &m_variants);
+        m_variants.setItems(variants);
+        setVariantIndex(0);
+        setPath(path);
+        fileLoaded();
+    }
 
     Q_INVOKABLE void clear() {
         setPath(u""_s);
