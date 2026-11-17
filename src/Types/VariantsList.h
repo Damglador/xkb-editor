@@ -24,6 +24,15 @@ public:
     }
 
     Variant* getVariant(const int idx) const { return static_cast<Variant*>(list.at(idx)); }
+    void setItems(QList<Variant*> items) {
+        clear();
+        beginResetModel();
+        for (Variant* variant : items) {
+            variant->setParent(this);
+            list.append(variant);
+        }
+        endResetModel();
+    }
 
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override {
         if (!isValid(index))
