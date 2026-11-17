@@ -194,14 +194,4 @@ Kirigami.ScrollablePage {
             }
         }
     }
-
-    Connections {
-        target: root.file.variants
-        function onRowsRemoved(index, first, last) {
-            if (first == mainList.currentIndex) root.file.updateVariant()
-        }
-        function onRowsInserted(index, first, last) {
-            if (!root.file.variant) root.file.updateVariant()
-        }
-    }
 }

@@ -39,6 +39,9 @@ private:
 public:
     SymbolsFile(QObject* parent = nullptr) : QObject(parent) {
         connect(this, &SymbolsFile::variantIndexChanged, this, &SymbolsFile::updateVariant);
+        connect(&m_variants, &VariantsList::rowsRemoved, this, &SymbolsFile::updateVariant);
+        connect(&m_variants, &VariantsList::rowsInserted, this, &SymbolsFile::updateVariant);
+        connect(&m_variants, &VariantsList::modelReset, this, &SymbolsFile::updateVariant);
     };
     VariantsList* variants() { return &m_variants; }
     Variant* variant() { return m_variant; }
