@@ -27,6 +27,42 @@ AbstractKey {
 
         checkable: key.keycode
         checked: menu.visible
+
+        Controls.Label {
+            id: legend
+            text: key.legend
+            opacity: 0.2
+            visible: ViewSettings.showLegends
+
+            leftPadding: 5
+            anchors.left: parent.left
+            anchors.top: parent.top
+        }
+
+        Controls.Label {
+            id: deadKeyIndicator
+            text: "💀"
+            visible: key.dead
+
+            anchors.right: parent.right
+            anchors.top: parent.top
+        }
+
+        Controls.Label {
+            text: key.label ? key.label : key.char
+
+            leftPadding: 5
+            anchors.centerIn: parent
+        }
+
+        Controls.Label {
+            id: fallback
+            text: key.charFallback
+            opacity: 0.4
+            visible: ViewSettings.showFallbacks && !key.char && key.symbol != "VoidSymbol"
+
+            anchors.centerIn: parent
+        }
     }
 
     Controls.Menu {
@@ -56,42 +92,6 @@ AbstractKey {
                 }
             }
         }
-    }
-
-    Controls.Label {
-        id: legend
-        text: parent.legend
-        opacity: 0.2
-        visible: ViewSettings.showLegends
-
-        leftPadding: 5
-        anchors.left: parent.left
-        anchors.top: parent.top
-    }
-
-    Controls.Label {
-        id: deadKeyIndicator
-        text: "💀"
-        visible: key.dead
-
-        anchors.right: parent.right
-        anchors.top: parent.top
-    }
-
-    Controls.Label {
-        text: parent.label ? parent.label : parent.char
-
-        leftPadding: 5
-        anchors.centerIn: parent
-    }
-
-    Controls.Label {
-        id: fallback
-        text: parent.charFallback
-        opacity: 0.4
-        visible: ViewSettings.showFallbacks && !parent.char && key.symbol != "VoidSymbol"
-
-        anchors.centerIn: parent
     }
 
     onLevelChanged: {
