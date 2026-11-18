@@ -161,4 +161,7 @@ public:
 
 Q_SIGNALS:
     void flagsChanged();
+
+    void symbolsChanged();
+    void includesReloaded();
 };
