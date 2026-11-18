@@ -68,7 +68,7 @@ Kirigami.ScrollablePage {
 
                 onClicked: {
                     mainList.currentIndex = listItemRoot.index;
-                    mainList.forceActiveFocus()
+                    mainList.forceActiveFocus();
                 }
                 highlighted: listItemRoot.ListView.isCurrentItem
                 contentItem: RowLayout {
@@ -106,7 +106,7 @@ Kirigami.ScrollablePage {
                         Controls.ToolTip.visible: hovered
                         Controls.ToolTip.delay: Kirigami.Units.toolTipDelay
 
-                        onClicked: popup.open();
+                        onClicked: popup.open()
                         icon.height: Kirigami.Units.iconSizes.small
                         display: Controls.AbstractButton.IconOnly
                     }
@@ -117,7 +117,7 @@ Kirigami.ScrollablePage {
                         Controls.ToolTip.visible: hovered
                         Controls.ToolTip.delay: Kirigami.Units.toolTipDelay
 
-                        onClicked: undoStack.removeVariant(root.file.variants, listItemRoot.index);
+                        onClicked: undoStack.removeVariant(root.file.variants, listItemRoot.index)
                         icon.height: Kirigami.Units.iconSizes.small
                         display: Controls.AbstractButton.IconOnly
                     }
@@ -131,9 +131,9 @@ Kirigami.ScrollablePage {
 
                 onVisibleChanged: {
                     if (visible == true) {
-                        editField.forceActiveFocus()
+                        editField.forceActiveFocus();
                     } else {
-                        undoStack.editText(root.file.variants.get(listItemRoot.index), "id", editField.text)
+                        undoStack.editText(root.file.variants.get(listItemRoot.index), "id", editField.text);
                     }
                 }
 
@@ -158,7 +158,7 @@ Kirigami.ScrollablePage {
         Connections {
             target: root.file
             function onVariantChanged() {
-                mainList.currentIndex = root.file.variantIndex
+                mainList.currentIndex = root.file.variantIndex;
             }
         }
         keyNavigationEnabled: true
