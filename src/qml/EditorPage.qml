@@ -28,6 +28,7 @@ Kirigami.Page {
             id: editorView
             variant: page.file.variant
         }
+        handle: Kirigami.Separator {}
         Component.onCompleted: restoreState(settings.splitView)
         Component.onDestruction: settings.splitView = saveState()
     }
