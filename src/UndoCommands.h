@@ -9,7 +9,6 @@
 
 using namespace Qt::Literals::StringLiterals;
 
-namespace Command {
 enum Command {
     AddVariant,
     RemoveVariant,
@@ -19,9 +18,10 @@ enum Command {
     RemoveInclude,
     EditText,
     SetSymbol,
+    MoveElement,
 };
-}
 
+namespace UndoCommand {
 // === VARIANTS
 class AddVariant : public QUndoCommand {
     VariantsList* m_list;
@@ -38,7 +38,6 @@ public:
     };
     ~AddVariant() {
         if (!m_item->parent()) {
-            qDebug() << "Deleting object of " << m_item->id();
             delete m_item;
         }
     }
@@ -58,7 +57,6 @@ public:
     };
     ~RemoveVariant() {
         if (!m_item->parent()) {
-            qDebug() << "Deleting object of " << m_item->id();
             delete m_item;
         }
     }
@@ -122,7 +120,6 @@ public:
     };
     ~RemoveInclude() {
         if (!m_item->parent()) {
-            qDebug() << "Deleting object of " << m_item->toString();
             delete m_item;
         }
     }
@@ -139,7 +136,8 @@ public:
 
 public:
     EditText(QObject* target, const QString property, const QString newText)
-        : m_target(target), m_property(property.toLocal8Bit()), m_newText(newText), m_oldText(m_target->property(m_property.constData()).toString()) {
+        : m_target(target), m_property(property.toLocal8Bit()), m_newText(newText),
+          m_oldText(m_target->property(m_property.constData()).toString()) {
         setText(m_oldText + u" → "_s + m_newText);
     };
     void undo() override { m_target->setProperty(m_property.constData(), QVariant(m_oldText)); }
@@ -191,3 +189,45 @@ public:
         Q_EMIT m_variant->symbolsChanged();
     }
 };
+
+class MoveElement : public QUndoCommand {
+    List* m_list;
+    const int m_oldIndex;
+    int m_newIndex;
+    QObject* m_obj;
+
+public:
+    MoveElement(List* list, int oldIndex, int newIndex)
+        : m_list(list), m_oldIndex(oldIndex), m_newIndex(newIndex), m_obj(m_list->get(oldIndex)) {
+        const QString itemName =
+            m_list->data(m_list->index(m_oldIndex), Qt::DisplayRole).toString();
+        setText(u"Move %1"_s.arg(itemName));
+    };
+
+    int id() const override { return Command::MoveElement; }
+
+    void undo() override {
+        m_list->move(m_newIndex, m_oldIndex);
+    }
+    void redo() override {
+        m_list->move(m_oldIndex, m_newIndex);
+    }
+
+    bool mergeWith(const QUndoCommand* other) override {
+        if (id() != other->id())
+            return false;
+
+        const MoveElement* command = static_cast<const MoveElement*>(other);
+
+        if (m_list != command->m_list || m_obj != command->m_obj)
+            return false;
+
+        m_newIndex = command->m_newIndex;
+
+        if (m_newIndex == m_oldIndex)
+            setObsolete(true);
+
+        return true;
+    }
+};
+}

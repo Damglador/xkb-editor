@@ -37,6 +37,13 @@ public:
     //     return false;
     // }
 
+    Q_INVOKABLE QObject* get(const int idx) const {
+        if (isValid(idx)) {
+            return list[idx];
+        }
+        return nullptr;
+    }
+
     Q_INVOKABLE void remove(const int idx) {
         if (isValid(idx)) {
             beginRemoveRows(QModelIndex(), idx, idx);
