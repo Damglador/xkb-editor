@@ -33,7 +33,7 @@ public:
         endResetModel();
     }
 
-    QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override {
+    QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const override {
         if (!isValid(index))
             return QVariant();
 

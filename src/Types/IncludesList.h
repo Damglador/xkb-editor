@@ -25,7 +25,7 @@ public:
 
     Include* getInclude(const int idx) const { return static_cast<Include*>(list.at(idx)); }
 
-    QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override {
+    QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const override {
         if (!isValid(index))
             return QVariant();
 
