@@ -3,6 +3,7 @@
 #include <QtQml/qqmlregistration.h>
 #include <qtmetamacros.h>
 
+#include "IncludesList.h"
 #include "UndoCommands.h"
 #include "VariantsList.h"
 
@@ -12,5 +13,22 @@ class UndoStack : public QUndoStack {
 public:
     Q_INVOKABLE void clear() { QUndoStack::clear(); }
 
-    Q_INVOKABLE void addVariant(VariantsList* list, QString id) { push(new AddVariant(list, id)); }
+    Q_INVOKABLE void addVariant(VariantsList* list, const QString id) {
+        push(new AddVariant(list, id));
+    }
+    Q_INVOKABLE void removeVariant(VariantsList* list, int index) {
+        push(new RemoveVariant(list, index));
+    }
+    Q_INVOKABLE void addFlag(Variant* variant, const QString flag) {
+        push(new AddFlag(variant, flag));
+    }
+    Q_INVOKABLE void removeFlag(Variant* variant, const QString flag) {
+        push(new RemoveFlag(variant, flag));
+    }
+    Q_INVOKABLE void addInclude(IncludesList* list, const QString string) {
+        push(new AddInclude(list, string));
+    }
+    Q_INVOKABLE void removeInclude(IncludesList* list, const int index) {
+        push(new RemoveInclude(list, index));
+    }
 };
