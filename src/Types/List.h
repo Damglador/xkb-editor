@@ -80,7 +80,11 @@ public:
         endInsertRows();
     }
 
-    Q_INVOKABLE void append(QObject* obj) { insert(list.length(), obj); }
+    Q_INVOKABLE void append(QObject* obj) {
+        beginInsertRows(QModelIndex(), list.length(), list.length());
+        insert(list.length(), obj);
+        endInsertRows();
+    }
 
     QHash<int, QByteArray> roleNames() const override {
         QHash<int, QByteArray> roles;
