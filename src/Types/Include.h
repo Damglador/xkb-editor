@@ -21,7 +21,7 @@ public:
     Include(QString path, QObject* parent = nullptr) : QObject(parent) {
         m_path = path;
     }
-    Q_INVOKABLE QString toString() {
+    Q_INVOKABLE QString toString() const {
         return m_variant.isEmpty() ? m_path : m_path + u"("_s + m_variant + u")"_s;
     }
     static Include* fromString(const QString string, QObject* parent = nullptr) {
