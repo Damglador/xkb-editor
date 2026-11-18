@@ -86,6 +86,10 @@ public:
         return isImplicit(result) ? u""_s : result;
     }
 
+    Q_INVOKABLE QString getSymbolOrFallback(QString keyname, int level, bool searchSelf = false) {
+        return QStringLiteral();
+    }
+
     Q_INVOKABLE QString toXkb() {
         QStringList lines;
         if (flags().length() != 0)
