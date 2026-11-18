@@ -40,6 +40,7 @@ public:
     Q_INVOKABLE void remove(const int idx) {
         if (isValid(idx)) {
             beginRemoveRows(QModelIndex(), idx, idx);
+            list[idx]->setParent(nullptr);
             list.remove(idx);
             endRemoveRows();
         }
