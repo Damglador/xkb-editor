@@ -19,13 +19,14 @@ class Variant : public QObject {
     Q_OBJECT
 
     // clang-format off
-    Q_PROPERTY(QString        id          READ id         WRITE setId         NOTIFY idChanged     )
-    Q_PROPERTY(QString        name        READ name       WRITE setName       NOTIFY nameChanged   )
-    Q_PROPERTY(QString        keytype     READ keytype    WRITE setKeytype    NOTIFY keytypeChanged)
-    Q_PROPERTY(QString        source      READ source     WRITE setSource     NOTIFY sourceChanged )
-    Q_PROPERTY(QStringList    flags       READ flags                          NOTIFY flagsChanged  )
-    Q_PROPERTY(IncludesList*  includes    READ includes   CONSTANT)
-    Q_PROPERTY(Keymap*        keymap      READ keymap     CONSTANT)
+    Q_PROPERTY(QString        id                READ id         WRITE setId         NOTIFY idChanged     )
+    Q_PROPERTY(QString        name              READ name       WRITE setName       NOTIFY nameChanged   )
+    Q_PROPERTY(QString        keytype           READ keytype    WRITE setKeytype    NOTIFY keytypeChanged)
+    Q_PROPERTY(QString        source            READ source     WRITE setSource     NOTIFY sourceChanged )
+    Q_PROPERTY(QStringList    flags             READ flags                          NOTIFY flagsChanged  )
+    Q_PROPERTY(QStringList    availableFlags    READ availableFlags                 NOTIFY flagsChanged  )
+    Q_PROPERTY(IncludesList*  includes          READ includes   CONSTANT)
+    Q_PROPERTY(Keymap*        keymap            READ keymap     CONSTANT)
 
     PROP(QString, id,       setId)
     PROP(QString, name,     setName)
@@ -52,6 +53,11 @@ public:
     QStringList flags() {
         auto meta = QMetaEnum::fromType<Enums::Flag>();
         QByteArray keys = meta.valueToKeys(m_flags);
+        return QString::fromUtf8(keys).toLower().split(QLatin1Char('|'), Qt::SkipEmptyParts);
+    }
+    QStringList availableFlags() {
+        auto meta = QMetaEnum::fromType<Enums::Flag>();
+        QByteArray keys = meta.valueToKeys(~m_flags);
         return QString::fromUtf8(keys).toLower().split(QLatin1Char('|'), Qt::SkipEmptyParts);
     }
 
