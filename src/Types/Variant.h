@@ -59,15 +59,14 @@ public:
     Keymap* keymap() { return &m_keymap; }
 
     Q_INVOKABLE void setSymbol(const QString keyname, const int level, const QString keysym) {
-        xkb_keycode_t keycode = xkb_get_keycode(keyname);
+        const xkb_keycode_t keycode = xkb_get_keycode(keyname);
         KeyProps* props = m_keymap.value(keycode, nullptr);
         if (!props) {
             props = new KeyProps(this);
+            m_keymap.insert(keycode, props);
         }
-        props->symbols()->insert(level - 1,
-                                  isImplicit(keysym.trimmed()) ? NOSYM : keysym.trimmed());
-        m_keymap.insert(keycode, props); // if there wasn't such a keycode, it adds it, otherwise
-                                         // shouldn't make a difference
+        const QString final = isImplicit(keysym.trimmed()) ? NOSYM : keysym.trimmed();
+        props->symbols()->insert(level - 1, final);
     }
 
     Q_INVOKABLE QString getSymbol(const QString keyname, const int level) const {
@@ -124,12 +123,16 @@ public:
                 if (keyprops->symbols()->count() != 0) {
                     QStringList symbols;
                     for (int i = 0; i < explicitMap[keycode]; i++) {
-                        const QString symbol = quoteSymbol(keyprops->symbols()->value(i));
+                        QString symbol = quoteSymbol(keyprops->symbols()->value(i));
+                        int width = columnWidths[i];
 
-                        if (i < explicitMap[keycode] - 1) // + 5 is 4 padding and 1 comma
-                            symbols.append(QString(symbol + u","_s).leftJustified(columnWidths[i] + 5));
-                        else
-                            symbols.append(symbol.leftJustified(columnWidths[i]));
+                        // if it's not the last explicit symbol
+                        if (i < explicitMap[keycode] - 1) {
+                            symbol += u","_s;
+                            width += 5; // + 5 is 4 padding and 1 comma
+                        }
+
+                        symbols.append(symbol.leftJustified(width));
                     }
                     props.append(u"[ %1 ]"_s.arg(symbols.join(u""_s)));
                 }
@@ -140,8 +143,9 @@ public:
                 if (!keyprops->virtmod().isEmpty())
                     props.append(u"virtualModifiers = \"%1\""_s.arg(keyprops->virtmod()));
 
-                QString propsString = props.join(u",\n                   "_s);
-                lines.append(INDENT + u"key <%1> { %2 }"_s.arg(keycode).arg(propsString));
+                const QString propsString = props.join(u",\n                   "_s);
+                const QString keyname = xkb_get_keyname(keycode);
+                lines.append(INDENT + u"key <%1> { %2 }"_s.arg(keyname).arg(propsString));
             }
         }
 
