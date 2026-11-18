@@ -74,6 +74,8 @@ public:
     }
 
     Q_INVOKABLE void append(QObject* obj) {
+        obj->setParent(this);
+
         beginInsertRows(QModelIndex(), list.length(), list.length());
         insert(list.length(), obj);
         endInsertRows();
