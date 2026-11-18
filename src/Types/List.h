@@ -16,16 +16,12 @@ protected:
 public:
     List(QObject* parent = nullptr) : QAbstractListModel(parent) {};
 
-    int rowCount(const QModelIndex &parent = QModelIndex()) const override {
+    int rowCount(const QModelIndex& parent = QModelIndex()) const override {
         Q_UNUSED(parent);
         return list.count();
     }
-    int count() const {
-        return list.count();
-    };
-    int length() const {
-        return list.length();
-    };
+    int count() const { return list.count(); };
+    int length() const { return list.length(); };
 
     // bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole)
     // override {
@@ -95,7 +91,7 @@ public:
         return roles;
     }
 
-    inline bool isValid(const QModelIndex &index) const {
+    inline bool isValid(const QModelIndex& index) const {
         if (index.isValid() && 0 <= index.row() && index.row() < rowCount())
             return true;
         return false;
