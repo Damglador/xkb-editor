@@ -23,7 +23,6 @@ public:
         return roles;
     }
 
-    Variant* getVariant(const int idx) const { return static_cast<Variant*>(list.at(idx)); }
     void setItems(QList<Variant*> items) {
         clear();
         beginResetModel();
@@ -43,11 +42,18 @@ public:
             return QVariant();
 
         switch (role) {
-        case Qt::DisplayRole: return QVariant(getVariant(row)->id());
-        case ObjectRole: return QVariant::fromValue(getVariant(row));
-        case IdRole: return QVariant(getVariant(row)->id());
-        case NameRole: return QVariant(getVariant(row)->name());
+        case Qt::DisplayRole: return QVariant(get(row)->id());
+        case ObjectRole: return QVariant::fromValue(get(row));
+        case IdRole: return QVariant(get(row)->id());
+        case NameRole: return QVariant(get(row)->name());
         }
         return QVariant();
+    }
+
+    Q_INVOKABLE Variant* get(const int idx) const {
+        if (isValid(idx)) {
+            return static_cast<Variant*>(list[idx]);
+        }
+        return nullptr;
     }
 };

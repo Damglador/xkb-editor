@@ -31,7 +31,7 @@ private:
     Variant* m_variant = nullptr;
     Q_SLOT void updateVariant() {
         if (0 <= m_variantIndex && m_variantIndex < m_variants.rowCount()) {
-            m_variant = m_variants.getVariant(m_variantIndex);
+            m_variant = m_variants.get(m_variantIndex);
         } else {
             m_variant = nullptr;
         }

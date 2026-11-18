@@ -41,4 +41,11 @@ public:
         }
         return QVariant();
     }
+
+    Q_INVOKABLE Include* get(const int idx) const {
+        if (isValid(idx)) {
+            return static_cast<Include*>(list[idx]);
+        }
+        return nullptr;
+    }
 };
