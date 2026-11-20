@@ -90,6 +90,11 @@ public:
         return QStringLiteral();
     }
 
+    Q_INVOKABLE void reloadIncludes() {
+
+        Q_EMIT includesReloaded();
+    }
+
     Q_INVOKABLE QString toXkb() {
         QStringList lines;
         if (flags().length() != 0)
