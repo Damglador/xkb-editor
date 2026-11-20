@@ -6,6 +6,7 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Dialogs
 import QtQuick.Controls as Controls
+import Qt.labs.platform as Platform
 
 import org.kde.kirigami as Kirigami
 
@@ -42,30 +43,30 @@ Kirigami.ApplicationWindow {
         id: undoStack
     }
 
-    FileDialog {
+    Platform.FileDialog {
         id: openDialog
         title: "Open xkb layout"
         fileMode: FileDialog.OpenFile
 
-        onAccepted: Bridge.file.load(selectedFile)
-        currentFolder: StandardPaths.standardLocations(StandardPaths.ConfigLocation)[0] + "/xkb/symbols"
+        onAccepted: Bridge.file.load(file)
+        folder: StandardPaths.standardLocations(StandardPaths.ConfigLocation)[0] + "/xkb/symbols"
     }
-    FileDialog {
+    Platform.FileDialog {
         id: saveDialog
         title: "Save xkb layout"
         fileMode: FileDialog.SaveFile
 
-        onAccepted: if (Bridge.file.write(selectedFile))
-            Bridge.file.path = selectedFile
-        currentFolder: StandardPaths.standardLocations(StandardPaths.ConfigLocation)[0] + "/xkb/symbols"
+        onAccepted: if (Bridge.file.write(file))
+            Bridge.file.path = file
+        folder: StandardPaths.standardLocations(StandardPaths.ConfigLocation)[0] + "/xkb/symbols"
     }
-    FileDialog {
+    Platform.FileDialog {
         id: importFileDialog
         title: qsTr("Open xkb layout")
         fileMode: FileDialog.OpenFile
 
-        onAccepted: importDialogLoader.load(selectedFile)
-        currentFolder: "file:///usr/share/xkeyboard-config-2/symbols/"
+        onAccepted: importDialogLoader.load(file)
+        folder: "file:///usr/share/xkeyboard-config-2/symbols/"
     }
     Loader {
         id: importDialogLoader
