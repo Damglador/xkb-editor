@@ -48,14 +48,22 @@ public:
     VariantsList* variants() { return &m_variants; }
     Variant* variant() { return m_variant; }
 
-    Q_INVOKABLE void load(QString filePath) {
+    Q_INVOKABLE bool load(QString filePath) {
         // TODO: check if a file is a binary and catch parse failures
         QString path = QUrl(filePath).path();
-        auto variants = variantsFromFile(path, &m_variants);
+
+        QList<Variant*> variants;
+
+        if (!variantsFromFile(path, &variants, &m_variants)) {
+            Q_EMIT error(u"Failed to parse file."_s);
+            return false;
+        }
+
         m_variants.setItems(variants);
         setVariantIndex(0);
         setPath(path);
         fileLoaded();
+        return true;
     }
 
     Q_INVOKABLE void clear() {

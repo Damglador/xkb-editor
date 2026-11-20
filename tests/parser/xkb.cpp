@@ -10,7 +10,9 @@ class TestXkbParser : public QObject {
     Q_OBJECT
 private Q_SLOTS:
     void test() {
-        auto variants = variantsFromFile(u"/usr/share/xkeyboard-config-2/symbols/us"_s);
+        QList<Variant*> variants;
+        bool parsePassed = variantsFromFile(u"/usr/share/xkeyboard-config-2/symbols/us"_s, &variants);
+        QCOMPARE(parsePassed, true);
         qDebug() << variants[0]->id();
         qDebug() << variants[0]->name();
         qDebug() << variants[0]->flags();
