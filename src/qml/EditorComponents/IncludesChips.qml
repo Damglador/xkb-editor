@@ -38,7 +38,7 @@ Flow {
                 checkable: false
 
                 Controls.ToolTip {
-                    text: item.include.available ? item.include.file : "File for this include is not available"
+                    text: item.include.file ?? "File for this include is not available"
                     visible: chip.hovered && text && !dragHangler.active
                 }
 
@@ -57,7 +57,7 @@ Flow {
                     text: "🔴"
                     anchors.right: parent.right
                     anchors.top: parent.top
-                    visible: !item.include.available
+                    visible: !item.include.file
                 }
 
                 down: pressed || dragHangler.active
