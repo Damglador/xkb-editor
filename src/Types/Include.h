@@ -23,7 +23,9 @@ public:
         m_path = path;
         m_variant = variant;
     }
-    Include(QString path, QObject* parent = nullptr) : QObject(parent) { m_path = path; }
+    Include(QString path, QObject* parent = nullptr) : QObject(parent) {
+        Include(path, QString(), parent);
+    }
     Q_INVOKABLE QString toString() const {
         return m_variant.isEmpty() ? m_path : m_path + u"("_s + m_variant + u")"_s;
     }
