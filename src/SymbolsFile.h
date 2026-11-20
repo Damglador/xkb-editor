@@ -1,5 +1,6 @@
 #pragma once
 
+#include <QFile>
 #include <QList>
 #include <QObject>
 #include <QUrl>
@@ -63,6 +64,22 @@ public:
         setVariantIndex(0);
         setPath(path);
         fileLoaded();
+        return true;
+    }
+    Q_INVOKABLE bool write(QString filePath) {
+        QFile file(QUrl(filePath).path());
+        if (!file.open(QFile::WriteOnly | QFile::Text)) {
+            Q_EMIT error(u"Failed to open file."_s);
+            return false;
+        }
+        QStringList variants;
+        for (int i = 0; i < m_variants.length(); i++) {
+            variants.append(m_variants.get(i)->toXkb());
+        }
+        QTextStream stream(&file);
+        stream << variants.join(u"\n"_s);
+        file.close();
+
         return true;
     }
 
