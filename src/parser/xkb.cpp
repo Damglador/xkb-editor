@@ -60,7 +60,7 @@ Variant* parseVariant(const shared_ptr<Ast> ast, QObject* parent = nullptr) {
             const QString include = str(trim(node->token_to_string(), "\""));
             var->includes()->append(Include::fromString(include));
         } else if (rule == "key_type_default") {
-            var->setKeytype(str(node->token_to_string()));
+            var->setKeytype(str(trim(node->token_to_string(), "\"")));
         } else if (rule == "key") {
             xkb_keycode_t keycode =
                 xkb_get_keycode(str(trim(node->nodes[0]->token_to_string(), "<>"))); // KEYCODE
