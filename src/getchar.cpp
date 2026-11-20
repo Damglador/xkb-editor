@@ -6,9 +6,9 @@
 #define s QStringLiteral
 
 // Creating these is expensive so just store one instance for everything
-static xkb_context* xkb_context = xkb_context_new(XKB_CONTEXT_NO_FLAGS);
-static xkb_keymap* xkb_keymap = xkb_keymap_new_from_names2(
-    xkb_context, nullptr, XKB_KEYMAP_FORMAT_TEXT_V2, XKB_KEYMAP_COMPILE_NO_FLAGS);
+xkb_context* xkb_context_default = xkb_context_new(XKB_CONTEXT_NO_FLAGS);
+xkb_keymap* xkb_keymap_default = xkb_keymap_new_from_names2(
+    xkb_context_default, nullptr, XKB_KEYMAP_FORMAT_TEXT_V2, XKB_KEYMAP_COMPILE_NO_FLAGS);
 
 xkb_keysym_t keysymFromName(const QString& name) {
     const QByteArray utf8 = name.toUtf8();
@@ -56,9 +56,9 @@ QString xkb_getchar(const QString input) {
 }
 
 xkb_keycode_t xkb_get_keycode(const QString keyname) {
-    return xkb_keymap_key_by_name(xkb_keymap, keyname.toLocal8Bit().data());
+    return xkb_keymap_key_by_name(xkb_keymap_default, keyname.toLocal8Bit().data());
 }
 
 QString xkb_get_keyname(const xkb_keycode_t keycode) {
-    return QString::fromLocal8Bit(xkb_keymap_key_get_name(xkb_keymap, keycode));
+    return QString::fromLocal8Bit(xkb_keymap_key_get_name(xkb_keymap_default, keycode));
 }
