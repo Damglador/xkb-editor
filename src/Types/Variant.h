@@ -155,7 +155,7 @@ public:
 
                 const QString propsString = props.join(u",\n                   "_s);
                 const QString keyname = xkb_get_keyname(keycode);
-                lines.append(INDENT + u"key <%1> { %2 }"_s.arg(keyname).arg(propsString));
+                lines.append(INDENT + u"key <%1> { %2 };"_s.arg(keyname).arg(propsString));
             }
         }
 
