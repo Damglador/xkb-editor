@@ -11,6 +11,11 @@ using namespace Qt::Literals::StringLiterals;
 class Include : public QObject {
     Q_OBJECT
 
+    // clang-format off
+    Q_PROPERTY(QString path    READ path    WRITE setPath    NOTIFY pathChanged   )
+    Q_PROPERTY(QString variant READ variant WRITE setVariant NOTIFY variantChanged)
+    // clang-format on
+
     PROP(QString, path, setPath)
     PROP(QString, variant, setVariant)
 public:
@@ -18,9 +23,7 @@ public:
         m_path = path;
         m_variant = variant;
     }
-    Include(QString path, QObject* parent = nullptr) : QObject(parent) {
-        m_path = path;
-    }
+    Include(QString path, QObject* parent = nullptr) : QObject(parent) { m_path = path; }
     Q_INVOKABLE QString toString() const {
         return m_variant.isEmpty() ? m_path : m_path + u"("_s + m_variant + u")"_s;
     }
