@@ -78,19 +78,25 @@ void parseXkbSymbols(const shared_ptr<Ast> ast, QList<Variant*>* list, QObject* 
     }
 }
 
-bool variantsFromFile(QString filePath, QList<Variant*>* list, QObject* parent) {
+int variantsFromFile(QString filePath, QList<Variant*>* list, QObject* parent) {
     peg::parser parser(grammar);
 
     shared_ptr<Ast> ast;
     parser.enable_ast(true, false, { "key_prop", "statement" });
 
-    const string content = readFile(filePath.toStdString());
-    bool parseSuccessful = parser.parse(content, ast);
+    string content;
+    int openError = readToString(filePath.toStdString(), content);
+    if (openError)
+        return openError;
 
-    if (!parseSuccessful)
-        return false;
+    if (content.empty())
+        return ERROR_EMPTY_FILE;
+
+    if (!parser.parse(content, ast)) {
+        return ERROR_PARSING;
+    }
 
     parseXkbSymbols(ast, list, parent);
 
-    return true;
+    return SUCESS;
 }

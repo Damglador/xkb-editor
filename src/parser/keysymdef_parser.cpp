@@ -55,7 +55,9 @@ vector<Item> tableFromFile(string filePath) {
 
     parser["start"] = [](const semvals& sv) { return sv.transform<Item>(); };
 
-    parser.parse(readFile(filePath), items);
+    string content;
+    readToString(filePath, content);
+    parser.parse(content, items);
 
     return items;
 }

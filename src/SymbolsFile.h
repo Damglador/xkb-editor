@@ -55,9 +55,12 @@ public:
 
         QList<Variant*> variants;
 
-        if (!variantsFromFile(path, &variants, &m_variants)) {
-            Q_EMIT error(u"Failed to parse file."_s);
-            return false;
+        int result = variantsFromFile(path, &variants, &m_variants);
+
+        switch (result) {
+        case ERROR_PARSING: Q_EMIT error(u"Failed to parse file."_s); return false;
+        case ERROR_OPEN_FILE: Q_EMIT error(u"Failed to open file."_s); return false;
+        case ERROR_EMPTY_FILE: Q_EMIT error(u"Empty file."_s); return false;
         }
 
         m_variants.setItems(variants);

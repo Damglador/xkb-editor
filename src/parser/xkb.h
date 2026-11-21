@@ -2,4 +2,4 @@
 
 using namespace std;
 
-bool variantsFromFile(QString filePath, QList<Variant*>* list, QObject* parent = nullptr);
+int variantsFromFile(QString filePath, QList<Variant*>* list, QObject* parent = nullptr);

@@ -3,6 +3,7 @@
 #include <QTest>
 
 #include "parser/xkb.h"
+#include "macros.h"
 
 using namespace Qt::Literals::StringLiterals;
 
@@ -11,8 +12,8 @@ class TestXkbParser : public QObject {
 private Q_SLOTS:
     void test() {
         QList<Variant*> variants;
-        bool parsePassed = variantsFromFile(u"/usr/share/xkeyboard-config-2/symbols/us"_s, &variants);
-        QCOMPARE(parsePassed, true);
+        int parseError = variantsFromFile(u"/usr/share/xkeyboard-config-2/symbols/us"_s, &variants);
+        QCOMPARE(parseError, SUCESS);
         qDebug() << variants[0]->id();
         qDebug() << variants[0]->name();
         qDebug() << variants[0]->flags();

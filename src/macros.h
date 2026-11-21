@@ -25,6 +25,13 @@ Q_SIGNALS:                                              \
 private:                                                \
     type m_##name;
 
+enum Errors {
+    SUCESS,
+    ERROR_PARSING,
+    ERROR_OPEN_FILE,
+    ERROR_EMPTY_FILE,
+};
+
 inline bool isImplicit(QString symbol) {
     if (symbol.isEmpty() || symbol == NOSYM)
         return true;
@@ -54,21 +61,21 @@ inline QString quoteSymbol(QString symbol) {
     return symbol.isEmpty() ? NOSYM : symbol;
 }
 
-inline string readFile(string filePath) {
+inline int readToString(string filePath, string &out) {
 
     ifstream file = ifstream(filePath);
 
     if (!file.is_open()) {
         cerr << "Failed to open: " << filePath << endl;
-        return "";
+        return ERROR_OPEN_FILE;
     }
 
-    string result;
     string line;
+    out = "";
     while (getline(file, line)) {
-        result += line;
-        result += "\n";
+        out += line;
+        out += "\n";
     }
 
-    return result;
+    return SUCESS;
 }
