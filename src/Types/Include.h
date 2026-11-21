@@ -46,11 +46,9 @@ public:
             if (path == NULL)
                 break;
             QFile file(QString::fromLocal8Bit(path) + u"/symbols/"_s + m_path);
-            qDebug() << file.fileName();
             if (!file.exists())
                 continue;
             if (m_variant.isEmpty()) {
-                qDebug() << "Setting to " << file.fileName();
                 setFile(file.fileName());
                 return;
             } else {
@@ -61,7 +59,6 @@ public:
                 do {
                     line = stream.readLine();
                     if (line.contains(u"xkb_symbols \"%1\""_s.arg(m_variant))) {
-                        qDebug() << "Setting to " << file.fileName();
                         setFile(file.fileName());
                         return;
                     }
