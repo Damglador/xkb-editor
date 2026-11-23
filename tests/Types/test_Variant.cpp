@@ -46,4 +46,4 @@ private Q_SLOTS:
 };
 
 QTEST_APPLESS_MAIN(TestVariant)
-#include "Variant.moc"
+#include "test_Variant.moc"

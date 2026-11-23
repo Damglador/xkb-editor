@@ -22,4 +22,4 @@ private Q_SLOTS:
 };
 
 QTEST_APPLESS_MAIN(TestXkbParser)
-#include "xkb.moc"
+#include "test_xkb.moc"

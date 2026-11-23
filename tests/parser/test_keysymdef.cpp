@@ -20,4 +20,4 @@ private Q_SLOTS:
 };
 
 QTEST_APPLESS_MAIN(TestKeysymdefParser)
-#include "keysymdef.moc"
+#include "test_keysymdef.moc"

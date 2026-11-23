@@ -52,4 +52,4 @@ private Q_SLOTS:
 };
 
 QTEST_APPLESS_MAIN(TestInclude)
-#include "Include.moc"
+#include "test_Include.moc"
