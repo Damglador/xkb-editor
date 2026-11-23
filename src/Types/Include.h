@@ -27,12 +27,17 @@ public:
     Include(QString path, QString variant, QObject* parent = nullptr) : QObject(parent) {
         m_path = path;
         m_variant = variant;
+        init();
+    }
+    Include(QString path, QObject* parent = nullptr) : QObject(parent) {
+        m_path = path;
+        init();
+    }
+
+    void init() {
         connect(this, &Include::pathChanged, this, &Include::updateFile);
         connect(this, &Include::variantChanged, this, &Include::updateFile);
         updateFile();
-    }
-    Include(QString path, QObject* parent = nullptr) : QObject(parent) {
-        Include(path, QString(), parent);
     }
 
     // TODO: resolve variables in path of includes
