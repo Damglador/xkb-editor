@@ -31,7 +31,7 @@ Kirigami.Dialog {
     }
 
     function load(filePath) {
-        file.load(filePath)
+        file.load(filePath);
     }
 
     SymbolsFile {
@@ -41,10 +41,10 @@ Kirigami.Dialog {
     Connections {
         target: file
         function onError(message) {
-            Bridge.error(message)
+            Bridge.error(message);
         }
         function onFileLoaded() {
-            importDialog.open()
+            importDialog.open();
         }
     }
 
