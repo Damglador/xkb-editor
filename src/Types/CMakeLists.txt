@@ -4,8 +4,10 @@ add_library(xkb-types
     STATIC
     Enums.h
     Include.h
+    Include.cpp
     KeyProps.h
     Variant.h
+    Variant.cpp
     List.h
     IncludesList.h
     VariantsList.h
