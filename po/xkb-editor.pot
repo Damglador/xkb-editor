@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xkb-editor\n"
 "Report-Msgid-Bugs-To: https://github.com/Damglador/xkb-editor/issues\n"
-"POT-Creation-Date: 2026-11-23 18:38+0100\n"
+"POT-Creation-Date: 2026-11-23 18:50+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -263,17 +263,17 @@ msgstr ""
 msgid "No file path to load from"
 msgstr ""
 
-#: src/qml/VariantsList.qml:104
+#: src/qml/VariantsList.qml:109
 #, kde-format
 msgid "Rename"
 msgstr ""
 
-#: src/qml/VariantsList.qml:115
+#: src/qml/VariantsList.qml:120
 #, kde-format
 msgid "Delete"
 msgstr ""
 
-#: src/qml/VariantsList.qml:174
+#: src/qml/VariantsList.qml:179
 #, kde-format
 msgid "Add variant"
 msgstr ""

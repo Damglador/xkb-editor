@@ -52,13 +52,14 @@ Kirigami.ScrollablePage {
             required property var modelData
             required property var variant
             property string title: variant.id
+            property string subtitle: variant.name
 
             width: mainList.width - mainList.leftMargin - mainList.rightMargin
             height: listItem.implicitHeight
 
             Controls.ItemDelegate {
                 id: listItem
-                implicitHeight: Kirigami.Units.gridUnit * 2
+                implicitHeight: Kirigami.Units.gridUnit * 2.5
                 anchors.fill: listItemRoot
                 // Padding begone!
                 topInset: 0
@@ -85,9 +86,13 @@ Kirigami.ScrollablePage {
                         // }
                     }
 
-                    Controls.Label {
+                    Kirigami.TitleSubtitle {
                         Layout.fillWidth: true
-                        text: listItemRoot.title
+                        Layout.alignment: Qt.AlignVCenter
+                        title: listItemRoot.title
+                        subtitle: listItemRoot.subtitle
+                        selected: listItem.highlighted || listItem.down
+                        font: listItem.font
                     }
                 }
                 RowLayout {
