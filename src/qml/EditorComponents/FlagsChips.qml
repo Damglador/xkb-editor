@@ -21,7 +21,7 @@ Flow {
     }
     Controls.Button {
         id: button
-        text: qsTr("Add flag")
+        text: i18n("Add flag")
         icon.name: "add"
         display: Controls.AbstractButton.IconOnly
         implicitHeight: Kirigami.Units.gridUnit * 1.6

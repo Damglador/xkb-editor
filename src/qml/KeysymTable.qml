@@ -16,7 +16,7 @@ Kirigami.ApplicationWindow {
 
     pageStack.initialPage: Kirigami.ScrollablePage {
         id: keysymTablePage
-        title: qsTr("Keysym table")
+        title: i18n("Keysym table")
         globalToolBarStyle: Kirigami.ApplicationHeaderStyle.ToolBar
 
         actions: [
@@ -104,7 +104,7 @@ Kirigami.ApplicationWindow {
 
     Kirigami.Dialog {
         id: copyrightSheet
-        title: qsTr("Copyright for keysymdef.h")
+        title: i18n("Copyright for keysymdef.h")
         Kirigami.SelectableLabel {
             Layout.fillWidth: true
             padding: Kirigami.Units.largeSpacing
@@ -114,7 +114,7 @@ Kirigami.ApplicationWindow {
     }
     Kirigami.Dialog {
         id: docSheet
-        title: qsTr("About keysymdef.h")
+        title: i18n("About keysymdef.h")
         ColumnLayout {
             width: docSheet.width
             Kirigami.SelectableLabel {
@@ -122,12 +122,12 @@ Kirigami.ApplicationWindow {
                 padding: Kirigami.Units.largeSpacing
                 wrapMode: Text.WordWrap
                 textFormat: Text.PlainText
-                text: qsTr(
+                text: i18n(
 `Information in this table, copyright as well as the section below are parsed
 from /usr/include/X11/keysymdef.h or pre-packaged keysymdef.h,
 if one is not available on your system.
 
-Current source: %1`).arg(proxyModel.sourceModel.sourcePath())
+Current source: %1`, proxyModel.sourceModel.sourcePath())
             }
             Kirigami.Separator {
                 Layout.fillWidth: true

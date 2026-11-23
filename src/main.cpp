@@ -43,6 +43,7 @@ int main(int argc, char* argv[]) {
 
     QQmlApplicationEngine engine;
 
+    KLocalizedString::setApplicationDomain(QByteArrayLiteral("xkb-editor"));
     engine.rootContext()->setContextObject(new KLocalizedQmlContext(&engine));
     engine.loadFromModule("xkbeditor", "Main");
 

@@ -40,7 +40,7 @@ Controls.Menu {
         RowLayout {
             Controls.TextField {
                 id: pathField
-                placeholderText: qsTr("Path")
+                placeholderText: i18n("Path")
                 implicitWidth: Kirigami.Units.gridUnit * 4
                 text: menu.include ? menu.include.path : ""
                 onAccepted: menu.action()
@@ -48,7 +48,7 @@ Controls.Menu {
             }
             Controls.TextField {
                 id: variantField
-                placeholderText: qsTr("Variant")
+                placeholderText: i18n("Variant")
                 implicitWidth: Kirigami.Units.gridUnit * 4
                 text: (menu.include && menu.include.variant) ? menu.include.variant : ""
                 onAccepted: menu.action()
@@ -59,7 +59,7 @@ Controls.Menu {
             visible: menu.type == IncludeMenu.Type.Edit
             Layout.fillWidth: true
             icon.name: "dialog-ok"
-            text: qsTr("Confirm")
+            text: i18n("Confirm")
             onClicked: menu.action()
         }
         Controls.Button {
@@ -67,7 +67,7 @@ Controls.Menu {
             visible: menu.type == IncludeMenu.Type.Add
             Layout.fillWidth: true
             icon.name: "add"
-            text: qsTr("Add include")
+            text: i18n("Add include")
             onClicked: menu.action()
         }
     }

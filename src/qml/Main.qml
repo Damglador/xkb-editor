@@ -62,7 +62,7 @@ Kirigami.ApplicationWindow {
     }
     Platform.FileDialog {
         id: importFileDialog
-        title: qsTr("Open xkb layout")
+        title: i18n("Open xkb layout")
         fileMode: FileDialog.OpenFile
 
         onAccepted: importDialogLoader.load(file)
@@ -136,11 +136,11 @@ Kirigami.ApplicationWindow {
                     color = Kirigami.Theme.textColor;
                 }
                 function setError(str) {
-                    setStatus(qsTr("Error:") + " " + str);
+                    setStatus(i18n("Error:") + " " + str);
                     color = Kirigami.Theme.negativeTextColor;
                 }
                 function setWarning(str) {
-                    setStatus(qsTr("Warning:") + " " + str);
+                    setStatus(i18n("Warning:") + " " + str);
                     color = Kirigami.Theme.neutralBackgroundColor;
                 }
             }

@@ -23,13 +23,13 @@ Kirigami.ScrollablePage {
             anchors.fill: parent
 
             Kirigami.Heading {
-                text: qsTr("Variants")
+                text: i18n("Variants")
             }
             Item {
                 Layout.fillWidth: true
             }
             Controls.Button {
-                text: enabled ? qsTr("Reload from opened file") : qsTr("No file path to load from")
+                text: enabled ? i18n("Reload from opened file") : i18n("No file path to load from")
                 display: Controls.AbstractButton.IconOnly
                 icon.name: "reload"
                 Controls.ToolTip.text: text
@@ -101,7 +101,7 @@ Kirigami.ScrollablePage {
 
                     Controls.Button {
                         icon.name: "edit-rename"
-                        text: qsTr("Rename")
+                        text: i18n("Rename")
                         Controls.ToolTip.text: text
                         Controls.ToolTip.visible: hovered
                         Controls.ToolTip.delay: Kirigami.Units.toolTipDelay
@@ -112,7 +112,7 @@ Kirigami.ScrollablePage {
                     }
                     Controls.Button {
                         icon.name: "edit-delete-remove"
-                        text: qsTr("Delete")
+                        text: i18n("Delete")
                         Controls.ToolTip.text: text
                         Controls.ToolTip.visible: hovered
                         Controls.ToolTip.delay: Kirigami.Units.toolTipDelay
@@ -171,7 +171,7 @@ Kirigami.ScrollablePage {
         }
         Kirigami.ActionTextField {
             id: field
-            placeholderText: qsTr("Add variant")
+            placeholderText: i18n("Add variant")
             Layout.fillWidth: true
             Layout.leftMargin: Kirigami.Units.smallSpacing
             Layout.rightMargin: Kirigami.Units.smallSpacing

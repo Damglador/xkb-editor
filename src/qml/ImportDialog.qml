@@ -10,7 +10,7 @@ import xkbeditor
 Kirigami.Dialog {
     id: importDialog
     property string fileName: (file.path.slice(file.path.lastIndexOf("/") + 1))
-    title: qsTr("Import variants from %1").arg(fileName)
+    title: i18n("Import variants from %1").arg(fileName)
     preferredWidth: Kirigami.Units.gridUnit * 20
     standardButtons: Kirigami.Dialog.Ok | Kirigami.Dialog.Cancel
     onAccepted: {
@@ -19,7 +19,7 @@ Kirigami.Dialog {
             if (variant.checked) {
                 variant.setParent(Bridge.file.variants)
                 Bridge.file.variants.append(variant);
-                Bridge.notify(qsTr("Imported %1").arg(variant.id));
+                Bridge.notify(i18n("Imported %1").arg(variant.id));
             }
         }
     }

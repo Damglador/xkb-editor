@@ -94,12 +94,12 @@ Flow {
 
                 Controls.ContextMenu.menu: Controls.Menu {
                     Controls.MenuItem {
-                        text: qsTr("Copy file path")
+                        text: i18n("Copy file path")
                         icon.name: "edit-copy"
                         onTriggered: Bridge.copyText(item.include.file)
                     }
                     Controls.MenuItem {
-                        text: qsTr("Copy include string")
+                        text: i18n("Copy include string")
                         icon.name: "edit-copy"
                         onTriggered: Bridge.copyText(item.include.toString())
                     }
@@ -112,7 +112,7 @@ Flow {
 
     Controls.Button {
         id: addButton
-        text: qsTr("Add include")
+        text: i18n("Add include")
         icon.name: "add"
         display: Controls.AbstractButton.IconOnly
         implicitHeight: Kirigami.Units.gridUnit * 1.6

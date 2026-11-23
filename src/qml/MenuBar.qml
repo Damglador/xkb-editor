@@ -10,20 +10,20 @@ import xkbeditor
 
 Controls.MenuBar {
     Controls.Menu {
-        title: qsTr("File")
+        title: i18n("File")
         Kirigami.Action {
-            text: qsTr("New")
+            text: i18n("New")
             icon.name: "document-new"
             onTriggered: Bridge.file.clear()
         }
         Kirigami.Action {
-            text: qsTr("Open...")
+            text: i18n("Open...")
             icon.name: "document-open"
             onTriggered: openDialog.open()
             shortcut: StandardKey.Open
         }
         Kirigami.Action {
-            text: qsTr("Save")
+            text: i18n("Save")
             icon.name: "document-save"
             onTriggered: {
                 if (Bridge.file.path)
@@ -34,74 +34,74 @@ Controls.MenuBar {
             shortcut: StandardKey.Save
         }
         Kirigami.Action {
-            text: qsTr("Save As...")
+            text: i18n("Save As...")
             icon.name: "document-save-as"
             onTriggered: saveDialog.open()
             shortcut: StandardKey.SaveAs
         }
     }
     Controls.Menu {
-        title: qsTr("Edit")
+        title: i18n("Edit")
         Kirigami.Action {
-            text: undoStack.undoText ? qsTr("Undo") + ": " + undoStack.undoText : qsTr("Undo")
+            text: undoStack.undoText ? i18n("Undo") + ": " + undoStack.undoText : i18n("Undo")
             icon.name: "edit-undo"
             enabled: undoStack.canUndo
             onTriggered: undoStack.undo()
             shortcut: StandardKey.Undo
         }
         Kirigami.Action {
-            text: undoStack.redoText ? qsTr("Redo") + ": " + undoStack.redoText : qsTr("Redo")
+            text: undoStack.redoText ? i18n("Redo") + ": " + undoStack.redoText : i18n("Redo")
             icon.name: "edit-redo"
             enabled: undoStack.canRedo
             onTriggered: undoStack.redo()
             shortcut: StandardKey.Redo
         }
         Kirigami.Action {
-            text: qsTr("Import variants...")
+            text: i18n("Import variants...")
             icon.name: "document-import"
             onTriggered: importFileDialog.open()
         }
     }
     Controls.Menu {
-        title: qsTr("View")
+        title: i18n("View")
         Kirigami.Action {
-            text: qsTr("Show legends")
+            text: i18n("Show legends")
             checkable: true
             checked: ViewSettings.showLegends
             onToggled: ViewSettings.showLegends = checked
         }
         Kirigami.Action {
-            text: qsTr("Show fallback characters")
+            text: i18n("Show fallback characters")
             checkable: true
             checked: ViewSettings.showFallbacks
             onToggled: ViewSettings.showFallbacks = checked
         }
         Kirigami.Action {
-            text: qsTr("Variants sidebar")
+            text: i18n("Variants sidebar")
             checkable: true
             checked: ViewSettings.variantsSidebar
             onToggled: ViewSettings.variantsSidebar = checked
         }
     }
     Controls.Menu {
-        title: qsTr("Help")
+        title: i18n("Help")
         Kirigami.Action {
-            text: qsTr("Unicode table")
+            text: i18n("Unicode table")
             icon.name: "open-link-symbolic"
             onTriggered: Qt.openUrlExternally("https://symbl.cc/en/unicode-table/")
         }
         Kirigami.Action {
-            text: qsTr("Xkb documentation")
+            text: i18n("Xkb documentation")
             icon.name: "open-link-symbolic"
             onTriggered: Qt.openUrlExternally("https://xkbcommon.org/doc/current/keymap-text-format-v1-v2.html#the-xkb_symbols-section")
         }
         Kirigami.Action {
-            text: qsTr("Keysym table")
+            text: i18n("Keysym table")
             icon.name: "table"
             onTriggered: keysymTable.show()
         }
         Kirigami.Action {
-            text: qsTr("About")
+            text: i18n("About")
             icon.name: "help-about"
             onTriggered: about.show()
         }
