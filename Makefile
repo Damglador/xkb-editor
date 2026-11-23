@@ -12,15 +12,17 @@ EXTOPTS = --c++ --kde \
 
 .PHONY: build
 build: pot
-	cmake -S . -B build/
-	cmake --build build/ -j$(nproc)
+	cmake -B build/
+	cmake --build build/ --parallel
 
 .PHONY: pot
 pot:
 	find src/ -name *.cpp -o -name *.h -o -name *.qml | sort | xargs xgettext ${EXTOPTS} -o po/xkb-editor.pot
 
 .PHONY: test
-test: build
+test:
+	cmake -B build/ -D BUILD_TESTING=YES
+	cmake --build build/ --parallel
 	build/bin/test-types-include
 	build/bin/test-types-variant
 	build/bin/test-parser-xkb
