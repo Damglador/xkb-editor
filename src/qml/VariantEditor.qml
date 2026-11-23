@@ -18,7 +18,7 @@ Item {
         RowLayout {
             Layout.fillWidth: true
             Controls.Label {
-                text: qsTr("Flags:")
+                text: i18n("Flags:")
             }
             FlagsChips {
                 Layout.fillWidth: true
@@ -27,7 +27,7 @@ Item {
         RowLayout {
             Layout.fillWidth: true
             Controls.Label {
-                text: qsTr("Includes:")
+                text: i18n("Includes:")
             }
             IncludesChips {
                 enabled: !preview.checked
@@ -36,7 +36,7 @@ Item {
         }
         RowLayout {
             Controls.Label {
-                text: qsTr("Variant:")
+                text: i18n("Variant:")
             }
             Controls.ComboBox {
                 id: variantComboBox
@@ -52,7 +52,7 @@ Item {
                 }
             }
             Controls.Label {
-                text: qsTr("Name:")
+                text: i18n("Name:")
             }
             Controls.TextField {
                 enabled: root.variant
@@ -64,7 +64,7 @@ Item {
             }
             Controls.ToolButton {
                 id: preview
-                text: qsTr("Preview")
+                text: i18n("Preview")
                 enabled: root.variant
                 icon.name: "preview"
                 checkable: true
@@ -96,7 +96,7 @@ Item {
                     visible: !root.variant
                     closePolicy: Controls.Popup.NoAutoClose
                     Controls.Label {
-                        text: qsTr("No variant to edit")
+                        text: i18n("No variant to edit")
                     }
                 }
             }
@@ -116,7 +116,7 @@ Item {
 
             Controls.Label {
                 parent: levelSelector
-                text: qsTr("Level:")
+                text: i18n("Level:")
                 padding: Kirigami.Units.smallSpacing
                 anchors.right: parent.left
             }
@@ -127,7 +127,7 @@ Item {
                 position: Controls.TabBar.Footer
 
                 Repeater {
-                    model: [qsTr("Default"), qsTr("Shift"), qsTr("L3M"), qsTr("L3M + Shift")]
+                    model: [i18n("Default"), i18n("Shift"), i18n("L3M"), i18n("L3M + Shift")]
                     delegate: Controls.TabButton {
                         required property var modelData
                         required property var index
@@ -162,7 +162,7 @@ Item {
                 Controls.Label {
                     text: "L3M:"
                     topPadding: Kirigami.Units.smallSpacing
-                    Controls.ToolTip.text: qsTr("Level 3 modifiers")
+                    Controls.ToolTip.text: i18n("Level 3 modifiers")
                     Controls.ToolTip.visible: hh3.hovered
                     HoverHandler {
                         id: hh3
@@ -184,9 +184,9 @@ Item {
                 Layout.fillWidth: true
                 spacing: Kirigami.Units.mediumSpacing
                 Controls.Label {
-                    text: qsTr("L5M:")
+                    text: i18n("L5M:")
                     topPadding: Kirigami.Units.smallSpacing
-                    Controls.ToolTip.text: qsTr("Level 5 modifiers")
+                    Controls.ToolTip.text: i18n("Level 5 modifiers")
                     Controls.ToolTip.visible: hh5.hovered
                     HoverHandler {
                         id: hh5

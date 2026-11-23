@@ -2,6 +2,7 @@
 
 #include <QObject>
 #include <QUndoCommand>
+#include <klocalization.h>
 
 #include "IncludesList.h"
 #include "Variant.h"
@@ -32,7 +33,7 @@ class AddVariant : public QUndoCommand {
 public:
     AddVariant(VariantsList* list, const QString id)
         : m_list(list), m_id(id), m_index(list->rowCount()) {
-        setText(u"Add %1"_s.arg(id));
+        setText(i18n("Add %1", id));
         m_item = new Variant();
         m_item->setId(m_id);
     };
@@ -53,7 +54,7 @@ class RemoveVariant : public QUndoCommand {
 public:
     RemoveVariant(VariantsList* list, const int index)
         : m_list(list), m_item(list->get(index)), m_index(index) {
-        setText(u"Remove %1"_s.arg(m_item->id()));
+        setText(i18n("Remove %1", m_item->id()));
     };
     ~RemoveVariant() {
         if (!m_item->parent()) {
@@ -71,7 +72,7 @@ class AddFlag : public QUndoCommand {
 
 public:
     AddFlag(Variant* variant, const QString flag) : m_variant(variant), m_flag(flag) {
-        setText(u"Add %1"_s.arg(flag));
+        setText(i18n("Add %1", flag));
     };
     void undo() override { m_variant->removeFlag(m_flag); }
     void redo() override { m_variant->addFlag(m_flag); }
@@ -83,7 +84,7 @@ class RemoveFlag : public QUndoCommand {
 
 public:
     RemoveFlag(Variant* variant, const QString flag) : m_variant(variant), m_flag(flag) {
-        setText(u"Remove %1"_s.arg(flag));
+        setText(i18n("Remove %1", flag));
     };
     void undo() override { m_variant->addFlag(m_flag); }
     void redo() override { m_variant->removeFlag(m_flag); }
@@ -98,7 +99,7 @@ class AddInclude : public QUndoCommand {
 public:
     AddInclude(IncludesList* list, const QString string)
         : m_list(list), m_item(Include::fromString(string)), m_index(list->rowCount()) {
-        setText(u"Add %1"_s.arg(m_item->toString()));
+        setText(i18n("Add %1", m_item->toString()));
     };
     ~AddInclude() {
         if (!m_item->parent())
@@ -116,7 +117,7 @@ class RemoveInclude : public QUndoCommand {
 public:
     RemoveInclude(IncludesList* list, const int index)
         : m_list(list), m_item(list->get(index)), m_index(index) {
-        setText(u"Remove %1"_s.arg(m_item->toString()));
+        setText(i18n("Remove %1", m_item->toString()));
     };
     ~RemoveInclude() {
         if (!m_item->parent()) {
@@ -178,7 +179,7 @@ public:
     SetSymbol(Variant* variant, QString keyname, int level, QString keysym)
         : m_variant(variant), m_keyname(keyname), m_level(level), m_newKeysym(keysym),
           m_oldKeysym(variant->getSymbol(keyname, level)) {
-        setText(u"Set keysym of %1 to %2"_s.arg(keyname).arg(keysym));
+        setText(i18n("Set keysym of %1 to %2", keyname, keysym));
     };
     void undo() override {
         m_variant->setSymbol(m_keyname, m_level, m_oldKeysym);
@@ -201,7 +202,7 @@ public:
         : m_list(list), m_oldIndex(oldIndex), m_newIndex(newIndex), m_obj(m_list->get(oldIndex)) {
         const QString itemName =
             m_list->data(m_list->index(m_oldIndex), Qt::DisplayRole).toString();
-        setText(u"Move %1"_s.arg(itemName));
+        setText(i18n("Move %1", itemName));
     };
 
     int id() const override { return Command::MoveElement; }

@@ -7,10 +7,12 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: xkb-editor\n"
-"Report-Msgid-Bugs-To: https://github.com/Damglador/xkb-editor/issues\n"
-"POT-Creation-Date: 2026-11-23 16:34+0100\n"
-"PO-Revision-Date: 2026-11-23 16:56+0100\n"
-"Last-Translator: Vsevolod «Damglador» Stopchanskyi <vse.stopchanskyi@gmail.com>\n"
+"Report-Msgid-Bugs-To: https://github.com/Damglador/xkb-editor/"
+"issues\n"
+"POT-Creation-Date: 2026-11-23 17:40+0100\n"
+"PO-Revision-Date: 2026-11-23 17:42+0100\n"
+"Last-Translator: Vsevolod «Damglador» Stopchanskyi "
+"<vse.stopchanskyi@gmail.com>\n"
 "Language-Team: \n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
@@ -179,6 +181,76 @@ msgstr "Документація xkb"
 msgid "About"
 msgstr "Про програму"
 
+#: src/qml/VariantEditor.qml:21
+#, kde-format
+msgid "Flags:"
+msgstr "Прапорці:"
+
+#: src/qml/VariantEditor.qml:30
+#, kde-format
+msgid "Includes:"
+msgstr "Додатки:"
+
+#: src/qml/VariantEditor.qml:39
+#, kde-format
+msgid "Variant:"
+msgstr "Варіанти:"
+
+#: src/qml/VariantEditor.qml:55
+#, kde-format
+msgid "Name:"
+msgstr "Назва:"
+
+#: src/qml/VariantEditor.qml:67
+#, kde-format
+msgid "Preview"
+msgstr ""
+
+#: src/qml/VariantEditor.qml:99
+#, kde-format
+msgid "No variant to edit"
+msgstr "Немає варіанту для редагування"
+
+#: src/qml/VariantEditor.qml:119
+#, kde-format
+msgid "Level:"
+msgstr "Рівень:"
+
+#: src/qml/VariantEditor.qml:130
+#, kde-format
+msgid "Default"
+msgstr "Стандартний"
+
+#: src/qml/VariantEditor.qml:130
+#, kde-format
+msgid "Shift"
+msgstr "Shift"
+
+#: src/qml/VariantEditor.qml:130
+#, kde-format
+msgid "L3M"
+msgstr "L3M"
+
+#: src/qml/VariantEditor.qml:130
+#, kde-format
+msgid "L3M + Shift"
+msgstr "L3M + Shift"
+
+#: src/qml/VariantEditor.qml:165
+#, kde-format
+msgid "Level 3 modifiers"
+msgstr "Модифікатори 3-го рівня"
+
+#: src/qml/VariantEditor.qml:187
+#, kde-format
+msgid "L5M:"
+msgstr "L5M:"
+
+#: src/qml/VariantEditor.qml:189
+#, kde-format
+msgid "Level 5 modifiers"
+msgstr "Модифікатори 5-го рівня"
+
 #: src/qml/VariantsList.qml:26
 #, kde-format
 msgid "Variants"
@@ -208,3 +280,23 @@ msgstr "Видалити"
 #, kde-format
 msgid "Add variant"
 msgstr "Додати варіант"
+
+#: src/UndoCommands.h:36 src/UndoCommands.h:75 src/UndoCommands.h:102
+#, kde-format
+msgid "Add %1"
+msgstr "Додати %1"
+
+#: src/UndoCommands.h:57 src/UndoCommands.h:87 src/UndoCommands.h:120
+#, kde-format
+msgid "Remove %1"
+msgstr "Вилучити %1"
+
+#: src/UndoCommands.h:182
+#, kde-format
+msgid "Set keysym of %1 to %2"
+msgstr "Виставити символ %2 для %1"
+
+#: src/UndoCommands.h:205
+#, kde-format
+msgid "Move %1"
+msgstr "Пересунути %1"

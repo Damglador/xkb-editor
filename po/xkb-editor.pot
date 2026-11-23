@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xkb-editor\n"
 "Report-Msgid-Bugs-To: https://github.com/Damglador/xkb-editor/issues\n"
-"POT-Creation-Date: 2026-11-23 16:34+0100\n"
+"POT-Creation-Date: 2026-11-23 18:38+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -178,6 +178,76 @@ msgstr ""
 msgid "About"
 msgstr ""
 
+#: src/qml/VariantEditor.qml:21
+#, kde-format
+msgid "Flags:"
+msgstr ""
+
+#: src/qml/VariantEditor.qml:30
+#, kde-format
+msgid "Includes:"
+msgstr ""
+
+#: src/qml/VariantEditor.qml:39
+#, kde-format
+msgid "Variant:"
+msgstr ""
+
+#: src/qml/VariantEditor.qml:55
+#, kde-format
+msgid "Name:"
+msgstr ""
+
+#: src/qml/VariantEditor.qml:67
+#, kde-format
+msgid "Preview"
+msgstr ""
+
+#: src/qml/VariantEditor.qml:99
+#, kde-format
+msgid "No variant to edit"
+msgstr ""
+
+#: src/qml/VariantEditor.qml:119
+#, kde-format
+msgid "Level:"
+msgstr ""
+
+#: src/qml/VariantEditor.qml:130
+#, kde-format
+msgid "Default"
+msgstr ""
+
+#: src/qml/VariantEditor.qml:130
+#, kde-format
+msgid "Shift"
+msgstr ""
+
+#: src/qml/VariantEditor.qml:130
+#, kde-format
+msgid "L3M"
+msgstr ""
+
+#: src/qml/VariantEditor.qml:130
+#, kde-format
+msgid "L3M + Shift"
+msgstr ""
+
+#: src/qml/VariantEditor.qml:165
+#, kde-format
+msgid "Level 3 modifiers"
+msgstr ""
+
+#: src/qml/VariantEditor.qml:187
+#, kde-format
+msgid "L5M:"
+msgstr ""
+
+#: src/qml/VariantEditor.qml:189
+#, kde-format
+msgid "Level 5 modifiers"
+msgstr ""
+
 #: src/qml/VariantsList.qml:26
 #, kde-format
 msgid "Variants"
@@ -206,4 +276,24 @@ msgstr ""
 #: src/qml/VariantsList.qml:174
 #, kde-format
 msgid "Add variant"
+msgstr ""
+
+#: src/UndoCommands.h:36 src/UndoCommands.h:75 src/UndoCommands.h:102
+#, kde-format
+msgid "Add %1"
+msgstr ""
+
+#: src/UndoCommands.h:57 src/UndoCommands.h:87 src/UndoCommands.h:120
+#, kde-format
+msgid "Remove %1"
+msgstr ""
+
+#: src/UndoCommands.h:182
+#, kde-format
+msgid "Set keysym of %1 to %2"
+msgstr ""
+
+#: src/UndoCommands.h:205
+#, kde-format
+msgid "Move %1"
 msgstr ""
