@@ -55,6 +55,7 @@ Kirigami.Dialog {
             required property var modelData
             required property var variant
             text: variant.id
+            property string subtitle: variant.name
             width: listView.width - listView.leftMargin - listView.rightMargin
             checked: variant.checked
             onClicked: variant.checked = checked
@@ -69,6 +70,12 @@ Kirigami.Dialog {
                         fillWidth: Kirigami.Units.gridUnit * 30
                     }
                 }
+            }
+            contentItem: Kirigami.TitleSubtitle {
+                title: listItem.text
+                subtitle: listItem.subtitle
+                selected: listItem.highlighted || listItem.down
+                font: listItem.font
             }
         }
     }
