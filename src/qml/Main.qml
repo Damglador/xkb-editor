@@ -56,8 +56,13 @@ Kirigami.ApplicationWindow {
         title: "Save xkb layout"
         fileMode: FileDialog.SaveFile
 
-        onAccepted: if (Bridge.file.write(file))
-            Bridge.file.path = file
+        onAccepted: {
+            let result = Bridge.file.write(file);
+            if (result) {
+                undoStack.setClean();
+                Bridge.file.path = file;
+            }
+        }
         folder: StandardPaths.standardLocations(StandardPaths.ConfigLocation)[0] + "/xkb/symbols"
     }
     Platform.FileDialog {
@@ -95,7 +100,7 @@ Kirigami.ApplicationWindow {
             showPassiveNotification(str);
         }
         function onFileChanged() {
-            undoStack.clear()
+            undoStack.clear();
         }
     }
 
@@ -155,5 +160,53 @@ Kirigami.ApplicationWindow {
     KeysymTable {
         id: keysymTable
         visible: false
+    }
+
+    property bool closing: false
+    onClosing: (close) => {
+        close.accepted = closing;
+        destructive(() => {
+            closing = true;
+            window.close();
+        });
+    }
+    function save() {
+        if (Bridge.file.path) {
+            let result = Bridge.file.write(Bridge.file.path);
+            if (result) {
+                undoStack.setClean();
+            }
+            return result;
+        }
+        Bridge.error(i18n("Please use «Save As...»"));
+        return false;
+    }
+    function destructive(callback) {
+        if (undoStack.isClean())
+            callback();
+        else
+            unsavedDialog.prompt(callback);
+    }
+    Kirigami.PromptDialog {
+        id: unsavedDialog
+        property var postAction
+        modal: true
+        iconName: "dialog-warning"
+        title: "You have unsaved changes"
+        subtitle: "Do you want to save them?"
+        standardButtons: Kirigami.Dialog.Save | Kirigami.Dialog.Discard
+        onAccepted: {
+            close();
+            if (window.save())
+                postAction();
+        }
+        onDiscarded: {
+            close();
+            postAction();
+        }
+        function prompt(callback) {
+            postAction = callback;
+            open();
+        }
     }
 }

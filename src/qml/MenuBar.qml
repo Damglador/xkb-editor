@@ -14,22 +14,23 @@ Controls.MenuBar {
         Kirigami.Action {
             text: i18n("New")
             icon.name: "document-new"
-            onTriggered: Bridge.file.clear()
+            onTriggered: window.destructive(() => Bridge.file.clear())
         }
         Kirigami.Action {
             text: i18n("Open...")
             icon.name: "document-open"
-            onTriggered: openDialog.open()
+            onTriggered: window.destructive(() => openDialog.open())
             shortcut: StandardKey.Open
         }
         Kirigami.Action {
             text: i18n("Save")
             icon.name: "document-save"
             onTriggered: {
-                if (Bridge.file.path)
-                    Bridge.file.write(Bridge.file.path);
-                else
+                if (Bridge.file.path) {
+                    window.save();
+                } else {
                     saveDialog.open();
+                }
             }
             shortcut: StandardKey.Save
         }

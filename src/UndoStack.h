@@ -12,6 +12,7 @@ class UndoStack : public QUndoStack {
     QML_ELEMENT
 public:
     Q_INVOKABLE void clear() { QUndoStack::clear(); }
+    Q_INVOKABLE bool isClean() { return QUndoStack::isClean(); }
 
     Q_INVOKABLE void addVariant(VariantsList* list, const QString id) {
         push(new UndoCommand::AddVariant(list, id));
