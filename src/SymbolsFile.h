@@ -77,12 +77,8 @@ public:
             Q_EMIT error(i18n("Failed to write %1.", file.fileName()));
             return false;
         }
-        QStringList variants;
-        for (int i = 0; i < m_variants.length(); i++) {
-            variants.append(m_variants.get(i)->toXkb());
-        }
         QTextStream stream(&file);
-        stream << variants.join(u"\n"_s);
+        stream << toXkb();
         file.close();
 
         return true;
@@ -93,6 +89,15 @@ public:
         setVariantIndex(0);
         m_variants.clear();
         Q_EMIT fileLoaded();
+    }
+
+    Q_INVOKABLE QString toXkb() {
+        QString result;
+        QStringList variants;
+        for (int i = 0; i < m_variants.length(); i++) {
+            variants.append(m_variants.get(i)->toXkb());
+        }
+        return variants.join(u"\n"_s);
     }
 
 Q_SIGNALS:
