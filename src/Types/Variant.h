@@ -1,13 +1,11 @@
 #pragma once
 
-#include <QMetaEnum>
 #include <QObject>
 #include <xkbcommon/xkbcommon.h>
 
 #include "Enums.h"
 #include "IncludesList.h"
 #include "KeyProps.h"
-#include "getchar.h"
 #include "macros.h"
 
 using namespace Qt::Literals::StringLiterals;
@@ -48,9 +46,7 @@ public:
     Keymap* keymap() { return &m_keymap; }
 
     Q_INVOKABLE void setSymbol(const QString keyname, const int level, const QString keysym);
-
     Q_INVOKABLE QString getSymbol(const QString keyname, const int level) const;
-
     Q_INVOKABLE QString getSymbolOrFallback(QString keyname, int level, bool searchSelf = false);
 
     Q_INVOKABLE void reloadIncludes() { Q_EMIT includesReloaded(); }
@@ -59,7 +55,6 @@ public:
 
 Q_SIGNALS:
     void flagsChanged();
-
     void symbolsChanged();
     void includesReloaded();
 };

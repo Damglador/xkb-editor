@@ -1,3 +1,4 @@
+#include <QMetaEnum>
 #include <algorithm>
 
 #include "Variant.h"
