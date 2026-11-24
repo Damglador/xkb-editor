@@ -15,6 +15,7 @@ target_sources(xkb-editor
     main.cpp
     Bridge.h
     SymbolsFile.h
+    SymbolsFile.cpp
     KeysymTable.h
     getchar.cpp
     getchar.h
