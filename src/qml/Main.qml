@@ -42,36 +42,6 @@ Kirigami.ApplicationWindow {
         id: undoStack
     }
 
-    Platform.FileDialog {
-        id: openDialog
-        title: "Open xkb layout"
-        fileMode: FileDialog.OpenFile
-
-        onAccepted: Bridge.file.load(file)
-        folder: StandardPaths.standardLocations(StandardPaths.ConfigLocation)[0] + "/xkb/symbols"
-    }
-    Platform.FileDialog {
-        id: saveDialog
-        title: "Save xkb layout"
-        fileMode: FileDialog.SaveFile
-
-        onAccepted: {
-            let result = Bridge.file.write(file);
-            if (result) {
-                undoStack.setClean();
-                Bridge.file.path = file;
-            }
-        }
-        folder: StandardPaths.standardLocations(StandardPaths.ConfigLocation)[0] + "/xkb/symbols"
-    }
-    Platform.FileDialog {
-        id: importFileDialog
-        title: i18n("Open xkb layout")
-        fileMode: FileDialog.OpenFile
-
-        onAccepted: importDialogLoader.load(file)
-        folder: "file:///usr/share/xkeyboard-config-2/symbols/"
-    }
     Loader {
         id: importDialogLoader
         active: false
@@ -191,8 +161,8 @@ Kirigami.ApplicationWindow {
         property var postAction
         modal: true
         iconName: "dialog-warning"
-        title: "You have unsaved changes"
-        subtitle: "Do you want to save them?"
+        title: i18n("Unsaved changes")
+        subtitle: i18n("Do you want to save them?")
         standardButtons: Kirigami.Dialog.Save | Kirigami.Dialog.Discard
         onAccepted: {
             close();
@@ -207,5 +177,35 @@ Kirigami.ApplicationWindow {
             postAction = callback;
             open();
         }
+    }
+    Platform.FileDialog {
+        id: openDialog
+        title: i18n("Open xkb symbols file")
+        fileMode: FileDialog.OpenFile
+
+        onAccepted: Bridge.file.load(file)
+        folder: StandardPaths.standardLocations(StandardPaths.ConfigLocation)[0] + "/xkb/symbols"
+    }
+    Platform.FileDialog {
+        id: saveDialog
+        title: i18n("Save xkb symbols file")
+        fileMode: FileDialog.SaveFile
+
+        onAccepted: {
+            let result = Bridge.file.write(file);
+            if (result) {
+                undoStack.setClean();
+                Bridge.file.path = file;
+            }
+        }
+        folder: StandardPaths.standardLocations(StandardPaths.ConfigLocation)[0] + "/xkb/symbols"
+    }
+    Platform.FileDialog {
+        id: importFileDialog
+        title: i18n("Import from xkb symbols file")
+        fileMode: FileDialog.OpenFile
+
+        onAccepted: importDialogLoader.load(file)
+        folder: "file:///usr/share/xkeyboard-config-2/symbols/"
     }
 }
