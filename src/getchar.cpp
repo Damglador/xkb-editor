@@ -1,5 +1,5 @@
+#include <QString>
 #include <cstdint>
-#include <qobject.h>
 #include <xkbcommon/xkbcommon-keysyms.h>
 #include <xkbcommon/xkbcommon.h>
 
