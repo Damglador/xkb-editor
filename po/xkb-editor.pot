@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xkb-editor\n"
 "Report-Msgid-Bugs-To: https://github.com/Damglador/xkb-editor/issues\n"
-"POT-Creation-Date: 2026-11-24 16:27+0100\n"
+"POT-Creation-Date: 2026-11-24 16:30+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -105,17 +105,17 @@ msgstr ""
 
 #: src/qml/Main.qml:183
 #, kde-format
-msgid "Open xkb symbols file"
+msgid "Open xkb layout"
 msgstr ""
 
 #: src/qml/Main.qml:191
 #, kde-format
-msgid "Save xkb symbols file"
+msgid "Save xkb layout"
 msgstr ""
 
 #: src/qml/Main.qml:205
 #, kde-format
-msgid "Import from xkb symbols file"
+msgid "Import variants from xkb layout"
 msgstr ""
 
 #: src/qml/MenuBar.qml:10

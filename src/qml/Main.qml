@@ -180,7 +180,7 @@ Kirigami.ApplicationWindow {
     }
     Platform.FileDialog {
         id: openDialog
-        title: i18n("Open xkb symbols file")
+        title: i18n("Open xkb layout")
         fileMode: FileDialog.OpenFile
 
         onAccepted: Bridge.file.load(file)
@@ -188,7 +188,7 @@ Kirigami.ApplicationWindow {
     }
     Platform.FileDialog {
         id: saveDialog
-        title: i18n("Save xkb symbols file")
+        title: i18n("Save xkb layout")
         fileMode: FileDialog.SaveFile
 
         onAccepted: {
@@ -202,7 +202,7 @@ Kirigami.ApplicationWindow {
     }
     Platform.FileDialog {
         id: importFileDialog
-        title: i18n("Import from xkb symbols file")
+        title: i18n("Import variants from xkb layout")
         fileMode: FileDialog.OpenFile
 
         onAccepted: importDialogLoader.load(file)
