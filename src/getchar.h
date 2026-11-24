@@ -2,8 +2,6 @@
 #include <xkbcommon/xkbcommon-keysyms.h>
 #include <xkbcommon/xkbcommon.h>
 
-#define s QStringLiteral
-
 extern xkb_context* xkb_context_default;
 extern xkb_keymap* xkb_keymap_default;
 
