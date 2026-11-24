@@ -5,7 +5,6 @@ import QtCore as QtCore
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Dialogs
-import QtQuick.Controls as Controls
 import Qt.labs.platform as Platform
 
 import org.kde.kirigami as Kirigami
