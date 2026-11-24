@@ -278,6 +278,26 @@ msgstr ""
 msgid "Add variant"
 msgstr ""
 
+#: src/SymbolsFile.h:62
+#, kde-format
+msgid "Failed to parse file."
+msgstr ""
+
+#: src/SymbolsFile.h:63
+#, kde-format
+msgid "Failed to open file."
+msgstr ""
+
+#: src/SymbolsFile.h:64
+#, kde-format
+msgid "Empty file."
+msgstr ""
+
+#: src/SymbolsFile.h:77
+#, kde-format
+msgid "Failed to write %1."
+msgstr ""
+
 #: src/UndoCommands.h:36 src/UndoCommands.h:75 src/UndoCommands.h:102
 #, kde-format
 msgid "Add %1"

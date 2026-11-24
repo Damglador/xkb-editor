@@ -2,7 +2,7 @@
 
 #include <QObject>
 #include <QUndoCommand>
-#include <klocalization.h>
+#include <KLocalization>
 
 #include "IncludesList.h"
 #include "Variant.h"

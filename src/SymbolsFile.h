@@ -1,5 +1,6 @@
 #pragma once
 
+#include <KLocalization>
 #include <QFile>
 #include <QList>
 #include <QObject>
@@ -58,9 +59,9 @@ public:
         int result = variantsFromFile(path, &variants, &m_variants);
 
         switch (result) {
-        case ERROR_PARSING: Q_EMIT error(u"Failed to parse file."_s); return false;
-        case ERROR_OPEN_FILE: Q_EMIT error(u"Failed to open file."_s); return false;
-        case ERROR_EMPTY_FILE: Q_EMIT error(u"Empty file."_s); return false;
+        case ERROR_PARSING: Q_EMIT error(i18n("Failed to parse file.")); return false;
+        case ERROR_OPEN_FILE: Q_EMIT error(i18n("Failed to open file.")); return false;
+        case ERROR_EMPTY_FILE: Q_EMIT error(i18n("Empty file.")); return false;
         }
 
         m_variants.setItems(variants);
@@ -69,10 +70,11 @@ public:
         fileLoaded();
         return true;
     }
+
     Q_INVOKABLE bool write(QString filePath) {
         QFile file(QUrl(filePath).path());
         if (!file.open(QFile::WriteOnly | QFile::Text)) {
-            Q_EMIT error(u"Failed to open file."_s);
+            Q_EMIT error(i18n("Failed to write %1.", file.fileName()));
             return false;
         }
         QStringList variants;
