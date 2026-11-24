@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xkb-editor\n"
 "Report-Msgid-Bugs-To: https://github.com/Damglador/xkb-editor/issues\n"
-"POT-Creation-Date: 2026-11-23 18:50+0100\n"
+"POT-Creation-Date: 2026-11-24 15:58+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -63,7 +63,7 @@ msgstr ""
 msgid "Imported %1"
 msgstr ""
 
-#: src/qml/KeysymTable.qml:19 src/qml/MenuBar.qml:99
+#: src/qml/KeysymTable.qml:19 src/qml/MenuBar.qml:100
 #, kde-format
 msgid "Keysym table"
 msgstr ""
@@ -78,19 +78,24 @@ msgstr ""
 msgid "About keysymdef.h"
 msgstr ""
 
-#: src/qml/Main.qml:65
+#: src/qml/Main.qml:70
 #, kde-format
 msgid "Open xkb layout"
 msgstr ""
 
-#: src/qml/Main.qml:139
+#: src/qml/Main.qml:144
 #, kde-format
 msgid "Error:"
 msgstr ""
 
-#: src/qml/Main.qml:143
+#: src/qml/Main.qml:148
 #, kde-format
 msgid "Warning:"
+msgstr ""
+
+#: src/qml/Main.qml:181
+#, kde-format
+msgid "Please use «Save As...»"
 msgstr ""
 
 #: src/qml/MenuBar.qml:13
@@ -113,67 +118,67 @@ msgstr ""
 msgid "Save"
 msgstr ""
 
-#: src/qml/MenuBar.qml:37
+#: src/qml/MenuBar.qml:38
 #, kde-format
 msgid "Save As..."
 msgstr ""
 
-#: src/qml/MenuBar.qml:44
+#: src/qml/MenuBar.qml:45
 #, kde-format
 msgid "Edit"
 msgstr ""
 
-#: src/qml/MenuBar.qml:46
+#: src/qml/MenuBar.qml:47
 #, kde-format
 msgid "Undo"
 msgstr ""
 
-#: src/qml/MenuBar.qml:53
+#: src/qml/MenuBar.qml:54
 #, kde-format
 msgid "Redo"
 msgstr ""
 
-#: src/qml/MenuBar.qml:60
+#: src/qml/MenuBar.qml:61
 #, kde-format
 msgid "Import variants..."
 msgstr ""
 
-#: src/qml/MenuBar.qml:66
+#: src/qml/MenuBar.qml:67
 #, kde-format
 msgid "View"
 msgstr ""
 
-#: src/qml/MenuBar.qml:68
+#: src/qml/MenuBar.qml:69
 #, kde-format
 msgid "Show legends"
 msgstr ""
 
-#: src/qml/MenuBar.qml:74
+#: src/qml/MenuBar.qml:75
 #, kde-format
 msgid "Show fallback characters"
 msgstr ""
 
-#: src/qml/MenuBar.qml:80
+#: src/qml/MenuBar.qml:81
 #, kde-format
 msgid "Variants sidebar"
 msgstr ""
 
-#: src/qml/MenuBar.qml:87
+#: src/qml/MenuBar.qml:88
 #, kde-format
 msgid "Help"
 msgstr ""
 
-#: src/qml/MenuBar.qml:89
+#: src/qml/MenuBar.qml:90
 #, kde-format
 msgid "Unicode table"
 msgstr ""
 
-#: src/qml/MenuBar.qml:94
+#: src/qml/MenuBar.qml:95
 #, kde-format
 msgid "Xkb documentation"
 msgstr ""
 
-#: src/qml/MenuBar.qml:104
+#: src/qml/MenuBar.qml:105
 #, kde-format
 msgid "About"
 msgstr ""
@@ -276,26 +281,6 @@ msgstr ""
 #: src/qml/VariantsList.qml:179
 #, kde-format
 msgid "Add variant"
-msgstr ""
-
-#: src/SymbolsFile.h:62
-#, kde-format
-msgid "Failed to parse file."
-msgstr ""
-
-#: src/SymbolsFile.h:63
-#, kde-format
-msgid "Failed to open file."
-msgstr ""
-
-#: src/SymbolsFile.h:64
-#, kde-format
-msgid "Empty file."
-msgstr ""
-
-#: src/SymbolsFile.h:77
-#, kde-format
-msgid "Failed to write %1."
 msgstr ""
 
 #: src/UndoCommands.h:36 src/UndoCommands.h:75 src/UndoCommands.h:102
